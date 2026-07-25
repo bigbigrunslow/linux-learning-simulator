@@ -2,7 +2,8 @@
 
 **一个纯浏览器端的 Linux 终端模拟器，帮助你在无需安装任何操作系统的情况下学习和练习 Linux 命令。**
 
-[English](#) | [中文](README.md)
+> 🤖 **本项目完全由 AI 辅助生成**（Cline + Claude），从架构设计到代码实现再到 GitHub 部署，全程对话式开发。  
+> **Built entirely with AI** — Cline + Claude. Architecture → code → deployment, all via conversation.
 
 ---
 
@@ -21,16 +22,14 @@
 ## 🚀 快速开始
 
 ### 方式一：直接打开
-```
-git clone https://github.com/YOUR_USERNAME/linux-learning-simulator.git
+```bash
+git clone https://github.com/bigbigrunslow/linux-learning-simulator.git
 cd linux-learning-simulator
 # 用浏览器打开 index.html
 ```
 
 ### 方式二：GitHub Pages
-1. Fork 本仓库
-2. Settings → Pages → Source: main branch
-3. 访问 `https://YOUR_USERNAME.github.io/linux-learning-simulator/`
+直接访问：**https://bigbigrunslow.github.io/linux-learning-simulator/**
 
 ### 方式三：直接编辑
 直接修改 `index.html`，所有 JS 代码内联在 `<script>` 标签中。
@@ -107,12 +106,6 @@ linux-sim/
 ## 📄 License
 
 MIT © 2025
-
----
-
-> 🤖 本项目完全由 AI 辅助生成（Cline + Claude），从架构设计到代码实现再到 GitHub 部署，全程对话式开发。
-
-**Built entirely with AI** — Cline + Claude. From architecture design to code to deployment, all via conversational development.
 
 ## 🙏 贡献
 
