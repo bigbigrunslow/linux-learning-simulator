@@ -108,6 +108,12 @@ linux-sim/
 
 MIT © 2025
 
+---
+
+> 🤖 本项目完全由 AI 辅助生成（Cline + Claude），从架构设计到代码实现再到 GitHub 部署，全程对话式开发。
+
+**Built entirely with AI** — Cline + Claude. From architecture design to code to deployment, all via conversational development.
+
 ## 🙏 贡献
 
 欢迎提交 Issue 和 PR！如果你有新增命令或改进建议，请直接编辑 `index.html` 中的 JavaScript 代码（所有命令处理器都在 `<script>` 标签内）。
