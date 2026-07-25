@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linux 学习指南 - 学习辅助器</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #1a1b26; color: #c0caf5; font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace; max-width: 960px; margin: 0 auto; padding: 20px; line-height: 1.7; }
+h1 { color: #7aa2f7; text-align: center; margin: 20px 0 10px; font-size: 26px; }
+h2 { color: #9ece6a; margin: 28px 0 12px; border-bottom: 1px solid #3b4261; padding-bottom: 6px; font-size: 20px; }
+h3 { color: #7dcfff; margin: 16px 0 8px; font-size: 16px; }
+p { margin: 8px 0; }
+code { background: #3b4261; color: #e0af68; padding: 2px 6px; border-radius: 3px; font-family: inherit; font-size: 13px; }
+pre { background: #16161e; padding: 12px 16px; border-radius: 6px; overflow-x: auto; margin: 8px 0; border: 1px solid #3b4261; }
+pre code { background: transparent; padding: 0; }
+.cmd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 4px 8px; margin: 8px 0; }
+.cmd-grid code { cursor: default; font-size: 12px; }
+table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+th, td { padding: 8px 12px; text-align: left; border: 1px solid #3b4261; }
+th { background: #16161e; color: #7aa2f7; }
+tr:nth-child(even) { background: #1e2030; }
+.phase { background: #16161e; border-left: 3px solid #7aa2f7; padding: 12px 16px; margin: 10px 0; border-radius: 0 6px 6px 0; }
+.phase h3 { margin-top: 0; }
+.note { color: #e0af68; font-style: italic; }
+.tip { background: #1e2030; border-left: 3px solid #9ece6a; padding: 10px 14px; margin: 10px 0; border-radius: 0 6px 6px 0; }
+a { color: #7dcfff; }
+</style>
+</head>
+<body>
+
+<h1>🐧 Linux 学习指南</h1>
+<p style="text-align:center;color:#565f89">配合 Linux Learning Simulator 使用 · 从零到运维</p>
+
+<h2>一、快速开始</h2>
+<p>打开 <code>index.html</code> 即可启动模拟终端。你会看到一台模拟的 Ubuntu 22.04 服务器：</p>
+<ul>
+  <li>CPU: Intel i7-12700K (20线程)</li>
+  <li>内存: 40GB DDR4 (Samsung 16+16 + Kingston 8)</li>
+  <li>磁盘: NVMe 500GB + SATA 1TB + SATA 4TB + SATA SSD 256GB</li>
+  <li>网卡: Intel I225-V 2.5GbE + Wi-Fi 6 AX200</li>
+</ul>
+<p style="color:#e0af68">💡 所有 <strong>355 个命令</strong>都可以直接输入执行，输出结果模拟真实 Linux 环境。</p>
+
+<h2>二、推荐学习路径</h2>
+
+<div class="phase">
+<h3>第1阶段：文件操作基础（1-2天）</h3>
+<p>掌握 Linux 最基本的文件浏览和操作命令：</p>
+<div class="cmd-grid">
+  <code>ls</code> <code>cd</code> <code>pwd</code> <code>mkdir</code> <code>touch</code>
+  <code>cat</code> <code>rm</code> <code>cp</code> <code>mv</code> <code>echo</code>
+  <code>find</code> <code>ln</code>
+</div>
+<p class="tip">💡 试试 <code>ls -la /</code> 看看根目录下有哪些文件，然后用 <code>cd</code> 探索。</p>
+</div>
+
+<div class="phase">
+<h3>第2阶段：文本处理（1天）</h3>
+<p>学会在终端里搜索和查看文件内容：</p>
+<div class="cmd-grid">
+  <code>grep</code> <code>head</code> <code>tail</code> <code>wc</code> <code>sort</code>
+  <code>uniq</code> <code>cut</code> <code>tr</code> <code>sed</code> <code>awk</code>
+  <code>diff</code> <code>nl</code> <code>file</code> <code>stat</code>
+</div>
+<p class="tip">💡 试试 <code>grep root /etc/passwd</code> 在文件中搜索特定内容。</p>
+</div>
+
+<div class="phase">
+<h3>第3阶段：系统信息与监控（2天）</h3>
+<p>了解服务器运行状态：</p>
+<div class="cmd-grid">
+  <code>uname</code> <code>hostname</code> <code>whoami</code> <code>id</code> <code>who</code>
+  <code>uptime</code> <code>date</code> <code>free</code> <code>ps</code> <code>top</code>
+  <code>htop</code> <code>kill</code> <code>lsof</code> <code>dmesg</code>
+</div>
+<p class="tip">💡 <code>htop</code> 会显示彩色进度条和进程列表；<code>ps aux</code> 列出所有进程。</p>
+</div>
+
+<div class="phase">
+<h3>第4阶段：硬件与磁盘（1-2天）</h3>
+<p>深入了解硬件和存储：</p>
+<div class="cmd-grid">
+  <code>lscpu</code> <code>lspci</code> <code>lsusb</code> <code>lsblk</code> <code>lshw</code>
+  <code>dmidecode</code> <code>smartctl</code> <code>sensors</code> <code>df</code> <code>du</code>
+  <code>fdisk</code> <code>mount</code> <code>blkid</code> <code>dd</code>
+</div>
+<p class="tip">💡 试试 <code>lsblk</code> 查看磁盘树形结构，<code>smartctl -a /dev/sdb</code> 查看坏道硬盘的 SMART 详情。</p>
+</div>
+
+<div class="phase">
+<h3>第5阶段：网络（1-2天）</h3>
+<p>网络诊断和管理：</p>
+<div class="cmd-grid">
+  <code>ping</code> <code>curl</code> <code>wget</code> <code>ifconfig</code> <code>ip</code>
+  <code>netstat</code> <code>ss</code> <code>nslookup</code> <code>dig</code> <code>traceroute</code>
+  <code>route</code> <code>tcpdump</code> <code>nc</code> <code>ssh</code> <code>scp</code>
+</div>
+<p class="tip">💡 在模拟器中 <code>ping -c 5 8.8.8.8</code> 会看到真实的 ICMP 序列号递增和延迟变化。</p>
+</div>
+
+<div class="phase">
+<h3>第6阶段：用户与权限（1天）</h3>
+<p>Linux 用户管理系统：</p>
+<div class="cmd-grid">
+  <code>chmod</code> <code>chown</code> <code>chgrp</code> <code>umask</code> <code>useradd</code>
+  <code>userdel</code> <code>usermod</code> <code>passwd</code> <code>su</code> <code>sudo</code>
+</div>
+<p class="tip">💡 试试 <code>sudo whoami</code>，提示符会变成 <code>#</code>，输出 <code>root</code>。</p>
+</div>
+
+<div class="phase">
+<h3>第7阶段：软件包管理（1天）</h3>
+<p>安装和管理软件：</p>
+<div class="cmd-grid">
+  <code>apt</code> <code>yum</code> <code>dpkg</code> <code>snap</code>
+</div>
+<p class="tip">💡 <code>apt install nginx</code> 会模拟完整的安装过程（Downloading → Installing → Setting up）。</p>
+</div>
+
+<div class="phase">
+<h3>第8阶段：服务管理（1天）</h3>
+<p>管理系统服务：</p>
+<div class="cmd-grid">
+  <code>systemctl</code> <code>journalctl</code> <code>service</code> <code>crontab</code>
+</div>
+<p class="tip">💡 <code>systemctl status nginx</code> 显示详细的服务运行状态。</p>
+</div>
+
+<div class="phase">
+<h3>第9阶段：Shell 编程（2天）</h3>
+<p>环境变量、别名、脚本：</p>
+<div class="cmd-grid">
+  <code>bash</code> <code>alias</code> <code>env</code> <code>export</code> <code>source</code>
+  <code>tee</code> <code>watch</code>
+</div>
+</div>
+
+<div class="phase">
+<h3>第10阶段：Vi/Vim 编辑器（1-2天）</h3>
+<p>终端编辑器：</p>
+<div class="cmd-grid">
+  <code>vi</code> <code>vim</code> <code>vimtutor</code> <code>nano</code>
+</div>
+<p class="tip">💡 输入 <code>vi web.conf</code> 会弹出真实的编辑器弹窗！用 <code>i</code> 进入插入模式，<code>Esc</code> 退出，<code>:wq</code> 保存退出。</p>
+</div>
+
+<div class="phase">
+<h3>第11阶段：DevOps 工具链（3-5天）</h3>
+<p>学习现代运维工具：</p>
+<table>
+  <tr><th>类别</th><th>命令</th></tr>
+  <tr><td>容器</td><td><code>docker</code> <code>docker-compose</code> <code>podman</code></td></tr>
+  <tr><td>K8s</td><td><code>kubectl</code> <code>helm</code> <code>kustomize</code></td></tr>
+  <tr><td>数据库</td><td><code>mysql</code> <code>redis-cli</code> <code>psql</code></td></tr>
+  <tr><td>Web</td><td><code>nginx</code> <code>haproxy</code> <code>caddy</code></td></tr>
+  <tr><td>IaC</td><td><code>terraform</code> <code>ansible</code></td></tr>
+  <tr><td>监控</td><td><code>prometheus</code> <code>grafana</code> <code>node_exporter</code></td></tr>
+  <tr><td>CI/CD</td><td><code>git</code> <code>jenkins</code> <code>argocd</code></td></tr>
+  <tr><td>安全</td><td><code>openssl</code> <code>certbot</code> <code>iptables</code> <code>ufw</code></td></tr>
+  <tr><td>存储</td><td><code>ceph</code> <code>nfs</code> <code>restic</code></td></tr>
+  <tr><td>性能</td><td><code>perf</code> <code>iostat</code> <code>vmstat</code> <code>sar</code></td></tr>
+</table>
+</div>
+
+<h2>三、模拟器使用技巧</h2>
+
+<div class="tip">💡 <strong>管道和重定向</strong>：支持 <code>|</code> 管道和 <code>></code> 重定向，但管道操作部分受限于 VFS 机制。例如 <code>cat /etc/passwd | grep root</code> 可以正常使用。</div>
+<div class="tip">💡 <strong>命令链</strong>：支持 <code>&&</code> 命令链接。例如 <code>cd /tmp && pwd</code>。</div>
+<div class="tip">💡 <strong>Tab 补全</strong>：在输入框中按 Tab 可以补全命令或路径。</div>
+<div class="tip">💡 <strong>右侧面板</strong>：点击右侧命令可自动填入输入框。</div>
+<div class="tip">💡 <strong>Vi 编辑器</strong>：支持 <code>i a o I A O</code> 进入插入模式、<code>h j k l</code> 移动、<code>dd yy p u</code> 编辑、<code>:w :q :wq :q!</code> 退出。</div>
+<div class="tip">💡 <strong>sudo/su</strong>：<code>sudo bash</code> 会真正切换到 root 提示符 <code>#</code>，<code>sudo whoami</code> 输出 <code>root</code>。</div>
+
+<h2>四、实战练习题</h2>
+
+<ol>
+  <li><strong>文件浏览</strong>：列出根目录所有文件（含隐藏文件），进入 <code>/var/log</code>，查看 <code>syslog</code> 的前 5 行。
+    <pre><code>ls -la /
+cd /var/log
+head -n 5 syslog</code></pre>
+  </li>
+  <li><strong>文本搜索</strong>：在 <code>/etc/passwd</code> 中搜索包含 <code>root</code> 的行，统计该文件有多少行。
+    <pre><code>grep root /etc/passwd
+wc -l /etc/passwd</code></pre>
+  </li>
+  <li><strong>系统信息</strong>：查看系统运行时间、内存使用、CPU 型号和磁盘使用情况。
+    <pre><code>uptime
+free -h
+lscpu
+df -h</code></pre>
+  </li>
+  <li><strong>硬件诊断</strong>：列出所有块设备，检查坏道硬盘的 SMART 状态，查看内存插槽信息。
+    <pre><code>lsblk
+smartctl -a /dev/sdb
+dmidecode -t memory</code></pre>
+  </li>
+  <li><strong>网络诊断</strong>：Ping 百度 DNS，查看网络连接状态，Trace DNS 查询。
+    <pre><code>ping -c 3 114.114.114.114
+netstat -tulanp
+dig google.com</code></pre>
+  </li>
+  <li><strong>用户权限</strong>：使用 sudo 查看当前用户，切换到 root 用户，再切回来。
+    <pre><code>sudo whoami
+su root
+exit</code></pre>
+  </li>
+  <li><strong>包管理</strong>：更新软件源、安装 nginx、查看 nginx 服务状态。
+    <pre><code>sudo apt update
+sudo apt install nginx
+systemctl status nginx</code></pre>
+  </li>
+  <li><strong>文件编辑</strong>：用 vi 打开 <code>/root/projects/web.conf</code>，修改后保存退出，用 cat 确认修改。
+    <pre><code>vi /root/projects/web.conf
+cat /root/projects/web.conf</code></pre>
+  </li>
+  <li><strong>Docker</strong>：查看运行中的容器、镜像列表，拉取一个镜像。
+    <pre><code>docker ps
+docker images
+docker pull alpine</code></pre>
+  </li>
+  <li><strong>Kubernetes</strong>：查看 Pod 列表、节点状态、服务列表。
+    <pre><code>kubectl get pods
+kubectl get nodes
+kubectl get svc</code></pre>
+  </li>
+</ol>
+
+<h2>五、命令速查表</h2>
+
+<h3>VFS 文件操作</h3>
+<div class="cmd-grid">
+  <code>ls [-la]</code> <code>cd [path]</code> <code>pwd</code> <code>mkdir</code> <code>touch</code>
+  <code>cat</code> <code>rm [-r]</code> <code>cp</code> <code>mv</code> <code>echo [> file]</code>
+  <code>find</code> <code>ln [-s]</code>
+</div>
+
+<h3>系统信息</h3>
+<div class="cmd-grid">
+  <code>uname -a</code> <code>hostname</code> <code>whoami</code> <code>id</code> <code>who</code>
+  <code>uptime</code> <code>date</code> <code>sensors</code> <code>dmesg</code>
+</div>
+
+<h3>硬件信息</h3>
+<div class="cmd-grid">
+  <code>lscpu</code> <code>lspci</code> <code>lsusb</code> <code>lsblk</code> <code>lshw</code>
+  <code>dmidecode</code> <code>smartctl</code>
+</div>
+
+<h3>磁盘管理</h3>
+<div class="cmd-grid">
+  <code>df -h</code> <code>du -sh</code> <code>fdisk -l</code> <code>mount</code> <code>umount</code>
+  <code>blkid</code> <code>mkfs</code> <code>fsck</code> <code>parted</code> <code>dd</code>
+</div>
+
+<h3>内存/进程</h3>
+<div class="cmd-grid">
+  <code>free -h</code> <code>ps aux</code> <code>top</code> <code>htop</code> <code>kill</code>
+  <code>pgrep</code> <code>pkill</code> <code>lsof</code>
+</div>
+
+<h3>网络</h3>
+<div class="cmd-grid">
+  <code>ping -c N</code> <code>curl</code> <code>wget</code> <code>ifconfig</code> <code>ip addr</code>
+  <code>netstat</code> <code>ss</code> <code>nslookup</code> <code>dig</code> <code>traceroute</code>
+  <code>route -n</code> <code>tcpdump</code> <code>nc</code> <code>ssh</code>
+</div>
+
+<h3>用户/权限</h3>
+<div class="cmd-grid">
+  <code>chmod</code> <code>chown</code> <code>chgrp</code> <code>umask</code>
+  <code>useradd</code> <code>userdel</code> <code>usermod</code> <code>passwd</code>
+  <code>su</code> <code>sudo</code>
+</div>
+
+<h3>Shell/环境</h3>
+<div class="cmd-grid">
+  <code>bash</code> <code>alias</code> <code>env</code> <code>export</code> <code>source</code>
+  <code>tee</code> <code>watch</code> <code>crontab -l</code> <code>history</code>
+</div>
+
+<h3>文本处理</h3>
+<div class="cmd-grid">
+  <code>grep</code> <code>head -n</code> <code>tail -n</code> <code>wc</code> <code>sort</code>
+  <code>uniq</code> <code>cut</code> <code>tr</code> <code>sed</code> <code>awk</code>
+  <code>diff</code> <code>nl</code>
+</div>
+
+<h3>压缩归档</h3>
+<div class="cmd-grid">
+  <code>tar -czf</code> <code>tar -xzf</code> <code>gzip</code> <code>zip</code> <code>unzip</code>
+</div>
+
+<h3>编辑器</h3>
+<div class="cmd-grid">
+  <code>vi</code> <code>vim</code> <code>vimtutor</code> <code>nano</code>
+</div>
+
+<h3>包管理</h3>
+<div class="cmd-grid">
+  <code>apt update</code> <code>apt install</code> <code>apt upgrade</code> <code>apt remove</code>
+  <code>yum install</code> <code>yum update</code> <code>dpkg -i</code> <code>snap</code>
+</div>
+
+<h3>服务管理</h3>
+<div class="cmd-grid">
+  <code>systemctl status</code> <code>systemctl start</code> <code>systemctl stop</code>
+  <code>systemctl restart</code> <code>systemctl enable</code> <code>journalctl -u</code>
+</div>
+
+<hr style="border-color:#3b4261;margin:30px 0">
+<p style="text-align:center;color:#565f89;font-size:12px">
+  Linux Learning Simulator v2.0 · 模拟 Ubuntu 22.04 服务器 · 355 个命令 · 支持 Vi 编辑器 · GitHub Pages 一键部署
+</p>
+
+</body>
+</html>
