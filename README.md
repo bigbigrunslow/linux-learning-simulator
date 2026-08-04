@@ -1,15 +1,33 @@
 # 🐧 Linux Learning Simulator
 
+[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen)](https://bigbigrunslow.github.io/linux-learning-simulator/)
+[![Version](https://img.shields.io/badge/Version-v1.1.0-orange)](CHANGELOG.md)
+[![Commands](https://img.shields.io/badge/Commands-355-blueviolet)](index.html)
+
 **一个纯浏览器端的 Linux 终端模拟器 — 无需安装任何操作系统，即可学习和练习 Linux 命令。**
 
 [中文](#中文) | [English](#english)
 
-> 🤖 **本项目完全由 AI 辅助生成**（Cline + Claude），从架构设计到代码实现再到 GitHub 部署，全程对话式开发。  
+> 🤖 **本项目完全由 AI 辅助生成**（Cline + Claude），从架构设计到代码实现再到 GitHub 部署，全程对话式开发。
 > **Built entirely with AI** — Cline + Claude. Architecture → code → deployment, all via conversation.
 
 ---
 
 ## 中文
+
+### 🆕 最近更新（v1.1.0）
+
+- 🔗 **管道真正可用** — `cat /etc/passwd | grep root`、`ps | head -3` 等现在会真实传递数据；引号内的 `|`、`&&` 不再被误切
+- 📝 **Vi 编辑器修复** — 修复了弹窗聚焦问题（此前键盘输入会丢失）；`i/a/A/o/O` 插入、`dd` 删行、`u` 撤销、`y/p` 复制粘贴、`/` 搜索、`:wq` 保存、`:q!` 放弃全部可用
+- 🔐 **sudo/exit 状态修复** — `sudo bash` 后输入 `exit` 能真正退回普通用户提示符
+- 🐳 **服务命令输出修复** — `alertmanager`、`grafana`、`kafka`、`nfs` 等 30+ 命令不再输出 `undefined`
+- 🏷️ **命令数徽章动态化** — 工具栏实时显示当前命令总数（355）
+- 📂 **服务器配置更完整** — 新增 `/var/www/html` 示例站点、`/etc/nginx/nginx.conf`、`/etc/sudoers`
+- ⌨️ **方向键翻历史** — `↑`/`↓` 浏览命令历史，回车后自动复位
+- 🧹 **其他修复** — `docker ps`/`kubectl` 表格对齐、`echo` 重定向支持引号剥离与 `>>` 追加、favicon 404 消除
+
+完整列表见 [CHANGELOG.md](CHANGELOG.md)
 
 ### ✨ 特性
 
@@ -17,6 +35,7 @@
 - 🎯 **355 个命令** — 覆盖 VFS 操作、系统信息、硬件管理、网络诊断、Shell 工具、开发工具、DevOps 工具链
 - 💾 **全局硬件模型** — 模拟一台真实服务器：i7-12700K + 40GB RAM + 4 块混合磁盘(含坏道)
 - 📝 **Vi/Vim 真编辑器** — 弹窗编辑器，支持 `i` 插入、`dd` 删行、`:wq` 保存写入虚拟文件系统
+- 🔗 **管道与重定向** — `|` 管道、`>`/`>>` 重定向真实生效，支持引号内特殊字符
 - 🔐 **sudo 提权模拟** — `sudo bash` 真正切换到 `#` root 提示符
 - 📊 **详细命令输出** — 每个命令都有真实行为模拟，绝不仅仅是"命令说明"
 - 🐳 **DevOps 全栈** — Docker/K8s/Terraform/Ansible/MySQL/Redis 等 130+ 运维命令
@@ -55,7 +74,7 @@ cd linux-learning-simulator
 ```
 ls                   → README.txt, notes.txt, projects/
 cat /etc/hostname    → home-server
-grep root /etc/passwd → root:x:0:0:root...
+cat /etc/passwd | grep root → root:x:0:0:root...
 df -h                → 多挂载点完整磁盘表格
 free -h              → Mem 40Gi + Swap 8Gi
 fdisk -l             → 4 块磁盘详细分区信息（含坏道警告）
@@ -79,8 +98,10 @@ sudo bash            → 切换 # root 提示符
 linux-sim/
 ├── index.html          # 主程序 (~230KB)，双击即可使用
 ├── 学习指南.html        # 学习指南（可独立打开）
+├── CHANGELOG.md        # 更新日志
 ├── README.md           # 本文件
-└── LICENSE             # MIT
+├── LICENSE             # MIT
+└── .github/            # Issue 模板等
 ```
 
 ### 🎓 学习路径
@@ -103,12 +124,26 @@ linux-sim/
 
 - 这是纯粹的**浏览器端模拟**，不与真实系统交互
 - 联网命令（ping/curl/apt）输出为模拟数据，不产生真实网络请求
-- Vi 编辑器通过弹窗 textarea 实现，支持 ~15 个 Vim 操作
+- Vi 编辑器通过弹窗 textarea 实现，支持 `i/a/A/o/O` 插入、`h/j/k/l` 移动、`0/$/w/b` 跳转、`dd` 删行、`u` 撤销、`y/p` 复制粘贴、`/` 搜索、`:wq`/`:q!`
 - 所有硬件数据从一份全局模型派生，保证数据一致性
+- 所有状态保存在浏览器内存中，刷新页面即恢复初始状态
 
 ---
 
 ## English
+
+### 🆕 Recent Updates (v1.1.0)
+
+- 🔗 **Working Pipes** — `cat /etc/passwd | grep root` and `ps | head -3` now actually pass data; `|` and `&&` inside quotes are no longer split
+- 📝 **Vi Editor Fixed** — fixed the modal focus bug (keyboard input used to be lost); `i/a/A/o/O` insert, `dd` delete line, `u` undo, `y/p` yank/put, `/` search, `:wq` save, `:q!` quit all work
+- 🔐 **sudo/exit State Fixed** — `exit` after `sudo bash` now truly returns to the normal user prompt
+- 🐳 **Service Command Output Fixed** — `alertmanager`, `grafana`, `kafka`, `nfs` and 30+ commands no longer print `undefined`
+- 🏷️ **Dynamic Command Badge** — the toolbar shows the live command count (355)
+- 📂 **Richer Server Configuration** — added `/var/www/html` sample site, `/etc/nginx/nginx.conf`, `/etc/sudoers`
+- ⌨️ **History Navigation** — browse command history with `↑`/`↓`, auto-reset after Enter
+- 🧹 **Other Fixes** — `docker ps`/`kubectl` table alignment, `echo` redirect quote stripping and `>>` append, favicon 404 removed
+
+Full list in [CHANGELOG.md](CHANGELOG.md)
 
 ### ✨ Features
 
@@ -116,6 +151,7 @@ linux-sim/
 - 🎯 **355 Commands** — VFS operations, system info, hardware management, networking, Shell tools, DevOps
 - 💾 **Global Hardware Model** — Simulates a real server: i7-12700K + 40GB RAM + 4 mixed disks (with failing HDD)
 - 📝 **Real Vi/Vim Editor** — Modal popup editor, supporting `i` insert, `dd` delete, `:wq` save to virtual filesystem
+- 🔗 **Pipes & Redirects** — `|` pipes and `>`/`>>` redirects really work, quote-aware
 - 🔐 **sudo Privilege Escalation** — `sudo bash` actually switches to `#` root prompt
 - 📊 **Detailed Output** — Every command produces realistic simulation output, not just descriptions
 - 🐳 **Full DevOps Stack** — Docker, K8s, Terraform, Ansible, MySQL, Redis, and 130+ more
@@ -154,7 +190,7 @@ Visit: **https://bigbigrunslow.github.io/linux-learning-simulator/**
 ```
 ls                   → README.txt, notes.txt, projects/
 cat /etc/hostname    → home-server
-grep root /etc/passwd → root:x:0:0:root...
+cat /etc/passwd | grep root → root:x:0:0:root...
 df -h                → 7 mount points with full disk table
 free -h              → Mem 40Gi + Swap 8Gi
 fdisk -l             → 4 disks with partition details (including failing warning)
@@ -178,8 +214,10 @@ sudo bash            → Switches to # root prompt
 linux-sim/
 ├── index.html          # Main program (~230KB), double-click to use
 ├── 学习指南.html        # Learning guide (standalone)
+├── CHANGELOG.md        # Changelog
 ├── README.md           # This file
-└── LICENSE             # MIT
+├── LICENSE             # MIT
+└── .github/            # Issue templates etc.
 ```
 
 ### 🎓 Learning Path
@@ -202,14 +240,15 @@ See [学习指南.html](学习指南.html) for details.
 
 - This is a pure **browser-side simulation** — no real system interaction
 - Network commands (ping/curl/apt) output simulated data, not real requests
-- Vi editor is implemented via modal textarea, supporting ~15 Vim operations
+- Vi editor is implemented via modal textarea: `i/a/A/o/O` insert, `h/j/k/l` move, `0/$/w/b` jump, `dd` delete line, `u` undo, `y/p` yank/put, `/` search, `:wq`/`:q!`
 - All hardware data derives from a single global model, ensuring consistency
+- All state lives in browser memory; refreshing resets to the initial state
 
 ---
 
 ## 📄 License
 
-MIT © 2025
+MIT © 2026
 
 ## 🙏 Contributing
 
