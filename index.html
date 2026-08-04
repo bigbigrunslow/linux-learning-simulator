@@ -64,6 +64,7 @@ body{background:#1a1b26;color:#c0caf5;font-family:'Cascadia Code','Fira Code','J
     <span class="badge" id="cmd-count-badge">355 命令</span>
     <span class="badge">i7-12700K</span>
     <span class="badge">40GB RAM</span>
+    <button id="lang-toggle" title="切换语言 / Toggle language" style="margin-left:auto;background:#3b4261;color:#a9b1d6;border:none;border-radius:10px;padding:3px 12px;cursor:pointer;font-family:inherit;font-size:12px">🌐 中 / EN</button>
 </div>
 
 <div id="main">
@@ -1251,6 +1252,7 @@ CMD['practice'] = {cat:'学习', desc:'练习任务（与学习指南同步）',
 CMD['learn'] = {cat:'学习', desc:'命令百科：查看命令完整用法', usage:'learn <command>'};
 CMD['exam'] = {cat:'学习', desc:'项目考试：随机抽题评分', usage:'exam <项目>'};
 CMD['stats'] = {cat:'学习', desc:'学习统计与成绩', usage:'stats'};
+CMD['lang'] = {cat:'学习', desc:'切换界面语言', usage:'lang [zh|en]'};
 CMD['printf'] = {cat:'Shell', desc:'格式化输出', usage:'printf <格式> [参数]'};
 CMD['read'] = {cat:'Shell', desc:'读取输入到变量', usage:'read <变量>'};
 CMD['test'] = {cat:'Shell', desc:'条件判断', usage:'test <表达式>'};
@@ -1740,6 +1742,20 @@ let chainBreak = false;
 const FALSE_SENTINEL = '\u0000false';
 let aliasMap = {ll:'ls -la', la:'ls -A', l:'ls -CF', ports:'netstat -tulanp', update:'sudo apt update && sudo apt upgrade -y'};
 let envVars = {HOME:'/root', USER:'user', SHELL:'/bin/bash', PATH:'/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', EDITOR:'vim', PWD:'/root', LANG:'en_US.UTF-8'};
+
+/* ===== LANGUAGE (zh / en) ===== */
+function loadLang() {
+    try {
+        const v = localStorage.getItem('linux-sim-lang');
+        if (v === 'en' || v === 'zh') return v;
+    } catch (e) {}
+    return 'zh';
+}
+let lang = loadLang();
+function saveLang() {
+    try { localStorage.setItem('linux-sim-lang', lang); } catch (e) {}
+}
+function L(zh, en) { return lang === 'en' ? en : zh; }
 
 /* ===== STATE MACHINES (services / containers / processes) ===== */
 const SERVICES = {
@@ -2549,6 +2565,8 @@ const PATHS = {
   monitor: { name:'监控运维', desc:'进程、资源、服务与日志' },
   other:   { name:'其他命令', desc:'其余命令的基础用法' },
 };
+const PATHS_EN = { basic:'Linux Basics', shell:'Shell Scripting', network:'Networking', docker:'Docker', k8s:'Kubernetes', middleware:'Middleware', cicd:'CI/CD', monitor:'Monitoring & Ops', other:'Other Commands' };
+const PATHS_DESC_EN = { basic:'File, text and permission fundamentals', shell:'Variables, pipes, redirects, history', network:'Interfaces, connectivity, ports, transfer', docker:'Images and containers', k8s:'Clusters, workloads, logs', middleware:'Nginx, Redis, MySQL, Kafka, Elasticsearch and more', cicd:'GitLab, Jenkins, ArgoCD, Flux', monitor:'Processes, resources, services and logs', other:'Basic usage of the remaining commands' };
 
 function cmdPath(name) {
   if (['docker','docker-compose','podman','buildah','skopeo','containerd','crictl','ctr'].includes(name)) return 'docker';
@@ -2571,6 +2589,7 @@ for (const [cmd, usages] of Object.entries(CMD_USAGES)) {
     TASK_MAP[id] = {
       id, cmd, path: cmdPath(cmd),
       title: u.c + '（用法 ' + (i + 1) + '/' + usages.length + '）',
+      titleEn: u.c + ' (usage ' + (i + 1) + '/' + usages.length + ')',
       desc: u.d, hint: u.c,
       exp: u.x || u.d,
       check: histExact(u.c),
@@ -2578,11 +2597,12 @@ for (const [cmd, usages] of Object.entries(CMD_USAGES)) {
   });
 }
 for (const name of Object.keys(CMD)) {
-  if (!CMD_USAGES[name] && name !== 'practice' && name !== 'learn' && name !== 'exam' && name !== 'stats') {
+  if (!CMD_USAGES[name] && name !== 'practice' && name !== 'learn' && name !== 'exam' && name !== 'stats' && name !== 'lang') {
     const id = 'a' + (taskSeq++);
     TASK_MAP[id] = {
       id, cmd: name, path: cmdPath(name),
       title: name + '（基础用法）',
+      titleEn: name + ' (basic usage)',
       desc: CMD[name].desc || name + ' 命令',
       hint: CMD[name].usage || name,
       exp: CMD_EXPLAIN[name] || (CMD[name].desc || name + ' 命令') + '。执行该命令并观察输出。',
@@ -2622,9 +2642,9 @@ function focusTasks() {
 }
 function focusName() {
     const f = taskProgress.focus || 'basic';
-    if (f.startsWith('cmd:')) return '命令专项：' + f.slice(4);
+    if (f.startsWith('cmd:')) return (lang === 'en' ? 'Command drill: ' : '命令专项：') + f.slice(4);
     const path = f.startsWith('path:') ? f.slice(5) : f;
-    return (PATHS[path] || PATHS.basic).name;
+    return lang === 'en' ? (PATHS_EN[path] || 'Linux Basics') : (PATHS[path] || PATHS.basic).name;
 }
 function currentTask() {
     if (examState) return TASK_MAP[examState.questions[examState.index]] || null;
@@ -2633,7 +2653,7 @@ function currentTask() {
 function showTaskDetail(t) {
     const total = focusTasks().length;
     const doneInFocus = focusTasks().filter(x => taskProgress.done.includes(x.id)).length;
-    return '▶ 当前任务 [' + t.id + ']：' + t.title + '\n📖 说明：' + (t.exp || t.desc) + '\n🔧 请执行：' + t.hint + '\n进度：' + doneInFocus + '/' + total;
+    return (lang === 'en' ? '▶ Current task [' : '▶ 当前任务 [') + t.id + ']：' + taskTitle(t) + '\n📖 ' + (lang === 'en' ? 'What it does: ' : '说明：') + taskExp(t) + '\n🔧 ' + (lang === 'en' ? 'Run: ' : '请执行：') + t.hint + '\n' + (lang === 'en' ? 'Progress: ' : '进度：') + doneInFocus + '/' + total;
 }
 
 function resolvePath(path) {
@@ -4724,17 +4744,17 @@ function handleHistory() {
 }
 
 function handleHelp() {
-    let out = '=== Linux Learning Simulator - Available Commands ===\n\n';
+    let out = lang === 'en' ? '=== Linux Learning Simulator - Available Commands ===\n\n' : '=== Linux Learning Simulator - 可用命令 ===\n\n';
     const cats = {};
     for (const [name, info] of Object.entries(CMD)) {
         if (!cats[info.cat]) cats[info.cat] = [];
         cats[info.cat].push(name);
     }
     for (const [cat, names] of Object.entries(cats)) {
-        out += '[' + cat + ']\n  ' + names.sort().join(', ') + '\n\n';
+        out += '[' + catName(cat) + ']\n  ' + names.sort().join(', ') + '\n\n';
     }
     out += 'Total commands: ' + Object.keys(CMD).length + '\n';
-    out += 'Type any command to execute it. Use pipes (|) and redirects (>).';
+    out += lang === 'en' ? 'Type any command to execute it. Use pipes (|) and redirects (>).' : '输入任意命令执行。支持管道 (|) 和重定向 (>)。';
     return out;
 }
 
@@ -4742,138 +4762,226 @@ function handlePractice(args) {
     if (args[0] === 'reset') {
         taskProgress = { done: [], focus: 'basic' };
         saveTaskProgress();
-        return '练习进度已重置 / Practice progress reset.';
+        return L('练习进度已重置 / Practice progress reset.', 'Practice progress has been reset.');
     }
     if (args[0] === 'path') {
         const p = args[1];
         if (!p || !PATHS[p]) {
-            let out = '=== 📚 学习项目 ===\n';
-    for (const key of PATH_ORDER) {
-        const tasks = Object.values(TASK_MAP).filter(t => t.path === key);
-        if (tasks.length === 0) continue;
-        const done = tasks.filter(t => taskProgress.done.includes(t.id)).length;
-        out += '\n[' + key + '] ' + PATHS[key].name + '（' + done + '/' + tasks.length + '）\n  ' + PATHS[key].desc + '\n';
+            let out = lang === 'en' ? '=== 📚 Learning Projects ===\n' : '=== 📚 学习项目 ===\n';
+            for (const key of PATH_ORDER) {
+                const tasks = Object.values(TASK_MAP).filter(t => t.path === key);
+                if (tasks.length === 0) continue;
+                const done = tasks.filter(t => taskProgress.done.includes(t.id)).length;
+                out += '\n[' + key + '] ' + (lang === 'en' ? PATHS_EN[key] : PATHS[key].name) + ' (' + done + '/' + tasks.length + ')\n  ' + (lang === 'en' ? PATHS_DESC_EN[key] : PATHS[key].desc) + '\n';
             }
-            out += '\n用法：practice path <项目>（如 practice path k8s）';
+            out += lang === 'en' ? '\nUsage: practice path <project> (e.g. practice path k8s)' : '\n用法：practice path <项目>（如 practice path k8s）';
             return out.trimEnd();
         }
         taskProgress.focus = 'path:' + p;
         saveTaskProgress();
         const cur = currentTask();
-        return '已切换到项目：' + PATHS[p].name + '\n' + (cur ? showTaskDetail(cur) : '🎉 该项目全部完成！');
+        return (lang === 'en' ? 'Switched to project: ' : '已切换到项目：') + (lang === 'en' ? PATHS_EN[p] : PATHS[p].name) + '\n' + (cur ? showTaskDetail(cur) : (lang === 'en' ? '🎉 This project is complete!' : '🎉 该项目全部完成！'));
     }
     if (args[0] && CMD[args[0]]) {
         const name = args[0];
         taskProgress.focus = 'cmd:' + name;
         saveTaskProgress();
-        const usages = CMD_USAGES[name] || [{ c: CMD[name].usage || name, d: CMD[name].desc || '基础用法' }];
-        let out = '=== 命令专项：' + name + '（' + usages.length + ' 条用法）===\n';
+        const usages = CMD_USAGES[name] || [{ c: CMD[name].usage || name, d: CMD[name].desc || 'basic usage' }];
+        let out = (lang === 'en' ? '=== Command Drill: ' : '=== 命令专项：') + name + (lang === 'en' ? ' (' : '（') + usages.length + (lang === 'en' ? ' usages)===\n' : ' 条用法）===\n');
         usages.forEach((u, i) => {
             const id = Object.values(TASK_MAP).find(t => t.cmd === name && t.hint === u.c);
             const done = id ? taskProgress.done.includes(id.id) : false;
-            out += (done ? '✅ ' : '⬜ ') + (i + 1) + '. ' + u.c + (done ? '' : ' — ' + u.d) + '\n';
+            out += (done ? '✅ ' : '⬜ ') + (i + 1) + '. ' + u.c + (done ? '' : ' — ' + (lang === 'en' ? (DESC_EN[name] || u.d) : u.d)) + '\n';
         });
         const cur = currentTask();
-        if (cur) out += '\n🔧 开始（请执行）：' + cur.hint + '\n' + cur.desc;
+        if (cur) out += '\n🔧 ' + (lang === 'en' ? 'Start (run): ' : '开始（请执行）：') + cur.hint + '\n' + taskDesc(cur);
         return out.trimEnd();
     }
     if (args[0] === 'start' || args[0] === 'next') {
         const cur = currentTask();
-        return cur ? showTaskDetail(cur) : '🎉 当前项目全部完成！';
+        return cur ? showTaskDetail(cur) : (lang === 'en' ? '🎉 Current project complete!' : '🎉 当前项目全部完成！');
     }
     if (/^\d+$/.test(args[0])) {
         const idx = parseInt(args[0], 10) - 1;
         const tasks = focusTasks();
         const t = tasks[idx];
-        if (!t) return 'practice: 编号无效（当前范围共 ' + tasks.length + ' 个任务）';
-        return (taskProgress.done.includes(t.id) ? '✅ 已完成：' : '⬜ ') + showTaskDetail(t);
+        if (!t) return lang === 'en' ? 'practice: invalid number (' + tasks.length + ' tasks in current scope)' : 'practice: 编号无效（当前范围共 ' + tasks.length + ' 个任务）';
+        return (taskProgress.done.includes(t.id) ? (lang === 'en' ? '✅ Done: ' : '✅ 已完成：') : '⬜ ') + showTaskDetail(t);
     }
     const cur = currentTask();
-    let out = '=== 🎯 练习中心 ===\n';
-    out += '当前路线：' + focusName() + '\n';
-    if (cur) out += '下一任务：[' + cur.id + '] ' + cur.title + '\n提示：' + cur.hint + '\n';
-    out += '\n📚 学习项目：\n';
+    let out = lang === 'en' ? '=== 🎯 Practice Center ===\n' : '=== 🎯 练习中心 ===\n';
+    out += (lang === 'en' ? 'Current project: ' : '当前路线：') + focusName() + '\n';
+    if (cur) out += (lang === 'en' ? 'Next task: [' : '下一任务：[') + cur.id + '] ' + taskTitle(cur) + '\n' + (lang === 'en' ? 'Hint: ' : '提示：') + cur.hint + '\n';
+    out += lang === 'en' ? '\n📚 Learning projects:\n' : '\n📚 学习项目：\n';
     for (const key of PATH_ORDER) {
         const tasks = Object.values(TASK_MAP).filter(t => t.path === key);
         if (tasks.length === 0) continue;
         const done = tasks.filter(t => taskProgress.done.includes(t.id)).length;
-        out += '  [' + key + '] ' + PATHS[key].name + '（' + done + '/' + tasks.length + '）\n';
+        out += '  [' + key + '] ' + (lang === 'en' ? PATHS_EN[key] : PATHS[key].name) + ' (' + done + '/' + tasks.length + ')\n';
     }
-    out += '\n💡 用法：\n  practice start —— 开始当前任务\n  practice <命令> —— 命令专项（如 practice ls）\n  practice path <项目> —— 切换学习项目（如 practice path k8s）\n  practice <编号> —— 跳转到当前范围内的任务\n  practice reset —— 重置进度';
+    out += lang === 'en'
+        ? '\n💡 Usage:\n  practice start — start the current task\n  practice <command> — command drill (e.g. practice ls)\n  practice path <project> — switch project (e.g. practice path k8s)\n  practice <number> — jump to a task\n  practice reset — reset progress'
+        : '\n💡 用法：\n  practice start —— 开始当前任务\n  practice <命令> —— 命令专项（如 practice ls）\n  practice path <项目> —— 切换学习项目（如 practice path k8s）\n  practice <编号> —— 跳转到当前范围内的任务\n  practice reset —— 重置进度';
     return out.trimEnd();
 }
 
 function handleLearn(args) {
     const name = args[0];
-    if (!name) return 'Usage: learn <command> — 查看命令的完整用法与示例';
+    if (!name) return lang === 'en' ? 'Usage: learn <command> — see all usages and examples' : 'Usage: learn <command> — 查看命令的完整用法与示例';
     if (!CMD[name]) return 'learn: ' + name + ': command not found';
     const info = CMD[name];
-    let out = '=== ' + name + ' ===\n' + (info.desc || '') + '\n';
+    let out = '=== ' + name + ' ===\n' + cmdDesc(name) + '\n';
     if (CMD_USAGES[name]) {
-        out += '\n用法（共 ' + CMD_USAGES[name].length + ' 条）：\n';
+        out += '\n' + (lang === 'en' ? 'Usages (' : '用法（共 ') + CMD_USAGES[name].length + (lang === 'en' ? '):\n' : ' 条）：\n');
         CMD_USAGES[name].forEach((u, i) => {
-            out += (i + 1) + '. ' + u.c + '\n   ' + u.d + '\n';
-            if (u.x) out += '   📖 ' + u.x + '\n';
+            out += (i + 1) + '. ' + u.c + '\n   ' + (lang === 'en' ? (DESC_EN[name] || u.d) : u.d) + '\n';
+            if (u.x && lang !== 'en') out += '   📖 ' + u.x + '\n';
+            else if (lang === 'en') out += '   📖 ' + (DESC_EN[name] || u.d) + '.\n';
         });
     } else {
-        out += '\n用法：' + (info.usage || name) + '\n   ' + (info.desc || '');
+        out += '\n' + (lang === 'en' ? 'Usage: ' : '用法：') + (info.usage || name) + '\n   ' + cmdDesc(name);
     }
-    if (CMD_EXPLAIN[name]) out += '\n📖 ' + CMD_EXPLAIN[name];
-    out += '\n提示：输入 practice ' + name + ' 开始专项练习';
+    if (lang === 'en') out += '\n📖 ' + (DESC_EN[name] || CMD_EXPLAIN[name] || info.desc || name) + '.';
+    else if (CMD_EXPLAIN[name]) out += '\n📖 ' + CMD_EXPLAIN[name];
+    out += '\n' + (lang === 'en' ? 'Tip: run practice ' : '提示：输入 practice ') + name + (lang === 'en' ? ' to start the drill' : ' 开始专项练习');
     return out.trimEnd();
 }
 
 function examQuestionText() {
     const t = TASK_MAP[examState.questions[examState.index]];
-    return '[' + t.id + '] ' + t.title + '\n📖 ' + (t.exp || t.desc) + '\n🔧 请执行：' + t.hint;
+    return '[' + t.id + '] ' + taskTitle(t) + '\n📖 ' + (lang === 'en' ? 'What it does: ' : '说明：') + taskExp(t) + '\n🔧 ' + (lang === 'en' ? 'Run: ' : '请执行：') + t.hint;
 }
 
 function handleExam(args) {
     if (args[0] === 'quit') {
         examState = null;
-        return '考试已退出 / Exam aborted.';
+        return L('考试已退出 / Exam aborted.', 'Exam aborted.');
     }
     if (args[0]) {
         const p = args[0];
-        if (!PATHS[p]) return 'exam: 未知项目（可用：' + PATH_ORDER.filter(k => PATHS[k]).join(' / ') + '）';
+        if (!PATHS[p]) return lang === 'en' ? 'exam: unknown project (available: ' + PATH_ORDER.filter(k => PATHS[k]).join(' / ') + ')' : 'exam: 未知项目（可用：' + PATH_ORDER.filter(k => PATHS[k]).join(' / ') + '）';
         const tasks = Object.values(TASK_MAP).filter(t => t.path === p);
-        if (tasks.length === 0) return 'exam: 该项目暂无任务';
+        if (tasks.length === 0) return lang === 'en' ? 'exam: no tasks in this project' : 'exam: 该项目暂无任务';
         const pool = tasks.filter(t => !taskProgress.done.includes(t.id));
         const qs = (pool.length >= 10 ? pool : tasks).slice(0, 10).sort(() => Math.random() - 0.5);
         examState = { path: p, questions: qs.map(t => t.id), index: 0, score: 0 };
-        return '📝 考试开始：' + PATHS[p].name + '（' + qs.length + ' 题，答对 70% 通过）\n第 1 题：' + examQuestionText();
+        return (lang === 'en' ? '📝 Exam started: ' : '📝 考试开始：') + (lang === 'en' ? PATHS_EN[p] : PATHS[p].name) + ' (' + qs.length + (lang === 'en' ? ' questions, 70% to pass)\nQuestion 1: ' : ' 题，答对 70% 通过）\n第 1 题：') + examQuestionText();
     }
     if (!examState) {
-        let out = '=== 📝 考试 ===\n用法：exam <项目>（如 exam k8s）\n最近成绩：\n';
-        if (stats.exams.length === 0) out += '  （还没有考试记录，试试 exam basic）';
-        for (const e of stats.exams.slice(-5)) out += '  ' + e.path + '：' + e.score + '/' + e.total + (e.pass ? ' ✅' : ' ❌') + '\n';
+        let out = lang === 'en' ? '=== 📝 Exam ===\nUsage: exam <project> (e.g. exam k8s)\nRecent results:\n' : '=== 📝 考试 ===\n用法：exam <项目>（如 exam k8s）\n最近成绩：\n';
+        if (stats.exams.length === 0) out += lang === 'en' ? '  (No exam records yet. Try exam basic)' : '  （还没有考试记录，试试 exam basic）';
+        for (const e of stats.exams.slice(-5)) out += '  ' + e.path + ': ' + e.score + '/' + e.total + (e.pass ? ' ✅' : ' ❌') + '\n';
         return out.trimEnd();
     }
-    return '📝 进行中：' + PATHS[examState.path].name + ' 第 ' + (examState.index + 1) + '/' + examState.questions.length + ' 题，得分 ' + examState.score + '\n' + examQuestionText();
+    return (lang === 'en' ? '📝 In progress: ' : '📝 进行中：') + (lang === 'en' ? PATHS_EN[examState.path] : PATHS[examState.path].name) + ' ' + (lang === 'en' ? 'Q' : '第 ') + (examState.index + 1) + '/' + examState.questions.length + (lang === 'en' ? ', score ' : ' 题，得分 ') + examState.score + '\n' + examQuestionText();
 }
 
 function handleStats() {
-    let out = '=== 📊 学习统计 ===\n';
-    out += '已完成任务：' + taskProgress.done.length + '/' + Object.keys(TASK_MAP).length + '\n';
-    out += '用过的命令：' + stats.usedCmds.length + ' 个\n';
-    out += '连续学习：' + stats.streak + ' 天\n\n项目进度：\n';
+    let out = lang === 'en' ? '=== 📊 Learning Stats ===\n' : '=== 📊 学习统计 ===\n';
+    out += (lang === 'en' ? 'Tasks completed: ' : '已完成任务：') + taskProgress.done.length + '/' + Object.keys(TASK_MAP).length + '\n';
+    out += (lang === 'en' ? 'Commands used: ' : '用过的命令：') + stats.usedCmds.length + '\n';
+    out += (lang === 'en' ? 'Study streak: ' : '连续学习：') + stats.streak + (lang === 'en' ? ' day(s)\n\nProject progress:\n' : ' 天\n\n项目进度：\n');
     for (const key of PATH_ORDER) {
         const tasks = Object.values(TASK_MAP).filter(t => t.path === key);
         if (tasks.length === 0) continue;
         const done = tasks.filter(t => taskProgress.done.includes(t.id)).length;
-        out += '  [' + key + '] ' + PATHS[key].name + '：' + done + '/' + tasks.length + '\n';
+        out += '  [' + key + '] ' + (lang === 'en' ? PATHS_EN[key] : PATHS[key].name) + ': ' + done + '/' + tasks.length + '\n';
     }
     const bad = Object.entries(stats.badCmds).sort((a, b) => b[1] - a[1]).slice(0, 5);
     if (bad.length) {
-        out += '\n常输错的命令：\n';
+        out += lang === 'en' ? '\nFrequently mistyped commands:\n' : '\n常输错的命令：\n';
         for (const [c, n] of bad) out += '  ' + c + ' ×' + n + '\n';
     }
     if (stats.exams.length) {
-        out += '\n考试记录：\n';
-        for (const e of stats.exams.slice(-5)) out += '  ' + e.path + '：' + e.score + '/' + e.total + (e.pass ? ' ✅' : ' ❌') + '\n';
+        out += lang === 'en' ? '\nExam history:\n' : '\n考试记录：\n';
+        for (const e of stats.exams.slice(-5)) out += '  ' + e.path + ': ' + e.score + '/' + e.total + (e.pass ? ' ✅' : ' ❌') + '\n';
     }
     return out.trimEnd();
 }
+
+function handleLang(args) {
+    const v = args[0];
+    if (v === 'en' || v === 'zh') {
+        lang = v;
+        saveLang();
+        updatePromptDisplay();
+        buildSidePanel();
+        const badge = document.getElementById('cmd-count-badge');
+        if (badge) badge.textContent = Object.keys(CMD).length + (lang === 'en' ? ' commands' : ' 命令');
+        return lang === 'en' ? 'Language switched to English.' : '已切换到中文。';
+    }
+    return lang === 'en' ? 'Current language: English. Usage: lang [zh|en]' : '当前语言：中文。用法：lang [zh|en]';
+}
+
+/* ===== ENGLISH CONTENT ===== */
+const CAT_EN = {'学习':'Learning','VFS':'Files','文本处理':'Text','系统信息':'System','硬件信息':'Hardware','磁盘管理':'Disks','内存/进程':'Processes','网络':'Network','用户/权限':'Users & Permissions','软件包':'Packages','服务管理':'Services','Shell':'Shell','压缩归档':'Archives','文件工具':'File Tools','编辑器':'Editors','开发工具':'Dev Tools','中间件':'Middleware','K8s':'K8s','CI/CD':'CI/CD','会话管理':'Sessions','系统控制':'System Control','文档工具':'Docs','其他':'Other','容器':'Containers','消息':'Messaging','Web':'Web','数据库':'Databases','监控':'Monitoring','日志':'Logging','IaC':'IaC','配置':'Config Mgmt','服务网格':'Service Mesh','安全':'Security','存储':'Storage','网络':'Networking','性能':'Benchmark','虚拟化':'Virtualization','DevOps':'DevOps'};
+
+const DESC_EN = {
+  ls:'List files and directories', cd:'Change the current directory', pwd:'Print the working directory', mkdir:'Create directories', touch:'Create empty files or update timestamps', cat:'Print file contents', rm:'Remove files or directories', cp:'Copy files or directories', mv:'Move or rename files', echo:'Print text or write it to a file', find:'Search for files by name', grep:'Search text with patterns', head:'Show the first lines of a file', tail:'Show the last lines of a file', wc:'Count lines, words and bytes', sort:'Sort lines of text', uniq:'Remove adjacent duplicate lines', cut:'Extract columns from text', tr:'Translate or delete characters', sed:'Stream editor for substitution', awk:'Pattern scanning and field processing', diff:'Compare two files line by line', tar:'Pack and compress archives', gzip:'Compress files', md5sum:'Compute MD5 checksums', base64:'Encode or decode Base64', uname:'Show system and kernel info', free:'Show memory usage', ps:'List processes', top:'Interactive process viewer', htop:'Colorful process manager', kill:'Terminate processes by PID', df:'Show disk space usage', du:'Show directory sizes', lscpu:'Show CPU architecture info', lsblk:'List block devices as a tree', fdisk:'Manage disk partition tables', smartctl:'Check disk SMART health', ip:'Show or configure network interfaces', ping:'Test network connectivity', curl:'Transfer data with URLs', ss:'Inspect network sockets', netstat:'Show network connections and ports', ssh:'Log in to a remote machine', scp:'Copy files over SSH', chmod:'Change file permissions', chown:'Change file ownership', sudo:'Run commands as root', su:'Switch users', useradd:'Create users', passwd:'Change passwords', apt:'Manage Debian/Ubuntu packages', dpkg:'Manage installed packages', systemctl:'Manage systemd services', journalctl:'View systemd logs', crontab:'Manage scheduled tasks', env:'Show environment variables', export:'Set and export variables', alias:'Create command aliases', source:'Reload configuration files', which:'Locate a command', man:'Read command manuals', history:'Show command history', vi:'Open the vi editor', git:'Version control', docker:'Manage containers', kubectl:'Manage Kubernetes', helm:'Manage Kubernetes charts', terraform:'Manage infrastructure as code', ansible:'Automate server configuration', mysql:'MySQL database client', 'redis-cli':'Redis command line client', nginx:'Nginx web server', watch:'Re-run a command periodically', date:'Show the current date and time', hostname:'Show the hostname', whoami:'Show the current user', id:'Show user and group IDs', who:'Show logged-in users', uptime:'Show uptime and load average', printf:'Format and print text', read:'Read input into a variable', test:'Evaluate conditions', sleep:'Wait (simulated)', timeout:'Run a command with a time limit', tree:'Show directories as a tree', basename:'Strip directory from a path', dirname:'Extract the directory from a path', jq:'Query JSON data', nmap:'Scan network ports',
+  ln:'Create links; -s makes a symbolic link like a shortcut', patch:'Apply a patch (changes produced by diff) to a file', nl:'Number the lines of a file', sensors:'Read CPU/motherboard temperatures, voltages and fans', lspci:'List PCI hardware (GPU, NIC, etc.)', lsusb:'List USB devices (keyboard, USB drive, UPS, etc.)', lshw:'Show detailed hardware information', dmidecode:'Read motherboard/BIOS DMI info (needs root)', mount:'Mount a filesystem to a directory', umount:'Unmount a filesystem', blkid:'Show filesystem types and UUIDs of partitions', mkfs:'Create a filesystem (format) on a partition', fsck:'Check and repair filesystem errors', parted:'Interactive partition editor', dd:'Copy data block by block (imaging, benchmarking; dangerous)', pgrep:'Find PIDs by process name', pkill:'Kill processes by name', lsof:'List files and ports opened by processes', nohup:'Run a command that survives logging out', bg:'Resume a paused job in the background', fg:'Bring a background job to the foreground', jobs:'List background jobs of this terminal', wget:'Download files', ifconfig:'Legacy network interface tool (use ip)', nslookup:'Query DNS records', dig:'Detailed DNS lookup tool', traceroute:'Trace the route to a host', route:'Show or edit the routing table', tcpdump:'Capture and analyze network packets (needs root)', nc:'Network Swiss army knife: port checks, data transfer', rsync:'Synchronize files incrementally', ftp:'Classic FTP client', sftp:'Secure file transfer over SSH', chgrp:'Change the group of a file', umask:'Set the default permission mask for new files', userdel:'Delete a user', usermod:'Modify user attributes', groupadd:'Create a user group', groupdel:'Delete a user group', yum:'Package manager for CentOS/RHEL (apt on Ubuntu)', snap:'Canonical cross-distribution package format', service:'Legacy service management (use systemctl)', bash:'Start a bash subshell or run a script file', unalias:'Remove an alias', type:'Show whether a command is builtin, alias or external', whereis:'Locate binary, source and man pages of a command', exec:'Replace the current shell with a command', set:'Set shell options or show variables', unset:'Remove variables or functions', declare:'Declare variable attributes', readonly:'Make variables read-only', tee:'Write output to the screen and a file at once', time:'Measure how long a command takes', yes:'Output y forever (auto-confirm with pipes)', xargs:'Build and run commands from input', zip:'Create zip archives', unzip:'Extract zip archives', file:'Identify the type of a file', stat:'Show detailed file metadata', sha256sum:'Compute SHA-256 checksums', strings:'Extract readable strings from binaries', realpath:'Resolve the absolute real path', vim:'The improved vi editor', vimtutor:'Interactive vim tutorial', nano:'Simple beginner-friendly text editor', gcc:'C compiler', 'g++':'C++ compiler', make:'Automated build tool (reads Makefile)', gdb:'C/C++ debugger', python3:'Python 3 interpreter', node:'JavaScript runtime', npm:'Node.js package manager', screen:'Terminal multiplexer with reconnectable sessions', tmux:'Modern terminal multiplexer with splits and sessions', shutdown:'Shut down or schedule shutdown', reboot:'Reboot the system', halt:'Halt the system', poweroff:'Power off the system', dmesg:'Show kernel boot log and hardware messages', more:'Page through a file (space=next, q=quit)', less:'Better pager with search', whatis:'One-line description of a command', info:'Read GNU documentation', clear:'Clear the screen', help:'Show builtin help or the command list', exit:'Exit the current shell', 'docker-compose':'Orchestrate multi-container apps with YAML', podman:'Daemonless container engine (docker alternative)', containerd:'Container runtime (under docker)', crictl:'CRI container runtime CLI', ctr:'Native containerd CLI', buildah:'Build container images without a Dockerfile', skopeo:'Inspect and copy remote images', kustomize:'Customize Kubernetes manifests', minikube:'One-command local Kubernetes', kind:'Run Kubernetes in Docker (testing)', kubeadm:'Initialize or join a Kubernetes cluster', kubelet:'The agent running on Kubernetes nodes', etcdctl:'CLI for the etcd key-value store', calicoctl:'Manage Calico network policies', nats:'Lightweight messaging system', pulsar:'Cloud-native streaming platform', haproxy:'High-performance load balancer / reverse proxy', apache2:'Apache HTTP server', caddy:'Web server with automatic HTTPS', keepalived:'High availability with VIP failover', traefik:'Cloud-native reverse proxy / ingress', mysqldump:'MySQL logical backup tool', postgresql:'PostgreSQL database server', pg_dump:'PostgreSQL backup tool', mongodb:'MongoDB document database', redis:'Redis key-value cache server', sqlite3:'Lightweight embedded database CLI', prometheus:'Time-series monitoring system', promtool:'Prometheus utility (rule checks, etc.)', alertmanager:'Prometheus alert management', grafana:'Monitoring visualization dashboards', node_exporter:'Export host metrics to Prometheus', logstash:'Log collection and processing pipeline', kibana:'Elasticsearch visualization UI', filebeat:'Lightweight log shipper', fluentd:'Log collector', fluentbit:'Lightweight log collector', loki:'Log aggregation (Grafana stack)', promtail:'Loki log shipper', packer:'Build machine images (AWS/VM, etc.)', vagrant:'Manage VM dev environments', pulumi:'Infrastructure as code in multiple languages', opentofu:'Open-source fork of Terraform', 'ansible-playbook':'Run Ansible playbooks', puppet:'Configuration management tool', chef:'Configuration management tool', salt:'Batch configuration and remote execution', istioctl:'Manage the Istio service mesh', linkerd:'Lightweight service mesh', envoy:'High-performance data-plane proxy', 'nginx-ingress':'Nginx ingress controller for Kubernetes', openssl:'Cryptography and certificate tool', certbot:'Automatically get and renew Let\'s Encrypt certificates', 'acme.sh':'ACME protocol certificate script', vault:'Secrets management tool', keycloak:'Identity and single sign-on', ldapsearch:'Query LDAP directories', 'ssh-keygen':'Generate SSH key pairs', iptables:'Linux firewall rules', ufw:'Simplified firewall frontend', nft:'nftables firewall (successor of iptables)', fail2ban:'Auto-ban brute-force IPs', ceph:'Distributed storage cluster', gluster:'Distributed filesystem', nfs:'Network filesystem sharing', longhorn:'Kubernetes distributed block storage', rook:'Kubernetes storage orchestrator (Ceph)', restic:'Encrypted backup tool', borg:'Deduplicating backup tool', duplicity:'Encrypted incremental backups', calico:'Kubernetes network plugin (BGP)', flannel:'Simple Kubernetes overlay network', weave:'Kubernetes network plugin', cilium:'eBPF-based Kubernetes networking/security', metallb:'Bare-metal LoadBalancer for Kubernetes', wireguard:'Modern VPN tunnel', ab:'ApacheBench HTTP load testing', wrk:'High-performance HTTP benchmarking', siege:'HTTP stress testing', sysbench:'General performance benchmark', stress:'CPU/memory stress testing', fio:'Disk I/O performance testing', iostat:'Disk I/O statistics', vmstat:'Virtual memory and system statistics', sar:'Historical system activity reports', perf:'Linux performance analysis', 'virt-manager':'Graphical virtual machine manager', virsh:'libvirt VM command line', qemu:'Hardware emulator / virtual machine', kvm:'Kernel virtual machine', xen:'Virtualization platform', glances:'All-in-one monitoring dashboard', iftop:'Real-time network traffic per connection', nethogs:'Network traffic per process', iotop:'Disk I/O per process', knative:'Serverless framework on Kubernetes', openfaas:'Functions as a service', kubeless:'Serverless framework on Kubernetes', tac:'Print a file in reverse (backwards cat)', od:'Octal/hex dump of a file', hexdump:'Hex dump', bzip2:'High-ratio compression', bunzip2:'Decompress bzip2', xz:'Higher-ratio compression', unxz:'Decompress xz', lz4:'Ultra-fast compression', lsmod:'List loaded kernel modules', modprobe:'Load or unload kernel modules', modinfo:'Show kernel module info', sysctl:'View or set kernel parameters', losetup:'Manage loop devices', swapon:'Enable swap partitions', swapoff:'Disable swap partitions', lsattr:'Show file extended attributes', chattr:'Change file extended attributes (undeletable)', host:'Simple DNS lookup', whois:'Query domain registration info', mtr:'Network diagnosis combining ping and traceroute', socat:'Versatile data channel tool', telnet:'Legacy remote login / port testing', nmcli:'NetworkManager command line', iwconfig:'Wireless interface configuration', rfkill:'Toggle wireless devices', last:'Show login history', w:'Show online users and load', nice:'Start a process with a priority', renice:'Change the priority of a running process', pidof:'Find PIDs by program name', strace:'Trace system calls of a process', ltrace:'Trace library calls of a process', ulimit:'View or set process resource limits', shopt:'Set bash options', popd:'Pop a directory from the stack', pushd:'Push a directory onto the stack and switch', dirs:'Show the directory stack', disown:'Remove a job from job control', paste:'Merge files column by column', join:'Join files on a common field', comm:'Compare two sorted files', split:'Split large files', fmt:'Reformat text paragraphs', pr:'Paginate output for printing', expand:'Convert tabs to spaces', unexpand:'Convert spaces to tabs', neofetch:'System info with ASCII art', inxi:'System information summary', sudoedit:'Edit files as root with an editor', visudo:'Safely edit sudoers', bc:'Command-line calculator', cal:'Show a calendar', seq:'Generate a sequence of numbers', shuf:'Shuffle or sample randomly', factor:'Factor integers into primes', numfmt:'Convert number units', logger:'Write to the system log', apropos:'Search manuals by keyword', timedatectl:'View or set time and timezone', hostnamectl:'View or set the hostname', at:'Run a one-off task at a time', batch:'Run a task when idle', ldd:'Show shared libraries a program needs', ldconfig:'Update the dynamic linker cache', perl:'Perl scripting language', ruby:'Ruby scripting language', php:'PHP scripting language', go:'Go toolchain', cargo:'Rust package manager / build', cmake:'Cross-platform build system', arp:'Show the ARP cache', arping:'ARP-level connectivity test', wall:'Broadcast a message to all users', mesg:'Control whether you receive messages', write:'Send a message to a user', chsh:'Change the login shell', logname:'Show the login user name', newgrp:'Switch the effective group', localectl:'Set system locale and keyboard', loginctl:'Manage login sessions',
+};
+
+const TASKS_EN = {
+  s1t1:{ title:'List the current directory', desc:'Run ls to see files and folders', exp:'ls is the most used listing command. Look at the names it prints.' },
+  s1t2:{ title:'Show the current path', desc:'Run pwd to see where you are', exp:'pwd prints the absolute path of the current directory.' },
+  s1t3:{ title:'Change directory', desc:'Go into /tmp', exp:'cd changes the working directory; the prompt path should change to /tmp.' },
+  s1t4:{ title:'Create a directory', desc:'Create /tmp/mydir', exp:'mkdir creates directories; check with ls /tmp.' },
+  s1t5:{ title:'Create an empty file', desc:'Create /tmp/hello.txt', exp:'touch creates an empty file.' },
+  s1t6:{ title:'Write with redirection', desc:'Write hello into /tmp/greet.txt', exp:'> redirects output into a file (overwrite).' },
+  s1t7:{ title:'Copy a file', desc:'Copy greet.txt to greet-copy.txt', exp:'cp copies files; the source stays.' },
+  s1t8:{ title:'Move / rename', desc:'Rename greet-copy.txt to renamed.txt', exp:'mv renames (or moves) files.' },
+  s1t9:{ title:'Delete a file', desc:'Delete /tmp/renamed.txt', exp:'rm deletes files.' },
+  s1t10:{ title:'View file contents', desc:'Use cat to view /tmp/greet.txt', exp:'cat prints file contents to the terminal.' },
+  s2t1:{ title:'Search with grep', desc:'Search for root in /etc/passwd', exp:'grep prints lines that match the pattern.' },
+  s2t2:{ title:'Use a pipe', desc:'Pipe cat /etc/passwd into grep bash', exp:'| passes the output of one command into another.' },
+  s2t3:{ title:'head', desc:'Show the first 3 lines of /etc/passwd', exp:'head prints the beginning of a file.' },
+  s2t4:{ title:'tail', desc:'Show the last 2 lines of /etc/passwd', exp:'tail prints the end of a file.' },
+  s2t5:{ title:'Count lines with wc', desc:'Count lines in /etc/passwd', exp:'wc -l counts lines.' },
+  s3t1:{ title:'Kernel info', desc:'View kernel information', exp:'uname -a shows kernel, hostname and architecture.' },
+  s3t2:{ title:'Memory status', desc:'View memory usage', exp:'free -h shows total/used/free memory in human units.' },
+  s3t3:{ title:'Process list', desc:'View processes', exp:'ps lists processes with their PIDs.' },
+  s3t4:{ title:'Uptime', desc:'View uptime and load', exp:'uptime shows how long the system has been running.' },
+  s4t1:{ title:'CPU info', desc:'View CPU architecture info', exp:'lscpu summarizes CPU model, cores and architecture.' },
+  s4t2:{ title:'Block devices', desc:'View disks and partitions', exp:'lsblk shows the disk/partition tree.' },
+  s4t3:{ title:'Disk space', desc:'View disk usage', exp:'df -h shows usage per mount point.' },
+  s4t4:{ title:'Disk health', desc:'Check SMART health of /dev/sdb', exp:'smartctl reads disk health attributes.' },
+  s5t1:{ title:'Network interfaces', desc:'View NICs and IP addresses', exp:'ip addr shows addresses of all interfaces.' },
+  s5t2:{ title:'Ping', desc:'Ping 8.8.8.8 three times', exp:'ping tests connectivity and latency.' },
+  s5t3:{ title:'Curl', desc:'Fetch a web page with curl', exp:'curl requests a URL and prints the response.' },
+  s5t4:{ title:'Listening ports', desc:'View listening ports', exp:'ss -tlnp shows TCP listening sockets.' },
+  s6t1:{ title:'Current user', desc:'Show the current user', exp:'whoami prints your username.' },
+  s6t2:{ title:'sudo escalation', desc:'Switch to root with sudo bash, then exit', exp:'sudo bash gives a root shell; exit returns to the user.' },
+  s6t3:{ title:'Change permissions', desc:'chmod 600 /tmp/hello.txt', exp:'chmod changes permissions; 600 = owner read/write only.' },
+  s6t4:{ title:'Change owner', desc:'chown user /tmp/hello.txt', exp:'chown changes the file owner.' },
+  s7t1:{ title:'Update package lists', desc:'Run apt update', exp:'apt update refreshes package indexes before installing.' },
+  s7t2:{ title:'Install a package', desc:'Install nginx', exp:'apt install installs a package.' },
+  s8t1:{ title:'Service status', desc:'Check nginx service status', exp:'systemctl status shows whether a service is running.' },
+  s8t2:{ title:'System logs', desc:'View the last 10 log lines', exp:'journalctl shows systemd logs.' },
+  s8t3:{ title:'Cron jobs', desc:'List cron jobs', exp:'crontab -l lists scheduled tasks.' },
+  s9t1:{ title:'Environment variables', desc:'Print the value of $HOME', exp:'$HOME is the current user\'s home directory.' },
+  s9t2:{ title:'Export a variable', desc:'Run export to view exported variables', exp:'export makes variables available to child processes.' },
+  s9t3:{ title:'Alias', desc:'Create an alias or use ll', exp:'alias gives a command a short name.' },
+  s10t1:{ title:'Edit with vi', desc:'Open /tmp/hello.txt with vi (i insert, :wq save)', exp:'vi is a modal editor; press i to insert and :wq to save.' },
+  s10t2:{ title:'vim tutorial', desc:'Run vimtutor', exp:'vimtutor is the built-in interactive vim tutorial.' },
+  s11t1:{ title:'Docker containers', desc:'List running containers', exp:'docker ps lists running containers.' },
+  s11t2:{ title:'Kubernetes pods', desc:'List pods with kubectl', exp:'kubectl get pods shows workloads in the cluster.' },
+  s11t3:{ title:'Git version', desc:'Check git version', exp:'git --version confirms git is installed.' },
+};
+
+function taskTitle(t) {
+    if (lang === 'en') return (TASKS_EN[t.id] ? TASKS_EN[t.id].title : t.titleEn) || t.title;
+    return t.title;
+}
+function taskDesc(t) {
+    if (lang === 'en') return (TASKS_EN[t.id] ? TASKS_EN[t.id].desc : DESC_EN[t.cmd]) || t.desc;
+    return t.desc;
+}
+function taskExp(t) {
+    if (lang === 'en') return (TASKS_EN[t.id] ? TASKS_EN[t.id].exp : DESC_EN[t.cmd]) || t.exp;
+    return t.exp;
+}
+function catName(cat) { return lang === 'en' ? (CAT_EN[cat] || cat) : cat; }
+function cmdDesc(name) { return lang === 'en' ? (DESC_EN[name] || CMD[name].desc || name) : (CMD[name].desc || name); }
 
 function handlePrintf(cmd) {
     const m = cmd.match(/^printf\s+(?:"((?:\\.|[^"\\])*)"|'((?:\\.|[^'\\])*)'|(\S+))(.*)$/);
@@ -6599,6 +6707,7 @@ function EXEC_IMPL(cmdStr) {
         case 'learn': return handleLearn(args);
         case 'exam': return handleExam(args);
         case 'stats': return handleStats();
+        case 'lang': return handleLang(args);
 
         // Exit
         case 'exit': return handleExitCmd();
@@ -6732,7 +6841,7 @@ function initUI() {
     // Build side panel
     buildSidePanel();
     const badge = document.getElementById('cmd-count-badge');
-    if (badge) badge.textContent = Object.keys(CMD).length + ' 命令';
+    if (badge) badge.textContent = Object.keys(CMD).length + (lang === 'en' ? ' commands' : ' 命令');
 
     // Click on output area focuses input
     output.addEventListener('click', () => input.focus());
@@ -6795,27 +6904,27 @@ function initUI() {
                         const pass = examState.score >= Math.ceil(total * 0.7);
                         stats.exams.push({ path: examState.path, score: examState.score, total, pass, date: new Date().toISOString().slice(0, 10) });
                         saveStats();
-                        appendOutput('🎉 考试结束：' + examState.score + '/' + total + (pass ? ' ✅ 通过！' : ' ❌ 未通过，再练练吧！'), 'cmd-info');
-                        appendOutput('输入 exam <项目> 可重新考试，stats 查看成绩。', 'cmd-info');
+                        appendOutput((lang === 'en' ? '🎉 Exam finished: ' : '🎉 考试结束：') + examState.score + '/' + total + (pass ? (lang === 'en' ? ' ✅ Passed!' : ' ✅ 通过！') : (lang === 'en' ? ' ❌ Not passed. Keep practicing!' : ' ❌ 未通过，再练练吧！')), 'cmd-info');
+                        appendOutput(lang === 'en' ? 'Run exam <project> to retake; stats shows your results.' : '输入 exam <项目> 可重新考试，stats 查看成绩。', 'cmd-info');
                         examState = null;
                     } else {
-                        appendOutput('✅ 第 ' + examState.index + ' 题完成！得分 ' + examState.score, 'cmd-info');
-                        appendOutput('▶ 第 ' + (examState.index + 1) + ' 题：' + examQuestionText(), 'cmd-info');
+                        appendOutput((lang === 'en' ? '✅ Question ' : '✅ 第 ') + examState.index + (lang === 'en' ? ' done! Score ' : ' 题完成！得分 ') + examState.score, 'cmd-info');
+                        appendOutput((lang === 'en' ? '▶ Question ' : '▶ 第 ') + (examState.index + 1) + (lang === 'en' ? ': ' : ' 题：') + examQuestionText(), 'cmd-info');
                     }
                     buildSidePanel();
                 } else {
                     const focusList = focusTasks();
                     const focusDoneCount = focusList.filter(t => taskProgress.done.includes(t.id)).length;
-                    appendOutput('✅ 任务完成：' + completedNow.map(t => t.title).join('、') + '（' + focusName() + ' ' + focusDoneCount + '/' + focusList.length + '）', 'cmd-info');
-                    appendOutput('📖 ' + (completedNow[0].exp || completedNow[0].desc), 'cmd-info');
+                    appendOutput((lang === 'en' ? '✅ Task complete: ' : '✅ 任务完成：') + completedNow.map(t => taskTitle(t)).join(', ') + ' (' + focusName() + ' ' + focusDoneCount + '/' + focusList.length + ')', 'cmd-info');
+                    appendOutput('📖 ' + taskExp(completedNow[0]), 'cmd-info');
                     const nextTask = currentTask();
-                    if (nextTask) appendOutput('▶ 下一任务 [' + nextTask.id + ']：' + nextTask.title + '\n📖 ' + (nextTask.exp || nextTask.desc) + '\n🔧 请执行：' + nextTask.hint, 'cmd-info');
+                    if (nextTask) appendOutput((lang === 'en' ? '▶ Next task [' : '▶ 下一任务 [') + nextTask.id + ']: ' + taskTitle(nextTask) + '\n📖 ' + taskExp(nextTask) + '\n🔧 ' + (lang === 'en' ? 'Run: ' : '请执行：') + nextTask.hint, 'cmd-info');
                     else {
                         const nextPath = PATH_ORDER.find(key => {
                             const tasks = Object.values(TASK_MAP).filter(t => t.path === key);
                             return tasks.length > 0 && tasks.some(t => !taskProgress.done.includes(t.id));
                         });
-                        appendOutput('🎉 ' + focusName() + ' 全部完成！' + (nextPath ? ' 建议下一路线：practice path ' + nextPath : ' 所有路线都完成啦！'), 'cmd-info');
+                        appendOutput('🎉 ' + focusName() + (lang === 'en' ? ' complete!' : ' 全部完成！') + (nextPath ? (lang === 'en' ? ' Next: practice path ' : ' 建议下一路线：practice path ') + nextPath : (lang === 'en' ? ' All projects done!' : ' 所有路线都完成啦！')), 'cmd-info');
                     }
                     buildSidePanel();
                 }
@@ -6874,9 +6983,28 @@ function initUI() {
     });
 
     updatePromptDisplay();
-    appendOutput('Linux Learning Simulator v1.5.0 | ' + window.SIM_HW.os + ' | Kernel ' + window.SIM_HW.kernel, 'cmd-info');
+    appendOutput('Linux Learning Simulator v1.4.0 | ' + window.SIM_HW.os + ' | Kernel ' + window.SIM_HW.kernel, 'cmd-info');
     appendOutput('Type "help" for available commands.', 'cmd-info');
-    if (taskProgress.done.length === 0) appendOutput('输入 practice 开始跟着学习指南练习', 'cmd-info');
+    if (taskProgress.done.length === 0) appendOutput(lang === 'en' ? 'Type practice to start guided exercises' : '输入 practice 开始跟着学习指南练习', 'cmd-info');
+    const langBtn = document.getElementById('lang-toggle');
+    if (langBtn) {
+        langBtn.textContent = '🌐 ' + (lang === 'zh' ? '中 / EN' : 'EN / 中');
+        langBtn.addEventListener('click', () => {
+            lang = lang === 'zh' ? 'en' : 'zh';
+            saveLang();
+            const badge = document.getElementById('cmd-count-badge');
+            if (badge) badge.textContent = Object.keys(CMD).length + (lang === 'en' ? ' commands' : ' 命令');
+            updatePromptDisplay();
+            buildSidePanel();
+            const help = document.getElementById('vi-help');
+            if (help) {
+                help.innerHTML = lang === 'en'
+                    ? '<span><kbd>i</kbd>insert <kbd>Esc</kbd>normal</span><span><kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd>move</span><span><kbd>dd</kbd>delete line <kbd>yy</kbd>yank <kbd>p</kbd>put</span><span><kbd>u</kbd>undo <kbd>:w</kbd>save <kbd>:q</kbd>quit</span><span><kbd>/</kbd>search <kbd>ZZ</kbd>save+quit</span>'
+                    : '<span><kbd>i</kbd>插入 <kbd>Esc</kbd>普通</span><span><kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd>移动</span><span><kbd>dd</kbd>删行 <kbd>yy</kbd>复制 <kbd>p</kbd>粘贴</span><span><kbd>u</kbd>撤销 <kbd>:w</kbd>保存 <kbd>:q</kbd>退出</span><span><kbd>/</kbd>搜索 <kbd>ZZ</kbd>存退</span>';
+            }
+            appendOutput(lang === 'en' ? 'Language switched to English.' : '已切换到中文。', 'cmd-info');
+        });
+    }
 }
 
 function appendOutput(text, className) {
@@ -6896,13 +7024,13 @@ function buildSidePanel() {
     const curTask = currentTask();
     const focusList = focusTasks();
     const focusDoneCount = focusList.filter(t => taskProgress.done.includes(t.id)).length;
-    let html = '<h3>🎯 当前项目：' + focusName() + '（' + focusDoneCount + '/' + focusList.length + '）</h3>';
+    let html = '<h3>🎯 ' + (lang === 'en' ? 'Current project: ' : '当前项目：') + focusName() + ' (' + focusDoneCount + '/' + focusList.length + ')</h3>';
     if (curTask) {
-        html += '<div class="task-card" id="task-card"><b>[' + curTask.id + '] ' + curTask.title + '</b><br>📖 ' + (curTask.exp || curTask.desc) + '<br><span class="hint">🔧 请执行：' + curTask.hint + '</span><br><span style="color:#565f89">' + focusName() + '</span></div>';
+        html += '<div class="task-card" id="task-card"><b>[' + curTask.id + '] ' + taskTitle(curTask) + '</b><br>📖 ' + taskExp(curTask) + '<br><span class="hint">🔧 ' + (lang === 'en' ? 'Run: ' : '请执行：') + curTask.hint + '</span><br><span style="color:#565f89">' + focusName() + '</span></div>';
     } else {
-        html += '<div class="task-card">🎉 ' + focusName() + ' 全部完成！</div>';
+        html += '<div class="task-card">🎉 ' + focusName() + (lang === 'en' ? ' complete!' : ' 全部完成！') + '</div>';
     }
-    html += '<h3>📚 命令速查</h3>';
+    html += '<h3>📚 ' + (lang === 'en' ? 'Command Reference' : '命令速查') + '</h3>';
 
     const cats = {};
     for (const [name, info] of Object.entries(CMD)) {
@@ -6914,10 +7042,10 @@ function buildSidePanel() {
 
     for (const cat of orderedCats) {
         if (cats[cat]) {
-            html += '<details' + (cat === 'VFS' ? ' open' : '') + '><summary>' + cat + '</summary>';
+            html += '<details' + (cat === 'VFS' ? ' open' : '') + '><summary>' + catName(cat) + '</summary>';
             const names = cats[cat].sort();
             for (const n of names) {
-                html += '<span class="cmd-item" title="' + CMD[n].desc + '">' + n + '</span>';
+                html += '<span class="cmd-item" title="' + cmdDesc(n) + '">' + n + '</span>';
             }
             html += '</details>';
         }
@@ -6934,7 +7062,7 @@ function buildSidePanel() {
     if (Object.keys(devopsCats).length > 0) {
         html += '<details><summary>🛠️ DevOps</summary>';
         for (const [cat, names] of Object.entries(devopsCats)) {
-            html += '<div class="cat">' + cat.split('/')[1] + '</div>';
+            html += '<div class="cat">' + catName(cat.split('/')[1]) + '</div>';
             for (const n of names.sort()) {
                 html += '<span class="cmd-item">' + n + '</span>';
             }
@@ -6942,7 +7070,7 @@ function buildSidePanel() {
         html += '</details>';
     }
 
-    html += '<div style="margin-top:12px;color:#565f89;font-size:10px">共 ' + Object.keys(CMD).length + ' 个命令<br>点击命令可填入输入框</div>';
+    html += '<div style="margin-top:12px;color:#565f89;font-size:10px">' + Object.keys(CMD).length + (lang === 'en' ? ' commands<br>Click a command to fill the input' : ' 个命令<br>点击命令可填入输入框') + '</div>';
     panel.innerHTML = html;
 }
 
