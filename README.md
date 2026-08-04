@@ -5,7 +5,9 @@
 [![Version](https://img.shields.io/badge/Version-v1.4.0-orange)](CHANGELOG.md)
 [![Commands](https://img.shields.io/badge/Commands-371-blueviolet)](index.html)
 
-🚀 **一键开始 / One-Click Start** → **[在线打开模拟器 / Open the Simulator](https://bigbigrunslow.github.io/linux-learning-simulator/)** — 无需克隆、无需安装，浏览器点击即用。
+📖 **学习指南 / Learning Guide** → **[打开指南 / Open the Guide](https://bigbigrunslow.github.io/linux-learning-simulator/%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97.html)**（中 / EN 双语）
+
+🚀 **在线模拟器 / Online Simulator** → **[打开模拟器 / Open the Simulator](https://bigbigrunslow.github.io/linux-learning-simulator/)** — 无需克隆、无需安装，浏览器点击即用。
 
 **一个纯浏览器端的 Linux 终端模拟器 — 点击链接即可使用，无需安装任何操作系统，即可学习和练习 Linux 命令。**
 

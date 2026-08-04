@@ -3,67 +3,319 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Linux 学习指南 - 点击即用</title>
+<title>Linux 学习指南 / Linux Learning Guide</title>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-body { background:#1a1b26; color:#c0caf5; font-family:'Cascadia Code','Fira Code',Consolas,monospace; max-width:960px; margin:0 auto; padding:24px 20px 48px; line-height:1.7; }
-h1 { color:#7aa2f7; text-align:center; margin:28px 0 8px; font-size:30px; }
-.sub { text-align:center; color:#565f89; margin-bottom:24px; }
-.hero { display:block; text-align:center; background:#7aa2f7; color:#1a1b26; padding:18px 24px; border-radius:12px; text-decoration:none; font-weight:bold; font-size:20px; margin:20px auto; max-width:520px; box-shadow:0 4px 20px rgba(122,162,247,0.35); }
+body { background:#1a1b26; color:#c0caf5; font-family:'Cascadia Code','Fira Code',Consolas,monospace; max-width:980px; margin:0 auto; padding:24px 20px 56px; line-height:1.75; }
+h1 { color:#7aa2f7; text-align:center; margin:26px 0 6px; font-size:30px; }
+.sub { text-align:center; color:#565f89; margin-bottom:18px; font-size:13px; }
+.langbar { text-align:center; margin-bottom:16px; }
+#lang-btn { background:#3b4261; color:#a9b1d6; border:none; border-radius:14px; padding:6px 18px; cursor:pointer; font-family:inherit; font-size:13px; }
+.hero { display:block; text-align:center; background:#7aa2f7; color:#1a1b26; padding:18px 24px; border-radius:12px; text-decoration:none; font-weight:bold; font-size:20px; margin:14px auto; max-width:540px; box-shadow:0 4px 20px rgba(122,162,247,0.35); }
 .hero:hover { background:#8fb2fa; }
-.hero-note { text-align:center; color:#565f89; font-size:12px; margin-top:-10px; }
-.tip { background:#1e2030; border-left:3px solid #9ece6a; padding:10px 14px; margin:18px 0; border-radius:0 6px 6px 0; }
-h2 { color:#9ece6a; margin:32px 0 14px; border-bottom:1px solid #3b4261; padding-bottom:6px; font-size:20px; }
-.phase { background:#16161e; border-left:3px solid #7aa2f7; padding:12px 16px; margin:12px 0; border-radius:0 6px 6px 0; }
-.phase h3 { color:#7dcfff; margin:0 0 8px; font-size:15px; }
+.hero-note { text-align:center; color:#565f89; font-size:12px; margin-top:-6px; }
+.tip { background:#1e2030; border-left:3px solid #9ece6a; padding:10px 14px; margin:16px 0; border-radius:0 6px 6px 0; font-size:14px; }
+.tip b { color:#9ece6a; }
+h2 { color:#9ece6a; margin:34px 0 14px; border-bottom:1px solid #3b4261; padding-bottom:6px; font-size:21px; }
+h3 { color:#7dcfff; margin:18px 0 8px; font-size:16px; }
+p { margin:8px 0; }
 code { background:#3b4261; color:#e0af68; padding:2px 6px; border-radius:3px; font-family:inherit; font-size:13px; }
-.cmds { margin:6px 0; }
+.phase { background:#16161e; border-left:3px solid #7aa2f7; padding:12px 16px; margin:12px 0; border-radius:0 6px 6px 0; }
+.phase h3 { margin:0 0 6px; }
+.cmds { margin:8px 0; }
 .cmds code { margin:2px 3px 2px 0; display:inline-block; }
-.p { color:#a9b1d6; margin:6px 0; }
-.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:6px 10px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:6px 10px; margin:10px 0; }
 .grid span { background:#16161e; border:1px solid #3b4261; border-radius:6px; padding:6px 10px; font-size:12px; }
-a { color:#7dcfff; }
-.footer { text-align:center; color:#565f89; font-size:12px; margin-top:40px; }
+ol { padding-left:22px; }
+ol li { margin:10px 0; }
+pre { background:#16161e; padding:10px 14px; border-radius:6px; overflow-x:auto; margin:8px 0; border:1px solid #3b4261; font-family:inherit; font-size:13px; }
+table { width:100%; border-collapse:collapse; margin:12px 0; }
+th, td { padding:8px 12px; text-align:left; border:1px solid #3b4261; font-size:13px; }
+th { background:#16161e; color:#7aa2f7; }
+tr:nth-child(even) { background:#1e2030; }
+.footer { text-align:center; color:#565f89; font-size:12px; margin-top:44px; }
+.en { display:none; }
 </style>
 </head>
 <body>
 
-<h1>🐧 Linux 学习指南</h1>
-<p class="sub">配合 Linux Learning Simulator 使用 · 从零到运维 · 免费开源</p>
+<h1>🐧 Linux 学习指南 / Learning Guide</h1>
+<p class="sub">配合 Linux Learning Simulator · 从零到运维 · 免费开源 · 中英双语</p>
 
-<a class="hero" href="https://bigbigrunslow.github.io/linux-learning-simulator/">🚀 点击进入模拟器，立即开始学习</a>
-<p class="hero-note">无需安装任何软件 · 浏览器打开即用 · 支持中英文切换</p>
+<div class="langbar"><button id="lang-btn" onclick="toggleLang()">English</button></div>
 
-<div class="tip">💡 进入模拟器后：输入 <code>guide</code> 随时查看本指南，输入 <code>practice</code> 开始跟练任务，输入 <code>exam</code> 测验。</div>
+<a class="hero" href="https://bigbigrunslow.github.io/linux-learning-simulator/" data-zh="🚀 点击进入模拟器，立即开始学习" data-en="🚀 Click to Open the Simulator and Start Learning">🚀 点击进入模拟器，立即开始学习</a>
+<p class="hero-note" data-zh="无需安装任何软件 · 浏览器打开即用 · 支持中英文切换" data-en="No install needed · Works in any browser · Chinese/English switchable">无需安装任何软件 · 浏览器打开即用 · 支持中英文切换</p>
 
-<h2>一、11 阶段学习路径</h2>
+<!-- ===== 中文 ===== -->
+<div id="zh">
 
-<div class="phase"><h3>第1阶段：文件操作基础（1-2天）</h3><p class="p">掌握 Linux 最基本的文件浏览和操作命令。</p><div class="cmds"><code>ls</code><code>cd</code><code>pwd</code><code>mkdir</code><code>touch</code><code>cat</code><code>rm</code><code>cp</code><code>mv</code><code>echo</code><code>find</code><code>ln</code></div><p class="p">💡 试试 <code>ls -la /</code> 看根目录，再用 <code>cd</code> 探索。</p></div>
-<div class="phase"><h3>第2阶段：文本处理（1天）</h3><p class="p">学会在终端里搜索和查看文件内容。</p><div class="cmds"><code>grep</code><code>head</code><code>tail</code><code>wc</code><code>sort</code><code>uniq</code><code>cut</code><code>tr</code><code>sed</code><code>awk</code><code>diff</code><code>nl</code><code>file</code><code>stat</code></div><p class="p">💡 试试 <code>grep root /etc/passwd</code>。</p></div>
-<div class="phase"><h3>第3阶段：系统信息与监控（2天）</h3><p class="p">了解服务器运行状态。</p><div class="cmds"><code>uname</code><code>hostname</code><code>whoami</code><code>id</code><code>who</code><code>uptime</code><code>date</code><code>free</code><code>ps</code><code>top</code><code>htop</code><code>kill</code><code>lsof</code><code>dmesg</code></div><p class="p">💡 <code>htop</code> 有彩色进度条，<code>ps aux</code> 列出所有进程。</p></div>
-<div class="phase"><h3>第4阶段：硬件与磁盘（1-2天）</h3><p class="p">深入了解硬件和存储。</p><div class="cmds"><code>lscpu</code><code>lspci</code><code>lsusb</code><code>lsblk</code><code>lshw</code><code>dmidecode</code><code>smartctl</code><code>sensors</code><code>df</code><code>du</code><code>fdisk</code><code>mount</code><code>blkid</code><code>dd</code></div><p class="p">💡 <code>smartctl -a /dev/sdb</code> 查看坏道硬盘 SMART 详情。</p></div>
-<div class="phase"><h3>第5阶段：网络（1-2天）</h3><p class="p">网络诊断和管理。</p><div class="cmds"><code>ping</code><code>curl</code><code>wget</code><code>ifconfig</code><code>ip</code><code>netstat</code><code>ss</code><code>nslookup</code><code>dig</code><code>traceroute</code><code>route</code><code>tcpdump</code><code>nc</code><code>ssh</code><code>scp</code></div><p class="p">💡 <code>ping -c 5 8.8.8.8</code> 看延迟变化。</p></div>
-<div class="phase"><h3>第6阶段：用户与权限（1天）</h3><p class="p">Linux 用户管理系统。</p><div class="cmds"><code>chmod</code><code>chown</code><code>chgrp</code><code>umask</code><code>useradd</code><code>userdel</code><code>usermod</code><code>passwd</code><code>su</code><code>sudo</code></div><p class="p">💡 <code>sudo whoami</code> 输出 <code>root</code>。</p></div>
-<div class="phase"><h3>第7阶段：软件包管理（1天）</h3><p class="p">安装和管理软件。</p><div class="cmds"><code>apt</code><code>yum</code><code>dpkg</code><code>snap</code></div><p class="p">💡 <code>sudo apt install nginx</code> 模拟完整安装过程。</p></div>
-<div class="phase"><h3>第8阶段：服务管理（1天）</h3><p class="p">管理系统服务。</p><div class="cmds"><code>systemctl</code><code>journalctl</code><code>service</code><code>crontab</code></div><p class="p">💡 <code>systemctl stop/start nginx</code> 真实改变服务状态。</p></div>
-<div class="phase"><h3>第9阶段：Shell 编程（2天）</h3><p class="p">环境变量、别名、脚本。</p><div class="cmds"><code>bash</code><code>alias</code><code>env</code><code>export</code><code>source</code><code>tee</code><code>watch</code></div><p class="p">💡 <code>bash script.sh</code> 支持变量和 <code>$( )</code> 替换。</p></div>
-<div class="phase"><h3>第10阶段：Vi/Vim 编辑器（1-2天）</h3><p class="p">终端编辑器。</p><div class="cmds"><code>vi</code><code>vim</code><code>vimtutor</code><code>nano</code></div><p class="p">💡 <code>i</code> 插入、<code>Esc</code> 普通、<code>:wq</code> 保存退出。</p></div>
-<div class="phase"><h3>第11阶段：DevOps 工具链（3-5天）</h3><p class="p">学习现代运维工具。</p><div class="cmds"><code>docker</code><code>kubectl</code><code>helm</code><code>mysql</code><code>redis-cli</code><code>nginx</code><code>terraform</code><code>ansible</code><code>prometheus</code><code>grafana</code><code>jenkins</code><code>git</code></div><p class="p">💡 在模拟器里 <code>practice path docker/k8s/middleware/cicd</code> 分路线练习。</p></div>
+<div class="tip">💡 <b>进入模拟器后</b>：输入 <code>guide</code> 随时查看本指南，<code>practice</code> 开始跟练任务，<code>practice path k8s</code> 切换学习路线，<code>exam</code> 测验，<code>stats</code> 看进度，<code>lang en</code> 切英文。</div>
 
-<h2>二、命令速查（节选）</h2>
-<div class="grid">
-  <span>ls [-la] · 列目录</span><span>cd [path] · 切换目录</span><span>pwd · 当前路径</span><span>grep · 搜索</span><span>head/tail · 首尾行</span>
-  <span>wc -l · 统计行数</span><span>chmod · 权限</span><span>chown · 属主</span><span>sudo · 提权</span><span>df -h · 磁盘</span>
-  <span>free -h · 内存</span><span>ps aux · 进程</span><span>systemctl · 服务</span><span>docker ps · 容器</span><span>kubectl get · K8s</span>
-  <span>git · 版本控制</span><span>vi · 编辑器</span><span>curl · 请求</span><span>tar -czf · 打包</span><span>apt install · 装包</span>
-</div>
+<h2>一、快速开始</h2>
+<p>打开模拟器后，你会看到一台模拟的 Ubuntu 22.04 服务器：</p>
+<table>
+  <tr><th>组件</th><th>配置</th></tr>
+  <tr><td>CPU</td><td>Intel i7-12700K（12核20线程）</td></tr>
+  <tr><td>内存</td><td>40GB DDR4（Samsung 16+16 + Kingston 8）</td></tr>
+  <tr><td>磁盘</td><td>NVMe 500GB + SATA 1TB + SATA 4TB（含坏道）+ SATA SSD 256GB</td></tr>
+  <tr><td>网卡</td><td>Intel I225-V 2.5GbE + Wi-Fi 6 AX200</td></tr>
+</table>
+<div class="tip">💡 全部 <b>371 个命令</b>都可直接输入执行，输出模拟真实 Linux 环境；练习进度与语言选择自动保存。</div>
 
-<h2>三、最常用的三种打开方式</h2>
-<div class="tip">1️⃣ 点上方大按钮，在线直接玩（推荐）</div>
-<div class="tip">2️⃣ 本地双击 <code>index.html</code></div>
-<div class="tip">3️⃣ 命令行 <code>git clone</code> 后打开（开发者）</div>
+<h2>二、11 阶段学习路径</h2>
+
+<div class="phase"><h3>第1阶段：文件操作基础（1-2天）</h3><p>掌握 Linux 最基本的文件浏览和操作命令，这是所有后续学习的地基。</p><div class="cmds"><code>ls</code><code>cd</code><code>pwd</code><code>mkdir</code><code>touch</code><code>cat</code><code>rm</code><code>cp</code><code>mv</code><code>echo</code><code>find</code><code>ln</code></div><div class="tip">💡 试试 <code>ls -la /</code> 看根目录下有哪些文件（含隐藏文件），然后用 <code>cd /tmp</code> 探索，<code>touch hello.txt</code> 建文件，<code>rm hello.txt</code> 删掉。</div></div>
+<div class="phase"><h3>第2阶段：文本处理（1天）</h3><p>学会在终端里搜索、筛选、统计文件内容——运维排障的核心技能。</p><div class="cmds"><code>grep</code><code>head</code><code>tail</code><code>wc</code><code>sort</code><code>uniq</code><code>cut</code><code>tr</code><code>sed</code><code>awk</code><code>diff</code><code>nl</code><code>file</code><code>stat</code></div><div class="tip">💡 <code>grep root /etc/passwd</code> 搜用户；<code>cat /etc/passwd | grep bash</code> 练管道；<code>wc -l /etc/passwd</code> 数行数。</div></div>
+<div class="phase"><h3>第3阶段：系统信息与监控（2天）</h3><p>学会“看服务器状态”：内核、内存、进程、负载。</p><div class="cmds"><code>uname</code><code>hostname</code><code>whoami</code><code>id</code><code>who</code><code>uptime</code><code>date</code><code>free</code><code>ps</code><code>top</code><code>htop</code><code>kill</code><code>lsof</code><code>dmesg</code></div><div class="tip">💡 <code>htop</code> 有彩色进度条；<code>ps aux</code> 列出所有进程；<code>kill 5600</code> 后进程真的会从 <code>ps</code> 消失。</div></div>
+<div class="phase"><h3>第4阶段：硬件与磁盘（1-2天）</h3><p>深入了解 CPU、内存、磁盘与硬件健康。</p><div class="cmds"><code>lscpu</code><code>lspci</code><code>lsusb</code><code>lsblk</code><code>lshw</code><code>dmidecode</code><code>smartctl</code><code>sensors</code><code>df</code><code>du</code><code>fdisk</code><code>mount</code><code>blkid</code><code>dd</code></div><div class="tip">💡 <code>lsblk</code> 看磁盘树；<code>smartctl -a /dev/sdb</code> 查看坏道硬盘的 SMART 详情；<code>df -h</code> 看剩余空间。</div></div>
+<div class="phase"><h3>第5阶段：网络（1-2天）</h3><p>网络诊断和管理：连通性、端口、DNS、远程传输。</p><div class="cmds"><code>ping</code><code>curl</code><code>wget</code><code>ifconfig</code><code>ip</code><code>netstat</code><code>ss</code><code>nslookup</code><code>dig</code><code>traceroute</code><code>route</code><code>tcpdump</code><code>nc</code><code>ssh</code><code>scp</code></div><div class="tip">💡 <code>ping -c 5 8.8.8.8</code> 看延迟；<code>ss -tlnp</code> 看监听端口；<code>curl example.com</code> 抓网页。</div></div>
+<div class="phase"><h3>第6阶段：用户与权限（1天）</h3><p>Linux 用户与权限模型，理解 root 与 sudo 的意义。</p><div class="cmds"><code>chmod</code><code>chown</code><code>chgrp</code><code>umask</code><code>useradd</code><code>userdel</code><code>usermod</code><code>passwd</code><code>su</code><code>sudo</code></div><div class="tip">💡 <code>sudo whoami</code> 输出 <code>root</code>；<code>chmod 600 file</code> 后 <code>ls -l</code> 会显示 <code>-rw-------</code>；普通用户写 <code>/etc</code> 会被拒绝。</div></div>
+<div class="phase"><h3>第7阶段：软件包管理（1天）</h3><p>安装、升级、卸载软件。</p><div class="cmds"><code>apt</code><code>yum</code><code>dpkg</code><code>snap</code></div><div class="tip">💡 <code>sudo apt update</code> 刷新源，<code>sudo apt install nginx</code> 模拟完整安装过程，装完用 <code>systemctl status nginx</code> 查看。</div></div>
+<div class="phase"><h3>第8阶段：服务管理（1天）</h3><p>用 systemd 管理服务与日志。</p><div class="cmds"><code>systemctl</code><code>journalctl</code><code>service</code><code>crontab</code></div><div class="tip">💡 <code>systemctl stop/start/restart nginx</code> 会真实改变服务状态；<code>journalctl -u nginx</code> 看服务日志；<code>crontab -l</code> 看定时任务。</div></div>
+<div class="phase"><h3>第9阶段：Shell 编程（2天）</h3><p>环境变量、别名、管道、脚本——从“用命令”到“写命令”。</p><div class="cmds"><code>bash</code><code>alias</code><code>env</code><code>export</code><code>source</code><code>tee</code><code>watch</code><code>printf</code><code>read</code><code>test</code></div><div class="tip">💡 <code>bash script.sh</code> 能执行脚本：支持 <code>x=1</code> 变量、<code>$( )</code> 命令替换、<code>;</code> 分隔、<code>#</code> 注释；<code>echo $?</code> 看退出码。</div></div>
+<div class="phase"><h3>第10阶段：Vi/Vim 编辑器（1-2天）</h3><p>终端编辑器，服务器上绕不开的工具。</p><div class="cmds"><code>vi</code><code>vim</code><code>vimtutor</code><code>nano</code></div><div class="tip">💡 <code>vi web.conf</code> 弹出真实编辑器：<code>i</code> 插入、<code>Esc</code> 普通、<code>dd</code> 删行、<code>:wq</code> 保存退出；<code>vimtutor</code> 是内置教程。</div></div>
+<div class="phase"><h3>第11阶段：DevOps 工具链（3-5天）</h3><p>学习现代运维工具：容器、编排、数据库、CI/CD。</p><table>
+  <tr><th>类别</th><th>命令</th></tr>
+  <tr><td>容器</td><td><code>docker</code> <code>docker-compose</code> <code>podman</code></td></tr>
+  <tr><td>K8s</td><td><code>kubectl</code> <code>helm</code> <code>kustomize</code> <code>kubeadm</code> <code>minikube</code></td></tr>
+  <tr><td>数据库</td><td><code>mysql</code> <code>redis-cli</code> <code>sqlite3</code> <code>mongodb</code></td></tr>
+  <tr><td>中间件</td><td><code>nginx</code> <code>haproxy</code> <code>caddy</code> <code>kafka</code> <code>rabbitmq</code> <code>elasticsearch</code></td></tr>
+  <tr><td>IaC</td><td><code>terraform</code> <code>ansible</code> <code>pulumi</code></td></tr>
+  <tr><td>监控</td><td><code>prometheus</code> <code>grafana</code> <code>node_exporter</code></td></tr>
+  <tr><td>CI/CD</td><td><code>git</code> <code>jenkins</code> <code>gitlab</code> <code>argocd</code> <code>flux</code></td></tr>
+  <tr><td>安全</td><td><code>openssl</code> <code>certbot</code> <code>iptables</code> <code>ufw</code></td></tr>
+  <tr><td>存储</td><td><code>ceph</code> <code>nfs</code> <code>minio</code> <code>restic</code></td></tr>
+  <tr><td>性能</td><td><code>perf</code> <code>iostat</code> <code>vmstat</code> <code>sar</code> <code>fio</code></td></tr>
+</table>
+<div class="tip">💡 在模拟器里用 <code>practice path docker / k8s / middleware / cicd</code> 分路线练习，<code>exam</code> 测验。</div></div>
+
+<h2>三、模拟器使用技巧</h2>
+<div class="tip"><b>管道与重定向</b>：<code>cat /etc/passwd | grep root</code> 把上一个命令的输出交给下一个；<code>echo hi &gt; file</code> 写入文件，<code>&gt;&gt;</code> 追加。</div>
+<div class="tip"><b>命令链</b>：<code>cd /tmp && pwd</code> 前一条成功才执行后一条；<code>||</code> 反之；<code>;</code> 无条件分隔。</div>
+<div class="tip"><b>退出码</b>：命令成功返回 0，失败返回 1，用 <code>echo $?</code> 查看。</div>
+<div class="tip"><b>Tab 补全</b>：输入命令或路径时按 Tab 自动补全。</div>
+<div class="tip"><b>右侧面板</b>：点击右侧命令可自动填入输入框；分类包括 中间件 / K8s / CI/CD。</div>
+<div class="tip"><b>Vi 编辑器</b>：<code>i a o I A O</code> 进入插入、<code>h j k l</code> 移动、<code>dd yy p u</code> 编辑、<code>:w :q :wq :q!</code> 退出。</div>
+<div class="tip"><b>sudo/su</b>：<code>sudo bash</code> 真正切换到 root 提示符 <code>#</code>，<code>exit</code> 退回。</div>
+<div class="tip"><b>学习功能</b>：<code>practice</code> 跟练、<code>practice path</code> 换项目、<code>exam</code> 考试、<code>stats</code> 统计、<code>guide</code> 本指南、<code>lang</code> 换语言。</div>
+
+<h2>四、实战练习题</h2>
+<ol>
+  <li><b>文件浏览</b>：列出根目录所有文件（含隐藏文件），进入 <code>/var/log</code>，查看 <code>syslog</code> 的前 5 行。
+    <pre>ls -la /
+cd /var/log
+head -n 5 syslog</pre></li>
+  <li><b>文本搜索</b>：在 <code>/etc/passwd</code> 中搜索包含 <code>root</code> 的行，统计该文件有多少行。
+    <pre>grep root /etc/passwd
+wc -l /etc/passwd</pre></li>
+  <li><b>系统信息</b>：查看运行时间、内存使用、CPU 型号和磁盘使用情况。
+    <pre>uptime
+free -h
+lscpu
+df -h</pre></li>
+  <li><b>硬件诊断</b>：列出所有块设备，检查坏道硬盘的 SMART 状态，查看内存插槽信息。
+    <pre>lsblk
+smartctl -a /dev/sdb
+dmidecode -t memory</pre></li>
+  <li><b>网络诊断</b>：Ping 114.114.114.114，查看网络连接状态，DNS 查询 google.com。
+    <pre>ping -c 3 114.114.114.114
+netstat -tulanp
+dig google.com</pre></li>
+  <li><b>用户权限</b>：用 sudo 查看当前用户，切换到 root 用户，再切回来。
+    <pre>sudo whoami
+su root
+exit</pre></li>
+  <li><b>包管理</b>：更新软件源、安装 nginx、查看 nginx 服务状态。
+    <pre>sudo apt update
+sudo apt install nginx
+systemctl status nginx</pre></li>
+  <li><b>文件编辑</b>：用 vi 打开 <code>/root/projects/web.conf</code>，修改后保存退出，用 cat 确认。
+    <pre>vi /root/projects/web.conf
+cat /root/projects/web.conf</pre></li>
+  <li><b>Shell 脚本</b>：写一个脚本，定义变量并输出，用 bash 执行。
+    <pre>echo 'name=Codex' &gt; /tmp/demo.sh
+echo 'echo $name' &gt;&gt; /tmp/demo.sh
+bash /tmp/demo.sh</pre></li>
+  <li><b>Docker</b>：查看运行中的容器、镜像列表，拉取一个镜像，再停掉一个容器。
+    <pre>docker ps
+docker images
+docker pull alpine
+docker stop nginx-proxy</pre></li>
+  <li><b>Kubernetes</b>：查看 Pod 列表、节点状态、服务列表。
+    <pre>kubectl get pods
+kubectl get nodes
+kubectl get svc</pre></li>
+</ol>
+
+<h2>五、命令速查表</h2>
+<h3>VFS 文件操作</h3><div class="grid"><span>ls [-la] 列目录</span><span>cd [path] 切换</span><span>pwd 当前路径</span><span>mkdir 建目录</span><span>touch 建文件</span><span>cat 看内容</span><span>rm [-r] 删除</span><span>cp 复制</span><span>mv 移动/改名</span><span>echo [&gt; file] 输出</span><span>find 查找</span><span>ln [-s] 链接</span><span>tree 树形</span><span>basename 文件名</span><span>dirname 目录名</span></div>
+<h3>系统信息</h3><div class="grid"><span>uname -a</span><span>hostname</span><span>whoami</span><span>id</span><span>who</span><span>uptime</span><span>date</span><span>sensors</span><span>dmesg</span><span>neofetch</span></div>
+<h3>硬件信息</h3><div class="grid"><span>lscpu</span><span>lspci</span><span>lsusb</span><span>lsblk</span><span>lshw</span><span>dmidecode</span><span>smartctl</span></div>
+<h3>磁盘管理</h3><div class="grid"><span>df -h</span><span>du -sh</span><span>fdisk -l</span><span>mount</span><span>umount</span><span>blkid</span><span>mkfs</span><span>fsck</span><span>parted</span><span>dd</span></div>
+<h3>内存/进程</h3><div class="grid"><span>free -h</span><span>ps aux</span><span>top</span><span>htop</span><span>kill</span><span>pgrep</span><span>pkill</span><span>lsof</span><span>jobs/fg/bg</span></div>
+<h3>网络</h3><div class="grid"><span>ping -c N</span><span>curl</span><span>wget</span><span>ip addr</span><span>ifconfig</span><span>netstat</span><span>ss</span><span>nslookup</span><span>dig</span><span>traceroute</span><span>route -n</span><span>tcpdump</span><span>nc</span><span>ssh</span><span>scp</span><span>rsync</span><span>nmap</span></div>
+<h3>用户/权限</h3><div class="grid"><span>chmod</span><span>chown</span><span>chgrp</span><span>umask</span><span>useradd</span><span>userdel</span><span>usermod</span><span>passwd</span><span>su</span><span>sudo</span></div>
+<h3>Shell/环境</h3><div class="grid"><span>bash script.sh</span><span>alias</span><span>env</span><span>export</span><span>source</span><span>tee</span><span>watch</span><span>crontab -l</span><span>history</span><span>printf</span><span>read</span><span>test</span><span>sleep</span><span>timeout</span><span>echo $?</span></div>
+<h3>文本处理</h3><div class="grid"><span>grep</span><span>head -n</span><span>tail -n</span><span>wc</span><span>sort</span><span>uniq</span><span>cut</span><span>tr</span><span>sed</span><span>awk</span><span>diff</span><span>nl</span><span>jq（JSON）</span></div>
+<h3>压缩归档</h3><div class="grid"><span>tar -czf</span><span>tar -xzf</span><span>gzip</span><span>zip</span><span>unzip</span><span>bzip2</span><span>xz</span></div>
+<h3>编辑器</h3><div class="grid"><span>vi</span><span>vim</span><span>vimtutor</span><span>nano</span></div>
+<h3>包管理</h3><div class="grid"><span>apt update</span><span>apt install</span><span>apt upgrade</span><span>apt remove</span><span>yum install</span><span>dpkg -i</span><span>snap</span></div>
+<h3>服务管理</h3><div class="grid"><span>systemctl status</span><span>systemctl start</span><span>systemctl stop</span><span>systemctl restart</span><span>systemctl enable</span><span>journalctl -u</span></div>
+
+<h2>六、常见问题</h2>
+<div class="tip"><b>需要联网吗？</b> 不需要。模拟器完全在浏览器本地运行，联网命令（ping/curl）输出的是模拟数据。</div>
+<div class="tip"><b>会弄坏真机吗？</b> 不会。所有操作都在虚拟文件系统里，刷新页面即可恢复。</div>
+<div class="tip"><b>进度会丢吗？</b> 练习进度和语言选择保存在浏览器本地，刷新不丢；想重置用 <code>practice reset</code>。</div>
+<div class="tip"><b>命令是假的吗？</b> 输出是模拟的，但管道、重定向、脚本、权限、服务/容器/进程状态都是真实逻辑，适合练手。</div>
+<div class="tip"><b>想深入学怎么办？</b> 用 <code>learn 命令</code> 看百科，<code>practice 命令</code> 做专项练习，学完去真实服务器（云主机/WSL）实践。</div>
 
 <p class="footer">Linux Learning Simulator v1.4.0 · 371 个命令 · 中英双语 · MIT 开源</p>
+</div>
 
+<!-- ===== English ===== -->
+<div id="en" class="en">
+
+<div class="tip">💡 <b>Inside the simulator</b>: type <code>guide</code> for this guide, <code>practice</code> for guided tasks, <code>practice path k8s</code> to switch tracks, <code>exam</code> to test yourself, <code>stats</code> for progress, <code>lang zh</code> for Chinese.</div>
+
+<h2>1. Quick Start</h2>
+<p>When you open the simulator you get a simulated Ubuntu 22.04 server:</p>
+<table>
+  <tr><th>Component</th><th>Configuration</th></tr>
+  <tr><td>CPU</td><td>Intel i7-12700K (12 cores / 20 threads)</td></tr>
+  <tr><td>RAM</td><td>40GB DDR4 (Samsung 16+16 + Kingston 8)</td></tr>
+  <tr><td>Disks</td><td>NVMe 500GB + SATA 1TB + SATA 4TB (failing) + SATA SSD 256GB</td></tr>
+  <tr><td>NIC</td><td>Intel I225-V 2.5GbE + Wi-Fi 6 AX200</td></tr>
+</table>
+<div class="tip">💡 All <b>371 commands</b> work directly; output simulates a real Linux box. Practice progress and language choice are saved automatically.</div>
+
+<h2>2. The 11-Stage Learning Path</h2>
+
+<div class="phase"><h3>Stage 1: File Operations Basics (1-2 days)</h3><p>Master basic file browsing and manipulation — the foundation of everything else.</p><div class="cmds"><code>ls</code><code>cd</code><code>pwd</code><code>mkdir</code><code>touch</code><code>cat</code><code>rm</code><code>cp</code><code>mv</code><code>echo</code><code>find</code><code>ln</code></div><div class="tip">💡 Try <code>ls -la /</code> to explore the root, <code>cd /tmp</code>, <code>touch hello.txt</code>, then <code>rm hello.txt</code>.</div></div>
+<div class="phase"><h3>Stage 2: Text Processing (1 day)</h3><p>Search, filter and count file contents — a core ops skill.</p><div class="cmds"><code>grep</code><code>head</code><code>tail</code><code>wc</code><code>sort</code><code>uniq</code><code>cut</code><code>tr</code><code>sed</code><code>awk</code><code>diff</code><code>nl</code><code>file</code><code>stat</code></div><div class="tip">💡 <code>grep root /etc/passwd</code>, then <code>cat /etc/passwd | grep bash</code> for pipes, and <code>wc -l /etc/passwd</code>.</div></div>
+<div class="phase"><h3>Stage 3: System Info & Monitoring (2 days)</h3><p>Read the server: kernel, memory, processes, load.</p><div class="cmds"><code>uname</code><code>hostname</code><code>whoami</code><code>id</code><code>who</code><code>uptime</code><code>date</code><code>free</code><code>ps</code><code>top</code><code>htop</code><code>kill</code><code>lsof</code><code>dmesg</code></div><div class="tip">💡 <code>htop</code> shows colorful bars; <code>ps aux</code> lists all processes; <code>kill 5600</code> really removes the process.</div></div>
+<div class="phase"><h3>Stage 4: Hardware & Disks (1-2 days)</h3><p>CPU, memory, disks and hardware health.</p><div class="cmds"><code>lscpu</code><code>lspci</code><code>lsusb</code><code>lsblk</code><code>lshw</code><code>dmidecode</code><code>smartctl</code><code>sensors</code><code>df</code><code>du</code><code>fdisk</code><code>mount</code><code>blkid</code><code>dd</code></div><div class="tip">💡 <code>lsblk</code> for the disk tree, <code>smartctl -a /dev/sdb</code> for SMART details, <code>df -h</code> for free space.</div></div>
+<div class="phase"><h3>Stage 5: Networking (1-2 days)</h3><p>Connectivity, ports, DNS and remote transfer.</p><div class="cmds"><code>ping</code><code>curl</code><code>wget</code><code>ifconfig</code><code>ip</code><code>netstat</code><code>ss</code><code>nslookup</code><code>dig</code><code>traceroute</code><code>route</code><code>tcpdump</code><code>nc</code><code>ssh</code><code>scp</code></div><div class="tip">💡 <code>ping -c 5 8.8.8.8</code> for latency, <code>ss -tlnp</code> for listening ports, <code>curl example.com</code> to fetch a page.</div></div>
+<div class="phase"><h3>Stage 6: Users & Permissions (1 day)</h3><p>The Linux user/permission model — what root and sudo really mean.</p><div class="cmds"><code>chmod</code><code>chown</code><code>chgrp</code><code>umask</code><code>useradd</code><code>userdel</code><code>usermod</code><code>passwd</code><code>su</code><code>sudo</code></div><div class="tip">💡 <code>sudo whoami</code> prints <code>root</code>; <code>chmod 600 file</code> shows <code>-rw-------</code> in <code>ls -l</code>; writing to <code>/etc</code> is denied for normal users.</div></div>
+<div class="phase"><h3>Stage 7: Package Management (1 day)</h3><p>Install, upgrade and remove software.</p><div class="cmds"><code>apt</code><code>yum</code><code>dpkg</code><code>snap</code></div><div class="tip">💡 <code>sudo apt update</code>, <code>sudo apt install nginx</code>, then <code>systemctl status nginx</code>.</div></div>
+<div class="phase"><h3>Stage 8: Service Management (1 day)</h3><p>Manage services and logs with systemd.</p><div class="cmds"><code>systemctl</code><code>journalctl</code><code>service</code><code>crontab</code></div><div class="tip">💡 <code>systemctl stop/start/restart nginx</code> really changes state; <code>journalctl -u nginx</code> shows service logs.</div></div>
+<div class="phase"><h3>Stage 9: Shell Scripting (2 days)</h3><p>Variables, aliases, pipes and scripts — from using commands to writing them.</p><div class="cmds"><code>bash</code><code>alias</code><code>env</code><code>export</code><code>source</code><code>tee</code><code>watch</code><code>printf</code><code>read</code><code>test</code></div><div class="tip">💡 <code>bash script.sh</code> runs scripts with <code>x=1</code>, <code>$( )</code>, <code>;</code>, comments; <code>echo $?</code> shows the exit code.</div></div>
+<div class="phase"><h3>Stage 10: Vi/Vim Editor (1-2 days)</h3><p>The terminal editor you cannot avoid on servers.</p><div class="cmds"><code>vi</code><code>vim</code><code>vimtutor</code><code>nano</code></div><div class="tip">💡 <code>vi web.conf</code> opens a real editor: <code>i</code> insert, <code>Esc</code> normal, <code>dd</code> delete line, <code>:wq</code> save. <code>vimtutor</code> is built in.</div></div>
+<div class="phase"><h3>Stage 11: DevOps Toolchain (3-5 days)</h3><p>Containers, orchestration, databases and CI/CD.</p><table>
+  <tr><th>Category</th><th>Commands</th></tr>
+  <tr><td>Containers</td><td><code>docker</code> <code>docker-compose</code> <code>podman</code></td></tr>
+  <tr><td>K8s</td><td><code>kubectl</code> <code>helm</code> <code>kustomize</code> <code>kubeadm</code> <code>minikube</code></td></tr>
+  <tr><td>Databases</td><td><code>mysql</code> <code>redis-cli</code> <code>sqlite3</code> <code>mongodb</code></td></tr>
+  <tr><td>Middleware</td><td><code>nginx</code> <code>haproxy</code> <code>caddy</code> <code>kafka</code> <code>rabbitmq</code> <code>elasticsearch</code></td></tr>
+  <tr><td>IaC</td><td><code>terraform</code> <code>ansible</code> <code>pulumi</code></td></tr>
+  <tr><td>Monitoring</td><td><code>prometheus</code> <code>grafana</code> <code>node_exporter</code></td></tr>
+  <tr><td>CI/CD</td><td><code>git</code> <code>jenkins</code> <code>gitlab</code> <code>argocd</code> <code>flux</code></td></tr>
+  <tr><td>Security</td><td><code>openssl</code> <code>certbot</code> <code>iptables</code> <code>ufw</code></td></tr>
+  <tr><td>Storage</td><td><code>ceph</code> <code>nfs</code> <code>minio</code> <code>restic</code></td></tr>
+  <tr><td>Performance</td><td><code>perf</code> <code>iostat</code> <code>vmstat</code> <code>sar</code> <code>fio</code></td></tr>
+</table>
+<div class="tip">💡 Drill each track with <code>practice path docker / k8s / middleware / cicd</code>, then test with <code>exam</code>.</div></div>
+
+<h2>3. Simulator Tips</h2>
+<div class="tip"><b>Pipes &amp; redirects</b>: <code>cat /etc/passwd | grep root</code>; <code>echo hi &gt; file</code> writes, <code>&gt;&gt;</code> appends.</div>
+<div class="tip"><b>Chaining</b>: <code>cd /tmp && pwd</code> runs the second only if the first succeeds; <code>||</code> is the opposite; <code>;</code> just separates.</div>
+<div class="tip"><b>Exit codes</b>: 0 = success, 1 = failure; check with <code>echo $?</code>.</div>
+<div class="tip"><b>Tab completion</b>: press Tab while typing commands or paths.</div>
+<div class="tip"><b>Side panel</b>: click any command to fill the input; categories include Middleware, K8s and CI/CD.</div>
+<div class="tip"><b>Vi editor</b>: <code>i a o I A O</code> insert, <code>h j k l</code> move, <code>dd yy p u</code> edit, <code>:w :q :wq :q!</code> quit.</div>
+<div class="tip"><b>sudo/su</b>: <code>sudo bash</code> really switches to the <code>#</code> root prompt; <code>exit</code> returns.</div>
+<div class="tip"><b>Learning</b>: <code>practice</code>, <code>practice path</code>, <code>exam</code>, <code>stats</code>, <code>guide</code>, <code>lang</code>.</div>
+
+<h2>4. Practice Exercises</h2>
+<ol>
+  <li><b>File browsing</b>: list all root files (including hidden), enter <code>/var/log</code>, view the first 5 lines of <code>syslog</code>.
+    <pre>ls -la /
+cd /var/log
+head -n 5 syslog</pre></li>
+  <li><b>Text search</b>: find lines containing <code>root</code> in <code>/etc/passwd</code>, then count the lines.
+    <pre>grep root /etc/passwd
+wc -l /etc/passwd</pre></li>
+  <li><b>System info</b>: uptime, memory, CPU model and disk usage.
+    <pre>uptime
+free -h
+lscpu
+df -h</pre></li>
+  <li><b>Hardware</b>: list block devices, check SMART of the failing disk, view DIMM slots.
+    <pre>lsblk
+smartctl -a /dev/sdb
+dmidecode -t memory</pre></li>
+  <li><b>Networking</b>: ping 114.114.114.114, view connections, DNS lookup for google.com.
+    <pre>ping -c 3 114.114.114.114
+netstat -tulanp
+dig google.com</pre></li>
+  <li><b>Permissions</b>: sudo whoami, switch to root, then back.
+    <pre>sudo whoami
+su root
+exit</pre></li>
+  <li><b>Packages</b>: update sources, install nginx, check its status.
+    <pre>sudo apt update
+sudo apt install nginx
+systemctl status nginx</pre></li>
+  <li><b>Editing</b>: open <code>/root/projects/web.conf</code> with vi, save, confirm with cat.
+    <pre>vi /root/projects/web.conf
+cat /root/projects/web.conf</pre></li>
+  <li><b>Shell script</b>: write a script with a variable, then run it with bash.
+    <pre>echo 'name=Codex' &gt; /tmp/demo.sh
+echo 'echo $name' &gt;&gt; /tmp/demo.sh
+bash /tmp/demo.sh</pre></li>
+  <li><b>Docker</b>: list containers and images, pull an image, stop a container.
+    <pre>docker ps
+docker images
+docker pull alpine
+docker stop nginx-proxy</pre></li>
+  <li><b>Kubernetes</b>: list pods, nodes and services.
+    <pre>kubectl get pods
+kubectl get nodes
+kubectl get svc</pre></li>
+</ol>
+
+<h2>5. Command Cheat Sheet</h2>
+<h3>Files</h3><div class="grid"><span>ls [-la]</span><span>cd [path]</span><span>pwd</span><span>mkdir</span><span>touch</span><span>cat</span><span>rm [-r]</span><span>cp</span><span>mv</span><span>echo [&gt; file]</span><span>find</span><span>ln [-s]</span><span>tree</span><span>basename</span><span>dirname</span></div>
+<h3>System</h3><div class="grid"><span>uname -a</span><span>hostname</span><span>whoami</span><span>id</span><span>who</span><span>uptime</span><span>date</span><span>sensors</span><span>dmesg</span><span>neofetch</span></div>
+<h3>Hardware</h3><div class="grid"><span>lscpu</span><span>lspci</span><span>lsusb</span><span>lsblk</span><span>lshw</span><span>dmidecode</span><span>smartctl</span></div>
+<h3>Disks</h3><div class="grid"><span>df -h</span><span>du -sh</span><span>fdisk -l</span><span>mount</span><span>umount</span><span>blkid</span><span>mkfs</span><span>fsck</span><span>parted</span><span>dd</span></div>
+<h3>Processes</h3><div class="grid"><span>free -h</span><span>ps aux</span><span>top</span><span>htop</span><span>kill</span><span>pgrep</span><span>pkill</span><span>lsof</span><span>jobs/fg/bg</span></div>
+<h3>Networking</h3><div class="grid"><span>ping -c N</span><span>curl</span><span>wget</span><span>ip addr</span><span>ifconfig</span><span>netstat</span><span>ss</span><span>nslookup</span><span>dig</span><span>traceroute</span><span>route -n</span><span>tcpdump</span><span>nc</span><span>ssh</span><span>scp</span><span>rsync</span><span>nmap</span></div>
+<h3>Users &amp; Permissions</h3><div class="grid"><span>chmod</span><span>chown</span><span>chgrp</span><span>umask</span><span>useradd</span><span>userdel</span><span>usermod</span><span>passwd</span><span>su</span><span>sudo</span></div>
+<h3>Shell</h3><div class="grid"><span>bash script.sh</span><span>alias</span><span>env</span><span>export</span><span>source</span><span>tee</span><span>watch</span><span>crontab -l</span><span>history</span><span>printf</span><span>read</span><span>test</span><span>sleep</span><span>timeout</span><span>echo $?</span></div>
+<h3>Text</h3><div class="grid"><span>grep</span><span>head -n</span><span>tail -n</span><span>wc</span><span>sort</span><span>uniq</span><span>cut</span><span>tr</span><span>sed</span><span>awk</span><span>diff</span><span>nl</span><span>jq (JSON)</span></div>
+<h3>Archives</h3><div class="grid"><span>tar -czf</span><span>tar -xzf</span><span>gzip</span><span>zip</span><span>unzip</span><span>bzip2</span><span>xz</span></div>
+<h3>Editors</h3><div class="grid"><span>vi</span><span>vim</span><span>vimtutor</span><span>nano</span></div>
+<h3>Packages</h3><div class="grid"><span>apt update</span><span>apt install</span><span>apt upgrade</span><span>apt remove</span><span>yum install</span><span>dpkg -i</span><span>snap</span></div>
+<h3>Services</h3><div class="grid"><span>systemctl status</span><span>systemctl start</span><span>systemctl stop</span><span>systemctl restart</span><span>systemctl enable</span><span>journalctl -u</span></div>
+
+<h2>6. FAQ</h2>
+<div class="tip"><b>Do I need the internet?</b> No. Everything runs locally in the browser; network commands output simulated data.</div>
+<div class="tip"><b>Can it break my machine?</b> No. All operations happen in a virtual filesystem; refresh to reset.</div>
+<div class="tip"><b>Will my progress be lost?</b> Progress and language choice are saved in the browser; use <code>practice reset</code> to restart.</div>
+<div class="tip"><b>Are the commands fake?</b> Outputs are simulated, but pipes, redirects, scripts, permissions and service/container/process state follow real logic.</div>
+<div class="tip"><b>Want to go deeper?</b> Use <code>learn command</code> for the encyclopedia, <code>practice command</code> for drills, then practice on a real server (cloud/WSL).</div>
+
+<p class="footer">Linux Learning Simulator v1.4.0 · 371 commands · Bilingual · MIT Open Source</p>
+</div>
+
+<script>
+var guideLang = localStorage.getItem('guide-lang') || 'zh';
+function applyLang() {
+  document.getElementById('zh').style.display = guideLang === 'zh' ? '' : 'none';
+  document.getElementById('en').style.display = guideLang === 'en' ? '' : 'none';
+  document.getElementById('lang-btn').textContent = guideLang === 'zh' ? 'English' : '中文';
+  var hero = document.querySelector('.hero');
+  if (hero) hero.textContent = hero.getAttribute('data-' + guideLang);
+  var note = document.querySelector('.hero-note');
+  if (note) note.textContent = note.getAttribute('data-' + guideLang);
+}
+function toggleLang() {
+  guideLang = guideLang === 'zh' ? 'en' : 'zh';
+  localStorage.setItem('guide-lang', guideLang);
+  applyLang();
+}
+applyLang();
+</script>
 </body>
 </html>
