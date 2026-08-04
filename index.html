@@ -1464,35 +1464,35 @@ CMD['minikube'] = {cat:'DevOps/K8s', desc:'本地K8s', usage:'minikube <subcomma
 CMD['kind'] = {cat:'DevOps/K8s', desc:'Kind K8s集群', usage:'kind <subcommand>'};
 CMD['kubeadm'] = {cat:'DevOps/K8s', desc:'K8s管理工具', usage:'kubeadm <subcommand>'};
 CMD['kubelet'] = {cat:'DevOps/K8s', desc:'K8s节点代理', usage:'kubelet'};
-CMD['etcdctl'] = {cat:'DevOps/K8s', desc:'etcd CLI', usage:'etcdctl <subcommand>'};
+CMD['etcdctl'] = {cat:'中间件', desc:'etcd CLI', usage:'etcdctl <subcommand>'};
 CMD['calicoctl'] = {cat:'DevOps/K8s', desc:'Calico CLI', usage:'calicoctl <subcommand>'};
 
 // Messaging
-CMD['kafka'] = {cat:'DevOps/消息', desc:'Apache Kafka', usage:'kafka-<subcommand>'};
-CMD['rabbitmq'] = {cat:'DevOps/消息', desc:'RabbitMQ', usage:'rabbitmq-<subcommand>'};
-CMD['rabbitmqctl'] = {cat:'DevOps/消息', desc:'RabbitMQ管理', usage:'rabbitmqctl <subcommand>'};
-CMD['nats'] = {cat:'DevOps/消息', desc:'NATS消息系统', usage:'nats <subcommand>'};
-CMD['pulsar'] = {cat:'DevOps/消息', desc:'Apache Pulsar', usage:'pulsar <subcommand>'};
+CMD['kafka'] = {cat:'中间件', desc:'Apache Kafka', usage:'kafka-<subcommand>'};
+CMD['rabbitmq'] = {cat:'中间件', desc:'RabbitMQ', usage:'rabbitmq-<subcommand>'};
+CMD['rabbitmqctl'] = {cat:'中间件', desc:'RabbitMQ管理', usage:'rabbitmqctl <subcommand>'};
+CMD['nats'] = {cat:'中间件', desc:'NATS消息系统', usage:'nats <subcommand>'};
+CMD['pulsar'] = {cat:'中间件', desc:'Apache Pulsar', usage:'pulsar <subcommand>'};
 
 // Web/Proxy
-CMD['nginx'] = {cat:'DevOps/Web', desc:'Nginx Web服务器', usage:'nginx [-t|-s reload]'};
-CMD['haproxy'] = {cat:'DevOps/Web', desc:'HAProxy负载均衡', usage:'haproxy [-f <config>]'};
-CMD['apache2'] = {cat:'DevOps/Web', desc:'Apache HTTP服务器', usage:'apache2 [-t|-k restart]'};
-CMD['caddy'] = {cat:'DevOps/Web', desc:'Caddy Web服务器', usage:'caddy <subcommand>'};
-CMD['keepalived'] = {cat:'DevOps/Web', desc:'Keepalived高可用', usage:'keepalived'};
-CMD['traefik'] = {cat:'DevOps/Web', desc:'Traefik反向代理', usage:'traefik'};
+CMD['nginx'] = {cat:'中间件', desc:'Nginx Web服务器', usage:'nginx [-t|-s reload]'};
+CMD['haproxy'] = {cat:'中间件', desc:'HAProxy负载均衡', usage:'haproxy [-f <config>]'};
+CMD['apache2'] = {cat:'中间件', desc:'Apache HTTP服务器', usage:'apache2 [-t|-k restart]'};
+CMD['caddy'] = {cat:'中间件', desc:'Caddy Web服务器', usage:'caddy <subcommand>'};
+CMD['keepalived'] = {cat:'中间件', desc:'Keepalived高可用', usage:'keepalived'};
+CMD['traefik'] = {cat:'中间件', desc:'Traefik反向代理', usage:'traefik'};
 
 // Databases
-CMD['mysql'] = {cat:'DevOps/数据库', desc:'MySQL客户端', usage:'mysql [-u user] [-p]'};
-CMD['mysqldump'] = {cat:'DevOps/数据库', desc:'MySQL备份', usage:'mysqldump <db>'};
-CMD['postgresql'] = {cat:'DevOps/数据库', desc:'PostgreSQL', usage:'psql'};
-CMD['pg_dump'] = {cat:'DevOps/数据库', desc:'PostgreSQL备份', usage:'pg_dump <db>'};
-CMD['mongodb'] = {cat:'DevOps/数据库', desc:'MongoDB', usage:'mongosh'};
-CMD['redis'] = {cat:'DevOps/数据库', desc:'Redis服务器', usage:'redis-server'};
-CMD['redis-cli'] = {cat:'DevOps/数据库', desc:'Redis CLI', usage:'redis-cli'};
-CMD['etcd'] = {cat:'DevOps/数据库', desc:'etcd键值存储', usage:'etcd'};
-CMD['consul'] = {cat:'DevOps/数据库', desc:'Consul服务发现', usage:'consul <subcommand>'};
-CMD['sqlite3'] = {cat:'DevOps/数据库', desc:'SQLite CLI', usage:'sqlite3 <db>'};
+CMD['mysql'] = {cat:'中间件', desc:'MySQL客户端', usage:'mysql [-u user] [-p]'};
+CMD['mysqldump'] = {cat:'中间件', desc:'MySQL备份', usage:'mysqldump <db>'};
+CMD['postgresql'] = {cat:'中间件', desc:'PostgreSQL', usage:'psql'};
+CMD['pg_dump'] = {cat:'中间件', desc:'PostgreSQL备份', usage:'pg_dump <db>'};
+CMD['mongodb'] = {cat:'中间件', desc:'MongoDB', usage:'mongosh'};
+CMD['redis'] = {cat:'中间件', desc:'Redis服务器', usage:'redis-server'};
+CMD['redis-cli'] = {cat:'中间件', desc:'Redis CLI', usage:'redis-cli'};
+CMD['etcd'] = {cat:'中间件', desc:'etcd键值存储', usage:'etcd'};
+CMD['consul'] = {cat:'中间件', desc:'Consul服务发现', usage:'consul <subcommand>'};
+CMD['sqlite3'] = {cat:'中间件', desc:'SQLite CLI', usage:'sqlite3 <db>'};
 
 // Monitoring
 CMD['prometheus'] = {cat:'DevOps/监控', desc:'Prometheus监控', usage:'prometheus'};
@@ -1502,12 +1502,12 @@ CMD['grafana'] = {cat:'DevOps/监控', desc:'Grafana可视化', usage:'grafana-s
 CMD['node_exporter'] = {cat:'DevOps/监控', desc:'Node Exporter', usage:'node_exporter'};
 
 // Logging
-CMD['elasticsearch'] = {cat:'DevOps/日志', desc:'Elasticsearch', usage:'elasticsearch'};
-CMD['logstash'] = {cat:'DevOps/日志', desc:'Logstash', usage:'logstash'};
-CMD['kibana'] = {cat:'DevOps/日志', desc:'Kibana', usage:'kibana'};
-CMD['filebeat'] = {cat:'DevOps/日志', desc:'Filebeat', usage:'filebeat'};
-CMD['fluentd'] = {cat:'DevOps/日志', desc:'Fluentd', usage:'fluentd'};
-CMD['fluentbit'] = {cat:'DevOps/日志', desc:'Fluent Bit', usage:'fluent-bit'};
+CMD['elasticsearch'] = {cat:'中间件', desc:'Elasticsearch', usage:'elasticsearch'};
+CMD['logstash'] = {cat:'中间件', desc:'Logstash', usage:'logstash'};
+CMD['kibana'] = {cat:'中间件', desc:'Kibana', usage:'kibana'};
+CMD['filebeat'] = {cat:'中间件', desc:'Filebeat', usage:'filebeat'};
+CMD['fluentd'] = {cat:'中间件', desc:'Fluentd', usage:'fluentd'};
+CMD['fluentbit'] = {cat:'中间件', desc:'Fluent Bit', usage:'fluent-bit'};
 CMD['loki'] = {cat:'DevOps/日志', desc:'Grafana Loki', usage:'loki'};
 CMD['promtail'] = {cat:'DevOps/日志', desc:'Promtail', usage:'promtail'};
 
@@ -1554,7 +1554,7 @@ CMD['fail2ban'] = {cat:'DevOps/安全', desc:'Fail2ban', usage:'fail2ban-client 
 CMD['ceph'] = {cat:'DevOps/存储', desc:'Ceph存储', usage:'ceph <subcommand>'};
 CMD['gluster'] = {cat:'DevOps/存储', desc:'GlusterFS', usage:'gluster <subcommand>'};
 CMD['nfs'] = {cat:'DevOps/存储', desc:'NFS', usage:'nfsstat'};
-CMD['minio'] = {cat:'DevOps/存储', desc:'MinIO', usage:'minio server'};
+CMD['minio'] = {cat:'中间件', desc:'MinIO', usage:'minio server'};
 CMD['longhorn'] = {cat:'DevOps/存储', desc:'Longhorn', usage:'longhorn'};
 CMD['rook'] = {cat:'DevOps/存储', desc:'Rook', usage:'rook'};
 CMD['restic'] = {cat:'DevOps/存储', desc:'Restic备份', usage:'restic <subcommand>'};
@@ -6162,7 +6162,7 @@ function buildSidePanel() {
         cats[info.cat].push(name);
     }
 
-    const orderedCats = ['学习', 'VFS', '文本处理', '系统信息', '硬件信息', '磁盘管理', '内存/进程', '网络', '用户/权限', '软件包', '服务管理', 'Shell', '压缩归档', '文件工具', '编辑器', '开发工具', '会话管理', '系统控制', '文档工具', '其他'];
+    const orderedCats = ['学习', 'VFS', '文本处理', '系统信息', '硬件信息', '磁盘管理', '内存/进程', '网络', '用户/权限', '软件包', '服务管理', 'Shell', '压缩归档', '文件工具', '编辑器', '开发工具', '中间件', '会话管理', '系统控制', '文档工具', '其他'];
 
     for (const cat of orderedCats) {
         if (cats[cat]) {
