@@ -1,5 +1,23 @@
 # Changelog / 更新日志
 
+## v1.2.1 — 2026-08-04
+
+### 中文
+
+#### 改进
+
+- 一键式入口：README 将 GitHub Pages 在线版列为首选使用方式（点击即用，无需克隆/安装），`git clone` 改为开发者选项
+- 学习指南顶部新增“🚀 打开模拟器开始练习”按钮，文档与模拟器一键互跳
+- README 去重重写，中英署名分行显示
+
+### English
+
+#### Improved
+
+- One-click entry: README now recommends the GitHub Pages online version (click to use, no clone/install); `git clone` is the developer option
+- The learning guide now has a “🚀 Open Simulator” button at the top for one-click navigation
+- Rewrote README, removed duplicated sections, and separated the bilingual attribution lines
+
 ## v1.2.0 — 2026-08-04
 
 ### 中文
