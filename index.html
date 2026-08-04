@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linux Learning Simulator (xterm) - Home Server</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="vendor/xterm/xterm.css">
+<style>
+body { background:#1a1b26; }
+#terminal { flex:1; display:flex; flex-direction:column; min-width:0; }
+#xterm { flex:1; padding:10px 8px; overflow:hidden; }
+#xterm .xterm { height:100%; }
+#output, #input-line, #vi-overlay { display:none; }
+#side-panel .task-card{background:#24283b;border:1px solid #3b4261;border-radius:6px;padding:8px;margin-bottom:10px;color:#a9b1d6;cursor:pointer;font-size:11px;line-height:1.6}
+#side-panel .task-card b{color:#7aa2f7}
+#side-panel .task-card .hint{color:#7dcfff}
+</style>
+</head>
+<body>
+<div id="toolbar">
+    <span>🐧 Linux学习模拟器</span>
+    <span class="badge">Ubuntu 22.04</span>
+    <span class="badge" id="cmd-count-badge">371 命令</span>
+    <span class="badge">i7-12700K</span>
+    <span class="badge">40GB RAM</span>
+    <button id="lang-toggle" title="切换语言 / Toggle language" style="margin-left:auto;background:#3b4261;color:#a9b1d6;border:none;border-radius:10px;padding:3px 12px;cursor:pointer;font-family:inherit;font-size:12px">🌐 中 / EN</button>
+</div>
+
+<div id="main">
+    <div id="terminal">
+        <div id="xterm"></div>
+        <div id="output"></div>
+        <div id="input-line"><span id="prompt"></span><input id="cmd-input" autocomplete="off" spellcheck="false"></div>
+    </div>
+    <div id="side-panel"></div>
+</div>
+
+<div id="vi-overlay">
+    <div id="vi-box">
+        <div id="vi-titlebar"><span>vi</span><button onclick="closeViEditor(false)">✕</button></div>
+        <textarea id="vi-textarea" spellcheck="false"></textarea>
+        <div id="vi-statusbar"><span class="mode" id="vi-mode">-- NORMAL --</span><span class="pos" id="vi-pos">行1/1  列0</span></div>
+        <div id="vi-cmdbar"><input id="vi-cmd-input" autocomplete="off"></div>
+        <div id="vi-help">
+            <span><kbd>i</kbd>插入 <kbd>Esc</kbd>普通</span>
+            <span><kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd>移动</span>
+            <span><kbd>dd</kbd>删行 <kbd>yy</kbd>复制 <kbd>p</kbd>粘贴</span>
+            <span><kbd>u</kbd>撤销 <kbd>:w</kbd>保存 <kbd>:q</kbd>退出</span>
+            <span><kbd>/</kbd>搜索 <kbd>ZZ</kbd>存退</span>
+        </div>
+    </div>
+</div>
+
+<script src="vendor/xterm/xterm.js"></script>
+<script src="vendor/xterm/addon-fit.js"></script>
+<script src="app.js"></script>
+<script src="terminal.js"></script>
+</body>
+</html>

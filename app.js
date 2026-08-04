@@ -1,0 +1,7056 @@
+﻿
+/* ===== HARDWARE DATA ===== */
+window.SIM_HW = {
+  "hostname": "home-server",
+  "os": "Ubuntu 22.04.3 LTS",
+  "kernel": "5.15.0-91-generic",
+  "arch": "x86_64",
+  "uptime_seconds": 345600,
+  "load_avg": [
+    0.52,
+    0.38,
+    0.29
+  ],
+  "cpu": {
+    "model": "Intel(R) Core(TM) i7-12700K",
+    "cores": 12,
+    "threads": 20,
+    "base_mhz": 3600.0,
+    "max_mhz": 5000.0,
+    "l1d": "48K",
+    "l1i": "32K",
+    "l2": "1.25M (P-core), 2M (E-core cluster)",
+    "l3": "25M",
+    "flags": "fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb intel_pt sha_ni xsaveopt xsavec xgetbv1 xsaves avx_vnni dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp hwp_pkg_req hfi umip pku ospke waitpkg gfni vaes vpclmulqdq tme rdpid movdiri movdir64b fsrm md_clear serialize pconfig arch_lbr ibt avx512f avx512dq avx512ifma avx512cd avx512bw avx512vl avx512vbmi avx512_vbmi2 avx512_vnni avx512_bitalg avx512_vpopcntdq la57 rdmsr vmxe",
+    "sockets": 1
+  },
+  "disks": {
+    "nvme0n1": {
+      "name": "nvme0n1",
+      "model": "Samsung SSD 980 PRO 500GB",
+      "size": "465.8G",
+      "type": "NVMe",
+      "speed": "PCIe 4.0 x4",
+      "rpm": null,
+      "serial": "S5GXNG0R123456",
+      "fw": "5B2QGXA7",
+      "sectors": 976773168,
+      "health": "PASSED",
+      "smart": {
+        "temperature": 38,
+        "power_on_hours": 4520,
+        "power_cycles": 312,
+        "unsafe_shutdowns": 5,
+        "available_spare": 100,
+        "available_spare_threshold": 10,
+        "percentage_used": 2,
+        "data_units_read": 54200000,
+        "data_units_written": 38000000,
+        "media_errors": 0,
+        "warning_temp_time": 0,
+        "critical_warning": 0
+      },
+      "partitions": {
+        "nvme0n1p1": {
+          "size": "512M",
+          "type": "EFI System",
+          "fs": "vfat",
+          "flags": [
+            "boot",
+            "esp"
+          ]
+        },
+        "nvme0n1p2": {
+          "size": "100G",
+          "type": "Linux filesystem",
+          "fs": "ext4",
+          "flags": []
+        },
+        "nvme0n1p3": {
+          "size": "365.3G",
+          "type": "Linux filesystem",
+          "fs": "ext4",
+          "flags": []
+        }
+      }
+    },
+    "sda": {
+      "name": "sda",
+      "model": "WDC WD10EZEX-08WN4A0",
+      "size": "931.5G",
+      "type": "SATA HDD",
+      "speed": "6.0 Gb/s",
+      "rpm": 7200,
+      "serial": "WD-WCC4E1234567",
+      "fw": "01.01A01",
+      "sectors": 1953525168,
+      "health": "PASSED",
+      "smart": {
+        "temperature": 35,
+        "power_on_hours": 18250,
+        "power_cycles": 1100,
+        "spin_up_time": 4500,
+        "start_stop_count": 2500,
+        "reallocated_sector_ct": 0,
+        "seek_error_rate": 200,
+        "raw_read_error_rate": 0,
+        "spin_retry_count": 0,
+        "current_pending_sector": 0,
+        "offline_uncorrectable": 0,
+        "udma_crc_error_count": 0,
+        "multi_zone_error_rate": 100
+      },
+      "partitions": {
+        "sda1": {
+          "size": "500G",
+          "type": "Linux filesystem",
+          "fs": "ext4",
+          "flags": []
+        },
+        "sda2": {
+          "size": "431.5G",
+          "type": "Linux filesystem",
+          "fs": "ext4",
+          "flags": []
+        }
+      }
+    },
+    "sdb": {
+      "name": "sdb",
+      "model": "ST4000DM004-2CV104",
+      "size": "3.6T",
+      "type": "SATA HDD",
+      "speed": "6.0 Gb/s",
+      "rpm": 5400,
+      "serial": "ZDH3Y8AB",
+      "fw": "0001",
+      "sectors": 7814037168,
+      "health": "FAILED",
+      "smart": {
+        "temperature": 42,
+        "power_on_hours": 26400,
+        "power_cycles": 800,
+        "spin_up_time": 8200,
+        "start_stop_count": 3200,
+        "reallocated_sector_ct": 12,
+        "seek_error_rate": 85,
+        "raw_read_error_rate": 3200,
+        "spin_retry_count": 3,
+        "current_pending_sector": 8,
+        "offline_uncorrectable": 4,
+        "udma_crc_error_count": 2,
+        "multi_zone_error_rate": 200,
+        "reallocated_event_count": 3
+      },
+      "partitions": {
+        "sdb1": {
+          "size": "3.6T",
+          "type": "Linux filesystem",
+          "fs": "xfs",
+          "flags": [
+            "degraded"
+          ]
+        }
+      }
+    },
+    "sdc": {
+      "name": "sdc",
+      "model": "KingSpec KS256G-2.5",
+      "size": "238.5G",
+      "type": "SATA SSD",
+      "speed": "6.0 Gb/s",
+      "rpm": null,
+      "serial": "KS256G2024123456",
+      "fw": "V1.2.3",
+      "sectors": 500118192,
+      "health": "PASSED",
+      "smart": {
+        "temperature": 40,
+        "power_on_hours": 8760,
+        "power_cycles": 450,
+        "wear_leveling_count": 85,
+        "total_lbas_written": 98000000000,
+        "total_lbas_read": 65000000000,
+        "used_rsvd_blk_cnt": 5,
+        "program_fail_cnt": 0,
+        "erase_fail_cnt": 0,
+        "unexpected_power_loss": 12,
+        "available_reserved_space": 95,
+        "media_wearout_indicator": 15,
+        "crc_error_count": 0,
+        "sata_downshift_count": 0
+      },
+      "partitions": {
+        "sdc1": {
+          "size": "238.5G",
+          "type": "Linux filesystem",
+          "fs": "ext4",
+          "flags": []
+        }
+      }
+    }
+  },
+  "mountpoints": {
+    "/": {
+      "device": "/dev/nvme0n1p2",
+      "fs": "ext4",
+      "size": "100G",
+      "used": "42G",
+      "avail": "53G",
+      "use%": "45%"
+    },
+    "/boot/efi": {
+      "device": "/dev/nvme0n1p1",
+      "fs": "vfat",
+      "size": "512M",
+      "used": "32M",
+      "avail": "480M",
+      "use%": "7%"
+    },
+    "/home": {
+      "device": "/dev/nvme0n1p3",
+      "fs": "ext4",
+      "size": "365G",
+      "used": "180G",
+      "avail": "167G",
+      "use%": "52%"
+    },
+    "/data": {
+      "device": "/dev/sda1",
+      "fs": "ext4",
+      "size": "500G",
+      "used": "320G",
+      "avail": "156G",
+      "use%": "68%"
+    },
+    "/backup": {
+      "device": "/dev/sda2",
+      "fs": "ext4",
+      "size": "432G",
+      "used": "410G",
+      "avail": "0",
+      "use%": "100%"
+    },
+    "/storage": {
+      "device": "/dev/sdb1",
+      "fs": "xfs",
+      "size": "3.6T",
+      "used": "2.8T",
+      "avail": "742G",
+      "use%": "80%"
+    },
+    "/var/lib/docker": {
+      "device": "/dev/sdc1",
+      "fs": "ext4",
+      "size": "239G",
+      "used": "65G",
+      "avail": "162G",
+      "use%": "29%"
+    }
+  },
+  "memory": {
+    "total_gb": 40,
+    "used_gb": 18.5,
+    "free_gb": 8.2,
+    "available_gb": 20.1,
+    "buffers_mb": 512,
+    "cached_mb": 11400,
+    "swap_total_gb": 8,
+    "swap_used_gb": 1.2,
+    "swap_free_gb": 6.8
+  },
+  "dimms": [
+    {
+      "slot": "DIMM_A1",
+      "manufacturer": "Samsung",
+      "part": "M378A2K43EB3-CWE",
+      "size": "16 GB",
+      "type": "DDR4",
+      "speed": "3200 MT/s",
+      "serial": "12345678",
+      "status": "OK"
+    },
+    {
+      "slot": "DIMM_A2",
+      "manufacturer": "Samsung",
+      "part": "M378A2K43EB3-CWE",
+      "size": "16 GB",
+      "type": "DDR4",
+      "speed": "3200 MT/s",
+      "serial": "12345679",
+      "status": "OK"
+    },
+    {
+      "slot": "DIMM_B1",
+      "manufacturer": "Kingston",
+      "part": "KF2666C16/8G",
+      "size": "8 GB",
+      "type": "DDR4",
+      "speed": "2666 MT/s",
+      "serial": "87654321",
+      "status": "OK"
+    },
+    {
+      "slot": "DIMM_B2",
+      "manufacturer": null,
+      "part": "Not Installed",
+      "size": "Empty",
+      "type": null,
+      "speed": null,
+      "serial": null,
+      "status": "Empty"
+    }
+  ],
+  "motherboard": {
+    "manufacturer": "MSI",
+    "product": "MAG Z690-A PRO WIFI DDR4",
+    "version": "1.0",
+    "serial": "MB1234567890",
+    "bios_vendor": "American Megatrends International, LLC.",
+    "bios_version": "1.2.0",
+    "bios_date": "06/15/2025",
+    "bios_revision": "1.2"
+  },
+  "gpu": {
+    "model": "NVIDIA GeForce RTX 3060",
+    "vendor": "NVIDIA Corporation",
+    "memory": "12 GB GDDR6",
+    "driver": "nvidia 535.183.01",
+    "pci_id": "01:00.0",
+    "temperature": 52,
+    "fan_speed": 35,
+    "power_watts": 45.2
+  },
+  "network": {
+    "interfaces": {
+      "lo": {
+        "ip": "127.0.0.1/8",
+        "mac": "00:00:00:00:00:00",
+        "state": "UP",
+        "mtu": 65536,
+        "rx_bytes": 13228456789,
+        "tx_bytes": 13228456789,
+        "rx_packets": 45678900,
+        "tx_packets": 45678900
+      },
+      "enp3s0": {
+        "ip": "192.168.1.100/24",
+        "mac": "d8:bb:c1:45:67:89",
+        "state": "UP",
+        "mtu": 1500,
+        "rx_bytes": 490278456789,
+        "tx_bytes": 132456789012,
+        "rx_packets": 567890123,
+        "tx_packets": 234567890,
+        "speed": "2500Mb/s",
+        "driver": "igc",
+        "chipset": "Intel I225-V 2.5GbE"
+      },
+      "wlp5s0": {
+        "ip": "192.168.1.101/24",
+        "mac": "a4:6b:b6:12:34:56",
+        "state": "UP",
+        "mtu": 1500,
+        "rx_bytes": 95678901234,
+        "tx_bytes": 48567890123,
+        "rx_packets": 123456789,
+        "tx_packets": 98765432,
+        "speed": "866.7Mb/s",
+        "driver": "iwlwifi",
+        "chipset": "Intel Wi-Fi 6 AX200"
+      },
+      "docker0": {
+        "ip": "172.17.0.1/16",
+        "mac": "02:42:ac:11:00:01",
+        "state": "UP",
+        "mtu": 1500,
+        "rx_bytes": 2256789012,
+        "tx_bytes": 1934567890,
+        "rx_packets": 3456789,
+        "tx_packets": 2987654,
+        "speed": null,
+        "driver": "bridge"
+      }
+    }
+  },
+  "pci_devices": [
+    [
+      "00:00.0",
+      "Intel Corporation",
+      "12th Gen Core Processor Host Bridge/DRAM Registers"
+    ],
+    [
+      "00:01.0",
+      "Intel Corporation",
+      "12th Gen Core Processor PCI Express x16 Controller #1"
+    ],
+    [
+      "00:02.0",
+      "Intel Corporation",
+      "AlderLake-S GT1 UHD Graphics 770"
+    ],
+    [
+      "00:14.0",
+      "Intel Corporation",
+      "Alder Lake-S PCH USB 3.2 Gen 2x2 Controller"
+    ],
+    [
+      "00:14.2",
+      "Intel Corporation",
+      "Alder Lake-S PCH Shared SRAM"
+    ],
+    [
+      "00:16.0",
+      "Intel Corporation",
+      "Alder Lake-S PCH HECI Controller #1"
+    ],
+    [
+      "00:17.0",
+      "Intel Corporation",
+      "Alder Lake-S PCH SATA Controller [AHCI Mode]"
+    ],
+    [
+      "00:1b.0",
+      "Intel Corporation",
+      "Alder Lake-S PCH PCI Express Root Port #17"
+    ],
+    [
+      "00:1c.0",
+      "Intel Corporation",
+      "Alder Lake-S PCH PCI Express Root Port #1"
+    ],
+    [
+      "00:1c.4",
+      "Intel Corporation",
+      "Alder Lake-S PCH PCI Express Root Port #5"
+    ],
+    [
+      "00:1d.0",
+      "Intel Corporation",
+      "Alder Lake-S PCH PCI Express Root Port #9"
+    ],
+    [
+      "00:1f.0",
+      "Intel Corporation",
+      "Z690 Chipset LPC/eSPI Controller"
+    ],
+    [
+      "00:1f.3",
+      "Intel Corporation",
+      "Alder Lake-S PCH HD Audio Controller"
+    ],
+    [
+      "00:1f.4",
+      "Intel Corporation",
+      "Alder Lake-S PCH SMBus Controller"
+    ],
+    [
+      "00:1f.5",
+      "Intel Corporation",
+      "Alder Lake-S PCH SPI Controller"
+    ],
+    [
+      "01:00.0",
+      "NVIDIA Corporation",
+      "GA106 [GeForce RTX 3060 Lite Hash Rate]"
+    ],
+    [
+      "02:00.0",
+      "Samsung Electronics Co Ltd",
+      "NVMe SSD Controller PM9A1/PM9A3/980PRO"
+    ],
+    [
+      "03:00.0",
+      "Intel Corporation",
+      "Ethernet Controller I225-V"
+    ],
+    [
+      "04:00.0",
+      "Intel Corporation",
+      "Wi-Fi 6 AX200"
+    ]
+  ],
+  "usb_devices": [
+    [
+      "Bus 001 Device 001",
+      "Linux Foundation",
+      "3.0 root hub"
+    ],
+    [
+      "Bus 001 Device 002",
+      "Logitech",
+      "G Pro X Gaming Keyboard"
+    ],
+    [
+      "Bus 001 Device 003",
+      "Logitech",
+      "G502 HERO Gaming Mouse"
+    ],
+    [
+      "Bus 001 Device 004",
+      "Kingston",
+      "DataTraveler 32GB USB 3.0"
+    ],
+    [
+      "Bus 002 Device 001",
+      "Linux Foundation",
+      "2.0 root hub"
+    ],
+    [
+      "Bus 002 Device 002",
+      "Logitech",
+      "C920 HD Pro Webcam"
+    ],
+    [
+      "Bus 002 Device 003",
+      "Intel Corp.",
+      "AX200 Bluetooth"
+    ],
+    [
+      "Bus 002 Device 004",
+      "APC",
+      "Back-UPS RS 1000"
+    ]
+  ],
+  "processes": [
+    {
+      "pid": 1,
+      "user": "root",
+      "cpu": 0.0,
+      "mem": 0.3,
+      "vsz": 168940,
+      "rss": 12804,
+      "tty": "?",
+      "stat": "Ss",
+      "start": "Jul21",
+      "time": "0:12",
+      "command": "/sbin/init splash"
+    },
+    {
+      "pid": 400,
+      "user": "root",
+      "cpu": 0.0,
+      "mem": 0.1,
+      "vsz": 23456,
+      "rss": 4560,
+      "tty": "?",
+      "stat": "Ss",
+      "start": "Jul21",
+      "time": "0:04",
+      "command": "sshd: /usr/sbin/sshd -D [listener]"
+    },
+    {
+      "pid": 1200,
+      "user": "root",
+      "cpu": 0.0,
+      "mem": 0.2,
+      "vsz": 45678,
+      "rss": 8900,
+      "tty": "?",
+      "stat": "Ss",
+      "start": "Jul21",
+      "time": "0:01",
+      "command": "nginx: master process /usr/sbin/nginx"
+    },
+    {
+      "pid": 1201,
+      "user": "www-data",
+      "cpu": 0.1,
+      "mem": 0.4,
+      "vsz": 48900,
+      "rss": 16400,
+      "tty": "?",
+      "stat": "S",
+      "start": "Jul21",
+      "time": "2:45",
+      "command": "nginx: worker process"
+    },
+    {
+      "pid": 1202,
+      "user": "www-data",
+      "cpu": 0.0,
+      "mem": 0.3,
+      "vsz": 48600,
+      "rss": 15800,
+      "tty": "?",
+      "stat": "S",
+      "start": "Jul21",
+      "time": "1:50",
+      "command": "nginx: worker process"
+    },
+    {
+      "pid": 2300,
+      "user": "root",
+      "cpu": 1.2,
+      "mem": 2.8,
+      "vsz": 2456789,
+      "rss": 114800,
+      "tty": "?",
+      "stat": "Ssl",
+      "start": "Jul21",
+      "time": "45:32",
+      "command": "/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock"
+    },
+    {
+      "pid": 3500,
+      "user": "mysql",
+      "cpu": 2.5,
+      "mem": 5.2,
+      "vsz": 4567890,
+      "rss": 212480,
+      "tty": "?",
+      "stat": "Ssl",
+      "start": "Jul21",
+      "time": "120:15",
+      "command": "/usr/sbin/mysqld"
+    },
+    {
+      "pid": 4200,
+      "user": "root",
+      "cpu": 0.3,
+      "mem": 1.5,
+      "vsz": 1234567,
+      "rss": 61200,
+      "tty": "?",
+      "stat": "Ssl",
+      "start": "Jul21",
+      "time": "12:08",
+      "command": "/usr/bin/containerd"
+    },
+    {
+      "pid": 5600,
+      "user": "root",
+      "cpu": 0.2,
+      "mem": 0.1,
+      "vsz": 15678,
+      "rss": 5200,
+      "tty": "pts/0",
+      "stat": "Ss",
+      "start": "Jul25",
+      "time": "0:05",
+      "command": "python3 /opt/scripts/monitor.py"
+    },
+    {
+      "pid": 5800,
+      "user": "user",
+      "cpu": 0.1,
+      "mem": 0.5,
+      "vsz": 678901,
+      "rss": 20400,
+      "tty": "pts/1",
+      "stat": "Ssl",
+      "start": "Jul25",
+      "time": "1:20",
+      "command": "node /home/user/app/server.js"
+    },
+    {
+      "pid": 8900,
+      "user": "root",
+      "cpu": 0.0,
+      "mem": 0.0,
+      "vsz": 6789,
+      "rss": 1200,
+      "tty": "pts/0",
+      "stat": "R+",
+      "start": "Jul25",
+      "time": "0:00",
+      "command": "ps aux"
+    }
+  ],
+  "sensors": [
+    [
+      "CPU Package",
+      "+42.0°C",
+      "(high = +95.0°C, crit = +100.0°C)"
+    ],
+    [
+      "CPU Core 0",
+      "+40.0°C"
+    ],
+    [
+      "CPU Core 1",
+      "+41.0°C"
+    ],
+    [
+      "NVMe (980 PRO)",
+      "+38.0°C"
+    ],
+    [
+      "GPU (RTX 3060)",
+      "+52.0°C"
+    ],
+    [
+      "SDA (WDC)",
+      "+35.0°C"
+    ],
+    [
+      "SDB (ST4000)",
+      "+42.0°C  ⚠"
+    ],
+    [
+      "SDC (KingSpec)",
+      "+40.0°C"
+    ],
+    [
+      "fan1",
+      "1200 RPM  (CPU Fan)"
+    ],
+    [
+      "fan2",
+      "850 RPM   (System Fan 1)"
+    ],
+    [
+      "fan3",
+      "1100 RPM  (GPU Fan)"
+    ],
+    [
+      "Vcore",
+      "+1.18 V"
+    ],
+    [
+      "+12V",
+      "+12.10 V"
+    ],
+    [
+      "+5V",
+      "+5.02 V"
+    ]
+  ],
+  "docker_containers": [
+    [
+      "3a7f2b1c",
+      "nginx:latest",
+      "nginx-proxy",
+      "Up 3 days",
+      "0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp"
+    ],
+    [
+      "8d4e6f9a",
+      "mysql:8.0",
+      "mysql-db",
+      "Up 3 days",
+      "127.0.0.1:3306->3306/tcp"
+    ],
+    [
+      "2c1b5a9d",
+      "redis:7-alpine",
+      "redis-cache",
+      "Up 3 days",
+      "127.0.0.1:6379->6379/tcp"
+    ],
+    [
+      "f7e3a1b2",
+      "prom/prometheus:latest",
+      "prometheus",
+      "Up 2 days",
+      "0.0.0.0:9090->9090/tcp"
+    ],
+    [
+      "b5d8c0e4",
+      "grafana/grafana:latest",
+      "grafana",
+      "Up 2 days",
+      "0.0.0.0:3000->3000/tcp"
+    ]
+  ],
+  "k8s_pods": [
+    [
+      "nginx-deployment-7d4f9b5c8-x2k9m",
+      "1/1",
+      "Running",
+      "0",
+      "5d"
+    ],
+    [
+      "nginx-deployment-7d4f9b5c8-m7p3l",
+      "1/1",
+      "Running",
+      "0",
+      "5d"
+    ],
+    [
+      "redis-master-6b7c4d5f9-8n2jk",
+      "1/1",
+      "Running",
+      "0",
+      "4d"
+    ],
+    [
+      "redis-replica-5d8f7c6b4-p4m2x",
+      "1/1",
+      "Running",
+      "0",
+      "4d"
+    ],
+    [
+      "redis-replica-5d8f7c6b4-q8k5w",
+      "1/1",
+      "Running",
+      "0",
+      "4d"
+    ],
+    [
+      "mysql-0",
+      "1/1",
+      "Running",
+      "0",
+      "3d"
+    ],
+    [
+      "prometheus-server-7f8d6c5b4-r9t3h",
+      "1/1",
+      "Running",
+      "0",
+      "2d"
+    ],
+    [
+      "grafana-6b7c4d5f9-2n8jk",
+      "1/1",
+      "Running",
+      "0",
+      "2d"
+    ]
+  ]
+};
+
+/* ===== VFS ===== */
+
+const VFS = {
+    files: {},
+    init() {
+        this.files = {
+            '/root/README.txt': `Welcome to Linux Learning Simulator!
+================================
+
+This is a simulated Linux server running Ubuntu 22.04 LTS.
+Feel free to explore the filesystem and try various commands.
+
+Try these to get started:
+  ls              - List files in current directory
+  cat README.txt  - View this file
+  pwd             - Show current directory
+  cd /            - Go to root directory
+  df -h           - Check disk usage
+  free -h         - Check memory usage
+  lsblk           - List block devices
+  lscpu           - CPU information
+  htop            - Interactive process viewer
+  help            - Show all available commands
+
+Happy learning!`,
+            '/root/notes.txt': `Linux Learning Notes
+2025-07-20  - Started learning Linux basics
+2025-07-21  - Practiced file operations (ls, cd, mkdir, touch, rm)
+2025-07-22  - Learned about permissions (chmod, chown)
+2025-07-23  - Explored system monitoring (top, htop, df, free)
+2025-07-24  - Dove into disk management (fdisk, lsblk, smartctl)
+2025-07-25  - Started learning Docker and Kubernetes`,
+            '/root/projects/web.conf': `server {
+    listen 80;
+    server_name localhost;
+
+    root /var/www/html;
+    index index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location /api {
+        proxy_pass http://localhost:3000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}`,
+            '/root/.bashrc': `# .bashrc - User specific aliases and functions
+alias ll='ls -la'
+alias la='ls -A'
+alias l='ls -CF'
+alias grep='grep --color=auto'
+alias ports='netstat -tulanp'
+alias update='sudo apt update && sudo apt upgrade -y'
+
+export EDITOR=vim
+export PATH=$PATH:/usr/local/bin
+export HISTSIZE=10000
+export HISTFILESIZE=20000
+
+# Custom prompt
+PS1='\\[\\e[01;32m\\]\\u@\\h\\[\\e[00m\\]:\\[\\e[01;34m\\]\\w\\[\\e[00m\\]\\$ '`,
+            '/etc/hostname': `home-server`,
+            '/etc/hosts': `127.0.0.1       localhost
+127.0.1.1       home-server
+192.168.1.100   home-server.lan
+192.168.1.10    router.lan
+192.168.1.20    raspberrypi.lan
+
+# The following lines are desirable for IPv6 capable hosts
+::1             localhost ip6-localhost ip6-loopback
+ff02::1         ip6-allnodes
+ff02::2         ip6-allrouters`,
+            '/etc/passwd': `root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+mysql:x:999:999:MySQL Server:/var/lib/mysql:/usr/sbin/nologin
+user:x:1000:1000:Home User:/home/user:/bin/bash
+sshd:x:110:65534::/run/sshd:/usr/sbin/nologin`,
+            '/etc/sudoers': `#
+# This file MUST be edited with the 'visudo' command as root.
+#
+# See the man page for details on how to write a sudoers file.
+#
+Defaults        env_reset
+Defaults        mail_badpass
+Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+root    ALL=(ALL:ALL) ALL
+%sudo   ALL=(ALL:ALL) ALL
+user    ALL=(ALL:ALL) NOPASSWD: ALL`,
+            '/etc/nginx/nginx.conf': `user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+
+events {
+    worker_connections 768;
+}
+
+http {
+    sendfile on;
+    tcp_nopush on;
+    keepalive_timeout 65;
+    include /etc/nginx/mime.types;
+    include /etc/nginx/conf.d/*.conf;
+
+    server {
+        listen 80;
+        server_name home-server;
+        root /var/www/html;
+        index index.html index.htm;
+        location / {
+            try_files $uri $uri/ =404;
+        }
+    }
+}`,
+            '/tmp/test.txt': `This is a temporary test file.
+It contains a few lines of text
+for testing file operations.
+You can read, edit, or delete this file.`,
+            '/var/log/syslog': `Jul 21 00:00:01 home-server kernel: [    0.000000] Linux version 5.15.0-91-generic (buildd@lcy02-amd64-091) (gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0, GNU ld (GNU Binutils) 2.38)
+Jul 21 00:00:01 home-server kernel: [    0.000000] Command line: BOOT_IMAGE=/boot/vmlinuz-5.15.0-91-generic root=UUID=a1b2c3d4 ro quiet splash
+Jul 21 00:00:02 home-server kernel: [    0.123456] x86: Booting SMP configuration
+Jul 21 00:00:03 home-server kernel: [    0.345678] Initializing CPU#0
+Jul 21 00:00:04 home-server kernel: [    0.567890] ACPI: Core revision 20210730
+Jul 21 00:00:05 home-server systemd[1]: Starting systemd 249.11-0ubuntu3.12
+Jul 21 00:01:00 home-server systemd[1]: Started Network Manager.
+Jul 21 00:02:00 home-server systemd[1]: Started OpenSSH server daemon.
+Jul 21 00:05:00 home-server systemd[1]: Started Docker Application Container Engine.
+Jul 22 08:30:15 home-server sshd[400]: Accepted publickey for user from 192.168.1.50 port 55234 ssh2
+Jul 22 08:30:15 home-server sshd[400]: pam_unix(sshd:session): session opened for user user by (uid=0)
+Jul 23 12:00:00 home-server systemd[1]: Starting Cleanup of Temporary Directories...
+Jul 23 12:00:01 home-server systemd[1]: Finished Cleanup of Temporary Directories.
+Jul 24 03:00:00 home-server systemd[1]: Starting Daily apt upgrade and clean activities...
+Jul 24 03:00:05 home-server systemd[1]: Finished Daily apt upgrade and clean activities.
+Jul 25 09:00:00 home-server kernel: [345600.123] NVMe: temperature threshold reached on nvme0n1 (38C)
+Jul 25 09:00:01 home-server smartd[1200]: Device: /dev/sdb [SAT], 12 Currently unreadable (pending) sectors
+Jul 25 09:00:01 home-server smartd[1200]: Device: /dev/sdb [SAT], 4 Offline uncorrectable sectors`,
+            '/var/log/auth.log': `Jul 22 08:30:15 home-server sshd[400]: Accepted publickey for user from 192.168.1.50 port 55234 ssh2: RSA SHA256:abcdef1234567890
+Jul 22 08:30:15 home-server sshd[400]: pam_unix(sshd:session): session opened for user user by (uid=0)
+Jul 22 18:45:22 home-server sshd[400]: Failed password for root from 192.168.1.200 port 44892 ssh2
+Jul 22 18:45:25 home-server sshd[400]: Failed password for root from 192.168.1.200 port 44892 ssh2
+Jul 22 18:45:30 home-server sshd[400]: Failed password for root from 192.168.1.200 port 44892 ssh2
+Jul 22 18:45:30 home-server sshd[400]: Connection closed by authenticating user root 192.168.1.200 port 44892 [preauth]
+Jul 23 09:15:00 home-server sudo:     user : TTY=pts/0 ; PWD=/home/user ; USER=root ; COMMAND=/usr/bin/apt update
+Jul 24 14:22:10 home-server sshd[400]: Accepted password for user from 192.168.1.55 port 50234 ssh2
+Jul 24 14:22:10 home-server sshd[400]: pam_unix(sshd:session): session opened for user user by (uid=0)
+Jul 24 23:59:59 home-server sshd[400]: pam_unix(sshd:session): session closed for user user`,
+            '/var/www/html/index.html': `<!DOCTYPE html>
+<html>
+<head><title>Welcome to nginx!</title></head>
+<body><h1>Welcome to nginx!</h1>
+<p>This is the simulated nginx welcome page at /var/www/html.</p></body>
+</html>`,
+            '/home/user/welcome.txt': `Welcome user!
+
+You are logged into the Linux Learning Simulator.
+This is your home directory at /home/user.
+
+Try some commands:
+  ls -la /home/user
+  pwd
+  cd ~
+  touch hello.txt
+  vi hello.txt`,
+            '/proc/meminfo': `MemTotal:       41943040 kB
+MemFree:         8598320 kB
+MemAvailable:   21076320 kB
+Buffers:          524288 kB
+Cached:         11673600 kB
+SwapCached:        24576 kB
+Active:         22345678 kB
+Inactive:       10987654 kB
+Active(anon):   15678901 kB
+Inactive(anon):  2345678 kB
+Active(file):    6666777 kB
+Inactive(file):  8641976 kB
+Unevictable:      123456 kB
+Mlocked:           32768 kB
+SwapTotal:       8388608 kB
+SwapFree:        7131136 kB
+Dirty:             54872 kB
+Writeback:             0 kB
+AnonPages:      18123456 kB
+Mapped:          3456789 kB
+Shmem:            456789 kB
+KReclaimable:    3456789 kB
+Slab:            1234567 kB
+SReclaimable:    1098765 kB
+SUnreclaim:       135802 kB
+KernelStack:       23456 kB
+PageTables:        56789 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:    29360128 kB
+Committed_AS:   22345678 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:       45678 kB
+VmallocChunk:          0 kB
+Percpu:             5120 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
+ShmemHugePages:        0 kB
+ShmemPmdMapped:        0 kB
+FileHugePages:       0 kB
+FilePmdMapped:        0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+Hugetlb:               0 kB
+DirectMap4k:      234567 kB
+DirectMap2M:    18989056 kB
+DirectMap1G:    20971520 kB`,
+            '/proc/cpuinfo': `processor       : 0
+vendor_id       : GenuineIntel
+cpu family      : 6
+model           : 151
+model name      : Intel(R) Core(TM) i7-12700K
+stepping        : 2
+microcode       : 0x2e
+cpu MHz         : 3600.000
+cache size      : 25600 KB
+physical id     : 0
+siblings        : 20
+core id         : 0
+cpu cores       : 12
+apicid          : 0
+initial apicid  : 0
+fpu             : yes
+fpu_exception   : yes
+cpuid level     : 32
+wp              : yes
+flags           : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperg tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb intel_pt sha_ni xsaveopt xsavec xgetbv1 xsaves avx_vnni dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp hwp_pkg_req hfi umip pku ospke waitpkg gfni vaes vpclmulqdq tme rdpid movdiri movdir64b fsrm md_clear serialize pconfig arch_lbr ibt avx512f avx512dq avx512ifma avx512cd avx512bw avx512vl avx512vbmi avx512_vbmi2 avx512_vnni avx512_bitalg avx512_vpopcntdq la57 rdmsr vmxe
+bugs            : spectre_v1 spectre_v2 spec_store_bypass swapgs taa itlb_multihit mmio_stale_data retbleed eibrs_pbaroff
+bogomips        : 7200.00
+clflush size    : 64
+cache_alignment : 64
+address sizes   : 39 bits physical, 48 bits virtual
+power management:
+
+(press q to quit)`,
+            '/proc/version': `Linux version 5.15.0-91-generic (buildd@lcy02-amd64-091) (gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0, GNU ld (GNU Binutils for Ubuntu) 2.38) #101-Ubuntu SMP Tue Nov 14 13:30:08 UTC 2023`
+        };
+        this.modes = {};
+        this.owners = {};
+    },
+    getFile(path) {
+        return (path in this.files) ? this.files[path] : null;
+    },
+    writeFile(path, content) {
+        this.files[path] = content;
+    },
+    deleteFile(path) {
+        delete this.files[path];
+    },
+    mode(path) {
+        if (path in this.modes) return this.modes[path];
+        return (path in this.files) ? '644' : '755';
+    },
+    owner(path) {
+        if (path in this.owners) return this.owners[path];
+        return path.startsWith('/home/user') ? 'user' : 'root';
+    },
+    chmod(path, mode) {
+        this.modes[path] = mode;
+    },
+    chown(path, owner) {
+        this.owners[path] = owner;
+    },
+    listDir(dir) {
+        if (!dir.endsWith('/')) dir += '/';
+        const entries = {};
+        for (const p in this.files) {
+            const withoutPrefix = p.startsWith('/') ? p.slice(1) : p;
+            const dirWithoutPrefix = dir.startsWith('/') ? dir.slice(1) : dir;
+            if (withoutPrefix.startsWith(dirWithoutPrefix)) {
+                const rest = withoutPrefix.slice(dirWithoutPrefix.length);
+                if (!rest) continue;
+                const slashIdx = rest.indexOf('/');
+                if (slashIdx === -1) {
+                    entries[rest] = 'file';
+                } else {
+                    entries[rest.slice(0, slashIdx)] = 'dir';
+                }
+            }
+        }
+        // Ensure directories for known paths
+        const knownDirs = ['', 'root', 'root/projects', 'etc', 'tmp', 'var', 'var/log', 'var/www', 'var/www/html', 'home', 'home/user', 'proc'];
+        for (const kd of knownDirs) {
+            const full = '/' + kd;
+            const kdWithout = kd.startsWith('/') ? kd.slice(1) : kd;
+            if (dir === full || (dir.endsWith('/') && dir.slice(0, -1) === full)) continue;
+            const dirParts = kdWithout.split('/').filter(x => x);
+            const checkParts = dir.slice(1).split('/').filter(x => x);
+            if (dirParts.length === checkParts.length + 1 && dirParts.slice(0, checkParts.length).join('/') === checkParts.join('/')) {
+                const name = dirParts[checkParts.length];
+                if (!(name in entries)) entries[name] = 'dir';
+            }
+        }
+        return entries;
+    },
+    splitPath(p) {
+        if (p === '/') return ['/', ''];
+        const parts = p.replace(/\/+$/, '').split('/');
+        const name = parts.pop() || '';
+        const dir = parts.join('/') || '/';
+        return [dir, name];
+    }
+};
+VFS.init();
+
+
+/* ===== COMMAND REGISTRY ===== */
+
+const CMD = {};
+
+CMD['practice'] = {cat:'学习', desc:'练习任务（与学习指南同步）', usage:'practice [start|编号|reset]'};
+CMD['learn'] = {cat:'学习', desc:'命令百科：查看命令完整用法', usage:'learn <command>'};
+CMD['exam'] = {cat:'学习', desc:'项目考试：随机抽题评分', usage:'exam <项目>'};
+CMD['stats'] = {cat:'学习', desc:'学习统计与成绩', usage:'stats'};
+CMD['lang'] = {cat:'学习', desc:'切换界面语言', usage:'lang [zh|en]'};
+CMD['guide'] = {cat:'学习', desc:'学习指南：11 阶段讲解/练习题/速查表', usage:'guide [阶段号|cheat|ex]'};
+CMD['printf'] = {cat:'Shell', desc:'格式化输出', usage:'printf <格式> [参数]'};
+CMD['read'] = {cat:'Shell', desc:'读取输入到变量', usage:'read <变量>'};
+CMD['test'] = {cat:'Shell', desc:'条件判断', usage:'test <表达式>'};
+CMD['sleep'] = {cat:'Shell', desc:'模拟等待', usage:'sleep <秒>'};
+CMD['timeout'] = {cat:'Shell', desc:'命令超时（模拟）', usage:'timeout <秒> <命令>'};
+CMD['tree'] = {cat:'VFS', desc:'树形显示目录', usage:'tree [目录]'};
+CMD['basename'] = {cat:'文件工具', desc:'取文件名', usage:'basename <路径> [后缀]'};
+CMD['dirname'] = {cat:'文件工具', desc:'取目录名', usage:'dirname <路径>'};
+CMD['jq'] = {cat:'文件工具', desc:'JSON 查询', usage:'jq <过滤器> [文件]'};
+CMD['nmap'] = {cat:'网络', desc:'端口扫描（模拟）', usage:'nmap [选项] <目标>'};
+
+// === VFS File Operations ===
+CMD['ls']    = {cat:'VFS', desc:'列出目录内容', usage:'ls [-la] [path]'};
+CMD['cd']    = {cat:'VFS', desc:'切换工作目录', usage:'cd [path]'};
+CMD['pwd']   = {cat:'VFS', desc:'显示当前工作目录', usage:'pwd'};
+CMD['mkdir'] = {cat:'VFS', desc:'创建目录', usage:'mkdir <dirname>'};
+CMD['touch'] = {cat:'VFS', desc:'创建空文件', usage:'touch <filename>'};
+CMD['cat']   = {cat:'VFS', desc:'查看文件内容', usage:'cat <file>'};
+CMD['rm']    = {cat:'VFS', desc:'删除文件或目录', usage:'rm [-r] <path>'};
+CMD['cp']    = {cat:'VFS', desc:'复制文件', usage:'cp <src> <dst>'};
+CMD['mv']    = {cat:'VFS', desc:'移动/重命名文件', usage:'mv <src> <dst>'};
+CMD['echo']  = {cat:'VFS', desc:'输出文本', usage:'echo [text] [> file]'};
+CMD['find']  = {cat:'VFS', desc:'搜索文件', usage:'find <path> -name <pattern>'};
+CMD['ln']    = {cat:'VFS', desc:'创建链接', usage:'ln [-s] <target> <link>'};
+
+// === Text Processing ===
+CMD['grep']    = {cat:'文本处理', desc:'文本搜索', usage:'grep <pattern> <file>'};
+CMD['head']    = {cat:'文本处理', desc:'显示文件头部', usage:'head [-n N] <file>'};
+CMD['tail']    = {cat:'文本处理', desc:'显示文件尾部', usage:'tail [-n N] <file>'};
+CMD['wc']      = {cat:'文本处理', desc:'统计行数/单词数/字节数', usage:'wc <file>'};
+CMD['sort']    = {cat:'文本处理', desc:'排序文本', usage:'sort <file>'};
+CMD['uniq']    = {cat:'文本处理', desc:'去重', usage:'uniq <file>'};
+CMD['cut']     = {cat:'文本处理', desc:'按列截取', usage:'cut -d<delim> -f<fields> <file>'};
+CMD['tr']      = {cat:'文本处理', desc:'字符替换', usage:'tr <set1> <set2>'};
+CMD['sed']     = {cat:'文本处理', desc:'流编辑器', usage:'sed <script> <file>'};
+CMD['awk']     = {cat:'文本处理', desc:'文本处理语言', usage:'awk <script> <file>'};
+CMD['diff']    = {cat:'文本处理', desc:'文件对比', usage:'diff <file1> <file2>'};
+CMD['patch']   = {cat:'文本处理', desc:'应用补丁', usage:'patch <file> <patchfile>'};
+CMD['nl']      = {cat:'文本处理', desc:'添加行号', usage:'nl <file>'};
+
+// === System Information ===
+CMD['uname']    = {cat:'系统信息', desc:'系统信息', usage:'uname [-a]'};
+CMD['hostname'] = {cat:'系统信息', desc:'主机名', usage:'hostname'};
+CMD['whoami']   = {cat:'系统信息', desc:'当前用户', usage:'whoami'};
+CMD['id']       = {cat:'系统信息', desc:'用户ID信息', usage:'id'};
+CMD['who']      = {cat:'系统信息', desc:'当前登录用户', usage:'who'};
+CMD['uptime']   = {cat:'系统信息', desc:'系统运行时间', usage:'uptime'};
+CMD['date']     = {cat:'系统信息', desc:'显示日期时间', usage:'date'};
+CMD['sensors']  = {cat:'系统信息', desc:'温度/电压传感器', usage:'sensors'};
+
+// === Hardware Information ===
+CMD['lscpu']    = {cat:'硬件信息', desc:'CPU架构信息', usage:'lscpu'};
+CMD['lspci']    = {cat:'硬件信息', desc:'PCI设备列表', usage:'lspci'};
+CMD['lsusb']    = {cat:'硬件信息', desc:'USB设备列表', usage:'lsusb'};
+CMD['lsblk']    = {cat:'硬件信息', desc:'列出块设备', usage:'lsblk'};
+CMD['lshw']     = {cat:'硬件信息', desc:'硬件详细信息', usage:'lshw'};
+CMD['dmidecode']= {cat:'硬件信息', desc:'DMI表解码器', usage:'dmidecode [-t type]'};
+CMD['smartctl'] = {cat:'硬件信息', desc:'SMART磁盘健康', usage:'smartctl -a /dev/<device>'};
+
+// === Disk & Filesystem ===
+CMD['df']      = {cat:'磁盘管理', desc:'磁盘使用情况', usage:'df [-h]'};
+CMD['du']      = {cat:'磁盘管理', desc:'目录空间占用', usage:'du [-sh] <path>'};
+CMD['fdisk']   = {cat:'磁盘管理', desc:'磁盘分区工具', usage:'fdisk -l'};
+CMD['mount']   = {cat:'磁盘管理', desc:'挂载文件系统', usage:'mount'};
+CMD['umount']  = {cat:'磁盘管理', desc:'卸载文件系统', usage:'umount <device>'};
+CMD['blkid']   = {cat:'磁盘管理', desc:'块设备属性', usage:'blkid'};
+CMD['mkfs']    = {cat:'磁盘管理', desc:'创建文件系统', usage:'mkfs.<type> <device>'};
+CMD['fsck']    = {cat:'磁盘管理', desc:'文件系统检查', usage:'fsck <device>'};
+CMD['parted']  = {cat:'磁盘管理', desc:'分区工具', usage:'parted <device> print'};
+CMD['dd']      = {cat:'磁盘管理', desc:'磁盘复制/转换', usage:'dd if=<src> of=<dst>'};
+
+// === Memory & Process ===
+CMD['free']   = {cat:'内存/进程', desc:'内存使用情况', usage:'free [-h]'};
+CMD['ps']     = {cat:'内存/进程', desc:'进程列表', usage:'ps [aux]'};
+CMD['top']    = {cat:'内存/进程', desc:'实时进程监控', usage:'top'};
+CMD['htop']   = {cat:'内存/进程', desc:'交互式进程查看器', usage:'htop'};
+CMD['kill']   = {cat:'内存/进程', desc:'终止进程', usage:'kill <pid>'};
+CMD['pgrep']  = {cat:'内存/进程', desc:'按名称查找进程', usage:'pgrep <pattern>'};
+CMD['pkill']  = {cat:'内存/进程', desc:'按名称终止进程', usage:'pkill <pattern>'};
+CMD['lsof']   = {cat:'内存/进程', desc:'列出打开的文件', usage:'lsof'};
+CMD['nohup']  = {cat:'内存/进程', desc:'后台运行', usage:'nohup <command> &'};
+CMD['bg']     = {cat:'内存/进程', desc:'后台任务', usage:'bg'};
+CMD['fg']     = {cat:'内存/进程', desc:'前台任务', usage:'fg'};
+CMD['jobs']   = {cat:'内存/进程', desc:'任务列表', usage:'jobs'};
+
+// === Network ===
+CMD['ping']       = {cat:'网络', desc:'ICMP测试', usage:'ping [-c N] <host>'};
+CMD['curl']       = {cat:'网络', desc:'HTTP客户端', usage:'curl <url>'};
+CMD['wget']       = {cat:'网络', desc:'文件下载', usage:'wget <url>'};
+CMD['ifconfig']   = {cat:'网络', desc:'网络接口配置', usage:'ifconfig'};
+CMD['ip']         = {cat:'网络', desc:'IP路由/地址工具', usage:'ip addr'};
+CMD['netstat']    = {cat:'网络', desc:'网络连接统计', usage:'netstat [-tulanp]'};
+CMD['ss']         = {cat:'网络', desc:'Socket统计', usage:'ss [-tulanp]'};
+CMD['nslookup']   = {cat:'网络', desc:'DNS查询', usage:'nslookup <domain>'};
+CMD['dig']        = {cat:'网络', desc:'DNS诊断工具', usage:'dig <domain>'};
+CMD['traceroute'] = {cat:'网络', desc:'路由追踪', usage:'traceroute <host>'};
+CMD['route']      = {cat:'网络', desc:'路由表', usage:'route [-n]'};
+CMD['tcpdump']    = {cat:'网络', desc:'网络抓包', usage:'tcpdump -i <iface>'};
+CMD['nc']         = {cat:'网络', desc:'netcat网络工具', usage:'nc <host> <port>'};
+CMD['ssh']        = {cat:'网络', desc:'SSH客户端', usage:'ssh <user>@<host>'};
+CMD['scp']        = {cat:'网络', desc:'安全复制', usage:'scp <src> <user>@<host>:<dst>'};
+CMD['rsync']      = {cat:'网络', desc:'远程同步', usage:'rsync <src> <dst>'};
+CMD['ftp']        = {cat:'网络', desc:'FTP客户端', usage:'ftp <host>'};
+CMD['sftp']       = {cat:'网络', desc:'SFTP客户端', usage:'sftp <host>'};
+
+// === User & Permissions ===
+CMD['chmod']    = {cat:'用户/权限', desc:'修改权限', usage:'chmod <mode> <file>'};
+CMD['chown']    = {cat:'用户/权限', desc:'修改所有者', usage:'chown <user>:<group> <file>'};
+CMD['chgrp']    = {cat:'用户/权限', desc:'修改所属组', usage:'chgrp <group> <file>'};
+CMD['umask']    = {cat:'用户/权限', desc:'权限掩码', usage:'umask [mode]'};
+CMD['useradd']  = {cat:'用户/权限', desc:'添加用户', usage:'useradd <username>'};
+CMD['userdel']  = {cat:'用户/权限', desc:'删除用户', usage:'userdel <username>'};
+CMD['usermod']  = {cat:'用户/权限', desc:'修改用户', usage:'usermod <options> <username>'};
+CMD['passwd']   = {cat:'用户/权限', desc:'修改密码', usage:'passwd [username]'};
+CMD['groupadd'] = {cat:'用户/权限', desc:'添加组', usage:'groupadd <group>'};
+CMD['groupdel'] = {cat:'用户/权限', desc:'删除组', usage:'groupdel <group>'};
+CMD['su']       = {cat:'用户/权限', desc:'切换用户', usage:'su [username]'};
+CMD['sudo']     = {cat:'用户/权限', desc:'以root执行', usage:'sudo <command>'};
+
+// === Package Management ===
+CMD['apt']    = {cat:'软件包', desc:'APT包管理器', usage:'apt [install|update|upgrade|remove] <pkg>'};
+CMD['yum']    = {cat:'软件包', desc:'YUM包管理器', usage:'yum [install|update|remove] <pkg>'};
+CMD['dpkg']   = {cat:'软件包', desc:'Debian包管理器', usage:'dpkg [-i|-l] <pkg>'};
+CMD['snap']   = {cat:'软件包', desc:'Snap包管理器', usage:'snap [install|list] <pkg>'};
+
+// === Service Management ===
+CMD['systemctl'] = {cat:'服务管理', desc:'systemd服务管理', usage:'systemctl [status|start|stop|restart] <service>'};
+CMD['journalctl']= {cat:'服务管理', desc:'查看日志', usage:'journalctl [-u <unit>]'};
+CMD['service']   = {cat:'服务管理', desc:'SysV服务管理', usage:'service <name> [status|start|stop]'};
+
+// === Shell & Environment ===
+CMD['bash']      = {cat:'Shell', desc:'启动bash子shell', usage:'bash'};
+CMD['alias']     = {cat:'Shell', desc:'创建别名', usage:'alias [name=value]'};
+CMD['unalias']   = {cat:'Shell', desc:'移除别名', usage:'unalias <name>'};
+CMD['type']      = {cat:'Shell', desc:'命令类型', usage:'type <command>'};
+CMD['which']     = {cat:'Shell', desc:'查找命令路径', usage:'which <command>'};
+CMD['whereis']   = {cat:'Shell', desc:'查找命令位置', usage:'whereis <command>'};
+CMD['source']    = {cat:'Shell', desc:'执行脚本', usage:'source <file>'};
+CMD['exec']      = {cat:'Shell', desc:'替换当前进程', usage:'exec <command>'};
+CMD['env']       = {cat:'Shell', desc:'显示环境变量', usage:'env'};
+CMD['export']    = {cat:'Shell', desc:'设置环境变量', usage:'export <VAR>=<value>'};
+CMD['set']       = {cat:'Shell', desc:'Shell选项', usage:'set'};
+CMD['unset']     = {cat:'Shell', desc:'删除变量', usage:'unset <VAR>'};
+CMD['declare']   = {cat:'Shell', desc:'声明变量', usage:'declare <VAR>=<value>'};
+CMD['readonly']  = {cat:'Shell', desc:'只读变量', usage:'readonly <VAR>'};
+CMD['tee']       = {cat:'Shell', desc:'T型输出', usage:'tee <file>'};
+CMD['watch']     = {cat:'Shell', desc:'循环执行命令', usage:'watch [-n N] <command>'};
+CMD['crontab']   = {cat:'Shell', desc:'计划任务', usage:'crontab [-l|-e]'};
+CMD['time']      = {cat:'Shell', desc:'命令计时', usage:'time <command>'};
+CMD['yes']       = {cat:'Shell', desc:'重复输出', usage:'yes [string]'};
+CMD['xargs']     = {cat:'Shell', desc:'构建命令行', usage:'xargs <command>'};
+
+// === Archive & Compression ===
+CMD['tar']   = {cat:'压缩归档', desc:'归档工具', usage:'tar [-czf|-xzf] <archive> <files>'};
+CMD['gzip']  = {cat:'压缩归档', desc:'压缩工具', usage:'gzip <file>'};
+CMD['zip']   = {cat:'压缩归档', desc:'ZIP压缩', usage:'zip <archive.zip> <files>'};
+CMD['unzip'] = {cat:'压缩归档', desc:'ZIP解压', usage:'unzip <archive.zip>'};
+
+// === File Utilities ===
+CMD['file']     = {cat:'文件工具', desc:'识别文件类型', usage:'file <path>'};
+CMD['stat']     = {cat:'文件工具', desc:'文件详细信息', usage:'stat <path>'};
+CMD['md5sum']   = {cat:'文件工具', desc:'MD5校验', usage:'md5sum <file>'};
+CMD['sha256sum']= {cat:'文件工具', desc:'SHA256校验', usage:'sha256sum <file>'};
+CMD['base64']   = {cat:'文件工具', desc:'Base64编解码', usage:'base64 <file>'};
+CMD['strings']  = {cat:'文件工具', desc:'提取可打印字符串', usage:'strings <file>'};
+CMD['realpath'] = {cat:'文件工具', desc:'解析路径', usage:'realpath <path>'};
+
+// === Editors ===
+CMD['vi']        = {cat:'编辑器', desc:'Vim编辑器', usage:'vi <file>'};
+CMD['vim']       = {cat:'编辑器', desc:'Vim编辑器', usage:'vim <file>'};
+CMD['vimtutor']  = {cat:'编辑器', desc:'Vim教程', usage:'vimtutor'};
+CMD['nano']      = {cat:'编辑器', desc:'Nano编辑器', usage:'nano <file>'};
+
+// === Development ===
+CMD['gcc']     = {cat:'开发工具', desc:'GCC C编译器', usage:'gcc <file.c> -o <output>'};
+CMD['g++']     = {cat:'开发工具', desc:'G++ C++编译器', usage:'g++ <file.cpp> -o <output>'};
+CMD['make']    = {cat:'开发工具', desc:'构建工具', usage:'make [target]'};
+CMD['gdb']     = {cat:'开发工具', desc:'GNU调试器', usage:'gdb <binary>'};
+CMD['git']     = {cat:'开发工具', desc:'版本控制', usage:'git <subcommand>'};
+CMD['python3'] = {cat:'开发工具', desc:'Python解释器', usage:'python3 [script.py]'};
+CMD['node']    = {cat:'开发工具', desc:'Node.js运行时', usage:'node [script.js]'};
+CMD['npm']     = {cat:'开发工具', desc:'Node包管理器', usage:'npm [install|run]'};
+
+// === Session Management ===
+CMD['screen']   = {cat:'会话管理', desc:'屏幕会话管理', usage:'screen'};
+CMD['tmux']     = {cat:'会话管理', desc:'终端复用器', usage:'tmux'};
+
+// === System Control ===
+CMD['shutdown'] = {cat:'系统控制', desc:'关机', usage:'shutdown [-h|-r] [time]'};
+CMD['reboot']   = {cat:'系统控制', desc:'重启', usage:'reboot'};
+CMD['halt']     = {cat:'系统控制', desc:'停机', usage:'halt'};
+CMD['poweroff'] = {cat:'系统控制', desc:'断电', usage:'poweroff'};
+CMD['dmesg']    = {cat:'系统控制', desc:'内核日志缓冲区', usage:'dmesg'};
+
+// === Document Viewers ===
+CMD['more']   = {cat:'文档工具', desc:'分页查看', usage:'more <file>'};
+CMD['less']   = {cat:'文档工具', desc:'分页查看', usage:'less <file>'};
+CMD['whatis'] = {cat:'文档工具', desc:'命令简述', usage:'whatis <command>'};
+CMD['info']   = {cat:'文档工具', desc:'信息文档', usage:'info <command>'};
+
+// === Other Utilities ===
+CMD['clear']  = {cat:'其他', desc:'清屏', usage:'clear'};
+CMD['history']= {cat:'其他', desc:'命令历史', usage:'history'};
+CMD['help']   = {cat:'其他', desc:'显示帮助', usage:'help'};
+CMD['exit']   = {cat:'其他', desc:'退出Shell', usage:'exit'};
+
+
+// Docker
+CMD['docker'] = {cat:'DevOps/容器', desc:'Docker容器管理', usage:'docker <subcommand>'};
+CMD['docker-compose'] = {cat:'DevOps/容器', desc:'Docker Compose', usage:'docker-compose <subcommand>'};
+CMD['podman'] = {cat:'DevOps/容器', desc:'Podman容器', usage:'podman <subcommand>'};
+CMD['containerd'] = {cat:'DevOps/容器', desc:'containerd运行时', usage:'containerd'};
+CMD['crictl'] = {cat:'DevOps/容器', desc:'CRI命令行', usage:'crictl <subcommand>'};
+CMD['ctr'] = {cat:'DevOps/容器', desc:'containerd CLI', usage:'ctr <subcommand>'};
+CMD['buildah'] = {cat:'DevOps/容器', desc:'Buildah构建工具', usage:'buildah <subcommand>'};
+CMD['skopeo'] = {cat:'DevOps/容器', desc:'Skopeo镜像工具', usage:'skopeo <subcommand>'};
+
+// Kubernetes
+CMD['kubectl'] = {cat:'K8s', desc:'Kubernetes CLI', usage:'kubectl <subcommand>'};
+CMD['helm'] = {cat:'K8s', desc:'Helm包管理', usage:'helm <subcommand>'};
+CMD['kustomize'] = {cat:'K8s', desc:'Kustomize定制工具', usage:'kustomize <subcommand>'};
+CMD['minikube'] = {cat:'K8s', desc:'本地K8s', usage:'minikube <subcommand>'};
+CMD['kind'] = {cat:'K8s', desc:'Kind K8s集群', usage:'kind <subcommand>'};
+CMD['kubeadm'] = {cat:'K8s', desc:'K8s管理工具', usage:'kubeadm <subcommand>'};
+CMD['kubelet'] = {cat:'K8s', desc:'K8s节点代理', usage:'kubelet'};
+CMD['etcdctl'] = {cat:'中间件', desc:'etcd CLI', usage:'etcdctl <subcommand>'};
+CMD['calicoctl'] = {cat:'K8s', desc:'Calico CLI', usage:'calicoctl <subcommand>'};
+
+// Messaging
+CMD['kafka'] = {cat:'中间件', desc:'Apache Kafka', usage:'kafka-<subcommand>'};
+CMD['rabbitmq'] = {cat:'中间件', desc:'RabbitMQ', usage:'rabbitmq-<subcommand>'};
+CMD['rabbitmqctl'] = {cat:'中间件', desc:'RabbitMQ管理', usage:'rabbitmqctl <subcommand>'};
+CMD['nats'] = {cat:'中间件', desc:'NATS消息系统', usage:'nats <subcommand>'};
+CMD['pulsar'] = {cat:'中间件', desc:'Apache Pulsar', usage:'pulsar <subcommand>'};
+
+// Web/Proxy
+CMD['nginx'] = {cat:'中间件', desc:'Nginx Web服务器', usage:'nginx [-t|-s reload]'};
+CMD['haproxy'] = {cat:'中间件', desc:'HAProxy负载均衡', usage:'haproxy [-f <config>]'};
+CMD['apache2'] = {cat:'中间件', desc:'Apache HTTP服务器', usage:'apache2 [-t|-k restart]'};
+CMD['caddy'] = {cat:'中间件', desc:'Caddy Web服务器', usage:'caddy <subcommand>'};
+CMD['keepalived'] = {cat:'中间件', desc:'Keepalived高可用', usage:'keepalived'};
+CMD['traefik'] = {cat:'中间件', desc:'Traefik反向代理', usage:'traefik'};
+
+// Databases
+CMD['mysql'] = {cat:'中间件', desc:'MySQL客户端', usage:'mysql [-u user] [-p]'};
+CMD['mysqldump'] = {cat:'中间件', desc:'MySQL备份', usage:'mysqldump <db>'};
+CMD['postgresql'] = {cat:'中间件', desc:'PostgreSQL', usage:'psql'};
+CMD['pg_dump'] = {cat:'中间件', desc:'PostgreSQL备份', usage:'pg_dump <db>'};
+CMD['mongodb'] = {cat:'中间件', desc:'MongoDB', usage:'mongosh'};
+CMD['redis'] = {cat:'中间件', desc:'Redis服务器', usage:'redis-server'};
+CMD['redis-cli'] = {cat:'中间件', desc:'Redis CLI', usage:'redis-cli'};
+CMD['etcd'] = {cat:'中间件', desc:'etcd键值存储', usage:'etcd'};
+CMD['consul'] = {cat:'中间件', desc:'Consul服务发现', usage:'consul <subcommand>'};
+CMD['sqlite3'] = {cat:'中间件', desc:'SQLite CLI', usage:'sqlite3 <db>'};
+
+// Monitoring
+CMD['prometheus'] = {cat:'DevOps/监控', desc:'Prometheus监控', usage:'prometheus'};
+CMD['promtool'] = {cat:'DevOps/监控', desc:'Prometheus工具', usage:'promtool <subcommand>'};
+CMD['alertmanager'] = {cat:'DevOps/监控', desc:'Alertmanager', usage:'alertmanager'};
+CMD['grafana'] = {cat:'DevOps/监控', desc:'Grafana可视化', usage:'grafana-server'};
+CMD['node_exporter'] = {cat:'DevOps/监控', desc:'Node Exporter', usage:'node_exporter'};
+
+// Logging
+CMD['elasticsearch'] = {cat:'中间件', desc:'Elasticsearch', usage:'elasticsearch'};
+CMD['logstash'] = {cat:'中间件', desc:'Logstash', usage:'logstash'};
+CMD['kibana'] = {cat:'中间件', desc:'Kibana', usage:'kibana'};
+CMD['filebeat'] = {cat:'中间件', desc:'Filebeat', usage:'filebeat'};
+CMD['fluentd'] = {cat:'中间件', desc:'Fluentd', usage:'fluentd'};
+CMD['fluentbit'] = {cat:'中间件', desc:'Fluent Bit', usage:'fluent-bit'};
+CMD['loki'] = {cat:'DevOps/日志', desc:'Grafana Loki', usage:'loki'};
+CMD['promtail'] = {cat:'DevOps/日志', desc:'Promtail', usage:'promtail'};
+
+// IaC
+CMD['terraform'] = {cat:'DevOps/IaC', desc:'Terraform', usage:'terraform <subcommand>'};
+CMD['packer'] = {cat:'DevOps/IaC', desc:'Packer', usage:'packer <subcommand>'};
+CMD['vagrant'] = {cat:'DevOps/IaC', desc:'Vagrant', usage:'vagrant <subcommand>'};
+CMD['pulumi'] = {cat:'DevOps/IaC', desc:'Pulumi', usage:'pulumi <subcommand>'};
+CMD['opentofu'] = {cat:'DevOps/IaC', desc:'OpenTofu', usage:'opentofu <subcommand>'};
+
+// Config Management
+CMD['ansible'] = {cat:'DevOps/配置', desc:'Ansible', usage:'ansible <subcommand>'};
+CMD['ansible-playbook'] = {cat:'DevOps/配置', desc:'Ansible Playbook', usage:'ansible-playbook <file>'};
+CMD['puppet'] = {cat:'DevOps/配置', desc:'Puppet', usage:'puppet <subcommand>'};
+CMD['chef'] = {cat:'DevOps/配置', desc:'Chef', usage:'chef <subcommand>'};
+CMD['salt'] = {cat:'DevOps/配置', desc:'SaltStack', usage:'salt <subcommand>'};
+
+// Service Mesh
+CMD['istioctl'] = {cat:'K8s', desc:'Istio CLI', usage:'istioctl <subcommand>'};
+CMD['linkerd'] = {cat:'K8s', desc:'Linkerd', usage:'linkerd <subcommand>'};
+CMD['envoy'] = {cat:'K8s', desc:'Envoy代理', usage:'envoy'};
+CMD['nginx-ingress'] = {cat:'K8s', desc:'Nginx Ingress', usage:'nginx-ingress'};
+
+// CI/CD
+CMD['gitlab'] = {cat:'CI/CD', desc:'GitLab', usage:'gitlab-ctl <subcommand>'};
+CMD['jenkins'] = {cat:'CI/CD', desc:'Jenkins', usage:'jenkins'};
+CMD['argocd'] = {cat:'CI/CD', desc:'ArgoCD', usage:'argocd <subcommand>'};
+CMD['flux'] = {cat:'CI/CD', desc:'FluxCD', usage:'flux <subcommand>'};
+
+// Security
+CMD['openssl'] = {cat:'DevOps/安全', desc:'OpenSSL', usage:'openssl <subcommand>'};
+CMD['certbot'] = {cat:'DevOps/安全', desc:'Certbot', usage:'certbot <subcommand>'};
+CMD['acme.sh'] = {cat:'DevOps/安全', desc:'acme.sh', usage:'acme.sh <subcommand>'};
+CMD['vault'] = {cat:'DevOps/安全', desc:'HashiCorp Vault', usage:'vault <subcommand>'};
+CMD['keycloak'] = {cat:'DevOps/安全', desc:'Keycloak', usage:'keycloak'};
+CMD['ldapsearch'] = {cat:'DevOps/安全', desc:'LDAP查询', usage:'ldapsearch <options>'};
+CMD['ssh-keygen'] = {cat:'DevOps/安全', desc:'SSH密钥生成', usage:'ssh-keygen [-t rsa]'};
+CMD['iptables'] = {cat:'DevOps/安全', desc:'iptables防火墙', usage:'iptables [-L|-A|-D]'};
+CMD['ufw'] = {cat:'DevOps/安全', desc:'UFW防火墙', usage:'ufw [status|enable|allow]'};
+CMD['nft'] = {cat:'DevOps/安全', desc:'nftables', usage:'nft <subcommand>'};
+CMD['fail2ban'] = {cat:'DevOps/安全', desc:'Fail2ban', usage:'fail2ban-client <subcommand>'};
+
+// Storage
+CMD['ceph'] = {cat:'DevOps/存储', desc:'Ceph存储', usage:'ceph <subcommand>'};
+CMD['gluster'] = {cat:'DevOps/存储', desc:'GlusterFS', usage:'gluster <subcommand>'};
+CMD['nfs'] = {cat:'DevOps/存储', desc:'NFS', usage:'nfsstat'};
+CMD['minio'] = {cat:'中间件', desc:'MinIO', usage:'minio server'};
+CMD['longhorn'] = {cat:'DevOps/存储', desc:'Longhorn', usage:'longhorn'};
+CMD['rook'] = {cat:'DevOps/存储', desc:'Rook', usage:'rook'};
+CMD['restic'] = {cat:'DevOps/存储', desc:'Restic备份', usage:'restic <subcommand>'};
+CMD['borg'] = {cat:'DevOps/存储', desc:'Borg备份', usage:'borg <subcommand>'};
+CMD['duplicity'] = {cat:'DevOps/存储', desc:'Duplicity', usage:'duplicity <subcommand>'};
+
+// Network Policy
+CMD['calico'] = {cat:'DevOps/网络', desc:'Calico', usage:'calico'};
+CMD['flannel'] = {cat:'DevOps/网络', desc:'Flannel', usage:'flannel'};
+CMD['weave'] = {cat:'DevOps/网络', desc:'Weave Net', usage:'weave <subcommand>'};
+CMD['cilium'] = {cat:'DevOps/网络', desc:'Cilium', usage:'cilium <subcommand>'};
+CMD['metallb'] = {cat:'DevOps/网络', desc:'MetalLB', usage:'metallb'};
+CMD['wireguard'] = {cat:'DevOps/网络', desc:'WireGuard', usage:'wg'};
+
+// Performance
+CMD['ab'] = {cat:'DevOps/性能', desc:'ApacheBench', usage:'ab <url>'};
+CMD['wrk'] = {cat:'DevOps/性能', desc:'wrk基准测试', usage:'wrk <url>'};
+CMD['siege'] = {cat:'DevOps/性能', desc:'Siege压力测试', usage:'siege <url>'};
+CMD['sysbench'] = {cat:'DevOps/性能', desc:'Sysbench', usage:'sysbench <subcommand>'};
+CMD['stress'] = {cat:'DevOps/性能', desc:'Stress工具', usage:'stress <options>'};
+CMD['fio'] = {cat:'DevOps/性能', desc:'FIO磁盘测试', usage:'fio <jobfile>'};
+CMD['iostat'] = {cat:'DevOps/性能', desc:'IO统计', usage:'iostat'};
+CMD['vmstat'] = {cat:'DevOps/性能', desc:'虚拟内存统计', usage:'vmstat'};
+CMD['sar'] = {cat:'DevOps/性能', desc:'系统活动报告', usage:'sar'};
+CMD['perf'] = {cat:'DevOps/性能', desc:'性能分析', usage:'perf <subcommand>'};
+
+// Virtualization
+CMD['virt-manager'] = {cat:'DevOps/虚拟化', desc:'Virt Manager', usage:'virt-manager'};
+CMD['virsh'] = {cat:'DevOps/虚拟化', desc:'libvirt Shell', usage:'virsh <subcommand>'};
+CMD['qemu'] = {cat:'DevOps/虚拟化', desc:'QEMU', usage:'qemu-system-x86_64'};
+CMD['kvm'] = {cat:'DevOps/虚拟化', desc:'KVM', usage:'kvm'};
+CMD['xen'] = {cat:'DevOps/虚拟化', desc:'Xen', usage:'xl <subcommand>'};
+
+// Other tools
+CMD['glances'] = {cat:'DevOps/其他', desc:'Glances监控', usage:'glances'};
+CMD['iftop'] = {cat:'DevOps/其他', desc:'iftop流量监控', usage:'iftop'};
+CMD['nethogs'] = {cat:'DevOps/其他', desc:'nethogs进程流量', usage:'nethogs'};
+CMD['iotop'] = {cat:'DevOps/其他', desc:'iotop IO监控', usage:'iotop'};
+CMD['knative'] = {cat:'DevOps/其他', desc:'Knative', usage:'kn <subcommand>'};
+CMD['openfaas'] = {cat:'DevOps/其他', desc:'OpenFaaS', usage:'faas-cli <subcommand>'};
+CMD['kubeless'] = {cat:'DevOps/其他', desc:'Kubeless', usage:'kubeless <subcommand>'};
+
+CMD['tac']      = {cat:'文本处理', desc:'反向输出文件行', usage:'tac <file>'};
+CMD['od']       = {cat:'文件工具', desc:'八进制/十六进制dump', usage:'od [-x] <file>'};
+CMD['hexdump']  = {cat:'文件工具', desc:'十六进制dump', usage:'hexdump <file>'};
+CMD['bzip2']    = {cat:'压缩归档', desc:'bzip2压缩', usage:'bzip2 <file>'};
+CMD['bunzip2']  = {cat:'压缩归档', desc:'bunzip2解压', usage:'bunzip2 <file>'};
+CMD['xz']       = {cat:'压缩归档', desc:'xz压缩', usage:'xz <file>'};
+CMD['unxz']     = {cat:'压缩归档', desc:'xz解压', usage:'unxz <file>'};
+CMD['lz4']      = {cat:'压缩归档', desc:'lz4压缩', usage:'lz4 <file>'};
+CMD['lsmod']    = {cat:'硬件信息', desc:'列出内核模块', usage:'lsmod'};
+CMD['modprobe'] = {cat:'硬件信息', desc:'内核模块管理', usage:'modprobe <module>'};
+CMD['modinfo']  = {cat:'硬件信息', desc:'模块详细信息', usage:'modinfo <module>'};
+CMD['sysctl']   = {cat:'系统信息', desc:'内核参数管理', usage:'sysctl [-a|<key>]'};
+CMD['losetup']  = {cat:'磁盘管理', desc:'设置loop设备', usage:'losetup [-l]'};
+CMD['swapon']   = {cat:'磁盘管理', desc:'启用swap', usage:'swapon <device>'};
+CMD['swapoff']  = {cat:'磁盘管理', desc:'关闭swap', usage:'swapoff <device>'};
+CMD['lsattr']   = {cat:'文件工具', desc:'列出文件属性', usage:'lsattr <file>'};
+CMD['chattr']   = {cat:'文件工具', desc:'修改文件属性', usage:'chattr [+/-=i] <file>'};
+CMD['host']     = {cat:'网络', desc:'DNS查询', usage:'host <domain>'};
+CMD['whois']    = {cat:'网络', desc:'Whois查询', usage:'whois <domain>'};
+CMD['mtr']      = {cat:'网络', desc:'路由追踪+ping', usage:'mtr <host>'};
+CMD['socat']    = {cat:'网络', desc:'双向数据流', usage:'socat <addr1> <addr2>'};
+CMD['telnet']   = {cat:'网络', desc:'Telnet客户端', usage:'telnet <host> [port]'};
+CMD['nmcli']    = {cat:'网络', desc:'NetworkManager CLI', usage:'nmcli [d|con|dev]'};
+CMD['iwconfig'] = {cat:'网络', desc:'无线网卡配置', usage:'iwconfig'};
+CMD['rfkill']   = {cat:'网络', desc:'无线设备开关', usage:'rfkill [list|block|unblock]'};
+CMD['last']     = {cat:'用户/权限', desc:'登录历史', usage:'last'};
+CMD['w']        = {cat:'系统信息', desc:'当前登录用户及活动', usage:'w'};
+CMD['nice']     = {cat:'内存/进程', desc:'设置优先级启动', usage:'nice -n <N> <command>'};
+CMD['renice']   = {cat:'内存/进程', desc:'修改运行中优先级', usage:'renice <N> <pid>'};
+CMD['pidof']    = {cat:'内存/进程', desc:'按名称获取PID', usage:'pidof <name>'};
+CMD['strace']   = {cat:'内存/进程', desc:'系统调用追踪', usage:'strace <command>'};
+CMD['ltrace']   = {cat:'内存/进程', desc:'库调用追踪', usage:'ltrace <command>'};
+CMD['ulimit']   = {cat:'Shell', desc:'资源限制', usage:'ulimit [-a]'};
+CMD['shopt']    = {cat:'Shell', desc:'Shell选项', usage:'shopt'};
+CMD['popd']     = {cat:'Shell', desc:'弹出目录栈', usage:'popd'};
+CMD['pushd']    = {cat:'Shell', desc:'压入目录栈', usage:'pushd <dir>'};
+CMD['dirs']     = {cat:'Shell', desc:'显示目录栈', usage:'dirs'};
+CMD['disown']   = {cat:'Shell', desc:'移除作业', usage:'disown <job>'};
+CMD['paste']    = {cat:'文本处理', desc:'合并文件行', usage:'paste <file1> <file2>'};
+CMD['join']     = {cat:'文本处理', desc:'关联合并文件', usage:'join <file1> <file2>'};
+CMD['comm']     = {cat:'文本处理', desc:'比较排序文件', usage:'comm <file1> <file2>'};
+CMD['split']    = {cat:'文本处理', desc:'拆分文件', usage:'split [-l N] <file>'};
+CMD['fmt']      = {cat:'文本处理', desc:'格式化文本', usage:'fmt <file>'};
+CMD['pr']       = {cat:'文本处理', desc:'打印格式化', usage:'pr <file>'};
+CMD['expand']   = {cat:'文本处理', desc:'Tab转空格', usage:'expand <file>'};
+CMD['unexpand'] = {cat:'文本处理', desc:'空格转Tab', usage:'unexpand <file>'};
+CMD['neofetch'] = {cat:'系统信息', desc:'系统信息美化', usage:'neofetch'};
+CMD['inxi']     = {cat:'系统信息', desc:'系统信息汇总', usage:'inxi [-F]'};
+CMD['sudoedit'] = {cat:'用户/权限', desc:'用sudo编辑文件', usage:'sudoedit <file>'};
+CMD['visudo']   = {cat:'用户/权限', desc:'编辑sudoers', usage:'visudo'};
+CMD['bc']       = {cat:'其他', desc:'命令行计算器', usage:'bc'};
+CMD['cal']      = {cat:'其他', desc:'日历', usage:'cal [month] [year]'};
+CMD['seq']      = {cat:'其他', desc:'生成序列', usage:'seq <last>|<first> <last>'};
+CMD['shuf']     = {cat:'其他', desc:'随机排列', usage:'shuf <file>'};
+CMD['factor']   = {cat:'其他', desc:'分解质因数', usage:'factor <N>'};
+CMD['numfmt']   = {cat:'其他', desc:'数字格式化', usage:'numfmt --to=si <N>'};
+CMD['logger']   = {cat:'其他', desc:'写入系统日志', usage:'logger <message>'};
+CMD['man']      = {cat:'文档工具', desc:'手册页', usage:'man <command>'};
+CMD['apropos']  = {cat:'文档工具', desc:'搜索手册页', usage:'apropos <keyword>'};
+CMD['timedatectl'] = {cat:'系统控制', desc:'时区/时间管理', usage:'timedatectl [status|set-timezone]'};
+CMD['hostnamectl'] = {cat:'系统控制', desc:'主机名管理', usage:'hostnamectl [status|set-hostname]'};
+CMD['at']       = {cat:'Shell', desc:'定时执行一次', usage:'at <time>'};
+CMD['batch']    = {cat:'Shell', desc:'系统空闲时执行', usage:'batch'};
+CMD['ldd']      = {cat:'开发工具', desc:'查看动态库依赖', usage:'ldd <binary>'};
+CMD['ldconfig'] = {cat:'开发工具', desc:'动态库缓存管理', usage:'ldconfig [-p]'};
+CMD['perl']     = {cat:'开发工具', desc:'Perl解释器', usage:'perl [script.pl]'};
+CMD['ruby']     = {cat:'开发工具', desc:'Ruby解释器', usage:'ruby [script.rb]'};
+CMD['php']      = {cat:'开发工具', desc:'PHP解释器', usage:'php [script.php]'};
+CMD['go']       = {cat:'开发工具', desc:'Go工具链', usage:'go [run|build]'};
+CMD['cargo']    = {cat:'开发工具', desc:'Rust包管理', usage:'cargo [build|run]'};
+CMD['cmake']    = {cat:'开发工具', desc:'CMake构建系统', usage:'cmake <srcdir>'};
+CMD['arp']      = {cat:'网络', desc:'ARP表管理', usage:'arp [-a]'};
+CMD['arping']   = {cat:'网络', desc:'ARP ping', usage:'arping <host>'};
+CMD['wall']     = {cat:'用户/权限', desc:'广播消息', usage:'wall <message>'};
+CMD['mesg']     = {cat:'用户/权限', desc:'控制终端消息', usage:'mesg [y|n]'};
+CMD['write']    = {cat:'用户/权限', desc:'给用户发消息', usage:'write <user>'};
+CMD['chsh']     = {cat:'用户/权限', desc:'修改默认Shell', usage:'chsh -s <shell>'};
+CMD['logname']  = {cat:'用户/权限', desc:'显示登录名', usage:'logname'};
+CMD['newgrp']   = {cat:'用户/权限', desc:'切换组', usage:'newgrp <group>'};
+CMD['localectl'] = {cat:'系统控制', desc:'区域设置管理', usage:'localectl status'};
+CMD['loginctl'] = {cat:'系统控制', desc:'登录管理', usage:'loginctl [list-sessions]'};
+
+
+/* ===== PARSER ===== */
+
+function parseArgs(cmdLine) {
+    const result = [];
+    let current = '';
+    let inSingle = false;
+    let inDouble = false;
+
+    for (let i = 0; i < cmdLine.length; i++) {
+        const ch = cmdLine[i];
+        if (inSingle) {
+            if (ch === "'") { inSingle = false; }
+            else { current += ch; }
+        } else if (inDouble) {
+            if (ch === '"') { inDouble = false; }
+            else if (ch === '\\' && i + 1 < cmdLine.length) { i++; current += cmdLine[i]; }
+            else { current += ch; }
+        } else {
+            if (ch === "'") { inSingle = true; }
+            else if (ch === '"') { inDouble = true; }
+            else if (ch === ' ' || ch === '\t') {
+                if (current.length > 0) { result.push(current); current = ''; }
+            } else {
+                current += ch;
+            }
+        }
+    }
+    if (current.length > 0) result.push(current);
+    return result;
+}
+
+
+/* ===== ENGINE STATE ===== */
+
+// Global state
+let cwd = '/root';
+let user = 'user';
+let isRoot = false;
+let history = [];
+let historyIndex = -1;
+let sudoMode = false;
+let inBash = false;
+let pipeInput = '';
+let lastExitCode = 0;
+let chainBreak = false;
+const FALSE_SENTINEL = '\u0000false';
+let aliasMap = {ll:'ls -la', la:'ls -A', l:'ls -CF', ports:'netstat -tulanp', update:'sudo apt update && sudo apt upgrade -y'};
+let envVars = {HOME:'/root', USER:'user', SHELL:'/bin/bash', PATH:'/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', EDITOR:'vim', PWD:'/root', LANG:'en_US.UTF-8'};
+
+/* ===== LANGUAGE (zh / en) ===== */
+function loadLang() {
+    try {
+        const v = localStorage.getItem('linux-sim-lang');
+        if (v === 'en' || v === 'zh') return v;
+    } catch (e) {}
+    return 'zh';
+}
+let lang = loadLang();
+function saveLang() {
+    try { localStorage.setItem('linux-sim-lang', lang); } catch (e) {}
+}
+function L(zh, en) { return lang === 'en' ? en : zh; }
+
+/* ===== STATE MACHINES (services / containers / processes) ===== */
+const SERVICES = {
+  nginx:  { status:'running', enabled:true },
+  mysql:  { status:'running', enabled:true },
+  redis:  { status:'running', enabled:false },
+  docker: { status:'running', enabled:true },
+  sshd:   { status:'running', enabled:true },
+};
+let dockerContainers = null;
+let PROC_TABLE = null;
+function initStateMachines() {
+    if (dockerContainers === null) {
+        dockerContainers = (window.SIM_HW.docker_containers || []).map((c) => ({ id:c[0], img:c[1], name:c[2], status:'running', ports:c[4] }));
+    }
+    if (PROC_TABLE === null) {
+        PROC_TABLE = [
+            { pid:1,    user:'root',     cpu:0.0, mem:0.3, cmd:'systemd' },
+            { pid:400,  user:'root',     cpu:0.0, mem:0.1, cmd:'sshd -D' },
+            { pid:1200, user:'root',     cpu:0.1, mem:0.4, cmd:'nginx: master process' },
+            { pid:1201, user:'www-data', cpu:0.2, mem:0.5, cmd:'nginx: worker process' },
+            { pid:3500, user:'mysql',    cpu:0.5, mem:8.2, cmd:'/usr/sbin/mysqld' },
+            { pid:2300, user:'root',     cpu:0.3, mem:1.1, cmd:'dockerd' },
+            { pid:5600, user:'root',     cpu:1.2, mem:0.6, cmd:'python3 /opt/scripts/monitor.py' },
+            { pid:7201, user:'user',     cpu:0.0, mem:0.2, cmd:'bash' },
+        ];
+    }
+}
+initStateMachines();
+
+/* ===== EXAM & STATS ===== */
+let examState = null;
+function loadStats() {
+    try {
+        const raw = localStorage.getItem('linux-sim-stats');
+        if (raw) {
+            const s = JSON.parse(raw);
+            if (s && typeof s === 'object') return Object.assign({ usedCmds: [], badCmds: {}, streak: 0, lastDate: '', exams: [] }, s);
+        }
+    } catch (e) {}
+    return { usedCmds: [], badCmds: {}, streak: 0, lastDate: '', exams: [] };
+}
+let stats = loadStats();
+function saveStats() {
+    try { localStorage.setItem('linux-sim-stats', JSON.stringify(stats)); } catch (e) {}
+}
+function recordUsage(cmdName, ok) {
+    if (!cmdName) return;
+    if (!stats.usedCmds.includes(cmdName)) stats.usedCmds.push(cmdName);
+    if (!ok) stats.badCmds[cmdName] = (stats.badCmds[cmdName] || 0) + 1;
+    const today = new Date().toISOString().slice(0, 10);
+    if (stats.lastDate !== today) {
+        const y = new Date(stats.lastDate + 'T00:00:00');
+        const t = new Date(today + 'T00:00:00');
+        if (!isNaN(y) && (t - y) / 86400000 === 1) stats.streak++;
+        else stats.streak = 1;
+        stats.lastDate = today;
+    }
+    saveStats();
+}
+
+/* ===== LEARNING TASKS (synced with 学习指南.html 11 stages) ===== */
+const TASKS = [
+  { id:'s1t1', stage:1, title:'查看当前目录', desc:'输入 ls 列出当前目录内容', hint:'ls', check:() => history.some(h => /^ls(\s|$)/.test(h)) },
+  { id:'s1t2', stage:1, title:'显示当前路径', desc:'输入 pwd 查看当前所在目录', hint:'pwd', check:() => history.includes('pwd') },
+  { id:'s1t3', stage:1, title:'切换目录', desc:'进入 /tmp 目录', hint:'cd /tmp', check:() => cwd === '/tmp' },
+  { id:'s1t4', stage:1, title:'创建目录', desc:'在 /tmp 下创建 mydir 目录', hint:'mkdir /tmp/mydir', check:() => VFS.getFile('/tmp/mydir/.dir') !== null },
+  { id:'s1t5', stage:1, title:'创建空文件', desc:'创建 /tmp/hello.txt', hint:'touch /tmp/hello.txt', check:() => VFS.getFile('/tmp/hello.txt') !== null },
+  { id:'s1t6', stage:1, title:'重定向写入', desc:'把 hello 写入 /tmp/greet.txt', hint:"echo hello > /tmp/greet.txt", check:() => VFS.getFile('/tmp/greet.txt') === 'hello' },
+  { id:'s1t7', stage:1, title:'复制文件', desc:'复制 greet.txt 为 greet-copy.txt', hint:'cp /tmp/greet.txt /tmp/greet-copy.txt', check:() => VFS.getFile('/tmp/greet-copy.txt') === 'hello' },
+  { id:'s1t8', stage:1, title:'移动/重命名', desc:'把 greet-copy.txt 改名为 renamed.txt', hint:'mv /tmp/greet-copy.txt /tmp/renamed.txt', check:() => VFS.getFile('/tmp/renamed.txt') === 'hello' && VFS.getFile('/tmp/greet-copy.txt') === null },
+  { id:'s1t9', stage:1, title:'删除文件', desc:'删除 /tmp/renamed.txt', hint:'rm /tmp/renamed.txt', check:() => history.some(h => /^mv\s+\/tmp\/greet-copy\.txt\s+\/tmp\/renamed\.txt$/.test(h)) && VFS.getFile('/tmp/renamed.txt') === null },
+  { id:'s1t10', stage:1, title:'查看文件内容', desc:'用 cat 查看 /tmp/greet.txt', hint:'cat /tmp/greet.txt', check:() => history.some(h => /^cat\s+\/tmp\/greet\.txt$/.test(h)) },
+
+  { id:'s2t1', stage:2, title:'grep 搜索', desc:'在 /etc/passwd 里搜索 root', hint:'grep root /etc/passwd', check:() => history.some(h => /^grep\s/.test(h) && h.includes('/etc/passwd')) },
+  { id:'s2t2', stage:2, title:'管道', desc:'把 cat /etc/passwd 的输出管道给 grep bash', hint:'cat /etc/passwd | grep bash', check:() => history.some(h => /cat .+\|.*grep/.test(h)) },
+  { id:'s2t3', stage:2, title:'head 查看头部', desc:'查看 /etc/passwd 前 3 行', hint:'head -3 /etc/passwd', check:() => history.some(h => /^head\s+-3\s+\/etc\/passwd$/.test(h)) },
+  { id:'s2t4', stage:2, title:'tail 查看尾部', desc:'查看 /etc/passwd 后 2 行', hint:'tail -2 /etc/passwd', check:() => history.some(h => /^tail\s+-2\s+\/etc\/passwd$/.test(h)) },
+  { id:'s2t5', stage:2, title:'wc 统计行数', desc:'统计 /etc/passwd 的行数', hint:'wc -l /etc/passwd', check:() => history.some(h => /^wc\s+-l\s+\/etc\/passwd$/.test(h)) },
+
+  { id:'s3t1', stage:3, title:'内核信息', desc:'查看系统内核信息', hint:'uname -a', check:() => history.some(h => /^uname(\s|$)/.test(h)) },
+  { id:'s3t2', stage:3, title:'内存状态', desc:'查看内存使用情况', hint:'free -h', check:() => history.some(h => /^free(\s|$)/.test(h)) },
+  { id:'s3t3', stage:3, title:'进程列表', desc:'查看当前进程', hint:'ps aux', check:() => history.some(h => /^ps(\s|$)/.test(h)) },
+  { id:'s3t4', stage:3, title:'运行时间', desc:'查看系统运行时间与负载', hint:'uptime', check:() => history.includes('uptime') },
+
+  { id:'s4t1', stage:4, title:'CPU 信息', desc:'查看 CPU 架构信息', hint:'lscpu', check:() => history.includes('lscpu') },
+  { id:'s4t2', stage:4, title:'块设备', desc:'查看磁盘与分区树', hint:'lsblk', check:() => history.includes('lsblk') },
+  { id:'s4t3', stage:4, title:'磁盘空间', desc:'查看磁盘使用率', hint:'df -h', check:() => history.some(h => /^df(\s|$)/.test(h)) },
+  { id:'s4t4', stage:4, title:'磁盘健康', desc:'查看 /dev/sdb 的 SMART 健康状态', hint:'smartctl -a /dev/sdb', check:() => history.some(h => /^smartctl/.test(h)) },
+
+  { id:'s5t1', stage:5, title:'网络接口', desc:'查看网卡与 IP 地址', hint:'ip addr', check:() => history.some(h => /^ip\s+addr/.test(h)) },
+  { id:'s5t2', stage:5, title:'ping 连通性', desc:'ping 8.8.8.8 三次', hint:'ping -c 3 8.8.8.8', check:() => history.some(h => /^ping/.test(h)) },
+  { id:'s5t3', stage:5, title:'curl 请求', desc:'用 curl 访问一个网页', hint:'curl example.com', check:() => history.some(h => /^curl/.test(h)) },
+  { id:'s5t4', stage:5, title:'端口监听', desc:'查看监听端口', hint:'ss -tlnp', check:() => history.some(h => /^ss(\s|$)/.test(h) || /^netstat/.test(h)) },
+
+  { id:'s6t1', stage:6, title:'当前用户', desc:'查看当前用户名', hint:'whoami', check:() => history.includes('whoami') },
+  { id:'s6t2', stage:6, title:'sudo 提权', desc:'用 sudo bash 切到 root，再用 exit 退回', hint:'sudo bash → exit', check:() => history.includes('sudo bash') && history.includes('exit') },
+  { id:'s6t3', stage:6, title:'修改权限', desc:'把 /tmp/hello.txt 权限改为 600', hint:'chmod 600 /tmp/hello.txt', check:() => history.some(h => /^chmod/.test(h)) && VFS.getFile('/tmp/hello.txt') !== null },
+  { id:'s6t4', stage:6, title:'修改属主', desc:'把 /tmp/hello.txt 属主改为 user', hint:'chown user /tmp/hello.txt', check:() => history.some(h => /^chown/.test(h)) && VFS.getFile('/tmp/hello.txt') !== null },
+
+  { id:'s7t1', stage:7, title:'更新软件源', desc:'执行 apt update', hint:'sudo apt update', check:() => history.some(h => /^(\w+\s+)?apt\s+update/.test(h)) },
+  { id:'s7t2', stage:7, title:'安装软件包', desc:'安装 nginx', hint:'sudo apt install nginx', check:() => history.some(h => /apt\s+install/.test(h)) },
+
+  { id:'s8t1', stage:8, title:'服务状态', desc:'查看 nginx 服务状态', hint:'systemctl status nginx', check:() => history.some(h => /^systemctl\s+status/.test(h)) },
+  { id:'s8t2', stage:8, title:'系统日志', desc:'查看最近 10 条日志', hint:'journalctl -n 10', check:() => history.some(h => /^journalctl/.test(h)) },
+  { id:'s8t3', stage:8, title:'定时任务', desc:'查看 crontab 任务列表', hint:'crontab -l', check:() => history.some(h => /^crontab/.test(h)) },
+
+  { id:'s9t1', stage:9, title:'环境变量', desc:'输出 $HOME 的值', hint:'echo $HOME', check:() => history.some(h => h.includes('$HOME')) },
+  { id:'s9t2', stage:9, title:'导出变量', desc:'执行 export 查看环境变量', hint:'export', check:() => history.some(h => /^export/.test(h)) },
+  { id:'s9t3', stage:9, title:'别名', desc:'创建一个别名，或用 ll 查看', hint:"alias ll='ls -la'", check:() => history.some(h => /^alias/.test(h) || /^ll(\s|$)/.test(h)) },
+
+  { id:'s10t1', stage:10, title:'vi 编辑文件', desc:'用 vi 打开 /tmp/hello.txt（i 插入、:wq 保存）', hint:'vi /tmp/hello.txt', check:() => history.some(h => /^vi(\s|$)/.test(h)) },
+  { id:'s10t2', stage:10, title:'vim 教程', desc:'运行 vimtutor 打开教程', hint:'vimtutor', check:() => history.some(h => /^vimtutor/.test(h)) },
+
+  { id:'s11t1', stage:11, title:'Docker 容器', desc:'查看运行中的容器', hint:'docker ps', check:() => history.some(h => /^docker\s+ps/.test(h)) },
+  { id:'s11t2', stage:11, title:'K8s Pod', desc:'查看 Kubernetes Pod 列表', hint:'kubectl get pods', check:() => history.some(h => /^kubectl\s+get/.test(h)) },
+  { id:'s11t3', stage:11, title:'Git 版本', desc:'查看 git 版本', hint:'git --version', check:() => history.some(h => /^git/.test(h)) },
+];
+const TASK_STAGES = ['文件操作','文本处理','系统监控','硬件与磁盘','网络诊断','用户与权限','软件包管理','服务管理','Shell 编程','Vi/Vim 编辑器','DevOps 工具链'];
+
+function normCmd(s) { return String(s).trim().replace(/\s+/g, ' '); }
+function histExact(cmd) { const n = normCmd(cmd); return () => history.some(h => normCmd(h) === n); }
+function histRe(re) { return () => history.some(h => re.test(h)); }
+
+/* ===== COMMAND DRILLS: curated full usages for core commands ===== */
+const CMD_USAGES = {
+  ls: [
+    { c:'ls', d:'列出当前目录内容', x:'ls 是最常用的查看命令。执行后你会看到当前目录下的文件与文件夹名。' },
+    { c:'ls -l', d:'长格式显示（权限、大小、时间）', x:'-l 显示详细信息：第一列是权限（如 -rw-r--r--），后面是属主、大小、修改时间。' },
+    { c:'ls -a', d:'显示隐藏文件', x:'以 . 开头的文件是隐藏文件，-a 把它们也显示出来。' },
+    { c:'ls -la /etc', d:'长格式查看 /etc（含隐藏文件）', x:'把 -l 和 -a 组合使用，并指定目录 /etc，是排查配置的常用姿势。' },
+    { c:'ls /tmp', d:'查看指定目录', x:'ls 后面可以跟任意路径，不限于当前目录。' },
+    { c:'ls -lh /var/log', d:'人类可读的文件大小', x:'-h 把字节数转成 K/M/G，日志文件大小一目了然。' },
+  ],
+  cd: [
+    { c:'cd /tmp', d:'切换到 /tmp', x:'cd 改变当前工作目录。执行后提示符前的路径会变成 /tmp。' },
+    { c:'cd ..', d:'返回上级目录', x:'.. 表示上一级目录，是目录树中向上走的最常用方式。' },
+    { c:'cd ~', d:'回到主目录', x:'~ 代表当前用户主目录（这里是 /root）。' },
+    { c:'cd -', d:'回到上一个目录', x:'- 表示上一次所在的目录，在两边来回切换时很方便。' },
+  ],
+  pwd: [ { c:'pwd', d:'显示当前所在路径', x:'pwd 输出当前目录的绝对路径。迷路时先敲它。' } ],
+  mkdir: [
+    { c:'mkdir /tmp/d1', d:'创建单个目录', x:'mkdir 创建目录。创建后用 ls /tmp 能看到 d1。' },
+    { c:'mkdir -p /tmp/a/b/c', d:'递归创建多级目录', x:'-p 会一次性创建多级目录，缺哪层建哪层。' },
+    { c:'mkdir /tmp/d1 /tmp/d2', d:'一次创建多个目录', x:'mkdir 可以一次接收多个路径，同时建多个目录。' },
+    { c:'mkdir /etc/deny-dir', d:'在系统目录创建（观察权限拒绝）', x:'普通用户没有 /etc 的写权限，会看到 Permission denied——这就是权限在起作用。' },
+  ],
+  touch: [
+    { c:'touch /tmp/t1', d:'创建空文件', x:'touch 创建一个空文件（已存在则只更新时间戳）。' },
+    { c:'touch /tmp/t2 /tmp/t3', d:'一次创建多个文件', x:'touch 和 mkdir 一样支持多个路径。' },
+    { c:'touch /tmp/t1', d:'更新已存在文件的时间戳', x:'对已有文件再 touch，文件内容不变，但修改时间会刷新。' },
+  ],
+  cat: [
+    { c:'cat /etc/hostname', d:'查看文件内容', x:'cat 把文件内容打印到终端。这里是这台服务器的主机名。' },
+    { c:'cat /etc/passwd', d:'查看用户数据库', x:'/etc/passwd 每行一个用户，冒号分隔：用户名:密码占位:x:组ID:家目录:shell。' },
+    { c:'cat /etc/hosts', d:'查看主机映射表', x:'/etc/hosts 是 IP 与主机名的本地映射表。' },
+    { c:'cat /tmp/nonexistent', d:'查看不存在的文件（观察报错）', x:'文件不存在时 cat 会报 No such file，这是正常现象。' },
+  ],
+  rm: [
+    { c:'rm /tmp/t2', d:'删除单个文件', x:'rm 删除文件。删除后 ls 里就看不到了。' },
+    { c:'rm -r /tmp/d1', d:'递归删除目录', x:'删除目录必须加 -r（递归）。没有 -r 会提示 Is a directory。' },
+    { c:'rm -rf /tmp/a', d:'强制递归删除', x:'-f 强制删除且不询问。注意：这个组合非常危险，生产环境慎用。' },
+    { c:'rm /tmp/nope', d:'删除不存在的文件（观察报错）', x:'文件不存在时同样会报错，这也是正常现象。' },
+  ],
+  cp: [
+    { c:'cp /etc/hostname /tmp/hn', d:'复制文件', x:'cp 把源文件复制到目标位置，源文件保留。' },
+    { c:'cp -r /tmp/d2 /tmp/d2-copy', d:'递归复制目录', x:'复制目录需要 -r，-copy 后缀是常见的备份命名习惯。' },
+    { c:'cp /etc/passwd /tmp/pw', d:'复制到新名字', x:'复制后改个名字，相当于“另存为”。' },
+    { c:'cp /etc/hostname /etc/x', d:'复制到系统目录（观察权限拒绝）', x:'普通用户写 /etc 会被拒绝——为什么系统文件不能随便覆盖。' },
+  ],
+  mv: [
+    { c:'mv /tmp/t3 /tmp/t3b', d:'重命名文件', x:'mv 把文件移动到新名字，原名字消失，相当于重命名。' },
+    { c:'mv /tmp/d2-copy /tmp/d2x', d:'重命名目录', x:'目录也可以直接 mv 改名。' },
+    { c:'mv /tmp/hn /tmp/hn2', d:'移动文件', x:'mv 也可以把文件移动到另一个目录。' },
+  ],
+  echo: [
+    { c:'echo hello', d:'输出文本', x:'echo 把后面的内容打印出来，是脚本里最常用的输出命令。' },
+    { c:'echo "hello world"', d:'带引号输出', x:'带引号可以把带空格的内容当作一个整体输出。' },
+    { c:"echo 'a|b'", d:'引号内的特殊字符不被解析', x:'单引号里的 | 不会被当作管道符，这就是引号的作用。' },
+    { c:'echo $HOME', d:'输出环境变量', x:'$HOME 是环境变量，echo 会输出它的值（这里是 /root）。' },
+    { c:'echo hello > /tmp/echof', d:'重定向写入文件', x:'> 把输出写入文件（覆盖）。' },
+    { c:'echo x >> /tmp/echof', d:'追加到文件', x:'>> 是追加而不是覆盖，文件里会多出一行 x。' },
+  ],
+  find: [
+    { c:'find /etc -name "*host*"', d:'按名称查找', x:'find 从指定目录向下搜索，-name 按文件名匹配。' },
+    { c:'find /root -name "*.txt"', d:'通配符查找', x:'*.txt 匹配所有 txt 文件，这是最常见的查找方式。' },
+    { c:'find /tmp -name "mydir"', d:'查找目录', x:'目录名也可以用 -name 找到。' },
+  ],
+  grep: [
+    { c:'grep root /etc/passwd', d:'基础搜索', x:'grep 在文件里搜索包含 root 的行并打印出来，是排查日志的利器。' },
+    { c:'grep -i BIN /etc/passwd', d:'忽略大小写', x:'-i 忽略大小写，BIN/bin/bIn 都能匹配。' },
+    { c:'grep -n user /etc/passwd', d:'显示行号', x:'-n 在结果前显示行号，方便定位。' },
+    { c:'grep -v nologin /etc/passwd', d:'反向选择', x:'-v 反选，输出所有不包含 nologin 的行。' },
+    { c:'grep -E "^root:" /etc/passwd', d:'正则锚定行首', x:'^root: 匹配以 root: 开头的行，是正则的经典用法。' },
+    { c:'cat /etc/passwd | grep bash', d:'管道输入', x:'管道 | 把 cat 的输出交给 grep 再过滤，是组合命令的核心思想。' },
+  ],
+  head: [
+    { c:'head /etc/passwd', d:'默认前 10 行', x:'head 只看文件开头，默认 10 行。' },
+    { c:'head -3 /etc/passwd', d:'前 3 行', x:'-3 指定只看前 3 行。' },
+    { c:'head -n 5 /etc/passwd', d:'-n 指定行数', x:'-n 5 和 -5 效果一样，都是指定行数。' },
+  ],
+  tail: [
+    { c:'tail /etc/passwd', d:'默认后 10 行', x:'tail 看文件结尾，默认 10 行。' },
+    { c:'tail -2 /etc/passwd', d:'后 2 行', x:'只看最后 2 行。' },
+    { c:'tail -n 5 /etc/passwd', d:'-n 指定行数', x:'-n 5 指定最后 5 行。' },
+  ],
+  wc: [
+    { c:'wc /etc/passwd', d:'行/词/字节统计', x:'wc 统计文件的行数、单词数、字节数。' },
+    { c:'wc -l /etc/passwd', d:'只统计行数', x:'-l 只看行数，/etc/passwd 有十几行。' },
+    { c:'wc -w /etc/passwd', d:'只统计单词数', x:'-w 只看单词数。' },
+  ],
+  sort: [
+    { c:'sort /etc/passwd', d:'按字典序排序', x:'sort 按字母顺序输出，原文件不变。' },
+    { c:'cat /etc/passwd | sort', d:'管道排序', x:'把输出接给 sort 排序，管道组合的又一例。' },
+    { c:'sort -r /etc/passwd', d:'倒序排序', x:'-r 反转排序方向。' },
+  ],
+  uniq: [
+    { c:'cat /etc/passwd | sort | uniq', d:'去重（通常先排序）', x:'uniq 去掉相邻重复行，所以一般先 sort 再 uniq。' },
+    { c:'uniq /etc/hosts', d:'直接对文件去重', x:'uniq 也可以直接读文件。' },
+  ],
+  cut: [
+    { c:'cut -d: -f1 /etc/passwd', d:'按冒号取第 1 列', x:'-d 指定分隔符（冒号），-f 取第 1 列——只看用户名。' },
+    { c:'cut -d: -f1,3 /etc/passwd', d:'取多列', x:'-f1,3 同时取第 1 和第 3 列（用户名和 UID）。' },
+    { c:'cat /etc/passwd | cut -d: -f7', d:'管道取列', x:'配合管道取最后一列（登录 shell），先过滤再取列很常见。' },
+  ],
+  tr: [
+    { c:'echo hello | tr a-z A-Z', d:'字符集转换', x:'tr 把 a-z 的字符逐个映射成 A-Z，输出 HELLO。' },
+    { c:'echo hello | tr l L', d:'单个字符替换', x:'把 l 替换成 L，观察输出。' },
+  ],
+  sed: [
+    { c:'echo hello | sed "s/hello/hi/"', d:'替换第一个匹配', x:'sed 的 s/旧/新/ 做替换，hello 变成 hi。' },
+    { c:'echo "a a" | sed "s/a/b/g"', d:'全局替换', x:'加 g 后一行里所有 a 都替换（否则只替换第一个）。' },
+    { c:'sed "s/user/admin/" /etc/passwd', d:'流式替换文件内容', x:'sed 按行流式处理文件，输出替换后的结果，原文件不变。' },
+  ],
+  awk: [
+    { c:"awk '{print $1}' /etc/passwd", d:'打印第一列', x:'awk 按空格/制表符分列，$1 是第一列。' },
+    { c:"awk -F: '{print $1}' /etc/passwd", d:'指定分隔符', x:'-F: 指定冒号分隔，就能取 /etc/passwd 的用户名。' },
+  ],
+  diff: [
+    { c:'diff /etc/hosts /etc/hostname', d:'比较两个文件', x:'diff 逐行比较两个文件，输出差异。' },
+    { c:'diff /etc/passwd /etc/passwd', d:'相同文件无差异', x:'完全相同的文件 diff 不输出任何内容。' },
+  ],
+  tar: [
+    { c:'tar -czf /tmp/backup.tar.gz /etc', d:'打包并压缩', x:'tar 打包目录，-c 创建、-z gzip 压缩、-f 指定文件名。' },
+    { c:'tar -tzf /tmp/backup.tar.gz', d:'查看压缩包内容', x:'-t 只列出包内文件，不解压。' },
+    { c:'tar -xzf /tmp/backup.tar.gz', d:'解压', x:'-x 解包，把内容还原到当前目录。' },
+  ],
+  gzip: [
+    { c:'gzip /tmp/hn2', d:'压缩文件', x:'gzip 把文件压成 .gz，原文件被替换。' },
+    { c:'gzip -k /tmp/pw', d:'保留原文件的压缩', x:'-k 保留原文件，生成 .gz 副本。' },
+  ],
+  md5sum: [ { c:'md5sum /etc/hostname', d:'计算文件校验和', x:'md5sum 输出文件的校验值，常用于验证文件完整性。' } ],
+  base64: [ { c:'base64 /etc/hostname', d:'Base64 编码文件', x:'base64 把内容编码成文本形式，常用于传输。' } ],
+  uname: [
+    { c:'uname', d:'系统名称', x:'uname 输出操作系统内核名（Linux）。' },
+    { c:'uname -r', d:'内核版本', x:'-r 显示内核版本号，如 5.15.0-91-generic。' },
+    { c:'uname -a', d:'全部信息', x:'-a 输出主机名、内核、架构等全部信息。' },
+  ],
+  free: [
+    { c:'free', d:'内存使用', x:'free 显示内存总量、已用、可用。' },
+    { c:'free -h', d:'人类可读', x:'-h 把字节转成 G/M，最常用的姿势。' },
+    { c:'free -m', d:'以 MB 显示', x:'-m 以 MB 为单位显示。' },
+  ],
+  ps: [
+    { c:'ps', d:'当前终端进程', x:'ps 列出当前终端启动的进程。' },
+    { c:'ps aux', d:'全部进程', x:'ps aux 显示系统所有进程，CPU/内存占用都有。' },
+    { c:'ps -ef', d:'完整格式', x:'-ef 是另一种全量格式，PID 和 PPID 都能看到。' },
+  ],
+  top: [ { c:'top', d:'动态进程视图（按 q 退出）', x:'top 实时刷新进程与资源占用，按 q 退出。' } ],
+  htop: [ { c:'htop', d:'彩色进程管理器', x:'htop 是 top 的增强版，带颜色和操作提示。' } ],
+  kill: [
+    { c:'kill 1234', d:'按 PID 结束进程', x:'kill 向进程发送终止信号，PID 来自 ps。' },
+    { c:'kill -9 1234', d:'强制结束', x:'-9 强制杀死进程，无法被忽略，是最后手段。' },
+  ],
+  df: [
+    { c:'df -h', d:'磁盘空间（人类可读）', x:'df 显示各挂载点的磁盘使用率，-h 人类可读。' },
+    { c:'df -T', d:'显示文件系统类型', x:'-T 额外显示 ext4 等文件系统类型。' },
+  ],
+  du: [
+    { c:'du -sh /etc', d:'目录总大小', x:'du 统计目录占用空间，-s 汇总、-h 人类可读。' },
+    { c:'du -h /var/log', d:'各文件大小', x:'不带 -s 会列出目录下每个文件的大小。' },
+  ],
+  lscpu: [ { c:'lscpu', d:'CPU 架构信息', x:'lscpu 汇总 CPU 型号、核心数、架构等，看硬件先敲它。' } ],
+  lsblk: [
+    { c:'lsblk', d:'块设备树', x:'lsblk 以树形显示磁盘和分区，以及挂载点。' },
+    { c:'lsblk -f', d:'含文件系统信息', x:'-f 显示每个分区的文件系统类型和 UUID。' },
+  ],
+  fdisk: [ { c:'fdisk -l', d:'磁盘分区表', x:'fdisk -l 查看所有磁盘的分区表（需要 root）。' } ],
+  smartctl: [
+    { c:'smartctl -a /dev/sdb', d:'SMART 详细信息', x:'smartctl 读取磁盘健康信息，-a 全部属性。' },
+    { c:'smartctl -H /dev/sda', d:'健康状态快速检查', x:'-H 只看整体健康结论（PASSED/FAILED）。' },
+  ],
+  ip: [
+    { c:'ip addr', d:'IP 地址', x:'ip addr 查看网卡和 IP 地址，替代老的 ifconfig。' },
+    { c:'ip link', d:'网卡状态', x:'ip link 只看网卡启停状态（UP/DOWN）。' },
+    { c:'ip route', d:'路由表', x:'ip route 显示默认网关等路由信息。' },
+  ],
+  ping: [
+    { c:'ping -c 3 8.8.8.8', d:'指定次数', x:'ping 测试到目标的连通性和延迟，-c 3 只发 3 次。' },
+    { c:'ping -c 1 localhost', d:'本机连通性', x:'ping localhost 验证本机网络栈是否正常。' },
+    { c:'ping 192.168.1.1', d:'默认持续 ping（Ctrl+C 停止）', x:'不带 -c 会一直 ping，直到按 Ctrl+C。' },
+  ],
+  curl: [
+    { c:'curl example.com', d:'获取网页内容', x:'curl 请求网址并打印响应内容，测试接口最常用。' },
+    { c:'curl -I example.com', d:'只看响应头', x:'-I 只取 HTTP 响应头，快速看状态码。' },
+  ],
+  ss: [
+    { c:'ss -tlnp', d:'监听端口', x:'ss 查看网络连接，-t TCP、-l 监听、-n 数字、-p 进程。' },
+    { c:'ss -s', d:'连接统计', x:'-s 汇总各类连接数量。' },
+  ],
+  netstat: [ { c:'netstat -tulanp', d:'端口与连接', x:'netstat 是 ss 的老前辈，同样能看端口占用。' } ],
+  ssh: [
+    { c:'ssh user@192.168.1.50', d:'远程登录', x:'ssh 远程登录另一台机器，格式是 用户@地址。' },
+    { c:'ssh -p 2222 user@192.168.1.50', d:'指定端口', x:'-p 指定非默认端口（22 之外的端口）。' },
+  ],
+  scp: [
+    { c:'scp /tmp/hn2 user@192.168.1.50:/tmp/', d:'上传文件', x:'scp 基于 ssh 传文件，本地路径在前是上传。' },
+    { c:'scp user@192.168.1.50:/tmp/hn2 /tmp/', d:'下载文件', x:'远程路径在前是下载。' },
+  ],
+  chmod: [
+    { c:'chmod 600 /tmp/t1', d:'数字权限', x:'chmod 修改文件权限。600 = 属主可读写，其他人无权限。' },
+    { c:'chmod 755 /tmp/t1', d:'目录常用权限', x:'755 = 属主全权限，其他人可读可执行，目录常用。' },
+    { c:'chmod +x /tmp/t1', d:'添加执行权限', x:'+x 添加执行权限，脚本可执行后 ls -l 会多出 x。' },
+    { c:'chmod -x /tmp/t1', d:'移除执行权限', x:'-x 移除执行权限。' },
+  ],
+  chown: [
+    { c:'chown user /tmp/t1', d:'修改属主', x:'chown 修改文件属主（需要 root）。' },
+    { c:'chown root:root /tmp/t1', d:'同时修改属主和属组', x:'属主:属组 可以一次改两个。' },
+  ],
+  sudo: [
+    { c:'sudo whoami', d:'以 root 执行单条命令', x:'sudo 以 root 权限执行单条命令，whoami 会输出 root。' },
+    { c:'sudo bash', d:'切换到 root 会话（exit 退出）', x:'sudo bash 进入 root 交互会话，提示符变 #，exit 退出。' },
+    { c:'sudo apt update', d:'提权更新软件源', x:'apt update 需要写系统状态，所以加 sudo。' },
+  ],
+  su: [
+    { c:'su root', d:'切换到 root', x:'su 切换用户（需要目标用户密码），exit 退回。' },
+    { c:'su user', d:'切换到 user', x:'su user 切换到普通用户，家目录和环境都会变。' },
+  ],
+  useradd: [
+    { c:'sudo useradd bob', d:'创建用户', x:'useradd 创建用户，加 sudo 因为要写 /etc/passwd。' },
+    { c:'sudo useradd -m alice', d:'创建用户并建家目录', x:'-m 同时创建 /home/alice 家目录。' },
+  ],
+  passwd: [
+    { c:'passwd', d:'修改当前用户密码', x:'passwd 修改自己的密码。' },
+    { c:'sudo passwd bob', d:'修改指定用户密码', x:'root 可以修改任意用户的密码。' },
+  ],
+  apt: [
+    { c:'sudo apt update', d:'更新软件源', x:'apt update 拉取软件包索引，装包前先执行。' },
+    { c:'sudo apt upgrade -y', d:'升级所有软件包', x:'upgrade 升级已装包，-y 自动确认。' },
+    { c:'sudo apt install nginx', d:'安装软件包', x:'install 安装软件，装完可用 systemctl status nginx 查看。' },
+  ],
+  dpkg: [
+    { c:'dpkg -l', d:'列出已安装包', x:'dpkg 是 Debian 底层的包管理器，-l 列出已装包。' },
+    { c:'dpkg -L nginx', d:'查看包文件列表', x:'-L 查看某个包装了哪些文件。' },
+  ],
+  systemctl: [
+    { c:'systemctl status nginx', d:'查看服务状态', x:'systemctl 管理 systemd 服务，status 显示是否 running。' },
+    { c:'systemctl start nginx', d:'启动服务', x:'start 启动服务，之后 status 会变 active (running)。' },
+    { c:'systemctl stop nginx', d:'停止服务', x:'stop 停止服务。' },
+    { c:'systemctl restart nginx', d:'重启服务', x:'restart 用于改配置后重载，如 nginx 配置。' },
+    { c:'systemctl enable nginx', d:'开机自启', x:'enable 让服务开机自动启动。' },
+  ],
+  journalctl: [
+    { c:'journalctl -n 10', d:'最近 10 条日志', x:'journalctl 查看 systemd 日志，-n 10 看最近 10 条。' },
+    { c:'journalctl -u nginx', d:'某服务的日志', x:'-u 只看某个服务的日志，排障第一步。' },
+  ],
+  crontab: [
+    { c:'crontab -l', d:'列出定时任务', x:'crontab 管理定时任务，-l 列出当前用户的任务。' },
+    { c:'crontab -e', d:'编辑定时任务', x:'-e 用编辑器修改任务表。' },
+    { c:'crontab -r', d:'删除全部定时任务', x:'-r 清空任务表，操作前要三思。' },
+  ],
+  env: [
+    { c:'env', d:'列出全部环境变量', x:'env 输出所有环境变量，看系统配置。' },
+    { c:'env | grep PATH', d:'管道过滤', x:'配合 grep 只看关心的变量。' },
+  ],
+  export: [
+    { c:'export MYVAR=hello', d:'设置并导出变量', x:'export 定义环境变量，之后 echo $MYVAR 能读到。' },
+    { c:'export', d:'查看已导出变量', x:'不带参数时列出所有已导出变量。' },
+  ],
+  alias: [
+    { c:'alias ll="ls -la"', d:'创建别名', x:'alias 给命令起短名，之后 ll 就是 ls -la。' },
+    { c:'alias', d:'列出全部别名', x:'不带参数列出所有已定义别名。' },
+  ],
+  source: [ { c:'source /root/.bashrc', d:'重新加载配置文件', x:'source 立即重新加载配置文件，改完 .bashrc 用它生效。' } ],
+  which: [
+    { c:'which ls', d:'定位命令路径', x:'which 显示命令的可执行文件在哪，如 /usr/bin/ls。' },
+    { c:'which docker', d:'定位其他命令', x:'找不到时 which 会不输出，说明命令未安装。' },
+  ],
+  man: [
+    { c:'man ls', d:'查看命令手册', x:'man 是 Linux 自带文档，按 q 退出。' },
+    { c:'man grep', d:'查看 grep 手册', x:'不会用就 man，这是最重要的自学能力。' },
+  ],
+  history: [
+    { c:'history', d:'查看命令历史', x:'history 列出你输入过的所有命令。' },
+    { c:'history | tail -5', d:'只看最近 5 条', x:'配合 tail 只看最近几条。' },
+  ],
+  vi: [
+    { c:'vi /tmp/t1', d:'打开文件（i 插入、:wq 保存）', x:'vi 打开编辑器：i 进入插入、Esc 回普通、:wq 保存退出。' },
+    { c:'vi /etc/hostname', d:'编辑系统文件', x:'普通用户改系统文件会被拒（Permission denied），这就是权限的意义。' },
+  ],
+  git: [
+    { c:'git --version', d:'查看版本', x:'先确认 git 已安装及其版本。' },
+    { c:'git status', d:'查看工作区状态', x:'git status 显示改了哪些文件、暂存了什么。' },
+    { c:'git log', d:'查看提交历史', x:'git log 列出提交记录，每行一个 commit。' },
+    { c:'git clone https://github.com/bigbigrunslow/linux-learning-simulator.git', d:'克隆仓库', x:'git clone 把远程仓库完整下载到本地。' },
+  ],
+  docker: [
+    { c:'docker ps', d:'运行中的容器', x:'docker ps 列出正在运行的容器，和 ps 类似。' },
+    { c:'docker ps -a', d:'全部容器', x:'-a 连已停止的容器也显示。' },
+    { c:'docker images', d:'本地镜像', x:'docker images 列出本地已下载的镜像。' },
+    { c:'docker run -d nginx', d:'运行容器', x:'run 从镜像启动容器，-d 后台运行。' },
+    { c:'docker stop nginx-proxy', d:'停止容器', x:'stop 停止指定容器（按名字或 ID）。' },
+    { c:'docker logs nginx-proxy', d:'查看容器日志', x:'logs 查看容器输出，排障常用。' },
+    { c:'docker exec -it nginx-proxy bash', d:'进入容器', x:'exec 进入容器内部开一个 shell，像 ssh 进机器。' },
+  ],
+  kubectl: [
+    { c:'kubectl get nodes', d:'集群节点', x:'kubectl 管理 K8s 集群，get nodes 看有多少台节点及其状态。' },
+    { c:'kubectl get pods', d:'Pod 列表', x:'get pods 查看工作负载 Pod，READY 列是就绪数。' },
+    { c:'kubectl get services', d:'Service 列表', x:'get services 查看集群内的访问入口（Service）。' },
+    { c:'kubectl describe pod nginx-deployment-7d4f9b5c8-x2k9m', d:'查看 Pod 详情', x:'describe 看 Pod 的详细事件和状态，排障第一步。' },
+    { c:'kubectl logs nginx-deployment-7d4f9b5c8-x2k9m', d:'查看 Pod 日志', x:'logs 看 Pod 内应用的标准输出。' },
+  ],
+  helm: [
+    { c:'helm list', d:'已安装的 Release', x:'helm 是 K8s 的包管理器，list 看已安装的发布。' },
+    { c:'helm install my-nginx bitnami/nginx', d:'安装 Chart', x:'install 用 Chart 一键部署应用。' },
+  ],
+  terraform: [
+    { c:'terraform init', d:'初始化', x:'terraform 以代码管理基础设施，init 下载插件并初始化。' },
+    { c:'terraform plan', d:'预览变更', x:'plan 预览将创建/修改的资源，不实际执行。' },
+    { c:'terraform apply', d:'应用变更', x:'apply 真正执行变更，创建资源。' },
+  ],
+  ansible: [
+    { c:'ansible all -m ping', d:'Ping 测试', x:'ansible 批量管理服务器，-m ping 测试所有主机连通性。' },
+    { c:'ansible-playbook site.yml', d:'执行 Playbook', x:'playbook 是编排好的任务清单，一键批量执行。' },
+  ],
+  mysql: [
+    { c:'mysql -u root -p', d:'交互式登录', x:'mysql 客户端登录数据库，-p 会提示输入密码。' },
+    { c:'mysql -e "show databases;"', d:'非交互执行 SQL', x:'-e 直接执行 SQL 并退出，适合脚本。' },
+  ],
+  'redis-cli': [
+    { c:'redis-cli ping', d:'连通性测试', x:'redis-cli 连接 Redis，ping 返回 PONG 即正常。' },
+    { c:'redis-cli set foo bar', d:'写入键值', x:'set 写入一个键值对，返回 OK。' },
+    { c:'redis-cli get foo', d:'读取键值', x:'get 读取刚才写入的值。' },
+  ],
+  nginx: [
+    { c:'nginx -t', d:'测试配置', x:'nginx -t 检查配置文件语法，改完配置必测。' },
+    { c:'nginx -v', d:'查看版本', x:'-v 显示 nginx 版本。' },
+  ],
+  watch: [ { c:'watch free -h', d:'定时刷新命令输出（Ctrl+C 退出）', x:'watch 每隔几秒重跑一次命令，适合盯实时数据。' } ],
+  date: [ { c:'date', d:'当前时间', x:'date 输出当前系统时间。' } ],
+  hostname: [ { c:'hostname', d:'主机名', x:'hostname 显示这台机器叫什么名字。' } ],
+  whoami: [ { c:'whoami', d:'当前用户', x:'whoami 输出当前登录用户，root 还是 user 一眼便知。' } ],
+  id: [ { c:'id', d:'用户与组 ID', x:'id 显示当前用户的 UID、GID 和所属组。' } ],
+  who: [ { c:'who', d:'登录用户', x:'who 列出当前登录到系统的用户和终端。' } ],
+  uptime: [ { c:'uptime', d:'运行时间与负载', x:'uptime 显示系统运行了多久、负载是多少。' } ],
+  kafka: [
+    { c:'kafka topic create demo', d:'创建主题', x:'Kafka 以“主题”组织消息流，先建主题，生产者/消费者才能用。' },
+    { c:'kafka topic list', d:'列出主题', x:'查看集群里已有哪些主题。' },
+  ],
+  rabbitmq: [
+    { c:'rabbitmqctl status', d:'查看服务状态', x:'rabbitmqctl 是 RabbitMQ 管理命令，status 看节点状态。' },
+    { c:'rabbitmqctl list_queues', d:'查看队列', x:'列出消息队列及积压消息数量。' },
+  ],
+  rabbitmqctl: [
+    { c:'rabbitmqctl status', d:'查看节点状态', x:'同 rabbitmq 的 status，查看节点与运行信息。' },
+  ],
+  elasticsearch: [
+    { c:'elasticsearch', d:'启动 Elasticsearch（模拟）', x:'Elasticsearch 是搜索/日志分析中间件，常与 Kibana、Logstash 组合。' },
+  ],
+  minio: [
+    { c:'minio', d:'MinIO 对象存储（模拟）', x:'MinIO 是 S3 兼容的对象存储中间件，可存任意文件。' },
+  ],
+  etcd: [
+    { c:'etcdctl endpoint health', d:'检查 etcd 健康', x:'etcd 是分布式协调存储，K8s 用它保存集群状态，健康检查很重要。' },
+  ],
+  consul: [
+    { c:'consul members', d:'查看集群成员', x:'Consul 提供服务发现与配置中心，members 看节点列表。' },
+  ],
+  gitlab: [
+    { c:'gitlab-ctl status', d:'查看 GitLab 服务状态', x:'GitLab 是集代码仓库与 CI/CD 于一体的平台，gitlab-ctl 管理其内部服务。' },
+    { c:'gitlab-ctl reconfigure', d:'应用配置变更', x:'改完 GitLab 配置后执行 reconfigure 使其生效。' },
+  ],
+  jenkins: [
+    { c:'jenkins', d:'启动 Jenkins（模拟）', x:'Jenkins 是最经典的 CI/CD 服务器，通过 Job 自动构建、测试、发布。' },
+  ],
+  argocd: [
+    { c:'argocd app list', d:'查看应用列表', x:'ArgoCD 用 GitOps 方式把 Git 仓库里的配置自动同步到 K8s。' },
+    { c:'argocd app sync my-app', d:'手动同步应用', x:'sync 把 Git 中的最新配置立即同步到集群。' },
+  ],
+  flux: [
+    { c:'flux get sources', d:'查看 Git 源', x:'Flux 是另一个 GitOps 工具，sources 指它监听 Git/Helm 的源。' },
+    { c:'flux reconcile kustomization apps', d:'触发重新同步', x:'reconcile 手动触发一次同步。' },
+  ],
+  printf: [
+    { c:'printf "Hello %s\\n" world', d:'格式化输出字符串', x:'printf 比 echo 更可控：%s 是字符串占位符，\\n 是换行。' },
+    { c:'printf "%d + %d = %d\\n" 1 2 3', d:'数字占位符', x:'%d 是整数占位符，按顺序取后面的参数。' },
+  ],
+  read: [
+    { c:'echo hello | read x; echo $x', d:'从管道读入变量', x:'read 把输入读进变量，这里 echo 的输出被 x 接收。' },
+  ],
+  test: [
+    { c:'test -f /etc/hostname && echo yes', d:'判断文件存在', x:'test -f 判断文件是否存在，成立时 && 后面的命令才执行。' },
+    { c:'test 2 -eq 2 && echo equal', d:'数值比较', x:'-eq 比较两个数字是否相等。' },
+  ],
+  sleep: [
+    { c:'sleep 2', d:'等待 2 秒（模拟）', x:'真实环境会阻塞 2 秒，这里给出模拟结果，不真等。' },
+  ],
+  timeout: [
+    { c:'timeout 1 sleep 5', d:'限制命令执行时间', x:'真实环境里 5 秒的 sleep 会被 1 秒超时打断，这里模拟超时。' },
+  ],
+  tree: [
+    { c:'tree /etc', d:'树形查看目录', x:'tree 用树形展示目录结构，比 ls 直观很多。' },
+  ],
+  basename: [
+    { c:'basename /etc/hostname', d:'取文件名', x:'basename 去掉目录部分只留文件名，脚本里常用。' },
+  ],
+  dirname: [
+    { c:'dirname /etc/hostname', d:'取目录部分', x:'dirname 与 basename 相反，取路径的目录部分。' },
+  ],
+  jq: [
+    { c:'echo \'{"name":"demo","ports":[80,443]}\' | jq \'.name\'', d:'查询 JSON 字段', x:'jq 解析 JSON，.name 取 name 字段，字符串输出带引号。' },
+    { c:'echo \'{"ports":[80,443]}\' | jq \'.ports[1]\'', d:'数组下标', x:'ports[1] 取数组第二个元素（下标从 0 开始）。' },
+  ],
+  nmap: [
+    { c:'nmap -p 80 192.168.1.50', d:'扫描指定端口', x:'nmap 探测目标端口状态，-p 指定端口号。' },
+    { c:'nmap localhost', d:'扫描本机常用端口', x:'不指定端口时扫描常见端口（22/80/443/3306）。' },
+  ],
+};
+
+/* ===== HAND-WRITTEN EXPLANATIONS FOR ALL REMAINING COMMANDS ===== */
+const CMD_EXPLAIN = {
+  ln:'创建链接，-s 建软链接，像快捷方式一样指向目标文件。',
+  patch:'给文件应用补丁（diff 生成的修改）。',
+  nl:'给文本行加行号输出。',
+  sensors:'读取 CPU/主板温度、电压、风扇转速。',
+  lspci:'列出 PCI 总线上的硬件设备（显卡、网卡等）。',
+  lsusb:'列出 USB 设备（键盘、U盘、UPS 等）。',
+  lshw:'详细列出整机硬件信息（CPU、内存、磁盘、网络）。',
+  dmidecode:'读取主板 BIOS 与硬件 DMI 信息（需要 root）。',
+  mount:'把文件系统挂载到目录，挂载后才能访问。',
+  umount:'卸载已挂载的文件系统。',
+  blkid:'查看分区的文件系统类型与 UUID。',
+  mkfs:'在分区上创建文件系统（格式化）。',
+  fsck:'检查并修复文件系统错误。',
+  parted:'交互式分区工具，管理磁盘分区表。',
+  dd:'按块复制数据，常用于做镜像/测速（危险命令）。',
+  pgrep:'按名称查进程 PID。',
+  pkill:'按名称结束进程。',
+  lsof:'列出进程打开的文件/端口。',
+  nohup:'后台运行命令并忽略挂断信号，退出终端也不中断。',
+  bg:'把暂停的任务放到后台继续运行。',
+  fg:'把后台任务调回前台。',
+  jobs:'列出当前终端的后台任务。',
+  wget:'下载文件到本地。',
+  ifconfig:'老牌网卡/IP 查看命令（新系统用 ip）。',
+  nslookup:'查询域名解析。',
+  dig:'详细的 DNS 查询工具，排障首选。',
+  traceroute:'追踪到目标经过的路由节点。',
+  route:'查看/操作路由表。',
+  tcpdump:'抓取网络数据包分析（需要 root）。',
+  nc:'网络瑞士军刀，测端口/传数据。',
+  rsync:'增量同步文件，备份利器。',
+  ftp:'传统文件传输协议客户端。',
+  sftp:'基于 ssh 的安全文件传输。',
+  chgrp:'修改文件所属组。',
+  umask:'设置新建文件/目录的默认权限掩码。',
+  userdel:'删除用户。',
+  usermod:'修改用户属性。',
+  groupadd:'创建用户组。',
+  groupdel:'删除用户组。',
+  yum:'CentOS/RHEL 的软件包管理器（Ubuntu 用 apt）。',
+  snap:'Canonical 的软件包格式，跨发行版安装。',
+  service:'老式服务管理命令（新系统用 systemctl）。',
+  bash:'启动 bash 子 shell，或执行脚本文件。',
+  unalias:'删除别名。',
+  type:'查看命令类型（内置/别名/外部程序）。',
+  whereis:'定位命令的二进制、源码、手册位置。',
+  exec:'用新命令替换当前 shell 进程。',
+  set:'设置 shell 选项/显示变量。',
+  unset:'删除变量或函数。',
+  declare:'声明变量属性（如只读、整数）。',
+  readonly:'把变量设为只读。',
+  tee:'同时输出到屏幕和文件（边看边存）。',
+  time:'统计命令执行耗时。',
+  yes:'无限输出 y（配合管道自动确认）。',
+  xargs:'把输入转成命令参数批量执行。',
+  zip:'创建 zip 压缩包。',
+  unzip:'解压 zip 包。',
+  file:'识别文件类型（文本/二进制/格式）。',
+  stat:'查看文件的详细元数据（大小、权限、时间）。',
+  sha256sum:'计算 SHA-256 校验值。',
+  strings:'从二进制文件中提取可读字符串。',
+  realpath:'解析出路径的绝对真实路径。',
+  vim:'vi 的增强版编辑器。',
+  vimtutor:'vim 内置交互式教程。',
+  nano:'简单易用的命令行编辑器。',
+  gcc:'C 语言编译器。',
+  'g++':'C++ 语言编译器。',
+  make:'自动化构建工具（读 Makefile）。',
+  gdb:'C/C++ 调试器。',
+  python3:'Python 3 解释器。',
+  node:'JavaScript 运行时。',
+  npm:'Node.js 包管理器。',
+  screen:'终端复用器，会话可断线重连。',
+  tmux:'现代终端复用器，分屏+会话保持。',
+  shutdown:'关机/定时关机。',
+  reboot:'重启系统。',
+  halt:'停机（等同关机）。',
+  poweroff:'关机断电。',
+  dmesg:'查看内核启动日志和硬件消息。',
+  more:'分页查看文件（空格翻页，q 退出）。',
+  less:'更强大的分页查看器（支持搜索）。',
+  whatis:'一句话说明命令用途。',
+  info:'查看 GNU 文档。',
+  clear:'清屏。',
+  help:'查看内置命令帮助/命令列表。',
+  exit:'退出当前 shell。',
+  'docker-compose':'用 YAML 编排多容器应用。',
+  podman:'无守护进程的容器引擎（docker 替代）。',
+  containerd:'容器运行时（docker 底层）。',
+  crictl:'CRI 容器运行时命令行。',
+  ctr:'containerd 的原生 CLI。',
+  buildah:'无 Dockerfile 构建容器镜像。',
+  skopeo:'远程镜像查看/复制工具。',
+  kustomize:'定制 K8s 清单文件。',
+  minikube:'本地一键 K8s 集群。',
+  kind:'用 Docker 跑 K8s 集群（测试用）。',
+  kubeadm:'初始化/加入 K8s 集群。',
+  kubelet:'K8s 节点上的代理组件。',
+  etcdctl:'etcd 键值存储命令行。',
+  calicoctl:'Calico 网络策略管理。',
+  nats:'轻量消息系统。',
+  pulsar:'云原生消息流平台。',
+  haproxy:'高性能负载均衡/反向代理。',
+  apache2:'Apache HTTP 服务器。',
+  caddy:'自动 HTTPS 的 Web 服务器。',
+  keepalived:'高可用（VIP 漂移）。',
+  traefik:'云原生反向代理/入口。',
+  mysqldump:'MySQL 逻辑备份工具。',
+  postgresql:'PostgreSQL 数据库服务。',
+  pg_dump:'PostgreSQL 备份工具。',
+  mongodb:'MongoDB 文档数据库。',
+  redis:'Redis 键值缓存服务器。',
+  sqlite3:'轻量嵌入式数据库命令行。',
+  prometheus:'时序监控采集系统。',
+  promtool:'Prometheus 工具（规则检查等）。',
+  alertmanager:'Prometheus 告警管理。',
+  grafana:'监控可视化面板。',
+  node_exporter:'导出主机指标给 Prometheus。',
+  logstash:'日志采集/处理管道。',
+  kibana:'Elasticsearch 可视化界面。',
+  filebeat:'轻量日志采集器。',
+  fluentd:'日志收集器。',
+  fluentbit:'轻量版日志收集器。',
+  loki:'日志聚合系统（Grafana 配套）。',
+  promtail:'Loki 的日志采集端。',
+  packer:'构建镜像模板（AWS/VM 等）。',
+  vagrant:'管理虚拟机开发环境。',
+  pulumi:'用代码管基础设施（多语言）。',
+  opentofu:'Terraform 的开源分支。',
+  'ansible-playbook':'执行 Ansible 剧本。',
+  puppet:'配置管理工具。',
+  chef:'配置管理工具。',
+  salt:'批量配置/远程执行工具。',
+  istioctl:'Istio 服务网格管理。',
+  linkerd:'轻量服务网格。',
+  envoy:'高性能数据面代理。',
+  'nginx-ingress':'K8s 的 Nginx 入口控制器。',
+  openssl:'加密/证书工具。',
+  certbot:'自动申请续期 Let\'s Encrypt 证书。',
+  'acme.sh':'ACME 协议证书脚本。',
+  vault:'密钥管理工具。',
+  keycloak:'身份认证与单点登录。',
+  ldapsearch:'查询 LDAP 目录。',
+  'ssh-keygen':'生成 SSH 密钥对。',
+  iptables:'Linux 防火墙规则。',
+  ufw:'简化版防火墙前端。',
+  nft:'nftables 防火墙（iptables 后继）。',
+  fail2ban:'自动封禁暴力破解 IP。',
+  ceph:'分布式存储集群。',
+  gluster:'分布式文件系统。',
+  nfs:'网络文件系统共享。',
+  longhorn:'K8s 分布式块存储。',
+  rook:'K8s 存储编排（Ceph）。',
+  restic:'加密备份工具。',
+  borg:'去重备份工具。',
+  duplicity:'加密增量备份。',
+  calico:'K8s 网络插件（BGP）。',
+  flannel:'K8s 简单 Overlay 网络。',
+  weave:'K8s 网络插件。',
+  cilium:'基于 eBPF 的 K8s 网络/安全。',
+  metallb:'K8s 裸金属 LoadBalancer。',
+  wireguard:'现代 VPN 隧道。',
+  ab:'ApacheBench HTTP 压测。',
+  wrk:'高性能 HTTP 压测。',
+  siege:'HTTP 压力测试。',
+  sysbench:'综合性能基准测试。',
+  stress:'CPU/内存压力测试。',
+  fio:'磁盘 IO 性能测试。',
+  iostat:'磁盘 IO 统计。',
+  vmstat:'虚拟内存/系统统计。',
+  sar:'历史系统活动报告。',
+  perf:'Linux 性能分析。',
+  'virt-manager':'虚拟机图形管理。',
+  virsh:'libvirt 虚拟机命令行。',
+  qemu:'硬件模拟器/虚拟机。',
+  kvm:'内核虚拟机。',
+  xen:'虚拟化平台。',
+  glances:'综合监控面板。',
+  iftop:'实时网络流量（按连接）。',
+  nethogs:'按进程的网络流量。',
+  iotop:'按进程的磁盘 IO。',
+  knative:'K8s 无服务器框架。',
+  openfaas:'函数即服务。',
+  kubeless:'K8s 无服务器框架。',
+  tac:'倒序输出文件（cat 反过来）。',
+  od:'八进制/十六进制查看文件。',
+  hexdump:'十六进制转储。',
+  bzip2:'高压缩比压缩。',
+  bunzip2:'解压 bzip2。',
+  xz:'更高压缩比压缩。',
+  unxz:'解压 xz。',
+  lz4:'极速压缩。',
+  lsmod:'列出已加载内核模块。',
+  modprobe:'加载/卸载内核模块。',
+  modinfo:'查看模块信息。',
+  sysctl:'查看/修改内核参数。',
+  losetup:'管理回环设备。',
+  swapon:'启用交换分区。',
+  swapoff:'停用交换分区。',
+  lsattr:'查看文件扩展属性。',
+  chattr:'修改文件扩展属性（防删除）。',
+  host:'简单 DNS 查询。',
+  whois:'查询域名注册信息。',
+  mtr:'ping+traceroute 结合的网络诊断。',
+  socat:'全能数据通道工具。',
+  telnet:'老式远程登录/端口测试。',
+  nmcli:'NetworkManager 命令行。',
+  iwconfig:'无线网卡配置。',
+  rfkill:'管理无线设备开关。',
+  last:'查看登录历史。',
+  w:'查看在线用户和负载。',
+  nice:'以指定优先级启动进程。',
+  renice:'修改运行中进程优先级。',
+  pidof:'按程序名查 PID。',
+  strace:'跟踪进程系统调用。',
+  ltrace:'跟踪进程库调用。',
+  ulimit:'查看/设置进程资源限制。',
+  shopt:'设置 bash 选项。',
+  popd:'从目录栈弹出。',
+  pushd:'压入目录栈并切换。',
+  dirs:'显示目录栈。',
+  disown:'把任务移出 jobs 管理。',
+  paste:'按列合并文件。',
+  join:'按共同字段连接文件。',
+  comm:'比较两个有序文件。',
+  split:'拆分大文件。',
+  fmt:'重新排版文本。',
+  pr:'分页排版输出。',
+  expand:'把 Tab 转成空格。',
+  unexpand:'把空格转成 Tab。',
+  neofetch:'系统信息 ASCII 展示。',
+  inxi:'系统信息汇总。',
+  sudoedit:'用编辑器以 root 编辑文件。',
+  visudo:'安全编辑 sudoers。',
+  bc:'命令行计算器。',
+  cal:'显示日历。',
+  seq:'生成数字序列。',
+  shuf:'随机打乱/抽样。',
+  factor:'分解质因数。',
+  numfmt:'数字单位换算。',
+  logger:'写系统日志。',
+  apropos:'按关键词搜索手册。',
+  timedatectl:'查看/设置时间与时区。',
+  hostnamectl:'查看/设置主机名。',
+  at:'定时执行一次性任务。',
+  batch:'系统空闲时执行任务。',
+  ldd:'查看程序依赖的共享库。',
+  ldconfig:'更新动态库缓存。',
+  perl:'Perl 脚本语言。',
+  ruby:'Ruby 脚本语言。',
+  php:'PHP 脚本语言。',
+  go:'Go 语言工具链。',
+  cargo:'Rust 包管理/构建。',
+  cmake:'跨平台构建系统。',
+  arp:'查看 ARP 缓存表。',
+  arping:'ARP 层连通性测试。',
+  wall:'向所有登录用户广播消息。',
+  mesg:'控制是否接收消息。',
+  write:'给指定用户发消息。',
+  chsh:'修改登录 shell。',
+  logname:'显示登录用户名。',
+  newgrp:'切换有效组。',
+  localectl:'设置系统语言/键盘。',
+  loginctl:'管理登录会话。',
+};
+
+/* ===== LEARNING PATHS ===== */
+const PATHS = {
+  basic:   { name:'Linux 基础', desc:'文件、文本、权限等入门必备' },
+  shell:   { name:'Shell 脚本', desc:'变量、管道、重定向、历史' },
+  network: { name:'网络排查', desc:'接口、连通性、端口、远程传输' },
+  docker:  { name:'Docker 容器', desc:'镜像与容器管理' },
+  k8s:     { name:'Kubernetes', desc:'集群、工作负载、日志' },
+  middleware: { name:'中间件', desc:'Nginx、Redis、MySQL、Kafka、Elasticsearch 等常用中间件' },
+  cicd:    { name:'CI/CD', desc:'GitLab、Jenkins、ArgoCD、Flux 持续集成与交付' },
+  monitor: { name:'监控运维', desc:'进程、资源、服务与日志' },
+  other:   { name:'其他命令', desc:'其余命令的基础用法' },
+};
+const PATHS_EN = { basic:'Linux Basics', shell:'Shell Scripting', network:'Networking', docker:'Docker', k8s:'Kubernetes', middleware:'Middleware', cicd:'CI/CD', monitor:'Monitoring & Ops', other:'Other Commands' };
+const PATHS_DESC_EN = { basic:'File, text and permission fundamentals', shell:'Variables, pipes, redirects, history', network:'Interfaces, connectivity, ports, transfer', docker:'Images and containers', k8s:'Clusters, workloads, logs', middleware:'Nginx, Redis, MySQL, Kafka, Elasticsearch and more', cicd:'GitLab, Jenkins, ArgoCD, Flux', monitor:'Processes, resources, services and logs', other:'Basic usage of the remaining commands' };
+
+function cmdPath(name) {
+  if (['docker','docker-compose','podman','buildah','skopeo','containerd','crictl','ctr'].includes(name)) return 'docker';
+  if (['kubectl','helm','kubeadm','kubelet','minikube','kind','istioctl','linkerd','cilium','calico','calicoctl','flannel','weave','metallb','longhorn','rook','knative','openfaas','kubeless'].includes(name)) return 'k8s';
+  if (['gitlab','jenkins','argocd','flux'].includes(name)) return 'cicd';
+  if (['mysql','mysqldump','redis-cli','redis','postgresql','pg_dump','sqlite3','mongodb','etcd','etcdctl','consul','nats','pulsar','kafka','rabbitmq','rabbitmqctl','nginx','apache2','caddy','haproxy','traefik','keepalived','elasticsearch','logstash','kibana','filebeat','fluentd','fluentbit','minio'].includes(name)) return 'middleware';
+  if (['ip','ifconfig','ping','traceroute','mtr','curl','wget','nc','ncat','netstat','ss','dig','nslookup','host','whois','route','arp','arping','iptables','ufw','tcpdump','nmcli','iwconfig','rfkill','socat','telnet','ssh','scp','sftp','ftp','rsync'].includes(name)) return 'network';
+  if (['top','htop','free','vmstat','iostat','sar','perf','ps','kill','pkill','pgrep','pidof','lsof','strace','ltrace','uptime','watch','systemctl','journalctl','df','du','sensors','neofetch','inxi','glances','iftop','nethogs','iotop','dmesg','time'].includes(name)) return 'monitor';
+  if (['alias','env','export','unset','set','shopt','source','declare','readonly','type','which','whereis','whatis','man','help','history','echo','seq','yes','bc','cal','date','sleep','timeout','printf','read','test','true','false','exec','eval'].includes(name)) return 'shell';
+  return 'basic';
+}
+
+/* ===== BUILD TASK MAP ===== */
+const TASK_MAP = {};
+TASKS.forEach(t => { t.path = 'basic'; TASK_MAP[t.id] = t; });
+let taskSeq = 1000;
+for (const [cmd, usages] of Object.entries(CMD_USAGES)) {
+  usages.forEach((u, i) => {
+    const id = 'u' + (taskSeq++);
+    TASK_MAP[id] = {
+      id, cmd, path: cmdPath(cmd),
+      title: u.c + '（用法 ' + (i + 1) + '/' + usages.length + '）',
+      titleEn: u.c + ' (usage ' + (i + 1) + '/' + usages.length + ')',
+      desc: u.d, hint: u.c,
+      exp: u.x || u.d,
+      check: histExact(u.c),
+    };
+  });
+}
+for (const name of Object.keys(CMD)) {
+  if (!CMD_USAGES[name] && name !== 'practice' && name !== 'learn' && name !== 'exam' && name !== 'stats' && name !== 'lang' && name !== 'guide') {
+    const id = 'a' + (taskSeq++);
+    TASK_MAP[id] = {
+      id, cmd: name, path: cmdPath(name),
+      title: name + '（基础用法）',
+      titleEn: name + ' (basic usage)',
+      desc: CMD[name].desc || name + ' 命令',
+      hint: CMD[name].usage || name,
+      exp: CMD_EXPLAIN[name] || (CMD[name].desc || name + ' 命令') + '。执行该命令并观察输出。',
+      check: histRe(new RegExp('^' + name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(\\s|$)')),
+    };
+  }
+}
+const PATH_ORDER = ['basic', 'shell', 'network', 'docker', 'k8s', 'middleware', 'cicd', 'monitor', 'other'];
+
+function loadTaskProgress() {
+    try {
+        const raw = localStorage.getItem('linux-sim-task-progress');
+        if (raw) {
+            const p = JSON.parse(raw);
+            if (p && Array.isArray(p.done)) {
+                let focus = p.focus || 'basic';
+                if (focus === 'db') focus = 'middleware';
+                if (focus === 'path:db') focus = 'path:middleware';
+                return { done: p.done, focus };
+            }
+        }
+    } catch (e) {}
+    return { done: [], focus: 'basic' };
+}
+let taskProgress = loadTaskProgress();
+function saveTaskProgress() {
+    try { localStorage.setItem('linux-sim-task-progress', JSON.stringify(taskProgress)); } catch (e) {}
+}
+function focusTasks() {
+    const f = taskProgress.focus || 'basic';
+    if (f.startsWith('cmd:')) {
+        const name = f.slice(4);
+        return Object.values(TASK_MAP).filter(t => t.cmd === name);
+    }
+    const path = f.startsWith('path:') ? f.slice(5) : f;
+    return Object.values(TASK_MAP).filter(t => t.path === path);
+}
+function focusName() {
+    const f = taskProgress.focus || 'basic';
+    if (f.startsWith('cmd:')) return (lang === 'en' ? 'Command drill: ' : '命令专项：') + f.slice(4);
+    const path = f.startsWith('path:') ? f.slice(5) : f;
+    return lang === 'en' ? (PATHS_EN[path] || 'Linux Basics') : (PATHS[path] || PATHS.basic).name;
+}
+function currentTask() {
+    if (examState) return TASK_MAP[examState.questions[examState.index]] || null;
+    return focusTasks().find(t => !taskProgress.done.includes(t.id)) || null;
+}
+function showTaskDetail(t) {
+    const total = focusTasks().length;
+    const doneInFocus = focusTasks().filter(x => taskProgress.done.includes(x.id)).length;
+    return (lang === 'en' ? '▶ Current task [' : '▶ 当前任务 [') + t.id + ']：' + taskTitle(t) + '\n📖 ' + (lang === 'en' ? 'What it does: ' : '说明：') + taskExp(t) + '\n🔧 ' + (lang === 'en' ? 'Run: ' : '请执行：') + t.hint + '\n' + (lang === 'en' ? 'Progress: ' : '进度：') + doneInFocus + '/' + total;
+}
+
+function resolvePath(path) {
+    if (!path) return cwd;
+    if (path === '~' || path === '~/') return envVars.HOME;
+    if (path.startsWith('~/')) return envVars.HOME + path.slice(1);
+    if (path === '-') return cwd;
+    if (path.startsWith('/')) {let p=path.replace(/\/+/g,'/'); return p==='/'?'/':p.replace(/\/$/,'')}
+    let parts = [];
+    let base = cwd;
+    for (const seg of path.split('/')) {
+        if (seg === '' || seg === '.') continue;
+        if (seg === '..') {if (base !== '/') base = base.substring(0, base.lastIndexOf('/')) || '/';}
+        else base = (base === '/' ? '' : base) + '/' + seg;
+    }
+    return base || '/';
+}
+
+function permStr(mode, isDir) {
+    const m = String(mode || '644').padStart(3, '0');
+    const bits = ['---','--x','-w-','-wx','r--','r-x','rw-','rwx'];
+    return (isDir ? 'd' : '-') + bits[parseInt(m[0])] + bits[parseInt(m[1])] + bits[parseInt(m[2])];
+}
+
+function canWrite(path) {
+    if (isRoot || sudoMode) return true;
+    const p = String(path).replace(/\/+$/, '');
+    if (p === '' || p === '/') return false;
+    return !(p.startsWith('/etc') || p.startsWith('/proc') || p.startsWith('/usr') || p.startsWith('/var/log') || p.startsWith('/var/www') || p.startsWith('/boot'));
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function formatOutput(text, type) {
+    return '<span class="cmd-' + type + '">' + escapeHtml(text) + '</span>';
+}
+
+function getPrompt() {
+    if (isRoot || sudoMode) return 'root@home-server:~# ';
+    return 'user@home-server:~$ ';
+}
+
+function padEnd(str, len) { while (str.length < len) str += ' '; return str; }
+const LH=String.fromCharCode(0x251c)+String.fromCharCode(0x2500);
+const EL=String.fromCharCode(0x2514)+String.fromCharCode(0x2500);
+
+
+/* ===== HANDLERS ===== */
+
+function handleLs(args) {
+    const allFlag = args.includes('-a') || args.includes('-la') || args.includes('-al');
+    const longFlag = args.includes('-l') || args.includes('-la') || args.includes('-al');
+    const pathArg = args.filter(a => !a.startsWith('-'))[0];
+    const target = resolvePath(pathArg || '.');
+    if (VFS.getFile(target) !== null) {
+        const mode = VFS.mode(target);
+        const owner = VFS.owner(target);
+        const size = VFS.getFile(target).length;
+        const fname = target.split('/').pop();
+        if (longFlag) return permStr(mode, false) + ' 1 ' + owner + ' ' + owner + ' ' + padEnd(String(size), 5) + ' Jul 25 10:00 ' + fname;
+        return fname;
+    }
+    const entries = VFS.listDir(target);
+
+    if (!entries || Object.keys(entries).length === 0) {
+        // Check if it's a known base dir
+        const known = ['', 'root', 'root/projects', 'etc', 'tmp', 'var', 'var/log', 'home', 'home/user', 'proc'];
+        const tp = target === '/' ? '' : target.startsWith('/') ? target.slice(1) : target;
+        const hasEntries = known.some(k => k.startsWith(tp + '/') || k === tp);
+        if (!hasEntries && target !== '/' && target !== '/root' && target !== '/tmp' && target !== '/etc' && target !== '/var' && target !== '/var/log' && target !== '/var/www' && target !== '/var/www/html' && target !== '/home' && target !== '/home/user' && target !== '/proc') {
+            return 'ls: cannot access \'' + target + '\': No such file or directory';
+        }
+    }
+
+    let names = Object.keys(entries);
+    if (!allFlag) names = names.filter(n => !n.startsWith('.'));
+    names.sort();
+
+    if (longFlag) {
+        let out = 'total ' + (names.length * 4) + '\n';
+        for (const n of names) {
+            const isDir = entries[n] === 'dir';
+            const full = target === '/' ? '/' + n : target + '/' + n;
+            const mode = VFS.mode(full);
+            const owner = VFS.owner(full);
+            const size = isDir ? 4096 : (VFS.getFile(full) || '').length;
+            const date = 'Jul 25 10:00';
+            out += permStr(mode, isDir) + ' 1 ' + owner + ' ' + owner + ' ' + padEnd(String(size), 5) + ' ' + date + ' ' + n + '\n';
+        }
+        return out.trimEnd();
+    }
+    return names.join('  ') || '(empty)';
+}
+
+function handleCd(args) {
+    const newPath = resolvePath(args[0] || '~');
+    // Check if dir exists in VFS or known dirs
+    const known = ['/', '/root', '/root/projects', '/etc', '/tmp', '/var', '/var/log', '/var/www', '/var/www/html', '/home', '/home/user', '/proc'];
+    if (known.includes(newPath) || newPath === '/') {
+        cwd = newPath;
+        envVars.PWD = cwd;
+        return '';
+    }
+    // Check VFS entries
+    const parent = newPath.substring(0, newPath.lastIndexOf('/')) || '/';
+    const dirName = newPath.substring(newPath.lastIndexOf('/') + 1);
+    const entries = VFS.listDir(parent);
+    if (entries && entries[dirName] === 'dir') {
+        cwd = newPath;
+        envVars.PWD = cwd;
+        return '';
+    }
+    return 'cd: ' + args[0] + ': No such file or directory';
+}
+
+function handlePwd() {
+    return cwd;
+}
+
+function handleMkdir(args) {
+    if (!args[0]) return 'mkdir: missing operand';
+    const path = resolvePath(args[0]);
+    if (!canWrite(path)) return 'mkdir: cannot create directory \'' + args[0] + '\': Permission denied';
+    const [parent, name] = VFS.splitPath(path);
+    VFS.writeFile(path + '/.dir', '');
+    return 'Created directory: ' + path;
+}
+
+function handleTouch(args) {
+    if (!args[0]) return 'touch: missing file operand';
+    const path = resolvePath(args[0]);
+    if (!canWrite(path)) return 'touch: cannot touch \'' + args[0] + '\': Permission denied';
+    if (!VFS.getFile(path)) VFS.writeFile(path, '');
+    else VFS.writeFile(path, VFS.getFile(path)); // update timestamp conceptually
+    return 'Created file: ' + path;
+}
+
+function handleCat(args) {
+    if (!args[0]) {
+        if (pipeInput !== '') return pipeInput;
+        return 'cat: missing file operand';
+    }
+    const path = resolvePath(args[0]);
+    const content = VFS.getFile(path);
+    if (content === null) return 'cat: ' + args[0] + ': No such file or directory';
+    return content;
+}
+
+function handleRm(args) {
+    if (!args[0]) return 'rm: missing operand';
+    const recursive = args.includes('-r') || args.includes('-rf') || args.includes('-fr');
+    const pathArgs = args.filter(a => !a.startsWith('-'));
+    let out = '';
+    for (const pa of pathArgs) {
+        const path = resolvePath(pa);
+        if (!canWrite(path)) {
+            out += 'rm: cannot remove \'' + pa + '\': Permission denied\n';
+            continue;
+        }
+        const entries = VFS.listDir(path);
+        if (entries && Object.keys(entries).length > 0 && !recursive) {
+            out += 'rm: cannot remove \'' + pa + '\': Is a directory\n';
+            continue;
+        }
+        if (recursive && entries) {
+            for (const e in entries) {
+                VFS.deleteFile(path + '/' + e);
+            }
+            VFS.deleteFile(path + '/.dir');
+        } else {
+            VFS.deleteFile(path);
+        }
+        out += 'Removed: ' + path + '\n';
+    }
+    return out.trimEnd();
+}
+
+function handleCp(args) {
+    if (args.length < 2) return 'cp: missing file operand';
+    const src = resolvePath(args[0]);
+    const dst = resolvePath(args[1]);
+    const content = VFS.getFile(src);
+    if (content === null) return 'cp: cannot stat \'' + args[0] + '\': No such file or directory';
+    if (!canWrite(dst)) return 'cp: cannot create regular file \'' + args[1] + '\': Permission denied';
+    VFS.writeFile(dst, content);
+    return 'Copied: ' + args[0] + ' -> ' + args[1];
+}
+
+function handleMv(args) {
+    if (args.length < 2) return 'mv: missing file operand';
+    const src = resolvePath(args[0]);
+    const dst = resolvePath(args[1]);
+    const content = VFS.getFile(src);
+    if (content === null) return 'mv: cannot stat \'' + args[0] + '\': No such file or directory';
+    if (!canWrite(dst)) return 'mv: cannot move \'' + args[0] + '\' to \'' + args[1] + '\': Permission denied';
+    VFS.writeFile(dst, content);
+    VFS.deleteFile(src);
+    return 'Moved: ' + args[0] + ' -> ' + args[1];
+}
+
+function handleGrep(args) {
+    const flags = args.filter(a => a.startsWith('-'));
+    const nonFlag = args.filter(a => !a.startsWith('-'));
+    const pattern = nonFlag[0];
+    if (!pattern) return 'Usage: grep [options] <pattern> [file]';
+    let content;
+    const fileArg = nonFlag[1];
+    if (fileArg) {
+        const path = resolvePath(fileArg);
+        content = VFS.getFile(path);
+        if (content === null) return 'grep: ' + fileArg + ': No such file or directory';
+    } else if (pipeInput !== '') {
+        content = pipeInput;
+    } else {
+        return 'grep: ' + pattern + ': No such file or directory';
+    }
+    const ignoreCase = flags.includes('-i');
+    const lineNums = flags.includes('-n');
+    const invert = flags.includes('-v');
+    let re;
+    try {
+        re = new RegExp(pattern, ignoreCase ? 'i' : '');
+    } catch (e) {
+        return 'grep: invalid regular expression \'' + pattern + '\'';
+    }
+    const lines = content.split('\n');
+    let out = '';
+    for (let i = 0; i < lines.length; i++) {
+        let match = re.test(lines[i]);
+        if (invert) match = !match;
+        if (match) out += (lineNums ? (i + 1) + ':' : '') + lines[i] + '\n';
+    }
+    return out.trimEnd() || '(no matches)';
+}
+
+function handleHead(args) {
+    let n = 10;
+    let fileArg = '';
+    for (let i = 0; i < args.length; i++) {
+        if (args[i] === '-n' && i + 1 < args.length) { n = parseInt(args[i + 1]); i++; }
+        else if (!args[i].startsWith('-')) fileArg = args[i];
+    }
+    let content;
+    if (fileArg) {
+        const path = resolvePath(fileArg);
+        content = VFS.getFile(path);
+        if (content === null) return 'head: ' + fileArg + ': No such file or directory';
+    } else if (pipeInput !== '') {
+        content = pipeInput;
+    } else {
+        return 'head: missing file operand';
+    }
+    return content.split('\n').slice(0, n).join('\n');
+}
+
+function handleTail(args) {
+    let n = 10;
+    let fileArg = '';
+    for (let i = 0; i < args.length; i++) {
+        if (args[i] === '-n' && i + 1 < args.length) { n = parseInt(args[i + 1]); i++; }
+        else if (!args[i].startsWith('-')) fileArg = args[i];
+    }
+    let content;
+    if (fileArg) {
+        const path = resolvePath(fileArg);
+        content = VFS.getFile(path);
+        if (content === null) return 'tail: ' + fileArg + ': No such file or directory';
+    } else if (pipeInput !== '') {
+        content = pipeInput;
+    } else {
+        return 'tail: missing file operand';
+    }
+    return content.split('\n').slice(-n).join('\n');
+}
+
+function handleWc(args) {
+    const countLines = args.includes('-l');
+    const countWords = args.includes('-w');
+    const countChars = args.includes('-c');
+    const nonFlag = args.filter(a => !a.startsWith('-'));
+    let content, label = '';
+    if (nonFlag.length > 0) {
+        const path = resolvePath(nonFlag[0]);
+        content = VFS.getFile(path);
+        if (content === null) return 'wc: ' + nonFlag[0] + ': No such file or directory';
+        label = nonFlag[0];
+    } else if (pipeInput !== '') {
+        content = pipeInput;
+    } else {
+        return 'wc: missing file operand';
+    }
+    const lines = content.split('\n');
+    const words = content.split(/\s+/).filter(w => w.length > 0);
+    const showAll = !countLines && !countWords && !countChars;
+    let out = '';
+    if (showAll || countLines) out += padEnd(String(lines.length), 7) + ' ';
+    if (showAll || countWords) out += padEnd(String(words.length), 7) + ' ';
+    if (showAll || countChars) out += padEnd(String(content.length), 7) + ' ';
+    return out.trimEnd() + (label ? ' ' + label : '');
+}
+
+function findRedirect(cmd) {
+    let inSingle = false, inDouble = false;
+    for (let i = 0; i < cmd.length; i++) {
+        const ch = cmd[i];
+        if (ch === "'" && !inDouble) inSingle = !inSingle;
+        else if (ch === '"' && !inSingle) inDouble = !inDouble;
+        else if (!inSingle && !inDouble && ch === '>') return i;
+    }
+    return -1;
+}
+
+function handleEcho(args, cmd) {
+    const redirIdx = findRedirect(cmd);
+    if (redirIdx !== -1) {
+        const append = cmd[redirIdx + 1] === '>';
+        const rawText = cmd.slice(5, redirIdx).trim();
+        let text = rawText;
+        if (rawText.length >= 2 &&
+            ((rawText.startsWith('"') && rawText.endsWith('"')) ||
+             (rawText.startsWith("'") && rawText.endsWith("'")))) {
+            text = rawText.slice(1, -1);
+        }
+        const filePart = cmd.slice(redirIdx + (append ? 2 : 1)).trim();
+        const filePath = resolvePath(filePart);
+        if (!canWrite(filePath)) return 'bash: ' + filePart + ': Permission denied';
+        if (append) {
+            const existing = VFS.getFile(filePath);
+            VFS.writeFile(filePath, (existing === null ? '' : existing + '\n') + text);
+            return 'Appended to: ' + filePart;
+        }
+        VFS.writeFile(filePath, text);
+        return 'Wrote to: ' + filePart;
+    }
+    return args.join(' ');
+}
+
+function handleFind(args) {
+    let searchPath = '.';
+    let pattern = '*';
+    let nameIdx = args.indexOf('-name');
+    const nonFlag = args.filter(a => !a.startsWith('-'));
+    if (nameIdx >= 0 && nameIdx + 1 < args.length) pattern = args[nameIdx + 1];
+    else if (nonFlag.length > 0) { searchPath = nonFlag[0]; if (nonFlag.length > 1) pattern = nonFlag[1]; }
+    else if (nonFlag.length === 0) searchPath = '.';
+
+    const base = resolvePath(searchPath);
+    let results = [];
+    for (const fpath in VFS.files) {
+        if (fpath.startsWith(base)) {
+            const rel = fpath.slice(base.length);
+            const fname = rel.split('/').pop();
+            if (fname && (pattern === '*' || pattern === '.' || fname.includes(pattern.replace(/\*/g, '')))) {
+                results.push(fpath);
+            }
+        }
+    }
+    return results.join('\n') || '(no results)';
+}
+
+function handleLn(args) {
+    if (args.length < 2) return 'ln: missing file operand';
+    const symbolic = args.includes('-s');
+    const nonFlag = args.filter(a => !a.startsWith('-'));
+    const target = resolvePath(nonFlag[0]);
+    const link = resolvePath(nonFlag[1]);
+    if (!VFS.getFile(target) && !VFS.listDir(target)) return 'ln: ' + nonFlag[0] + ': No such file or directory';
+    VFS.writeFile(link, 'SYMLINK->' + target);
+    return 'Created ' + (symbolic ? 'symbolic ' : '') + 'link: ' + nonFlag[1] + ' -> ' + nonFlag[0];
+}
+
+function handleChmod(args) {
+    if (args.length < 2) return 'chmod: missing operand';
+    const modeArg = args[0];
+    const pathArg = args[args.length - 1];
+    const path = resolvePath(pathArg);
+    const isDir = VFS.getFile(path) === null && VFS.listDir(path) && Object.keys(VFS.listDir(path)).length > 0;
+    if (VFS.getFile(path) === null && !isDir) {
+        return 'chmod: cannot access \'' + pathArg + '\': No such file or directory';
+    }
+    let mode = VFS.mode(path);
+    if (/^[0-7]{3}$/.test(modeArg)) {
+        mode = modeArg;
+    } else if (modeArg.startsWith('+') && modeArg.includes('x')) {
+        mode = (parseInt(mode, 8) | 0o100).toString(8).padStart(3, '0');
+    } else if (modeArg.startsWith('-') && modeArg.includes('x')) {
+        mode = (parseInt(mode, 8) & ~0o100).toString(8).padStart(3, '0');
+    } else {
+        return 'chmod: invalid mode: \'' + modeArg + '\'';
+    }
+    VFS.chmod(path, mode);
+    return 'Changed mode of ' + pathArg + ' to ' + mode;
+}
+
+function handleChown(args) {
+    if (args.length < 2) return 'chown: missing operand';
+    const owner = args[0].split(':')[0];
+    const pathArg = args[args.length - 1];
+    const path = resolvePath(pathArg);
+    const isDir = VFS.getFile(path) === null && VFS.listDir(path) && Object.keys(VFS.listDir(path)).length > 0;
+    if (VFS.getFile(path) === null && !isDir) {
+        return 'chown: cannot access \'' + pathArg + '\': No such file or directory';
+    }
+    VFS.chown(path, owner);
+    return 'Changed owner of ' + pathArg + ' to ' + owner;
+}
+
+function handleChgrp(args) {
+    if (args.length < 2) return 'chgrp: missing operand';
+    return 'Changed group of ' + args[args.length - 1] + ' to ' + args[0];
+}
+
+function handleSort(args) {
+    let content;
+    if (args[0]) {
+        const path = resolvePath(args[0]);
+        content = VFS.getFile(path);
+        if (content === null) return 'sort: ' + args[0] + ': No such file or directory';
+    } else if (pipeInput !== '') {
+        content = pipeInput;
+    } else {
+        return 'sort: missing file operand';
+    }
+    return content.split('\n').sort().join('\n');
+}
+
+function handleUniq(args) {
+    let content;
+    if (args[0]) {
+        const path = resolvePath(args[0]);
+        content = VFS.getFile(path);
+        if (content === null) return 'uniq: ' + args[0] + ': No such file or directory';
+    } else if (pipeInput !== '') {
+        content = pipeInput;
+    } else {
+        return 'uniq: missing file operand';
+    }
+    const lines = content.split('\n');
+    let out = [], prev = null;
+    for (const l of lines) { if (l !== prev) out.push(l); prev = l; }
+    return out.join('\n');
+}
+
+function handleCut(args) {
+    let delim = '\t', fields = '1';
+    const nonFlag = [];
+    for (let i = 0; i < args.length; i++) {
+        const a = args[i];
+        if (a === '-d') { delim = args[i + 1] !== undefined ? args[i + 1] : '\t'; i++; }
+        else if (a.startsWith('-d')) { delim = a.slice(2); }
+        else if (a === '-f') { fields = args[i + 1] !== undefined ? args[i + 1] : '1'; i++; }
+        else if (a.startsWith('-f')) { fields = a.slice(2); }
+        else if (!a.startsWith('-')) nonFlag.push(a);
+    }
+    let content;
+    if (nonFlag.length > 0) {
+        const path = resolvePath(nonFlag[nonFlag.length - 1]);
+        content = VFS.getFile(path);
+        if (content === null) return 'cut: ' + nonFlag[nonFlag.length - 1] + ': No such file or directory';
+    } else if (pipeInput !== '') {
+        content = pipeInput;
+    } else {
+        return 'cut: missing file operand';
+    }
+    const fieldNums = fields.split(',').map(f => parseInt(f) - 1);
+    return content.split('\n').map(l => {
+        const cols = l.split(delim);
+        return fieldNums.map(f => cols[f] || '').join(delim);
+    }).join('\n');
+}
+
+function handleTr(args) {
+    if (args.length < 2) return 'Usage: tr <set1> <set2>';
+    return 'Character translation: ' + args[0] + ' -> ' + args[1] + '\n(Read from stdin: type text and press Enter)';
+}
+
+function handleSed(args) {
+    const inPlace = args.includes('-i');
+    const script = args.find(a => a.startsWith('s/') && a.length > 2);
+    const nonFlag = args.filter(a => !a.startsWith('-') && !a.startsWith('s/'));
+    let content;
+    let fileArg = '';
+    if (nonFlag.length > 0) {
+        fileArg = nonFlag[0];
+        const path = resolvePath(fileArg);
+        content = VFS.getFile(path);
+        if (content === null) return 'sed: can\'t read ' + fileArg + ': No such file or directory';
+    } else if (pipeInput !== '') {
+        content = pipeInput;
+    } else {
+        return 'sed: no input files';
+    }
+    if (!script) return 'sed: usage: sed [-i] \'s/pattern/replacement/[g]\' [file]';
+    const m = script.match(/^s\/((?:\\.|[^/])*)\/((?:\\.|[^/])*)\/([gI]*)$/);
+    if (!m) return 'sed: bad script: ' + script;
+    const pattern = m[1].replace(/\\(.)/g, '$1');
+    const replacement = m[2].replace(/\\(.)/g, '$1');
+    const globalFlag = m[3].includes('g');
+    let re;
+    try {
+        re = new RegExp(pattern, globalFlag ? 'g' : '');
+    } catch (e) {
+        return 'sed: invalid regex: ' + pattern;
+    }
+    const out = content.split('\n').map(line => line.replace(re, replacement)).join('\n');
+    if (inPlace && fileArg) {
+        const path = resolvePath(fileArg);
+        if (!canWrite(path)) return 'sed: couldn\'t write ' + fileArg + ': Permission denied';
+        VFS.writeFile(path, out);
+        return 'Wrote to: ' + fileArg;
+    }
+    return out;
+}
+
+function handleAwk(args) {
+    return "awk: pattern scanning and processing language\nUsage: awk '{print $1}' <file>\nExample: awk '{print $1,$3}' /etc/passwd";
+}
+
+function handleDiff(args) {
+    if (args.length < 2) return 'diff: missing file operand';
+    const f1 = VFS.getFile(resolvePath(args[0]));
+    const f2 = VFS.getFile(resolvePath(args[1]));
+    if (f1 === null || f2 === null) return 'diff: No such file';
+    if (f1 === f2) return '';
+    let out = '';
+    const l1 = f1.split('\n'), l2 = f2.split('\n');
+    for (let i = 0; i < Math.max(l1.length, l2.length); i++) {
+        if (l1[i] !== l2[i]) out += (i + 1) + 'c' + (i + 1) + '\n< ' + (l1[i] || '') + '\n---\n> ' + (l2[i] || '') + '\n';
+    }
+    return out || 'Files are identical';
+}
+
+function handleNl(args) {
+    let content;
+    if (args[0]) {
+        const path = resolvePath(args[0]);
+        content = VFS.getFile(path);
+        if (content === null) return 'nl: ' + args[0] + ': No such file or directory';
+    } else if (pipeInput !== '') {
+        content = pipeInput;
+    } else {
+        return 'nl: missing file operand';
+    }
+    return content.split('\n').map((l, i) => padEnd(String(i + 1), 6) + '\t' + l).join('\n');
+}
+
+function handleFile(args) {
+    if (!args[0]) return 'file: missing file operand';
+    const path = resolvePath(args[0]);
+    const content = VFS.getFile(path);
+    if (content !== null) {
+        if (path.endsWith('.txt') || path.endsWith('.log')) return path + ': ASCII text';
+        if (path.endsWith('.conf') || path.endsWith('.bashrc')) return path + ': ASCII text, with escape sequences';
+        if (path.endsWith('.html')) return path + ': HTML document, ASCII text';
+        return path + ': ASCII text';
+    }
+    const entries = VFS.listDir(path);
+    if (entries) return path + ': directory';
+    return 'file: ' + args[0] + ': No such file or directory';
+}
+
+function handleStat(args) {
+    if (!args[0]) return 'stat: missing operand';
+    const path = resolvePath(args[0]);
+    const content = VFS.getFile(path);
+    if (content === null) return 'stat: ' + args[0] + ': No such file or directory';
+    const mode = VFS.mode(path);
+    const owner = VFS.owner(path);
+    let out = '  File: ' + path + '\n';
+    out += '  Size: ' + content.length + '\t\tBlocks: ' + Math.ceil(content.length / 512) + '\n';
+    out += '  IO Block: 4096   regular file\n';
+    out += 'Device: 259,2\tInode: ' + Math.floor(Math.random() * 1000000) + '\n';
+    out += 'Access: (' + mode + '/' + permStr(mode, false) + ')  Uid: (' + (owner === 'root' ? '0/root' : '1000/' + owner) + ')   Gid: (0/root)\n';
+    out += 'Access: 2025-07-25 10:00:00.000000000 +0800\n';
+    out += 'Modify: 2025-07-24 15:30:00.000000000 +0800\n';
+    out += 'Change: 2025-07-24 15:30:00.000000000 +0800\n';
+    return out;
+}
+
+function handleMd5sum(args) {
+    if (!args[0]) return 'md5sum: missing file operand';
+    const path = resolvePath(args[0]);
+    const content = VFS.getFile(path);
+    if (content === null) return 'md5sum: ' + args[0] + ': No such file or directory';
+    let hash = '';
+    const chars = '0123456789abcdef';
+    for (let i = 0; i < 32; i++) hash += chars[Math.floor(Math.random() * 16)];
+    for (let i = 0; i < content.length; i++) {
+        const ci = (hash.charCodeAt(i % 32) + content.charCodeAt(i)) % 16;
+        hash = hash.substring(0, i % 32) + chars[ci] + hash.substring((i % 32) + 1);
+    }
+    return hash + '  ' + args[0];
+}
+
+function handleSha256sum(args) {
+    if (!args[0]) return 'sha256sum: missing file operand';
+    const path = resolvePath(args[0]);
+    const content = VFS.getFile(path);
+    if (content === null) return 'sha256sum: ' + args[0] + ': No such file or directory';
+    let hash = '';
+    const chars = '0123456789abcdef';
+    for (let i = 0; i < 64; i++) hash += chars[Math.floor(Math.random() * 16)];
+    return hash + '  ' + args[0];
+}
+
+function handleBase64(args) {
+    if (!args[0]) return 'base64: missing file operand';
+    const path = resolvePath(args[0]);
+    const content = VFS.getFile(path);
+    if (content === null) return 'base64: ' + args[0] + ': No such file or directory';
+    try { return btoa(content); } catch (e) { return btoa(unescape(encodeURIComponent(content))); }
+}
+
+function handleStrings(args) {
+    if (!args[0]) return 'strings: missing file operand';
+    const path = resolvePath(args[0]);
+    const content = VFS.getFile(path);
+    if (content === null) return 'strings: ' + args[0] + ': No such file or directory';
+    return content.split('\n').filter(l => l.trim().length >= 4).join('\n');
+}
+
+function handleRealpath(args) {
+    if (!args[0]) return 'realpath: missing operand';
+    return resolvePath(args[0]);
+}
+
+
+function handleLscpu() {
+    const hw = window.SIM_HW;
+    const cpu = hw.cpu;
+    return `Architecture:                    ${hw.arch}
+CPU op-mode(s):                  32-bit, 64-bit
+Address sizes:                   39 bits physical, 48 bits virtual
+Byte Order:                      Little Endian
+CPU(s):                          ${cpu.threads}
+On-line CPU(s) list:             0-${cpu.threads - 1}
+Vendor ID:                       GenuineIntel
+Model name:                      ${cpu.model}
+CPU family:                      6
+Model:                           151
+Thread(s) per core:              2
+Core(s) per socket:              ${cpu.cores}
+Socket(s):                       ${cpu.sockets}
+Stepping:                        2
+CPU max MHz:                     ${cpu.max_mhz.toFixed(1)}
+CPU min MHz:                     800.0000
+BogoMIPS:                        ${(cpu.base_mhz * 2).toFixed(2)}
+Virtualization:                  VT-x
+L1d cache:                       ${cpu.l1d} (per core)
+L1i cache:                       ${cpu.l1i} (per core)
+L2 cache:                        ${cpu.l2}
+L3 cache:                        ${cpu.l3}
+NUMA node(s):                    1
+NUMA node0 CPU(s):               0-${cpu.threads - 1}
+Flags:                           ${cpu.flags}`;
+}
+
+function handleLspci() {
+    const hw = window.SIM_HW;
+    let out = '';
+    for (const [id, vendor, desc] of hw.pci_devices) {
+        out += id + ' ' + vendor + ': ' + desc + '\n';
+    }
+    return out.trimEnd();
+}
+
+function handleLsusb() {
+    const hw = window.SIM_HW;
+    let out = '';
+    for (const [id, vendor, desc] of hw.usb_devices) {
+        out += 'Bus ' + id.replace('Bus ', '').replace(' Device ', ':') + ' ' + vendor + ' ' + desc + '\n';
+    }
+    return out.trimEnd();
+}
+
+function handleLsblk() {
+    const hw = window.SIM_HW;
+    let nameCol = 12, majCol = 8, rmCol = 3, sizeCol = 8, roCol = 3, typeCol = 6;
+    let out = padEnd('NAME', nameCol) + ' ' + padEnd('MAJ:MIN', majCol) + ' ' + padEnd('RM', rmCol) + ' ' + padEnd('SIZE', sizeCol) + ' ' + padEnd('RO', roCol) + ' ' + padEnd('TYPE', typeCol) + ' MOUNTPOINT\n';
+    let diskIdx = 0;
+    const diskNames = Object.keys(hw.disks);
+
+    function getMount(partName) {
+        const mp = hw.mountpoints;
+        const pmap = {
+            'nvme0n1p1':'/boot/efi','nvme0n1p2':'/','nvme0n1p3':'/home',
+            'sda1':'/data','sda2':'/backup','sdb1':'/storage','sdc1':'/var/lib/docker'
+        };
+        return pmap[partName] || '';
+    }
+
+    for (const dk of diskNames) {
+        const disk = hw.disks[dk];
+        const majMin = disk.type === 'NVMe' ? '259:' + diskIdx : '8:' + (diskIdx * 16);
+        out += padEnd(disk.name, nameCol) + ' ' + padEnd(majMin, majCol) + ' ' + padEnd('0', rmCol) + ' ' + padEnd(disk.size, sizeCol) + ' ' + padEnd('0', roCol) + ' ' + padEnd('disk', typeCol) + '\n';
+        const pKeys = Object.keys(disk.partitions);
+        for (let pi = 0; pi < pKeys.length; pi++) {
+            const pk = pKeys[pi];
+            const pt = disk.partitions[pk];
+            const isLast = pi === pKeys.length - 1;
+            const prefix = isLast ? EL + ' ' : LH + ' ';
+            const pmajMin = disk.type === 'NVMe' ? '259:' + (pi + 1) : '8:' + (diskIdx * 16 + pi + 1);
+            out += prefix + padEnd(pk, nameCol - 2) + ' ' + padEnd(pmajMin, majCol) + ' ' + padEnd('0', rmCol) + ' ' + padEnd(pt.size, sizeCol) + ' ' + padEnd('0', roCol) + ' ' + padEnd('part', typeCol) + ' ' + getMount(pk) + '\n';
+        }
+        diskIdx++;
+    }
+    return out.trimEnd();
+}
+
+function handleFdisk(args) {
+    const listFlag = args.includes('-l');
+    if (!listFlag) return 'fdisk: Use -l to list partitions';
+    const hw = window.SIM_HW;
+    let out = '';
+    for (const dk of Object.keys(hw.disks)) {
+        const disk = hw.disks[dk];
+        out += 'Disk /dev/' + disk.name + ': ' + disk.size + ', ' + disk.sectors + ' sectors\n';
+        out += 'Disk model: ' + disk.model + '\n';
+        out += 'Units: sectors of 1 * 512 = 512 bytes\n';
+        out += 'Sector size (logical/physical): 512 bytes / 4096 bytes\n';
+        out += 'I/O size (minimum/optimal): 4096 bytes / 4096 bytes\n';
+        if (disk.health === 'FAILED') out += '⚠ Warning: This disk has SMART errors!\n';
+        out += '\n';
+    }
+    return out.trimEnd();
+}
+
+function handleSmartctl(args) {
+    const hw = window.SIM_HW;
+    const devIdx = args.indexOf('-a');
+    let devName = '';
+    if (devIdx >= 0 && devIdx + 1 < args.length) devName = args[devIdx + 1];
+    else devName = args.filter(a => !a.startsWith('-'))[0] || '';
+
+    if (!devName) return 'smartctl: missing device argument\nUsage: smartctl -a /dev/<device>';
+
+    // Strip /dev/ prefix if present
+    const dn = devName.replace('/dev/', '');
+    const disk = hw.disks[dn];
+    if (!disk) return 'smartctl: ' + devName + ': No such device';
+
+    const smart = disk.smart;
+    let out = `smartctl 7.2 2021-09-28 r5155 [x86_64-linux-5.15.0-91-generic] (local build)
+Copyright (C) 2002-21, Bruce Allen, Christian Franke, www.smartmontools.org
+
+=== START OF INFORMATION SECTION ===
+Model Family:     ${disk.model.split(' ').slice(0, 2).join(' ')}
+Device Model:     ${disk.model}
+Serial Number:    ${disk.serial}
+LU WWN Device Id: 5 ${'0'.repeat(15)}
+Firmware Version: ${disk.fw}
+User Capacity:    ${disk.sectors * 512} bytes [${disk.size}B]
+Sector Size:      512 bytes logical/physical
+Rotation Rate:    ${disk.rpm ? disk.rpm + ' rpm' : 'Solid State Device'}
+Form Factor:      ${disk.type.includes('NVMe') ? 'M.2' : disk.type.includes('SSD') ? '2.5 inches' : '3.5 inches'}
+TRIM Command:     ${disk.type.includes('SSD') || disk.type.includes('NVMe') ? 'Available' : 'Unavailable'}
+Device is:        ${disk.health === 'PASSED' ? 'In smartctl database' : 'In smartctl database [for details use: -P showall]'}
+ATA Version is:   ${disk.type.includes('NVMe') ? 'NVMe 1.4' : 'ACS-3 T13/2161-D revision 5'}
+SATA Version is:  ${disk.type.includes('NVMe') ? 'N/A (NVMe)' : 'SATA 3.2, 6.0 Gb/s'}
+Local Time is:    Thu Jul 25 10:00:00 2025 CST
+SMART support is: Available - device has SMART capability.
+SMART support is: Enabled
+
+=== START OF READ SMART DATA SECTION ===
+SMART overall-health self-assessment test result: ${disk.health === 'PASSED' ? 'PASSED' : 'FAILED!'}
+${disk.health === 'FAILED' ? 'Please note the following marginal Attributes.\nFAILURE IMMINENT - DATA LOSS MAY OCCUR!' : ''}
+
+General SMART Values:
+Offline data collection status:  (0x82)\tOffline data collection activity
+\t\t\t\t\twas completed without error.
+\t\t\t\t\tAuto Offline Data Collection: Enabled.
+Self-test execution status:      (   0)\tThe previous self-test routine completed
+\t\t\t\t\twithout error or no self-test has ever been run.
+Total time to complete Offline data collection: (  ${disk.rpm ? 120 : 15}) seconds.
+`;
+
+    if (disk.type === 'NVMe') {
+        out += `SMART/Health Information (NVMe Log 0x02)
+Critical Warning:                    ${smart.critical_warning}
+Temperature:                         ${smart.temperature} Celsius
+Available Spare:                     ${smart.available_spare}%
+Available Spare Threshold:           ${smart.available_spare_threshold}%
+Percentage Used:                     ${smart.percentage_used}%
+Data Units Read:                     ${smart.data_units_read}
+Data Units Written:                  ${smart.data_units_written}
+Host Read Commands:                  125,000,000
+Host Write Commands:                 98,000,000
+Controller Busy Time:                450
+Power Cycles:                        ${smart.power_cycles}
+Power On Hours:                      ${smart.power_on_hours}
+Unsafe Shutdowns:                    ${smart.unsafe_shutdowns}
+Media and Data Integrity Errors:     ${smart.media_errors}
+Error Information Log Entries:       0
+Warning Composite Temperature Time:  ${smart.warning_temp_time}
+`;
+    } else {
+        out += `ID# ATTRIBUTE_NAME          FLAG     VALUE WORST THRESH TYPE      UPDATED  WHEN_FAILED RAW_VALUE
+  1 Raw_Read_Error_Rate     ${'0x002f'}   ${padEnd(String(100), 5)} ${padEnd(String(100), 5)} ${padEnd('051', 8)} Pre-fail  Always       -       ${smart.raw_read_error_rate || 0}
+  3 Spin_Up_Time            ${'0x0027'}   ${padEnd(String(disk.rpm > 6000 ? '095' : '080'), 5)} ${padEnd('095', 5)} ${padEnd('021', 8)} Pre-fail  Always       -       ${smart.spin_up_time || 0}
+  4 Start_Stop_Count        ${'0x0032'}   ${padEnd('100', 5)} ${padEnd('100', 5)} ${padEnd('000', 8)} Old_age   Always       -       ${smart.start_stop_count || 0}
+  5 Reallocated_Sector_Ct   ${'0x0033'}   ${padEnd(String(100 - (smart.reallocated_sector_ct || 0) * 3), 5)} ${padEnd(String(100 - (smart.reallocated_sector_ct || 0) * 3), 5)} ${padEnd('036', 8)} Pre-fail  Always   ${smart.reallocated_sector_ct > 0 ? '    FAIL' : '       -'}       ${smart.reallocated_sector_ct || 0}
+  7 Seek_Error_Rate         ${'0x002f'}   ${padEnd(String(smart.seek_error_rate || 100), 5)} ${padEnd('067', 5)} ${padEnd('045', 8)} Pre-fail  Always       -       ${smart.seek_error_rate || 0}
+  9 Power_On_Hours          ${'0x0032'}   ${padEnd('080', 5)} ${padEnd('080', 5)} ${padEnd('000', 8)} Old_age   Always       -       ${smart.power_on_hours}
+ 10 Spin_Retry_Count        ${'0x0033'}   ${padEnd('100', 5)} ${padEnd('100', 5)} ${padEnd('060', 8)} Pre-fail  Always       -       ${smart.spin_retry_count || 0}
+ 12 Power_Cycle_Count       ${'0x0032'}   ${padEnd('100', 5)} ${padEnd('100', 5)} ${padEnd('000', 8)} Old_age   Always       -       ${smart.power_cycles}
+190 Airflow_Temperature_Cel ${'0x0022'}   ${padEnd(String(70), 5)} ${padEnd('050', 5)} ${padEnd('000', 8)} Old_age   Always       -       ${smart.temperature} (Min/Max 22/50)
+194 Temperature_Celsius     ${'0x0022'}   ${padEnd(String(130 - smart.temperature), 5)} ${padEnd('098', 5)} ${padEnd('000', 8)} Old_age   Always       -       ${smart.temperature}
+197 Current_Pending_Sector  ${'0x0032'}   ${padEnd(String(100 - (smart.current_pending_sector || 0) * 4), 5)} ${padEnd('100', 5)} ${padEnd('000', 8)} Old_age   Always       -       ${smart.current_pending_sector || 0}
+198 Offline_Uncorrectable   ${'0x0030'}   ${padEnd(String(100 - (smart.offline_uncorrectable || 0) * 5), 5)} ${padEnd('100', 5)} ${padEnd('000', 8)} Old_age   Always       -       ${smart.offline_uncorrectable || 0}
+199 UDMA_CRC_Error_Count    ${'0x0032'}   ${padEnd('200', 5)} ${padEnd('200', 5)} ${padEnd('000', 8)} Old_age   Always       -       ${smart.udma_crc_error_count || 0}
+`;
+        if (disk.type === 'SATA SSD') {
+            out += `177 Wear_Leveling_Count     ${'0x0013'}   ${padEnd(String(smart.wear_leveling_count || 100), 5)} ${padEnd('100', 5)} ${padEnd('000', 8)} Pre-fail  Always       -       ${smart.wear_leveling_count || 0}
+`;
+        }
+    }
+    return out.trimEnd();
+}
+
+function handleDmidecode(args) {
+    const hw = window.SIM_HW;
+    const isBios = args.includes('-t') && args[args.indexOf('-t') + 1] === 'bios';
+
+    if (isBios) {
+        const mb = hw.motherboard;
+        return `# dmidecode 3.4
+Getting SMBIOS data from sysfs.
+SMBIOS 3.5.0 present.
+
+Handle 0x0000, DMI type 0, 26 bytes
+BIOS Information
+\tVendor: ${mb.bios_vendor}
+\tVersion: ${mb.bios_version}
+\tRelease Date: ${mb.bios_date}
+\tAddress: 0xF0000
+\tRuntime Size: 64 kB
+\tROM Size: 32 MB
+\tCharacteristics:
+\t\tPCI is supported
+\t\tBIOS is upgradeable
+\t\tBIOS shadowing is allowed
+\t\tBoot from CD is supported
+\t\tSelectable boot is supported
+\t\tBIOS ROM is socketed
+\t\tEDD is supported
+\t\tACPI is supported
+\t\tUSB legacy is supported
+\t\tBIOS boot specification is supported
+\t\tTargeted content distribution is supported
+\t\tUEFI is supported
+\tBIOS Revision: ${mb.bios_revision}
+
+Handle 0x0001, DMI type 1, 27 bytes
+System Information
+\tManufacturer: ${mb.manufacturer}
+\tProduct Name: ${mb.product}
+\tVersion: ${mb.version}
+\tSerial Number: ${mb.serial}
+\tUUID: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+\tWake-up Type: Power Switch
+\tSKU Number: ${mb.product}
+\tFamily: Z690`;
+    }
+
+    let out = '# dmidecode 3.4\nGetting SMBIOS data from sysfs.\nSMBIOS 3.5.0 present.\n\n';
+    out += 'Handle 0x0010, DMI type 17, 92 bytes\n';
+    out += 'Memory Device\n';
+
+    const dimms = hw.dimms;
+    for (let i = 0; i < dimms.length; i++) {
+        const d = dimms[i];
+        out += '\t' + '='.repeat(40) + '\n';
+        out += '\tDIMM ' + d.slot + '\n';
+        out += '\tArray Handle: 0x0009\n';
+        out += '\tError Information Handle: Not Provided\n';
+        out += '\tTotal Width: ' + (d.status === 'Empty' ? 'Unknown' : '64 bits') + '\n';
+        out += '\tData Width: ' + (d.status === 'Empty' ? 'Unknown' : '64 bits') + '\n';
+        out += '\tSize: ' + d.size + '\n';
+        out += '\tForm Factor: DIMM\n';
+        out += '\tSet: None\n';
+        out += '\tLocator: ' + d.slot + '\n';
+        out += '\tBank Locator: BANK ' + i + '\n';
+        out += '\tType: ' + (d.type || 'Unknown') + '\n';
+        out += '\tType Detail: ' + (d.status === 'Empty' ? 'Unknown' : 'Synchronous Unbuffered (Unregistered)') + '\n';
+        out += '\tSpeed: ' + (d.speed || 'Unknown') + '\n';
+        out += '\tManufacturer: ' + (d.manufacturer || 'Unknown') + '\n';
+        out += '\tSerial Number: ' + (d.serial || 'Unknown') + '\n';
+        out += '\tAsset Tag: Not Specified\n';
+        out += '\tRank: ' + (d.status === 'Empty' ? 'Unknown' : (d.size.includes('16') ? '2' : '1')) + '\n';
+        out += '\tConfigured Memory Speed: ' + (d.speed || 'Unknown') + '\n';
+        out += '\tMinimum Voltage: ' + (d.status === 'Empty' ? 'Unknown' : '1.2 V') + '\n';
+        out += '\tMaximum Voltage: ' + (d.status === 'Empty' ? 'Unknown' : '1.2 V') + '\n';
+        out += '\tConfigured Voltage: ' + (d.status === 'Empty' ? 'Unknown' : '1.2 V') + '\n';
+    }
+    return out.trimEnd();
+}
+
+function handleLshw() {
+    const hw = window.SIM_HW;
+    const cpu = hw.cpu;
+    const mem = hw.memory;
+    const totalDimms = hw.dimms.filter(d => d.status !== 'Empty').reduce((s, d) => s + parseFloat(d.size), 0);
+
+    return `home-server
+    description: Desktop Computer
+    product: ${hw.motherboard.product}
+    vendor: ${hw.motherboard.manufacturer}
+    version: ${hw.motherboard.version}
+    serial: ${hw.motherboard.serial}
+    width: 64 bits
+    capabilities: smbios-3.5 dmi-3.5 smp vsyscall32
+    configuration: boot=normal chassis=desktop family=Z690
+  *-core
+       description: Motherboard
+       product: ${hw.motherboard.product}
+       vendor: ${hw.motherboard.manufacturer}
+       physical id: 0
+       version: ${hw.motherboard.version}
+     *-firmware
+          description: BIOS
+          vendor: ${hw.motherboard.bios_vendor}
+          physical id: 0
+          version: ${hw.motherboard.bios_version}
+          date: ${hw.motherboard.bios_date}
+          size: 32MiB
+          capacity: 48MiB
+          capabilities: pci upgrade shadowing cdboot bootselect edd acpi usb biosbootspecification uefi
+     *-cpu
+          description: CPU
+          product: ${cpu.model}
+          vendor: Intel Corp.
+          physical id: 4
+          bus info: cpu@0
+          version: 12th Gen Core i7-12700K
+          slot: LGA1700
+          size: ${cpu.base_mhz}MHz
+          capacity: ${cpu.max_mhz}MHz
+          width: 64 bits
+          clock: 100MHz
+          capabilities: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov
+          configuration: cores=${cpu.cores} threads=${cpu.threads}
+     *-memory
+          description: System Memory
+          physical id: 10
+          slot: System board or motherboard
+          size: ${totalDimms}GiB
+        *-bank:0
+             description: DIMM DDR4 Synchronous ${hw.dimms[0].speed}
+             product: ${hw.dimms[0].part}
+             vendor: ${hw.dimms[0].manufacturer}
+             slot: ${hw.dimms[0].slot}
+             size: ${hw.dimms[0].size.replace(' GB', '')}GiB
+        *-bank:1
+             description: DIMM DDR4 Synchronous ${hw.dimms[1].speed}
+             product: ${hw.dimms[1].part}
+             vendor: ${hw.dimms[1].manufacturer}
+             slot: ${hw.dimms[1].slot}
+             size: ${hw.dimms[1].size.replace(' GB', '')}GiB
+        *-bank:2
+             description: DIMM DDR4 Synchronous ${hw.dimms[2].speed}
+             product: ${hw.dimms[2].part}
+             vendor: ${hw.dimms[2].manufacturer}
+             slot: ${hw.dimms[2].slot}
+             size: ${hw.dimms[2].size.replace(' GB', '')}GiB
+        *-bank:3
+             description: DIMM [empty]
+             slot: DIMM_B2
+     *-display
+          description: VGA compatible controller
+          product: ${hw.gpu.model}
+          vendor: ${hw.gpu.vendor}
+          physical id: 0
+          bus info: pci@0000:${hw.gpu.pci_id}
+          version: a1
+          width: 64 bits
+          clock: 33MHz
+          capabilities: vga_controller bus_master cap_list rom
+          configuration: driver=nvidia latency=0
+          resources: irq:155 memory:a0000000-a0ffffff
+  *-network:0
+       description: Ethernet interface
+       product: ${hw.network.interfaces.enp3s0.chipset}
+       vendor: Intel Corporation
+       physical id: 0
+       bus info: pci@0000:03:00.0
+       logical name: enp3s0
+       version: 03
+       serial: ${hw.network.interfaces.enp3s0.mac}
+       size: ${hw.network.interfaces.enp3s0.speed}
+       capacity: 1Gbit/s
+       width: 32 bits
+       clock: 33MHz
+       configuration: autonegotiation=on broadcast=yes driver=igc driverversion=5.15.0-91-generic ip=${hw.network.interfaces.enp3s0.ip}
+  *-network:1
+       description: Wireless interface
+       product: ${hw.network.interfaces.wlp5s0.chipset}
+       vendor: Intel Corporation
+       physical id: 0
+       bus info: pci@0000:04:00.0
+       logical name: wlp5s0
+       version: 1a
+       serial: ${hw.network.interfaces.wlp5s0.mac}
+       width: 64 bits
+       clock: 33MHz
+       configuration: broadcast=yes driver=iwlwifi driverversion=5.15.0-91-generic ip=${hw.network.interfaces.wlp5s0.ip}`;
+}
+
+function handleSensors() {
+    const hw = window.SIM_HW;
+    let out = '';
+    for (const [name, value, extra] of hw.sensors) {
+        out += name + ': ' + padEnd(value, 20) + ' ' + (extra || '') + '\n';
+    }
+    return out.trimEnd();
+}
+
+function handleDf(args) {
+    const hw = window.SIM_HW;
+    const human = args.includes('-h');
+    let out = '';
+    if (human) {
+        out += padEnd('Filesystem', 22) + padEnd('Size', 8) + padEnd('Used', 8) + padEnd('Avail', 8) + padEnd('Use%', 6) + 'Mounted on\n';
+        for (const [mp, info] of Object.entries(hw.mountpoints)) {
+            out += padEnd(info.device, 22) + padEnd(info.size, 8) + padEnd(info.used, 8) + padEnd(info.avail, 8) + padEnd(info['use%'], 6) + mp + '\n';
+        }
+    } else {
+        out += padEnd('Filesystem', 22) + padEnd('1K-blocks', 14) + padEnd('Used', 10) + padEnd('Available', 10) + padEnd('Use%', 6) + 'Mounted on\n';
+        for (const [mp, info] of Object.entries(hw.mountpoints)) {
+            const parseSz = (s) => { const n = parseFloat(s); const u = s.slice(-1); return n * (u === 'T' ? 1048576 : u === 'G' ? 1048576 : u === 'M' ? 1024 : 1); };
+            out += padEnd(info.device, 22) + padEnd(String(Math.floor(parseSz(info.size))), 14) + padEnd(String(Math.floor(parseSz(info.used))), 10) + padEnd(String(Math.floor(parseSz(info.avail))), 10) + padEnd(info['use%'], 6) + mp + '\n';
+        }
+    }
+    return out.trimEnd();
+}
+
+function handleDu(args) {
+    const hw = window.SIM_HW;
+    const summary = args.includes('-s');
+    const human = args.includes('-h');
+    const path = args.filter(a => !a.startsWith('-'))[0];
+    if (!path) return 'du: missing operand';
+    const target = resolvePath(path);
+    let sizes = {
+        '/root': '124K', '/root/projects': '4K', '/etc': '28K', '/tmp': '4K',
+        '/var': '1.2M', '/var/log': '180K', '/home': '8K', '/home/user': '4K', '/proc': '0'
+    };
+    let total = sizes[target] || '4K';
+    if (summary) return total + '\t' + path;
+    return total + '\t' + path;
+}
+
+function handleFree(args) {
+    const hw = window.SIM_HW;
+    const mem = hw.memory;
+    const human = args.includes('-h');
+
+    if (human) {
+        let out = padEnd('', 14) + padEnd('total', 11) + padEnd('used', 11) + padEnd('free', 11) + padEnd('shared', 10) + padEnd('buff/cache', 11) + 'available\n';
+        out += padEnd('Mem:', 14) + padEnd(mem.total_gb + 'Gi', 11) + padEnd(mem.used_gb + 'Gi', 11) + padEnd(mem.free_gb + 'Gi', 11) + padEnd('0.4Gi', 10) + padEnd(((mem.buffers_mb + mem.cached_mb) / 1024).toFixed(1) + 'Gi', 11) + mem.available_gb + 'Gi\n';
+        out += padEnd('Swap:', 14) + padEnd(mem.swap_total_gb + 'Gi', 11) + padEnd(mem.swap_used_gb + 'Gi', 11) + padEnd(mem.swap_free_gb + 'Gi', 11);
+        return out;
+    }
+    let out = padEnd('', 14) + padEnd('total', 14) + padEnd('used', 14) + padEnd('free', 14) + padEnd('shared', 10) + padEnd('buff/cache', 14) + 'available\n';
+    out += padEnd('Mem:', 14) + padEnd(String(mem.total_gb * 1024 * 1024), 14) + padEnd(String(Math.floor(mem.used_gb * 1024 * 1024)), 14) + padEnd(String(Math.floor(mem.free_gb * 1024 * 1024)), 14) + padEnd('420000', 10) + padEnd(String(mem.buffers_mb * 1024 + mem.cached_mb * 1024), 14) + Math.floor(mem.available_gb * 1024 * 1024) + '\n';
+    out += padEnd('Swap:', 14) + padEnd(String(mem.swap_total_gb * 1024 * 1024), 14) + padEnd(String(Math.floor(mem.swap_used_gb * 1024 * 1024)), 14) + padEnd(String(Math.floor(mem.swap_free_gb * 1024 * 1024)), 14);
+    return out;
+}
+
+function handleMount() {
+    const hw = window.SIM_HW;
+    let out = '';
+    for (const [mp, info] of Object.entries(hw.mountpoints)) {
+        out += info.device + ' on ' + mp + ' type ' + info.fs + ' (rw,relatime)\n';
+    }
+    out += 'tmpfs on /run type tmpfs (rw,nosuid,nodev,noexec,relatime,size=8192M)\n';
+    out += 'tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev)\n';
+    out += 'devtmpfs on /dev type devtmpfs (rw,nosuid,size=4096k,nr_inodes=1048576,mode=755)';
+    return out;
+}
+
+function handleBlkid() {
+    const uuids = {
+        'nvme0n1p1': 'ABCD-1234',
+        'nvme0n1p2': 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+        'nvme0n1p3': 'b2c3d4e5-f6a7-8901-bcde-f12345678901',
+        'sda1': 'c3d4e5f6-a7b8-9012-cdef-123456789012',
+        'sda2': 'd4e5f6a7-b8c9-0123-defa-234567890123',
+        'sdb1': 'e5f6a7b8-c9d0-1234-efab-345678901234',
+        'sdc1': 'f6a7b8c9-d0e1-2345-fabc-456789012345'
+    };
+    let out = '';
+    for (const [dev, uuid] of Object.entries(uuids)) {
+        out += '/dev/' + dev + ': UUID="' + uuid + '" TYPE="' + (window.SIM_HW.mountpoints[Object.values(window.SIM_HW.mountpoints).find(m => m.device === '/dev/' + dev)? Object.keys(window.SIM_HW.mountpoints).find(k => window.SIM_HW.mountpoints[k].device === '/dev/' + dev) : '']?.fs || 'ext4') + '" PARTUUID="' + uuid.slice(0, 8) + '-01"\n';
+    }
+    return out.trimEnd();
+}
+
+function handlePs(args) {
+    const allFlag = args.includes('aux') || args.includes('-ef') || args.includes('-aux');
+    if (!allFlag && args.length === 0) {
+        let out = '    PID TTY          TIME CMD\n';
+        for (const p of PROC_TABLE) {
+            out += padEnd(String(p.pid), 8) + 'pts/0    ' + padEnd('00:00:0' + Math.min(9, Math.floor(p.cpu * 3)), 9) + p.cmd + '\n';
+        }
+        return out.trimEnd();
+    }
+
+    let out = padEnd('USER', 10) + padEnd('PID', 7) + '%CPU ' + padEnd('%MEM', 5) + padEnd('VSZ', 10) + padEnd('RSS', 8) + padEnd('TTY', 8) + padEnd('STAT', 5) + padEnd('START', 8) + padEnd('TIME', 8) + 'COMMAND\n';
+    for (const p of PROC_TABLE) {
+        out += padEnd(p.user, 10) + padEnd(String(p.pid), 7) + padEnd(String(p.cpu), 4) + padEnd(String(p.mem), 5) + padEnd('234567', 10) + padEnd('34567', 8) + padEnd('pts/0', 8) + padEnd('S', 5) + padEnd('10:00', 8) + padEnd('00:00:01', 8) + p.cmd + '\n';
+    }
+    return out.trimEnd();
+}
+
+function handleTop() {
+    const hw = window.SIM_HW;
+    const mem = hw.memory;
+    const load = hw.load_avg;
+    let out = `top - 10:00:00 up 4 days,  1:00,  2 users,  load average: ${load[0]}, ${load[1]}, ${load[2]}
+Tasks: 245 total,   1 running, 244 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  5.2 us,  2.1 sy,  0.0 ni, 92.0 id,  0.5 wa,  0.0 hi,  0.2 si,  0.0 st
+MiB Mem :  ${(mem.total_gb * 1024).toFixed(0)}.0 total,   ${(mem.free_gb * 1024).toFixed(0)}.0 free,   ${(mem.used_gb * 1024).toFixed(0)}.0 used,   ${(mem.available_gb * 1024).toFixed(0)}.0 buff/cache
+MiB Swap:  ${mem.swap_total_gb * 1024}.0 total,   ${(mem.swap_free_gb * 1024).toFixed(0)}.0 free,   ${(mem.swap_used_gb * 1024).toFixed(0)}.0 used
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+   3500 mysql     20   0  4.4g   2.5g  12340 S   2.5   6.2 120:15.34 mysqld
+   2300 root      20   0  2.3g   1.1g   9876 S   1.2   2.8  45:32.12 dockerd
+   4200 root      20   0  1.2g   612m   4567 S   0.3   1.5  12:08.45 containerd
+   5800 user      20   0  663m   204m  10234 S   0.1   0.5   1:20.33 node
+    400 root      20   0  23544   4560   2345 S   0.0   0.1   0:04.12 sshd
+   1200 root      20   0  45678   8900   3456 S   0.0   0.2   0:01.23 nginx-master
+   1201 www-data  20   0  48900  16400   5678 S   0.1   0.4   2:45.67 nginx-worker
+   5600 root      20   0  15616   5200   2345 S   0.2   0.1   0:05.89 python3
+    ` + (Math.floor(Math.random() * 9000 + 1000)) + ` root      20   0   1256    432    256 R   0.0   0.0   0:00.01 top`;
+    return out;
+}
+
+function handleHtop() {
+    const hw = window.SIM_HW;
+    const mem = hw.memory;
+    const load = hw.load_avg;
+    const cpuPct = 5.2;
+    const cpuBars = Math.floor(cpuPct / 2);
+    const memPct = (mem.used_gb / mem.total_gb * 100).toFixed(1);
+    const memBars = Math.floor(Number(memPct) / 2);
+    const swapPct = (mem.swap_used_gb / mem.swap_total_gb * 100).toFixed(1);
+    const swapBars = Math.floor(Number(swapPct) / 2);
+
+    let out = '  CPU[' + '\u2588'.repeat(cpuBars) + ' '.repeat(50 - cpuBars) + ']  ' + cpuPct.toFixed(1) + '%\n';
+    out += '  Mem[' + '\u2588'.repeat(memBars) + ' '.repeat(50 - memBars) + ']  ' + mem.used_gb + 'G/' + mem.total_gb + 'G\n';
+    out += '  Swp[' + '\u2588'.repeat(swapBars) + ' '.repeat(50 - swapBars) + ']  ' + mem.swap_used_gb + 'G/' + mem.swap_total_gb + 'G\n\n';
+
+    out += padEnd('  PID', 7) + padEnd('USER', 10) + padEnd('PRI', 5) + padEnd('NI', 5) + padEnd('VIRT', 10) + padEnd('RES', 10) + padEnd('SHR', 8) + padEnd('S', 3) + padEnd('CPU%', 6) + padEnd('MEM%', 6) + padEnd('TIME+', 10) + 'Command\n';
+    out += padEnd('  3500', 7) + padEnd('mysql', 10) + padEnd('20', 5) + padEnd('0', 5) + padEnd('4.4G', 10) + padEnd('2.5G', 10) + padEnd('12.3M', 8) + padEnd('S', 3) + padEnd('2.5', 6) + padEnd('6.2', 6) + padEnd('2h00:15.34', 10) + 'mysqld\n';
+    out += padEnd('  2300', 7) + padEnd('root', 10) + padEnd('20', 5) + padEnd('0', 5) + padEnd('2.3G', 10) + padEnd('112M', 10) + padEnd('9.8M', 8) + padEnd('S', 3) + padEnd('1.2', 6) + padEnd('2.8', 6) + padEnd('45:32.12', 10) + 'dockerd\n';
+    out += padEnd('  5800', 7) + padEnd('user', 10) + padEnd('20', 5) + padEnd('0', 5) + padEnd('663M', 10) + padEnd('20.4M', 10) + padEnd('10.2M', 8) + padEnd('S', 3) + padEnd('0.1', 6) + padEnd('0.5', 6) + padEnd('1:20.33', 10) + 'node\n';
+    out += padEnd('   400', 7) + padEnd('root', 10) + padEnd('20', 5) + padEnd('0', 5) + padEnd('23.5M', 10) + padEnd('4.6M', 10) + padEnd('2.3M', 8) + padEnd('S', 3) + padEnd('0.0', 6) + padEnd('0.1', 6) + padEnd('0:04.12', 10) + 'sshd\n';
+    out += padEnd('  5600', 7) + padEnd('root', 10) + padEnd('20', 5) + padEnd('0', 5) + padEnd('15.6M', 10) + padEnd('5.2M', 10) + padEnd('2.3M', 8) + padEnd('S', 3) + padEnd('0.2', 6) + padEnd('0.1', 6) + padEnd('0:05.89', 10) + 'python3\n\n';
+    out += 'F1Help  F2Setup  F3Search  F4Filter  F5Tree  F6SortBy  F7Nice  F8Nice  F9Kill  F10Quit';
+    return out;
+}
+
+function handleUname(args) {
+    const aFlag = args.includes('-a');
+    const hw = window.SIM_HW;
+    if (aFlag) return `Linux ${hw.hostname} ${hw.kernel} #101-Ubuntu SMP Tue Nov 14 13:30:08 UTC 2023 ${hw.arch} ${hw.arch} GNU/Linux`;
+    return hw.kernel.split('-')[0];
+}
+
+function handleHostname() { return window.SIM_HW.hostname; }
+
+function handleWhoami() { return isRoot || sudoMode ? 'root' : user; }
+
+function handleId() {
+    if (isRoot || sudoMode) return 'uid=0(root) gid=0(root) groups=0(root)';
+    return 'uid=1000(user) gid=1000(user) groups=1000(user),4(adm),27(sudo),999(docker)';
+}
+
+function handleWho() {
+    return 'user     pts/0        2025-07-25 09:00 (192.168.1.50)\nroot     pts/1        2025-07-25 09:30 (192.168.1.55)';
+}
+
+function handleUptime() {
+    const hw = window.SIM_HW;
+    const days = Math.floor(hw.uptime_seconds / 86400);
+    const hrs = Math.floor((hw.uptime_seconds % 86400) / 3600);
+    const mins = Math.floor((hw.uptime_seconds % 3600) / 60);
+    return ` 10:00:00 up ${days} days, ${hrs}:${String(mins).padStart(2, '0')},  2 users,  load average: ${hw.load_avg.join(', ')}`;
+}
+
+function handleDate() {
+    return new Date().toString();
+}
+
+function handleDmesg() {
+    return `[    0.000000] Linux version 5.15.0-91-generic (buildd@lcy02-amd64-091)
+[    0.000000] Command line: BOOT_IMAGE=/boot/vmlinuz-5.15.0-91-generic
+[    0.123456] x86: Booting SMP configuration
+[    0.345678] Initializing CPU#0
+[    0.567890] ACPI: Core revision 20210730
+[    1.000000] Memory: 40GiB total
+[    2.500000] nvme nvme0: Samsung 980 PRO initialized
+[    3.000000] igc 03:00.0 enp3s0: Intel I225-V 2.5GbE initialized
+[    5.000000] EXT4-fs (nvme0n1p2): mounted filesystem
+[   10.000000] systemd[1]: System time before build time, advancing clock.
+[   15.000000] nvidia: loading NVIDIA 535.183.01
+[  120.000000] smartd: monitoring /dev/sdb (ST4000DM004)
+[  150.000000] docker0: port 1(veth) entered blocking state`;
+}
+
+function handleJournalctl(args) {
+    let unit = '';
+    for (let i = 0; i < args.length; i++) {
+        if (args[i] === '-u' && i + 1 < args.length) { unit = args[i + 1]; break; }
+    }
+    if (unit) return `-- Logs for unit ${unit} --
+Jul 25 10:00:00 home-server ${unit}[400]: Service running normally
+Jul 25 09:30:00 home-server ${unit}[400]: Accepted connection from 192.168.1.50`;
+    return `Jul 25 10:00:00 home-server kernel: System running
+Jul 25 09:00:00 home-server systemd[1]: Started session 123
+Jul 24 22:00:00 home-server systemd[1]: Starting daily cron jobs`;
+}
+
+function handleKill(args) {
+    if (!args[0]) return 'kill: usage: kill <pid>';
+    const pidStr = args[0] === '-9' ? args[1] : args[0];
+    const pid = parseInt(pidStr);
+    if (isNaN(pid)) return 'kill: illegal pid: ' + pidStr;
+    const idx = PROC_TABLE.findIndex(p => p.pid === pid);
+    if (idx === -1) return 'kill: (' + pid + ') - No such process';
+    PROC_TABLE.splice(idx, 1);
+    return 'Process ' + pid + ' terminated';
+}
+
+function handlePgrep(args) {
+    if (!args[0]) return 'pgrep: missing pattern';
+    const pat = args[0];
+    const procs = PROC_TABLE.filter(p => p.cmd.includes(pat));
+    if (procs.length === 0) return '';
+    return procs.map(p => p.pid).join('\n');
+}
+
+function handlePkill(args) {
+    if (!args[0]) return 'pkill: missing pattern';
+    const pat = args[0];
+    const matches = PROC_TABLE.filter(p => p.cmd.includes(pat));
+    if (matches.length === 0) return '';
+    matches.forEach(p => {
+        const idx = PROC_TABLE.findIndex(x => x.pid === p.pid);
+        if (idx !== -1) PROC_TABLE.splice(idx, 1);
+    });
+    return matches.map(p => p.pid + ' terminated').join('\n');
+}
+
+
+let pingSeq = 0;
+function handlePing(args) {
+    let count = 4;
+    let host = '';
+    for (let i = 0; i < args.length; i++) {
+        if (args[i] === '-c' && i + 1 < args.length) { count = parseInt(args[i + 1]); i++; }
+        else if (!args[i].startsWith('-')) host = args[i];
+    }
+    if (!host) host = '8.8.8.8';
+    let out = 'PING ' + host + ' (' + host + ') 56(84) bytes of data.\n';
+    const rtts = [];
+    for (let i = 1; i <= count; i++) {
+        pingSeq++;
+        const rtt = (10 + Math.random() * 25).toFixed(1);
+        rtts.push(rtt);
+        const ttl = 116 + Math.floor(Math.random() * 5);
+        out += '64 bytes from ' + host + ': icmp_seq=' + pingSeq + ' ttl=' + ttl + ' time=' + rtt + ' ms\n';
+    }
+    if (count > 0) {
+        const avg = (rtts.reduce((a, b) => a + Number(b), 0) / rtts.length).toFixed(1);
+        const min = Math.min(...rtts.map(Number)).toFixed(1);
+        const max = Math.max(...rtts.map(Number)).toFixed(1);
+        out += '\n--- ' + host + ' ping statistics ---\n';
+        out += count + ' packets transmitted, ' + count + ' received, 0% packet loss, time ' + ((count - 1) * 1000) + 'ms\n';
+        out += 'rtt min/avg/max/mdev = ' + min + '/' + avg + '/' + max + '/' + ((max - min) / 4).toFixed(1) + ' ms';
+    }
+    return out;
+}
+
+function handleCurl(args) {
+    let url = args.filter(a => !a.startsWith('-'))[0] || 'https://example.com';
+    let out = '  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n';
+    out += '                                 Dload  Upload   Total   Spent    Left  Speed\n';
+    out += '  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n';
+    const size = Math.floor(Math.random() * 5000) + 1000;
+    out += '100  ' + padEnd(String(size), 7) + '100  ' + padEnd(String(size), 7) + '0     0   ' + padEnd(String(Math.floor(size / 0.5)), 7) + '0 --:--:-- --:--:-- --:--:-- ' + size + '\n\n';
+    out += '<!DOCTYPE html>\n<html>\n<head>\n<title>Example Domain</title>\n</head>\n<body>\n<h1>Example Domain</h1>\n<p>This domain is for use in illustrative examples.</p>\n</body>\n</html>';
+    return out;
+}
+
+function handleWget(args) {
+    let url = args.filter(a => !a.startsWith('-'))[0] || 'https://example.com/index.html';
+    let out = '--' + new Date().toISOString().replace('T', ' ').slice(0, 19) + '--  ' + url + '\n';
+    out += 'Resolving example.com... 93.184.216.34\n';
+    out += 'Connecting to example.com|93.184.216.34|:443... connected.\n';
+    out += 'HTTP request sent, awaiting response... 200 OK\n';
+    const size = Math.floor(Math.random() * 5000) + 1000;
+    out += 'Length: ' + size + ' (' + (size / 1024).toFixed(1) + 'K) [text/html]\n';
+    out += 'Saving to: index.html\n\n';
+    out += 'index.html         100%[===================>]   ' + (size / 1024).toFixed(2) + 'K  --.-KB/s    in 0.1s\n\n';
+    out += new Date().toISOString().replace('T', ' ').slice(0, 19) + ' (' + (size / 1000).toFixed(2) + ' KB/s) - index.html saved [' + size + ']';
+    return out;
+}
+
+function handleIfconfig(args) {
+    const hw = window.SIM_HW;
+    let out = '';
+    for (const [name, iface] of Object.entries(hw.network.interfaces)) {
+        out += name + ': flags=' + (iface.state === 'UP' ? '4163<UP,BROADCAST,RUNNING,MULTICAST>' : '4099<LOOPBACK>') + '  mtu ' + iface.mtu + '\n';
+        out += '        inet ' + iface.ip.split('/')[0] + '  netmask 255.255.255.0  broadcast 192.168.1.255\n';
+        if (name === 'lo') out += '        inet6 ::1  prefixlen 128  scopeid 0x10<host>\n';
+        out += '        ether ' + iface.mac + '  txqueuelen 1000  (Ethernet)\n';
+        out += '        RX packets ' + iface.rx_packets.toLocaleString() + '  bytes ' + iface.rx_bytes.toLocaleString() + ' (' + (iface.rx_bytes / 1073741824).toFixed(1) + ' GiB)\n';
+        out += '        TX packets ' + iface.tx_packets.toLocaleString() + '  bytes ' + iface.tx_bytes.toLocaleString() + ' (' + (iface.tx_bytes / 1073741824).toFixed(1) + ' GiB)\n\n';
+    }
+    return out.trimEnd();
+}
+
+function handleIp(args) {
+    if (args[0] === 'addr' || args[0] === 'a' || args.length === 0) {
+        const hw = window.SIM_HW;
+        let out = '';
+        for (const [name, iface] of Object.entries(hw.network.interfaces)) {
+            out += (hw.network.interfaces[name].state === 'UP' ? '2: ' : '1: ') + name + ': <' + (iface.state === 'UP' ? 'BROADCAST,MULTICAST,UP,LOWER_UP' : 'LOOPBACK') + '> mtu ' + iface.mtu + ' qdisc ' + (name === 'enp3s0' ? 'mq' : 'noqueue') + ' state ' + iface.state + '\n';
+            const ip = iface.ip.split('/');
+            const prefix = iface.ip.includes('/') ? iface.ip.split('/')[1] : '24';
+            out += '    inet ' + ip[0] + '/' + prefix + ' brd 192.168.1.255 scope global' + (name === 'enp3s0' ? ' dynamic' : '') + ' ' + name + '\n';
+        }
+        return out.trimEnd();
+    }
+    return 'ip: unknown subcommand';
+}
+
+function handleNetstat(args) {
+    let out = 'Active Internet connections (servers and established)\n';
+    out += padEnd('Proto', 6) + padEnd('Recv-Q', 7) + padEnd('Send-Q', 7) + padEnd('Local Address', 24) + padEnd('Foreign Address', 24) + 'State\n';
+    out += padEnd('tcp', 6) + padEnd('0', 7) + padEnd('0', 7) + padEnd('0.0.0.0:80', 24) + padEnd('0.0.0.0:*', 24) + 'LISTEN\n';
+    out += padEnd('tcp', 6) + padEnd('0', 7) + padEnd('0', 7) + padEnd('0.0.0.0:443', 24) + padEnd('0.0.0.0:*', 24) + 'LISTEN\n';
+    out += padEnd('tcp', 6) + padEnd('0', 7) + padEnd('0', 7) + padEnd('127.0.0.1:3306', 24) + padEnd('0.0.0.0:*', 24) + 'LISTEN\n';
+    out += padEnd('tcp', 6) + padEnd('0', 7) + padEnd('0', 7) + padEnd('192.168.1.100:22', 24) + padEnd('192.168.1.50:55234', 24) + 'ESTABLISHED\n';
+    out += padEnd('tcp6', 6) + padEnd('0', 7) + padEnd('0', 7) + padEnd(':::22', 24) + padEnd(':::*', 24) + 'LISTEN';
+    return out;
+}
+
+function handleSs(args) {
+    let out = 'Netid   State   Recv-Q  Send-Q   Local Address:Port   Peer Address:Port   Process\n';
+    out += 'tcp     LISTEN  0       128      0.0.0.0:80          0.0.0.0:*\n';
+    out += 'tcp     LISTEN  0       128      0.0.0.0:443         0.0.0.0:*\n';
+    out += 'tcp     LISTEN  0       128      0.0.0.0:22          0.0.0.0:*\n';
+    out += 'tcp     ESTAB   0       0        192.168.1.100:22    192.168.1.50:55234';
+    return out;
+}
+
+function handleNslookup(args) {
+    if (!args[0]) return 'nslookup: missing operand';
+    const domain = args[0];
+    return 'Server:\t\t127.0.0.53\nAddress:\t127.0.0.53#53\n\nNon-authoritative answer:\nName:\t' + domain + '\nAddress: 93.184.216.34\nName:\t' + domain + '\nAddress: 2606:2800:220:1:248:1893:25c8:1946';
+}
+
+function handleDig(args) {
+    if (!args[0]) return 'dig: missing operand';
+    const domain = args[0];
+    return `; <<>> DiG 9.18.18-0ubuntu0.22.04.1 <<>> ${domain}
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 12345
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+;; ANSWER SECTION:
+${domain}.\t\t300\tIN\tA\t93.184.216.34
+
+;; Query time: 12 msec
+;; SERVER: 127.0.0.53#53(127.0.0.53) (UDP)
+;; WHEN: Thu Jul 25 10:00:00 CST 2025
+;; MSG SIZE  rcvd: 60`;
+}
+
+function handleTraceroute(args) {
+    let host = args[0] || '8.8.8.8';
+    let out = 'traceroute to ' + host + ', 30 hops max, 60 byte packets\n';
+    const hops = [
+        (' 1  _gateway (192.168.1.1)  0.345 ms  0.289 ms  0.267 ms'),
+        (' 2  10.0.0.1 (10.0.0.1)  5.234 ms  5.198 ms  5.156 ms'),
+        (' 3  172.16.0.1 (172.16.0.1)  8.567 ms  8.523 ms  8.489 ms'),
+        (' 4  72.14.237.130 (72.14.237.130)  12.345 ms  12.298 ms  12.267 ms'),
+        (' 5  108.170.248.1 (108.170.248.1)  15.678 ms  15.634 ms  15.598 ms'),
+        (' 6  dns.google (8.8.8.8)  18.901 ms  18.856 ms  18.823 ms')
+    ];
+    for (const h of hops) out += h + '\n';
+    return out.trimEnd();
+}
+
+function handleRoute(args) {
+    const nFlag = args.includes('-n');
+    let out = 'Kernel IP routing table\n';
+    out += padEnd('Destination', 16) + padEnd('Gateway', 16) + padEnd('Genmask', 16) + padEnd('Flags', 6) + padEnd('Metric', 7) + padEnd('Ref', 5) + padEnd('Use', 5) + 'Iface\n';
+    out += padEnd('0.0.0.0', 16) + padEnd('192.168.1.1', 16) + padEnd('0.0.0.0', 16) + padEnd('UG', 6) + padEnd('100', 7) + padEnd('0', 5) + padEnd('0', 5) + 'enp3s0\n';
+    out += padEnd('172.17.0.0', 16) + padEnd('0.0.0.0', 16) + padEnd('255.255.0.0', 16) + padEnd('U', 6) + padEnd('0', 7) + padEnd('0', 5) + padEnd('0', 5) + 'docker0\n';
+    out += padEnd('192.168.1.0', 16) + padEnd('0.0.0.0', 16) + padEnd('255.255.255.0', 16) + padEnd('U', 6) + padEnd('100', 7) + padEnd('0', 5) + padEnd('0', 5) + 'enp3s0';
+    return out;
+}
+
+function handleTcpdump(args) {
+    return `tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on enp3s0, link-type EN10MB (Ethernet), capture size 262144 bytes
+10:00:01.123456 IP 192.168.1.100.22 > 192.168.1.50.55234: Flags [P.], seq 1234:1456, ack 5678, win 256, length 222
+10:00:01.125678 IP 192.168.1.50.55234 > 192.168.1.100.22: Flags [.], ack 1456, win 512, length 0
+10:00:02.234567 IP 192.168.1.100.443 > 192.168.1.200.51234: Flags [P.], seq 5678:5900, ack 8900, win 128, length 222
+^C
+3 packets captured
+3 packets received by filter
+0 packets dropped by kernel`;
+}
+
+function handleNc(args) {
+    if (args.length === 0) return 'nc: missing hostname';
+    return `Connection to ${args[0]} ${args[1] || '80'} port [tcp/http] succeeded!
+HTTP/1.1 200 OK
+Server: nginx/1.24.0
+Date: Thu, 25 Jul 2025 02:00:00 GMT
+Content-Type: text/html
+Content-Length: 612`;
+}
+
+function handleSsh(args) {
+    const target = args[0] || 'user@remote-server';
+    return `The authenticity of host '${target.split('@')[1] || target}' can't be established.
+ED25519 key fingerprint is SHA256:abcdef1234567890abcdef1234567890abcdef12.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '${target.split('@')[1] || target}' (ED25519) to the list of known hosts.
+${target.split('@')[0] || 'root'}@${target.split('@')[1] || target}'s password:
+Welcome to Ubuntu 22.04.3 LTS (GNU/Linux 5.15.0-91-generic x86_64)
+Last login: Thu Jul 25 09:30:00 2025 from 192.168.1.50`;
+}
+
+function handleScp(args) {
+    return `Transferring ${args[0] || 'file'} to ${args[1] || 'remote-server'}...
+${args[0] || 'file'}             100%  ${Math.floor(Math.random() * 5000) + 500}KB  12.5MB/s   00:00
+Transfer complete.`;
+}
+
+function handleRsync(args) {
+    return `sending incremental file list
+./
+file1.txt
+file2.conf
+data/
+
+sent 1,234,567 bytes  received 89 bytes  2,469,312.00 bytes/sec
+total size is 1,234,000  speedup is 1.00`;
+}
+
+function handleFtp(args) {
+    const host = args[0] || 'ftp.example.com';
+    return `Connected to ${host}.
+220 (vsFTPd 3.0.5)
+Name (${host}:user): 
+331 Please specify the password.
+Password:
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp> `;
+}
+
+function handleSftp(args) {
+    const host = args[0] || 'sftp.example.com';
+    return `Connected to ${host}.
+sftp> `;
+}
+
+
+function handleApt(args) {
+    const sub = args[0];
+    if (!sub) return 'apt: missing command\nUsage: apt [update|install|upgrade|remove|search|list] <pkg>';
+
+    if (sub === 'update') {
+        return `Hit:1 http://archive.ubuntu.com/ubuntu jammy InRelease
+Hit:2 http://archive.ubuntu.com/ubuntu jammy-updates InRelease
+Hit:3 http://archive.ubuntu.com/ubuntu jammy-security InRelease
+Hit:4 http://archive.ubuntu.com/ubuntu jammy-backports InRelease
+Hit:5 https://download.docker.com/linux/ubuntu jammy InRelease
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+5 packages can be upgraded. Run 'apt list --upgradable' to see them.`;
+    }
+
+    if (sub === 'upgrade' || sub === 'full-upgrade') {
+        return `Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+Calculating upgrade... Done
+The following packages will be upgraded:
+  linux-headers-generic linux-image-generic nginx python3-pip vim
+5 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+Need to get 245 MB of archives.
+After this operation, 32.8 MB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 vim amd64 2:8.2.3995-1ubuntu2.18 [1,512 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 python3-pip all 22.0.2+dfsg-1ubuntu0.5 [232 kB]
+...
+Fetched 245 MB in 12s (20.4 MB/s)
+(Reading database ... 185234 files and directories currently installed.)
+Preparing to unpack .../vim_2%3a8.2.3995-1ubuntu2.18_amd64.deb ...
+Unpacking vim (2:8.2.3995-1ubuntu2.18) over (2:8.2.3995-1ubuntu2.17) ...
+Setting up vim (2:8.2.3995-1ubuntu2.18) ...
+Processing triggers for man-db (2.10.2-1) ...
+Processing triggers for desktop-file-utils (0.26-1ubuntu3) ...
+Upgrade complete. Run 'apt autoremove' to remove unused packages.`;
+    }
+
+    const pkg = args.slice(1).join(' ') || args[1] || 'nano';
+    if (sub === 'install') {
+        return `Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following NEW packages will be installed:
+  ${pkg}
+0 upgraded, 1 newly installed, 0 to remove and 5 not upgraded.
+Need to get ${Math.floor(Math.random() * 5000) + 500} kB of archives.
+After this operation, ${Math.floor(Math.random() * 5000) + 1000} kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy/main amd64 ${pkg} amd64 2.0-1 [${Math.floor(Math.random() * 5000) + 500} kB]
+Fetched ${Math.floor(Math.random() * 5000) + 500} kB in 2s (${Math.floor(Math.random() * 3000) + 500} kB/s)
+Selecting previously unselected package ${pkg}.
+(Reading database ... 185234 files and directories currently installed.)
+Preparing to unpack .../${pkg}_2.0-1_amd64.deb ...
+Unpacking ${pkg} (2.0-1) ...
+Setting up ${pkg} (2.0-1) ...
+Processing triggers for man-db (2.10.2-1) ...
+${pkg} installed successfully.`;
+    }
+
+    if (sub === 'remove' || sub === 'purge') {
+        return `Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following packages will be REMOVED:
+  ${pkg}
+0 upgraded, 0 newly installed, 1 to remove and 5 not upgraded.
+After this operation, ${Math.floor(Math.random() * 5000) + 500} kB disk space will be freed.
+Do you want to continue? [Y/n] y
+(Reading database ... 185234 files and directories currently installed.)
+Removing ${pkg} (2.0-1) ...
+Processing triggers for man-db (2.10.2-1) ...
+${pkg} removed successfully.`;
+    }
+
+    if (sub === 'list' || sub === 'search') {
+        return `Listing... Done
+${pkg}/jammy,now 2.0-1 amd64 [installed,automatic]
+${pkg}-dev/jammy 2.0-1 amd64
+${pkg}-dbg/jammy 2.0-1 amd64
+python3-${pkg}/jammy 2.0-1 all`;
+    }
+
+    return 'apt: unknown subcommand: ' + sub;
+}
+
+function handleYum(args) {
+    const sub = args[0];
+    if (!sub) return 'yum: missing command\nUsage: yum [install|update|remove|search] <pkg>';
+
+    if (sub === 'install') {
+        const pkg = args.slice(1).join(' ') || args[1] || 'nano';
+        return `Last metadata expiration check: 0:05:32 ago on Thu 25 Jul 2025 09:54:28 AM CST.
+Dependencies resolved.
+================================================================================
+ Package        Arch           Version              Repository           Size
+================================================================================
+Installing:
+ ${pkg}         x86_64         2.0-1.el9            baseos               ${Math.floor(Math.random() * 500) + 100} k
+
+Transaction Summary
+================================================================================
+Install  1 Package
+
+Total download size: ${Math.floor(Math.random() * 500) + 100} k
+Installed size: ${Math.floor(Math.random() * 5000) + 500} k
+Is this ok [y/N]: y
+Downloading Packages:
+${pkg}-2.0-1.el9.x86_64.rpm           ${Math.floor(Math.random() * 500) + 100} kB/s | ${Math.floor(Math.random() * 500) + 100} kB  00:01
+--------------------------------------------------------------------------------
+Total                                  ${Math.floor(Math.random() * 500) + 100} kB/s | ${Math.floor(Math.random() * 500) + 100} kB  00:01
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1
+  Installing       : ${pkg}-2.0-1.el9.x86_64                                1/1
+  Running scriptlet: ${pkg}-2.0-1.el9.x86_64                                1/1
+  Verifying        : ${pkg}-2.0-1.el9.x86_64                                1/1
+
+Installed:
+  ${pkg}-2.0-1.el9.x86_64
+
+Complete!`;
+    }
+
+    if (sub === 'update') {
+        return `Last metadata expiration check: 0:05:32 ago on Thu 25 Jul 2025 09:54:28 AM CST.
+Dependencies resolved.
+Nothing to do.
+Complete!`;
+    }
+
+    return `yum ${sub}: complete!`;
+}
+
+function handleDpkg(args) {
+    if (args[0] === '-l') {
+        return `Desired=Unknown/Install/Remove/Purge/Hold
+| Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend
+|/ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)
+||/ Name           Version           Architecture Description
+ii  nginx          1.24.0-1~jammy    amd64        nginx web server
+ii  vim            2:8.2.3995-1      amd64        Vi IMproved
+ii  docker-ce      24.0.7-1~ubuntu   amd64        Docker Community Edition
+ii  python3        3.10.12-1~22.04   amd64        Python interpreter`;
+    }
+    if (args[0] === '-i') {
+        return '(Reading database ... 185234 files and directories currently installed.)\nPreparing to unpack ' + (args[1] || 'package.deb') + ' ...\nUnpacking ...\nSetting up ...\nProcessing triggers for man-db ...\nInstalled successfully.';
+    }
+    return 'dpkg: unknown option: ' + args[0] + '\nUsage: dpkg [-i|-l|-r] <pkg>';
+}
+
+function handleSystemctl(args) {
+    const sub = args[0];
+    if (!sub) return 'systemctl: missing command';
+    if (sub === 'list-units') {
+        let out = padEnd('UNIT', 26) + 'LOAD   ACTIVE SUB       DESCRIPTION\n';
+        for (const [name, s] of Object.entries(SERVICES)) {
+            out += padEnd(name + '.service', 26) + 'loaded   ' + (s.status === 'running' ? 'active   running' : 'inactive dead   ') + '   ' + name.charAt(0).toUpperCase() + name.slice(1) + '\n';
+        }
+        out += 'LOAD = Reflects whether the unit definition was properly loaded.\nACTIVE = The high-level unit activation state.\nSUB = The low-level unit activation state.';
+        return out;
+    }
+    const service = args[1] || 'nginx';
+    if (!SERVICES[service]) return 'systemctl: Unit ' + service + '.service not found.';
+    const s = SERVICES[service];
+    if (sub === 'status') {
+        const running = s.status === 'running';
+        return `\u25cf ${service}.service - ${service.charAt(0).toUpperCase() + service.slice(1)} Service
+     Loaded: loaded (/lib/systemd/system/${service}.service; ${s.enabled ? 'enabled' : 'disabled'}; vendor preset: enabled)
+     Active: ${running ? 'active (running) since Thu 2025-07-21 00:01:00 CST; 4 days ago' : 'inactive (dead)'}
+   Main PID: ${running ? 1234 : ''} (${service})
+      Tasks: ${running ? 7 : 0} (limit: 38324)
+     Memory: ${running ? '78.0M' : '0B'}
+        CPU: ${running ? '1.2s' : '0'}
+     CGroup: /system.slice/${service}.service`;
+    }
+    if (sub === 'start') { s.status = 'running'; return 'Starting ' + service + ' service... OK'; }
+    if (sub === 'stop') { s.status = 'stopped'; return 'Stopping ' + service + ' service... OK'; }
+    if (sub === 'restart') { s.status = 'running'; return 'Restarting ' + service + ' service... OK'; }
+    if (sub === 'enable' || sub === 'disable') { s.enabled = (sub === 'enable'); return 'Synchronizing state of ' + service + '.service with SysV service script...\n' + sub + 'd ' + service + '.service.'; }
+    return 'systemctl ' + sub + ' ' + service + ': command executed';
+}
+
+function handleMgmtService(args) {
+    const name = args[0] || 'nginx';
+    const action = args[1] || 'status';
+    if (action === 'status') return '\u25cf ' + name + ' is running';
+    return name + ' ' + action + ': OK';
+}
+
+function handleCrontab(args) {
+    if (args[0] === '-l') {
+        return `# m h  dom mon dow   command
+0 3 * * * /usr/bin/apt update && /usr/bin/apt upgrade -y
+30 4 * * 0 /usr/bin/backup.sh
+0 0 * * * /usr/bin/logrotate /etc/logrotate.conf
+*/15 * * * * /usr/local/bin/healthcheck.sh`;
+    }
+    if (args[0] === '-e') {
+        return '# crontab editor opened (simulated)\n# Add your cron jobs here\n';
+    }
+    return 'crontab: usage: crontab [-l|-e|-r]';
+}
+
+function handleLsof(args) {
+    return `COMMAND    PID   USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+sshd       400   root    3u  IPv4  12345      0t0  TCP *:22 (LISTEN)
+nginx     1200   root    6u  IPv4  23456      0t0  TCP *:80 (LISTEN)
+nginx     1201 www-data 12u  IPv4  34567      0t0  TCP 192.168.1.100:80->192.168.1.50:55234 (ESTABLISHED)
+mysqld    3500  mysql   20u  IPv4  45678      0t0  TCP 127.0.0.1:3306 (LISTEN)
+dockerd   2300   root    8u  IPv4  56789      0t0  TCP *:2375 (LISTEN)
+python3   5600   root    1u   CHR  136,0       0t0  3 /dev/pts/0`;
+}
+
+function handleFirewall(args) {
+    return `Chain INPUT (policy DROP 0 packets, 0 bytes)
+ pkts bytes target     prot opt in     out     source               destination
+ 1234  987K ACCEPT     all  --  lo     *       0.0.0.0/0            0.0.0.0/0
+ 5678  4.5M ACCEPT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            state RELATED,ESTABLISHED
+  123 12345 ACCEPT     tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:22
+  456 45678 ACCEPT     tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:80
+   78  7890 ACCEPT     tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:443
+
+Chain FORWARD (policy DROP 0 packets, 0 bytes)
+ pkts bytes target     prot opt in     out     source               destination
+    0     0 DOCKER-USER  all  --  *      *       0.0.0.0/0            0.0.0.0/0
+    0     0 DOCKER-ISOLATION-STAGE-1  all  --  *      *       0.0.0.0/0            0.0.0.0/0
+
+Chain OUTPUT (policy ACCEPT 56789 packets, 45.6M bytes)
+ pkts bytes target     prot opt in     out     source               destination`;
+}
+
+function handleOpenSsl(args) {
+    if (args.includes('req') || args.includes('genrsa')) {
+        return `Generating RSA private key, 2048 bit long modulus (2 primes)
+.............+++++
+..........................+++++
+e is 65537 (0x010001)
+writing RSA key
+-----BEGIN PRIVATE KEY-----
+MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC...
+-----END PRIVATE KEY-----
+
+Certificate request generated:
+Country Name (2 letter code) [AU]:CN
+State or Province Name (full name) [Some-State]:Guangdong
+Locality Name (eg, city) []:Shenzhen
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:MyCompany
+Common Name (e.g. server FQDN or YOUR name) []:example.com`;
+    }
+    if (args.includes('s_client')) {
+        return `CONNECTED(00000003)
+depth=2 C = US, O = Internet Security Research Group, CN = ISRG Root X1
+verify return:1
+---
+Certificate chain
+ 0 s:CN = example.com
+   i:C = US, O = Let's Encrypt, CN = R3
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIIFazCCBFOgAwIBAgISA4...
+-----END CERTIFICATE-----
+SSL-Session:
+    Protocol  : TLSv1.3
+    Cipher    : TLS_AES_256_GCM_SHA384`;
+    }
+    return `OpenSSL 3.0.2 15 Mar 2022 (Library: OpenSSL 3.0.2 15 Mar 2022)
+
+Standard commands:
+asn1parse, ca, ciphers, cms, crl, crl2pkcs7, dgst, dhparam, dsa, dsaparam,
+ec, ecparam, enc, engine, errstr, fipsinstall, gendsa, genpkey, genrsa, help,
+info, kdf, list, mac, nseq, ocsp, passwd, pkcs12, pkcs7, pkcs8, pkey, pkeyparam,
+pkeyutl, prime, rand, rehash, req, rsa, rsautl, s_client, s_server, s_time,
+sess_id, smime, speed, spkac, srp, storeutl, ts, verify, version, x509`;
+}
+
+function handleSshKeygen(args) {
+    return `Generating public/private rsa key pair.
+Enter file in which to save the key (/home/user/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/user/.ssh/id_rsa
+Your public key has been saved in /home/user/.ssh/id_rsa.pub
+The key fingerprint is:
+SHA256:abcdef1234567890abcdef1234567890abcdef1234567890abcdef user@home-server
+The key's randomart image is:
++---[RSA 3072]----+
+|    .o.   o..    |
+|   . + . o o .   |
+|    o o = + o    |
+|     o + * .     |
+|    . = S O      |
+|     + @ O o     |
+|      + B .      |
+|     o o         |
+|     .o          |
++----[SHA256]-----+`;
+}
+
+function handleUfw(args) {
+    if (args[0] === 'status' || args[0] === 'Status') {
+        return `Status: active
+
+To                         Action      From
+--                         ------      ----
+22/tcp                     ALLOW       Anywhere
+80/tcp                     ALLOW       Anywhere
+443/tcp                    ALLOW       Anywhere
+3000/tcp                   ALLOW       192.168.1.0/24
+9090/tcp                   ALLOW       192.168.1.0/24`;
+    }
+    return 'ufw ' + args.join(' ') + ': command executed';
+}
+
+function handleShutdownCmd(args) {
+    return `Shutdown scheduled for ${args[0] || 'now'}, use 'shutdown -c' to cancel.
+
+The system is going down for poweroff at Thu 2025-07-25 10:00:00 CST!
+[Simulated - not actually shutting down]`;
+}
+
+function handleRebootCmd() {
+    return `The system is going down for reboot NOW!
+[Simulated - not actually rebooting]`;
+}
+
+function handleAliasCmd(args) {
+    if (args.length === 0) {
+        let out = '';
+        for (const [k, v] of Object.entries(aliasMap)) {
+            out += 'alias ' + k + "='" + v + "'\n";
+        }
+        return out.trimEnd() || '(no aliases defined)';
+    }
+    const arg = args.join(' ');
+    if (arg.includes('=')) {
+        const [name, ...valParts] = arg.split('=');
+        const value = valParts.join('=').replace(/^['"]|['"]$/g, '');
+        aliasMap[name.trim()] = value;
+        return 'Alias added: ' + name.trim() + "='" + value + "'";
+    }
+    return 'alias: usage: alias name=value';
+}
+
+function handleWhich(args) {
+    if (!args[0]) return 'which: missing operand';
+    const p = args[0];
+    const known = {ls:'/usr/bin/ls',cd:'/usr/bin/cd',cat:'/usr/bin/cat',rm:'/usr/bin/rm',
+        grep:'/usr/bin/grep',echo:'/usr/bin/echo',mkdir:'/usr/bin/mkdir',pwd:'/usr/bin/pwd',
+        bash:'/usr/bin/bash',python3:'/usr/bin/python3',node:'/usr/bin/node',docker:'/usr/bin/docker',
+        kubectl:'/usr/local/bin/kubectl',git:'/usr/bin/git',vim:'/usr/bin/vim',vi:'/usr/bin/vim'};
+    return known[p] || ('/usr/bin/' + p);
+}
+
+function handleTypeCmd(args) {
+    if (!args[0]) return 'type: missing operand';
+    if (CMD[args[0]]) return args[0] + ' is a shell builtin (simulated)';
+    return args[0] + ' is /usr/bin/' + args[0];
+}
+
+function handleWhereis(args) {
+    if (!args[0]) return 'whereis: missing operand';
+    return args[0] + ': /usr/bin/' + args[0] + ' /usr/share/man/man1/' + args[0] + '.1.gz';
+}
+
+function handleExport(args) {
+    if (args.length === 0) return '';
+    const arg = args.join(' ');
+    if (arg.includes('=')) {
+        const [name, ...valParts] = arg.split('=');
+        envVars[name.trim()] = valParts.join('=');
+        return '';
+    }
+    return '';
+}
+
+function handleEnvCmd() {
+    let out = '';
+    for (const [k, v] of Object.entries(envVars)) {
+        out += k + '=' + v + '\n';
+    }
+    return out.trimEnd();
+}
+
+function handleSetCmd() { return handleEnvCmd(); }
+function handleUnset(args) { if (args[0]) { delete envVars[args[0]]; } return ''; }
+function handleDeclare(args) { return ''; }
+function handleReadonly(args) { return ''; }
+
+function handleTee(args) {
+    if (!args[0]) return 'tee: missing operand';
+    return 'Written to: ' + args[0] + '\n(tee output follows)';
+}
+
+function handleWatch(args) {
+    let interval = 2;
+    let cmd = '';
+    for (let i = 0; i < args.length; i++) {
+        if (args[i] === '-n' && i + 1 < args.length) { interval = parseInt(args[i + 1]); i++; }
+        else if (!args[i].startsWith('-')) { cmd = args.slice(i).join(' '); break; }
+    }
+    return 'Every ' + interval + '.0s: ' + (cmd || 'command') + '\n\n' + EXEC(cmd || 'date') + '\n\n(Press Ctrl+C to stop)';
+}
+
+function handleTar(args) {
+    return 'Creating archive... done\nArchive created: ' + (args[args.length - 1] || 'archive.tar.gz');
+}
+function handleGzip(args) { return 'Compressed: ' + (args[0] || 'file') + '.gz'; }
+function handleZipCmd(args) { return '  adding: ' + (args[args.length - 2] || 'file') + ' (deflated 65%)\nArchive created: ' + (args[args.length - 1] || 'archive.zip'); }
+function handleUnzip(args) { return 'Archive: ' + (args[0] || 'archive.zip') + '\n  extracting: file1.txt\n  extracting: file2.conf\n  inflating: data/data.bin'; }
+
+function handleVimtutor() { return `=    W e l c o m e   t o   t h e   V I M   T u t o r    -    Version 1.7      =
+
+     Vim is a very powerful editor that has many commands, too many to
+     explain in a tutor such as this. This tutor is designed to describe
+     enough of the commands that you will be able to easily use Vim as
+     an all-purpose editor.
+
+     The approximate time required to complete the tutor is 25-30 minutes,
+     depending upon how much time is spent with experimentation.
+
+     ATTENTION:
+     The commands in the lessons will modify the text. Make a copy of this
+     file to practice on (if you started "vimtutor" this is already a copy).
+
+     Lesson 1.1:  MOVING THE CURSOR
+
+       ** To move the cursor, press the h,j,k,l keys as indicated. **
+             ^
+             k              Hint: The h key is at the left and moves left.
+       < h       l >             The l key is at the right and moves right.
+             j                   The j key looks like a down arrow.
+             v
+  ... press q to exit this help screen`;
+}
+
+function handleNano() { return `  GNU nano 6.2
+File: newfile                                    Modified
+
+^G Help      ^O Write Out ^W Where Is  ^K Cut       ^T Execute
+^X Exit      ^R Read File ^\ Replace    ^U Paste     ^J Justify`; }
+
+function handlePython3(args) {
+    if (args.length === 0) {
+        return `Python 3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> `;
+    }
+    const script = args[0];
+    return 'Executing ' + script + '...\nHello from Python 3.10!';
+}
+
+function handleNodeCmd(args) {
+    if (args.length === 0) {
+        return `Welcome to Node.js v20.15.0.
+Type ".help" for more information.
+> `;
+    }
+    return 'Executing ' + args[0] + '...\nHello from Node.js!';
+}
+
+function handleNpm(args) {
+    if (args[0] === 'install') {
+        return `npm WARN deprecated package@1.0.0: Use new-package instead
+added 245 packages, and audited 246 packages in 12s
+45 packages are looking for funding
+  run \`npm fund\` for details
+found 0 vulnerabilities`;
+    }
+    if (args[0] === 'run') {
+        return `\n> project@1.0.0 ${args[1] || 'start'}\n> node index.js\n\nServer running on port 3000`;
+    }
+    return 'npm ' + args.join(' ');
+}
+
+function handleGcc(args) {
+    const src = args.find(a => a.endsWith('.c')) || 'program.c';
+    const out = args.indexOf('-o') >= 0 ? args[args.indexOf('-o') + 1] : 'a.out';
+    return `Compiling ${src}...
+${src}: In function 'main':
+${src}:5:3: warning: unused variable 'x' [-Wunused-variable]
+    5 |   int x = 42;
+      |   ^~~
+Linking ${out}... done.
+Compilation successful.`;
+}
+
+function handleGpp(args) {
+    const src = args.find(a => a.endsWith('.cpp') || a.endsWith('.cc')) || 'program.cpp';
+    return `Compiling ${src}... done.
+Linking... done.
+Output: a.out`;
+}
+
+function handleMake(args) {
+    return `make: Entering directory '/home/user/project'
+gcc -c -o main.o main.c
+gcc -c -o utils.o utils.c
+gcc -o program main.o utils.o
+make: Leaving directory '/home/user/project'
+Build complete.`;
+}
+
+function handleGdb(args) {
+    return `GNU gdb (Ubuntu 12.1-3ubuntu1) 12.1
+Copyright (C) 2022 Free Software Foundation, Inc.
+Reading symbols from ${args[0] || 'a.out'}...
+(gdb) `;
+}
+
+function handleGit(args) {
+    const sub = args[0];
+    if (!sub) return `git - the stupid content tracker
+
+usage: git [--version] [--help] [-C <path>]
+These are common Git commands used in various situations:
+
+start a working area:   clone     init
+work on the current change:   add      mv     restore    rm
+examine the history and state:   log     status  show
+grow, mark and tweak history:   branch   commit  merge    rebase   tag
+collaborate:   fetch    pull     push`;
+
+    if (sub === 'status') {
+        return `On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+        modified:   src/app.js
+        modified:   package.json
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        src/new-feature.js
+
+no changes added to commit (use "git add" and/or "git commit -a")`;
+    }
+
+    if (sub === 'log') {
+        return `commit a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0 (HEAD -> main, origin/main)
+Author: Developer <dev@example.com>
+Date:   Thu Jul 25 09:00:00 2025 +0800
+
+    feat: add new monitoring dashboard
+
+commit b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1
+Author: Developer <dev@example.com>
+Date:   Wed Jul 24 15:30:00 2025 +0800
+
+    fix: resolve memory leak in worker process
+
+commit c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2
+Author: Developer <dev@example.com>
+Date:   Tue Jul 23 10:00:00 2025 +0800
+
+    chore: update dependencies`;
+    }
+
+    if (sub === 'clone') {
+        const repo = args[1] || 'https://github.com/example/repo.git';
+        return `Cloning into '${repo.split('/').pop().replace('.git', '')}'...
+remote: Enumerating objects: 1234, done.
+remote: Counting objects: 100% (1234/1234), done.
+remote: Compressing objects: 100% (567/567), done.
+remote: Total 1234 (delta 456), reused 890 (delta 234), pack-reused 0
+Receiving objects: 100% (1234/1234), 2.45 MiB | 12.34 MiB/s, done.
+Resolving deltas: 100% (456/456), done.`;
+    }
+
+    if (sub === 'commit') {
+        return `[main a1b2c3d] ${args.slice(1).join(' ') || 'Update files'}
+ 3 files changed, 45 insertions(+), 12 deletions(-)
+ create mode 100644 src/new-feature.js`;
+    }
+
+    if (sub === 'branch') return '* main\n  develop\n  feature/new-feature';
+    if (sub === 'push') return 'Enumerating objects: 12, done.\nCounting objects: 100% (12/12), done.\nDelta compression using up to 20 threads\nCompressing objects: 100% (8/8), done.\nWriting objects: 100% (8/8), 1.23 KiB | 1.23 MiB/s, done.\nTotal 8 (delta 4), reused 0 (delta 0), pack-reused 0\nTo https://github.com/example/repo.git\n   c3d4e5f..a1b2c3d  main -> main';
+    if (sub === 'pull') return 'Already up to date.';
+    if (sub === 'init') return 'Initialized empty Git repository in /home/user/project/.git/';
+    if (sub === 'add') return '';
+    if (sub === 'checkout') return "Switched to branch '" + (args[1] || 'main') + "'";
+
+    return 'git ' + args.join(' ') + ': command executed successfully';
+}
+
+function handleScreen(args) {
+    return `There is a screen on:
+\t12345.pts-0.home-server\t(Detached)
+1 Socket in /run/screen/S-user.
+
+Use "screen -r" to reattach.`;
+}
+
+function handleTmux(args) {
+    return `0: 1 windows (created Thu Jul 25 09:00:00 2025)
+[0] 0: bash*`;
+}
+
+function handleHistory() {
+    return history.map((h, i) => padEnd(String(i + 1), 5) + h).join('\n');
+}
+
+function handleHelp() {
+    let out = lang === 'en' ? '=== Linux Learning Simulator - Available Commands ===\n\n' : '=== Linux Learning Simulator - 可用命令 ===\n\n';
+    const cats = {};
+    for (const [name, info] of Object.entries(CMD)) {
+        if (!cats[info.cat]) cats[info.cat] = [];
+        cats[info.cat].push(name);
+    }
+    for (const [cat, names] of Object.entries(cats)) {
+        out += '[' + catName(cat) + ']\n  ' + names.sort().join(', ') + '\n\n';
+    }
+    out += 'Total commands: ' + Object.keys(CMD).length + '\n';
+    out += lang === 'en' ? 'Type any command to execute it. Use pipes (|) and redirects (>).' : '输入任意命令执行。支持管道 (|) 和重定向 (>)。';
+    return out;
+}
+
+function handlePractice(args) {
+    if (args[0] === 'reset') {
+        taskProgress = { done: [], focus: 'basic' };
+        saveTaskProgress();
+        return L('练习进度已重置 / Practice progress reset.', 'Practice progress has been reset.');
+    }
+    if (args[0] === 'path') {
+        const p = args[1];
+        if (!p || !PATHS[p]) {
+            let out = lang === 'en' ? '=== 📚 Learning Projects ===\n' : '=== 📚 学习项目 ===\n';
+            for (const key of PATH_ORDER) {
+                const tasks = Object.values(TASK_MAP).filter(t => t.path === key);
+                if (tasks.length === 0) continue;
+                const done = tasks.filter(t => taskProgress.done.includes(t.id)).length;
+                out += '\n[' + key + '] ' + (lang === 'en' ? PATHS_EN[key] : PATHS[key].name) + ' (' + done + '/' + tasks.length + ')\n  ' + (lang === 'en' ? PATHS_DESC_EN[key] : PATHS[key].desc) + '\n';
+            }
+            out += lang === 'en' ? '\nUsage: practice path <project> (e.g. practice path k8s)' : '\n用法：practice path <项目>（如 practice path k8s）';
+            return out.trimEnd();
+        }
+        taskProgress.focus = 'path:' + p;
+        saveTaskProgress();
+        const cur = currentTask();
+        return (lang === 'en' ? 'Switched to project: ' : '已切换到项目：') + (lang === 'en' ? PATHS_EN[p] : PATHS[p].name) + '\n' + (cur ? showTaskDetail(cur) : (lang === 'en' ? '🎉 This project is complete!' : '🎉 该项目全部完成！'));
+    }
+    if (args[0] && CMD[args[0]]) {
+        const name = args[0];
+        taskProgress.focus = 'cmd:' + name;
+        saveTaskProgress();
+        const usages = CMD_USAGES[name] || [{ c: CMD[name].usage || name, d: CMD[name].desc || 'basic usage' }];
+        let out = (lang === 'en' ? '=== Command Drill: ' : '=== 命令专项：') + name + (lang === 'en' ? ' (' : '（') + usages.length + (lang === 'en' ? ' usages)===\n' : ' 条用法）===\n');
+        usages.forEach((u, i) => {
+            const id = Object.values(TASK_MAP).find(t => t.cmd === name && t.hint === u.c);
+            const done = id ? taskProgress.done.includes(id.id) : false;
+            out += (done ? '✅ ' : '⬜ ') + (i + 1) + '. ' + u.c + (done ? '' : ' — ' + (lang === 'en' ? (DESC_EN[name] || u.d) : u.d)) + '\n';
+        });
+        const cur = currentTask();
+        if (cur) out += '\n🔧 ' + (lang === 'en' ? 'Start (run): ' : '开始（请执行）：') + cur.hint + '\n' + taskDesc(cur);
+        return out.trimEnd();
+    }
+    if (args[0] === 'start' || args[0] === 'next') {
+        const cur = currentTask();
+        return cur ? showTaskDetail(cur) : (lang === 'en' ? '🎉 Current project complete!' : '🎉 当前项目全部完成！');
+    }
+    if (/^\d+$/.test(args[0])) {
+        const idx = parseInt(args[0], 10) - 1;
+        const tasks = focusTasks();
+        const t = tasks[idx];
+        if (!t) return lang === 'en' ? 'practice: invalid number (' + tasks.length + ' tasks in current scope)' : 'practice: 编号无效（当前范围共 ' + tasks.length + ' 个任务）';
+        return (taskProgress.done.includes(t.id) ? (lang === 'en' ? '✅ Done: ' : '✅ 已完成：') : '⬜ ') + showTaskDetail(t);
+    }
+    const cur = currentTask();
+    let out = lang === 'en' ? '=== 🎯 Practice Center ===\n' : '=== 🎯 练习中心 ===\n';
+    out += (lang === 'en' ? 'Current project: ' : '当前路线：') + focusName() + '\n';
+    if (cur) out += (lang === 'en' ? 'Next task: [' : '下一任务：[') + cur.id + '] ' + taskTitle(cur) + '\n' + (lang === 'en' ? 'Hint: ' : '提示：') + cur.hint + '\n';
+    out += lang === 'en' ? '\n📚 Learning projects:\n' : '\n📚 学习项目：\n';
+    for (const key of PATH_ORDER) {
+        const tasks = Object.values(TASK_MAP).filter(t => t.path === key);
+        if (tasks.length === 0) continue;
+        const done = tasks.filter(t => taskProgress.done.includes(t.id)).length;
+        out += '  [' + key + '] ' + (lang === 'en' ? PATHS_EN[key] : PATHS[key].name) + ' (' + done + '/' + tasks.length + ')\n';
+    }
+    out += lang === 'en'
+        ? '\n💡 Usage:\n  practice start — start the current task\n  practice <command> — command drill (e.g. practice ls)\n  practice path <project> — switch project (e.g. practice path k8s)\n  practice <number> — jump to a task\n  practice reset — reset progress'
+        : '\n💡 用法：\n  practice start —— 开始当前任务\n  practice <命令> —— 命令专项（如 practice ls）\n  practice path <项目> —— 切换学习项目（如 practice path k8s）\n  practice <编号> —— 跳转到当前范围内的任务\n  practice reset —— 重置进度';
+    return out.trimEnd();
+}
+
+function handleLearn(args) {
+    const name = args[0];
+    if (!name) return lang === 'en' ? 'Usage: learn <command> — see all usages and examples' : 'Usage: learn <command> — 查看命令的完整用法与示例';
+    if (!CMD[name]) return 'learn: ' + name + ': command not found';
+    const info = CMD[name];
+    let out = '=== ' + name + ' ===\n' + cmdDesc(name) + '\n';
+    if (CMD_USAGES[name]) {
+        out += '\n' + (lang === 'en' ? 'Usages (' : '用法（共 ') + CMD_USAGES[name].length + (lang === 'en' ? '):\n' : ' 条）：\n');
+        CMD_USAGES[name].forEach((u, i) => {
+            out += (i + 1) + '. ' + u.c + '\n   ' + (lang === 'en' ? (DESC_EN[name] || u.d) : u.d) + '\n';
+            if (u.x && lang !== 'en') out += '   📖 ' + u.x + '\n';
+            else if (lang === 'en') out += '   📖 ' + (DESC_EN[name] || u.d) + '.\n';
+        });
+    } else {
+        out += '\n' + (lang === 'en' ? 'Usage: ' : '用法：') + (info.usage || name) + '\n   ' + cmdDesc(name);
+    }
+    if (lang === 'en') out += '\n📖 ' + (DESC_EN[name] || CMD_EXPLAIN[name] || info.desc || name) + '.';
+    else if (CMD_EXPLAIN[name]) out += '\n📖 ' + CMD_EXPLAIN[name];
+    out += '\n' + (lang === 'en' ? 'Tip: run practice ' : '提示：输入 practice ') + name + (lang === 'en' ? ' to start the drill' : ' 开始专项练习');
+    return out.trimEnd();
+}
+
+function examQuestionText() {
+    const t = TASK_MAP[examState.questions[examState.index]];
+    return '[' + t.id + '] ' + taskTitle(t) + '\n📖 ' + (lang === 'en' ? 'What it does: ' : '说明：') + taskExp(t) + '\n🔧 ' + (lang === 'en' ? 'Run: ' : '请执行：') + t.hint;
+}
+
+function handleExam(args) {
+    if (args[0] === 'quit') {
+        examState = null;
+        return L('考试已退出 / Exam aborted.', 'Exam aborted.');
+    }
+    if (args[0]) {
+        const p = args[0];
+        if (!PATHS[p]) return lang === 'en' ? 'exam: unknown project (available: ' + PATH_ORDER.filter(k => PATHS[k]).join(' / ') + ')' : 'exam: 未知项目（可用：' + PATH_ORDER.filter(k => PATHS[k]).join(' / ') + '）';
+        const tasks = Object.values(TASK_MAP).filter(t => t.path === p);
+        if (tasks.length === 0) return lang === 'en' ? 'exam: no tasks in this project' : 'exam: 该项目暂无任务';
+        const pool = tasks.filter(t => !taskProgress.done.includes(t.id));
+        const qs = (pool.length >= 10 ? pool : tasks).slice(0, 10).sort(() => Math.random() - 0.5);
+        examState = { path: p, questions: qs.map(t => t.id), index: 0, score: 0 };
+        return (lang === 'en' ? '📝 Exam started: ' : '📝 考试开始：') + (lang === 'en' ? PATHS_EN[p] : PATHS[p].name) + ' (' + qs.length + (lang === 'en' ? ' questions, 70% to pass)\nQuestion 1: ' : ' 题，答对 70% 通过）\n第 1 题：') + examQuestionText();
+    }
+    if (!examState) {
+        let out = lang === 'en' ? '=== 📝 Exam ===\nUsage: exam <project> (e.g. exam k8s)\nRecent results:\n' : '=== 📝 考试 ===\n用法：exam <项目>（如 exam k8s）\n最近成绩：\n';
+        if (stats.exams.length === 0) out += lang === 'en' ? '  (No exam records yet. Try exam basic)' : '  （还没有考试记录，试试 exam basic）';
+        for (const e of stats.exams.slice(-5)) out += '  ' + e.path + ': ' + e.score + '/' + e.total + (e.pass ? ' ✅' : ' ❌') + '\n';
+        return out.trimEnd();
+    }
+    return (lang === 'en' ? '📝 In progress: ' : '📝 进行中：') + (lang === 'en' ? PATHS_EN[examState.path] : PATHS[examState.path].name) + ' ' + (lang === 'en' ? 'Q' : '第 ') + (examState.index + 1) + '/' + examState.questions.length + (lang === 'en' ? ', score ' : ' 题，得分 ') + examState.score + '\n' + examQuestionText();
+}
+
+function handleStats() {
+    let out = lang === 'en' ? '=== 📊 Learning Stats ===\n' : '=== 📊 学习统计 ===\n';
+    out += (lang === 'en' ? 'Tasks completed: ' : '已完成任务：') + taskProgress.done.length + '/' + Object.keys(TASK_MAP).length + '\n';
+    out += (lang === 'en' ? 'Commands used: ' : '用过的命令：') + stats.usedCmds.length + '\n';
+    out += (lang === 'en' ? 'Study streak: ' : '连续学习：') + stats.streak + (lang === 'en' ? ' day(s)\n\nProject progress:\n' : ' 天\n\n项目进度：\n');
+    for (const key of PATH_ORDER) {
+        const tasks = Object.values(TASK_MAP).filter(t => t.path === key);
+        if (tasks.length === 0) continue;
+        const done = tasks.filter(t => taskProgress.done.includes(t.id)).length;
+        out += '  [' + key + '] ' + (lang === 'en' ? PATHS_EN[key] : PATHS[key].name) + ': ' + done + '/' + tasks.length + '\n';
+    }
+    const bad = Object.entries(stats.badCmds).sort((a, b) => b[1] - a[1]).slice(0, 5);
+    if (bad.length) {
+        out += lang === 'en' ? '\nFrequently mistyped commands:\n' : '\n常输错的命令：\n';
+        for (const [c, n] of bad) out += '  ' + c + ' ×' + n + '\n';
+    }
+    if (stats.exams.length) {
+        out += lang === 'en' ? '\nExam history:\n' : '\n考试记录：\n';
+        for (const e of stats.exams.slice(-5)) out += '  ' + e.path + ': ' + e.score + '/' + e.total + (e.pass ? ' ✅' : ' ❌') + '\n';
+    }
+    return out.trimEnd();
+}
+
+function handleLang(args) {
+    const v = args[0];
+    if (v === 'en' || v === 'zh') {
+        lang = v;
+        saveLang();
+        updatePromptDisplay();
+        buildSidePanel();
+        const badge = document.getElementById('cmd-count-badge');
+        if (badge) badge.textContent = Object.keys(CMD).length + (lang === 'en' ? ' commands' : ' 命令');
+        return lang === 'en' ? 'Language switched to English.' : '已切换到中文。';
+    }
+    return lang === 'en' ? 'Current language: English. Usage: lang [zh|en]' : '当前语言：中文。用法：lang [zh|en]';
+}
+
+/* ===== ENGLISH CONTENT ===== */
+const CAT_EN = {'学习':'Learning','VFS':'Files','文本处理':'Text','系统信息':'System','硬件信息':'Hardware','磁盘管理':'Disks','内存/进程':'Processes','网络':'Network','用户/权限':'Users & Permissions','软件包':'Packages','服务管理':'Services','Shell':'Shell','压缩归档':'Archives','文件工具':'File Tools','编辑器':'Editors','开发工具':'Dev Tools','中间件':'Middleware','K8s':'K8s','CI/CD':'CI/CD','会话管理':'Sessions','系统控制':'System Control','文档工具':'Docs','其他':'Other','容器':'Containers','消息':'Messaging','Web':'Web','数据库':'Databases','监控':'Monitoring','日志':'Logging','IaC':'IaC','配置':'Config Mgmt','服务网格':'Service Mesh','安全':'Security','存储':'Storage','网络':'Networking','性能':'Benchmark','虚拟化':'Virtualization','DevOps':'DevOps'};
+
+const DESC_EN = {
+  ls:'List files and directories', cd:'Change the current directory', pwd:'Print the working directory', mkdir:'Create directories', touch:'Create empty files or update timestamps', cat:'Print file contents', rm:'Remove files or directories', cp:'Copy files or directories', mv:'Move or rename files', echo:'Print text or write it to a file', find:'Search for files by name', grep:'Search text with patterns', head:'Show the first lines of a file', tail:'Show the last lines of a file', wc:'Count lines, words and bytes', sort:'Sort lines of text', uniq:'Remove adjacent duplicate lines', cut:'Extract columns from text', tr:'Translate or delete characters', sed:'Stream editor for substitution', awk:'Pattern scanning and field processing', diff:'Compare two files line by line', tar:'Pack and compress archives', gzip:'Compress files', md5sum:'Compute MD5 checksums', base64:'Encode or decode Base64', uname:'Show system and kernel info', free:'Show memory usage', ps:'List processes', top:'Interactive process viewer', htop:'Colorful process manager', kill:'Terminate processes by PID', df:'Show disk space usage', du:'Show directory sizes', lscpu:'Show CPU architecture info', lsblk:'List block devices as a tree', fdisk:'Manage disk partition tables', smartctl:'Check disk SMART health', ip:'Show or configure network interfaces', ping:'Test network connectivity', curl:'Transfer data with URLs', ss:'Inspect network sockets', netstat:'Show network connections and ports', ssh:'Log in to a remote machine', scp:'Copy files over SSH', chmod:'Change file permissions', chown:'Change file ownership', sudo:'Run commands as root', su:'Switch users', useradd:'Create users', passwd:'Change passwords', apt:'Manage Debian/Ubuntu packages', dpkg:'Manage installed packages', systemctl:'Manage systemd services', journalctl:'View systemd logs', crontab:'Manage scheduled tasks', env:'Show environment variables', export:'Set and export variables', alias:'Create command aliases', source:'Reload configuration files', which:'Locate a command', man:'Read command manuals', history:'Show command history', vi:'Open the vi editor', git:'Version control', docker:'Manage containers', kubectl:'Manage Kubernetes', helm:'Manage Kubernetes charts', terraform:'Manage infrastructure as code', ansible:'Automate server configuration', mysql:'MySQL database client', 'redis-cli':'Redis command line client', nginx:'Nginx web server', watch:'Re-run a command periodically', date:'Show the current date and time', hostname:'Show the hostname', whoami:'Show the current user', id:'Show user and group IDs', who:'Show logged-in users', uptime:'Show uptime and load average', printf:'Format and print text', read:'Read input into a variable', test:'Evaluate conditions', sleep:'Wait (simulated)', timeout:'Run a command with a time limit', tree:'Show directories as a tree', basename:'Strip directory from a path', dirname:'Extract the directory from a path', jq:'Query JSON data', nmap:'Scan network ports',
+  ln:'Create links; -s makes a symbolic link like a shortcut', patch:'Apply a patch (changes produced by diff) to a file', nl:'Number the lines of a file', sensors:'Read CPU/motherboard temperatures, voltages and fans', lspci:'List PCI hardware (GPU, NIC, etc.)', lsusb:'List USB devices (keyboard, USB drive, UPS, etc.)', lshw:'Show detailed hardware information', dmidecode:'Read motherboard/BIOS DMI info (needs root)', mount:'Mount a filesystem to a directory', umount:'Unmount a filesystem', blkid:'Show filesystem types and UUIDs of partitions', mkfs:'Create a filesystem (format) on a partition', fsck:'Check and repair filesystem errors', parted:'Interactive partition editor', dd:'Copy data block by block (imaging, benchmarking; dangerous)', pgrep:'Find PIDs by process name', pkill:'Kill processes by name', lsof:'List files and ports opened by processes', nohup:'Run a command that survives logging out', bg:'Resume a paused job in the background', fg:'Bring a background job to the foreground', jobs:'List background jobs of this terminal', wget:'Download files', ifconfig:'Legacy network interface tool (use ip)', nslookup:'Query DNS records', dig:'Detailed DNS lookup tool', traceroute:'Trace the route to a host', route:'Show or edit the routing table', tcpdump:'Capture and analyze network packets (needs root)', nc:'Network Swiss army knife: port checks, data transfer', rsync:'Synchronize files incrementally', ftp:'Classic FTP client', sftp:'Secure file transfer over SSH', chgrp:'Change the group of a file', umask:'Set the default permission mask for new files', userdel:'Delete a user', usermod:'Modify user attributes', groupadd:'Create a user group', groupdel:'Delete a user group', yum:'Package manager for CentOS/RHEL (apt on Ubuntu)', snap:'Canonical cross-distribution package format', service:'Legacy service management (use systemctl)', bash:'Start a bash subshell or run a script file', unalias:'Remove an alias', type:'Show whether a command is builtin, alias or external', whereis:'Locate binary, source and man pages of a command', exec:'Replace the current shell with a command', set:'Set shell options or show variables', unset:'Remove variables or functions', declare:'Declare variable attributes', readonly:'Make variables read-only', tee:'Write output to the screen and a file at once', time:'Measure how long a command takes', yes:'Output y forever (auto-confirm with pipes)', xargs:'Build and run commands from input', zip:'Create zip archives', unzip:'Extract zip archives', file:'Identify the type of a file', stat:'Show detailed file metadata', sha256sum:'Compute SHA-256 checksums', strings:'Extract readable strings from binaries', realpath:'Resolve the absolute real path', vim:'The improved vi editor', vimtutor:'Interactive vim tutorial', nano:'Simple beginner-friendly text editor', gcc:'C compiler', 'g++':'C++ compiler', make:'Automated build tool (reads Makefile)', gdb:'C/C++ debugger', python3:'Python 3 interpreter', node:'JavaScript runtime', npm:'Node.js package manager', screen:'Terminal multiplexer with reconnectable sessions', tmux:'Modern terminal multiplexer with splits and sessions', shutdown:'Shut down or schedule shutdown', reboot:'Reboot the system', halt:'Halt the system', poweroff:'Power off the system', dmesg:'Show kernel boot log and hardware messages', more:'Page through a file (space=next, q=quit)', less:'Better pager with search', whatis:'One-line description of a command', info:'Read GNU documentation', clear:'Clear the screen', help:'Show builtin help or the command list', exit:'Exit the current shell', 'docker-compose':'Orchestrate multi-container apps with YAML', podman:'Daemonless container engine (docker alternative)', containerd:'Container runtime (under docker)', crictl:'CRI container runtime CLI', ctr:'Native containerd CLI', buildah:'Build container images without a Dockerfile', skopeo:'Inspect and copy remote images', kustomize:'Customize Kubernetes manifests', minikube:'One-command local Kubernetes', kind:'Run Kubernetes in Docker (testing)', kubeadm:'Initialize or join a Kubernetes cluster', kubelet:'The agent running on Kubernetes nodes', etcdctl:'CLI for the etcd key-value store', calicoctl:'Manage Calico network policies', nats:'Lightweight messaging system', pulsar:'Cloud-native streaming platform', haproxy:'High-performance load balancer / reverse proxy', apache2:'Apache HTTP server', caddy:'Web server with automatic HTTPS', keepalived:'High availability with VIP failover', traefik:'Cloud-native reverse proxy / ingress', mysqldump:'MySQL logical backup tool', postgresql:'PostgreSQL database server', pg_dump:'PostgreSQL backup tool', mongodb:'MongoDB document database', redis:'Redis key-value cache server', sqlite3:'Lightweight embedded database CLI', prometheus:'Time-series monitoring system', promtool:'Prometheus utility (rule checks, etc.)', alertmanager:'Prometheus alert management', grafana:'Monitoring visualization dashboards', node_exporter:'Export host metrics to Prometheus', logstash:'Log collection and processing pipeline', kibana:'Elasticsearch visualization UI', filebeat:'Lightweight log shipper', fluentd:'Log collector', fluentbit:'Lightweight log collector', loki:'Log aggregation (Grafana stack)', promtail:'Loki log shipper', packer:'Build machine images (AWS/VM, etc.)', vagrant:'Manage VM dev environments', pulumi:'Infrastructure as code in multiple languages', opentofu:'Open-source fork of Terraform', 'ansible-playbook':'Run Ansible playbooks', puppet:'Configuration management tool', chef:'Configuration management tool', salt:'Batch configuration and remote execution', istioctl:'Manage the Istio service mesh', linkerd:'Lightweight service mesh', envoy:'High-performance data-plane proxy', 'nginx-ingress':'Nginx ingress controller for Kubernetes', openssl:'Cryptography and certificate tool', certbot:'Automatically get and renew Let\'s Encrypt certificates', 'acme.sh':'ACME protocol certificate script', vault:'Secrets management tool', keycloak:'Identity and single sign-on', ldapsearch:'Query LDAP directories', 'ssh-keygen':'Generate SSH key pairs', iptables:'Linux firewall rules', ufw:'Simplified firewall frontend', nft:'nftables firewall (successor of iptables)', fail2ban:'Auto-ban brute-force IPs', ceph:'Distributed storage cluster', gluster:'Distributed filesystem', nfs:'Network filesystem sharing', longhorn:'Kubernetes distributed block storage', rook:'Kubernetes storage orchestrator (Ceph)', restic:'Encrypted backup tool', borg:'Deduplicating backup tool', duplicity:'Encrypted incremental backups', calico:'Kubernetes network plugin (BGP)', flannel:'Simple Kubernetes overlay network', weave:'Kubernetes network plugin', cilium:'eBPF-based Kubernetes networking/security', metallb:'Bare-metal LoadBalancer for Kubernetes', wireguard:'Modern VPN tunnel', ab:'ApacheBench HTTP load testing', wrk:'High-performance HTTP benchmarking', siege:'HTTP stress testing', sysbench:'General performance benchmark', stress:'CPU/memory stress testing', fio:'Disk I/O performance testing', iostat:'Disk I/O statistics', vmstat:'Virtual memory and system statistics', sar:'Historical system activity reports', perf:'Linux performance analysis', 'virt-manager':'Graphical virtual machine manager', virsh:'libvirt VM command line', qemu:'Hardware emulator / virtual machine', kvm:'Kernel virtual machine', xen:'Virtualization platform', glances:'All-in-one monitoring dashboard', iftop:'Real-time network traffic per connection', nethogs:'Network traffic per process', iotop:'Disk I/O per process', knative:'Serverless framework on Kubernetes', openfaas:'Functions as a service', kubeless:'Serverless framework on Kubernetes', tac:'Print a file in reverse (backwards cat)', od:'Octal/hex dump of a file', hexdump:'Hex dump', bzip2:'High-ratio compression', bunzip2:'Decompress bzip2', xz:'Higher-ratio compression', unxz:'Decompress xz', lz4:'Ultra-fast compression', lsmod:'List loaded kernel modules', modprobe:'Load or unload kernel modules', modinfo:'Show kernel module info', sysctl:'View or set kernel parameters', losetup:'Manage loop devices', swapon:'Enable swap partitions', swapoff:'Disable swap partitions', lsattr:'Show file extended attributes', chattr:'Change file extended attributes (undeletable)', host:'Simple DNS lookup', whois:'Query domain registration info', mtr:'Network diagnosis combining ping and traceroute', socat:'Versatile data channel tool', telnet:'Legacy remote login / port testing', nmcli:'NetworkManager command line', iwconfig:'Wireless interface configuration', rfkill:'Toggle wireless devices', last:'Show login history', w:'Show online users and load', nice:'Start a process with a priority', renice:'Change the priority of a running process', pidof:'Find PIDs by program name', strace:'Trace system calls of a process', ltrace:'Trace library calls of a process', ulimit:'View or set process resource limits', shopt:'Set bash options', popd:'Pop a directory from the stack', pushd:'Push a directory onto the stack and switch', dirs:'Show the directory stack', disown:'Remove a job from job control', paste:'Merge files column by column', join:'Join files on a common field', comm:'Compare two sorted files', split:'Split large files', fmt:'Reformat text paragraphs', pr:'Paginate output for printing', expand:'Convert tabs to spaces', unexpand:'Convert spaces to tabs', neofetch:'System info with ASCII art', inxi:'System information summary', sudoedit:'Edit files as root with an editor', visudo:'Safely edit sudoers', bc:'Command-line calculator', cal:'Show a calendar', seq:'Generate a sequence of numbers', shuf:'Shuffle or sample randomly', factor:'Factor integers into primes', numfmt:'Convert number units', logger:'Write to the system log', apropos:'Search manuals by keyword', timedatectl:'View or set time and timezone', hostnamectl:'View or set the hostname', at:'Run a one-off task at a time', batch:'Run a task when idle', ldd:'Show shared libraries a program needs', ldconfig:'Update the dynamic linker cache', perl:'Perl scripting language', ruby:'Ruby scripting language', php:'PHP scripting language', go:'Go toolchain', cargo:'Rust package manager / build', cmake:'Cross-platform build system', arp:'Show the ARP cache', arping:'ARP-level connectivity test', wall:'Broadcast a message to all users', mesg:'Control whether you receive messages', write:'Send a message to a user', chsh:'Change the login shell', logname:'Show the login user name', newgrp:'Switch the effective group', localectl:'Set system locale and keyboard', loginctl:'Manage login sessions',
+};
+
+const TASKS_EN = {
+  s1t1:{ title:'List the current directory', desc:'Run ls to see files and folders', exp:'ls is the most used listing command. Look at the names it prints.' },
+  s1t2:{ title:'Show the current path', desc:'Run pwd to see where you are', exp:'pwd prints the absolute path of the current directory.' },
+  s1t3:{ title:'Change directory', desc:'Go into /tmp', exp:'cd changes the working directory; the prompt path should change to /tmp.' },
+  s1t4:{ title:'Create a directory', desc:'Create /tmp/mydir', exp:'mkdir creates directories; check with ls /tmp.' },
+  s1t5:{ title:'Create an empty file', desc:'Create /tmp/hello.txt', exp:'touch creates an empty file.' },
+  s1t6:{ title:'Write with redirection', desc:'Write hello into /tmp/greet.txt', exp:'> redirects output into a file (overwrite).' },
+  s1t7:{ title:'Copy a file', desc:'Copy greet.txt to greet-copy.txt', exp:'cp copies files; the source stays.' },
+  s1t8:{ title:'Move / rename', desc:'Rename greet-copy.txt to renamed.txt', exp:'mv renames (or moves) files.' },
+  s1t9:{ title:'Delete a file', desc:'Delete /tmp/renamed.txt', exp:'rm deletes files.' },
+  s1t10:{ title:'View file contents', desc:'Use cat to view /tmp/greet.txt', exp:'cat prints file contents to the terminal.' },
+  s2t1:{ title:'Search with grep', desc:'Search for root in /etc/passwd', exp:'grep prints lines that match the pattern.' },
+  s2t2:{ title:'Use a pipe', desc:'Pipe cat /etc/passwd into grep bash', exp:'| passes the output of one command into another.' },
+  s2t3:{ title:'head', desc:'Show the first 3 lines of /etc/passwd', exp:'head prints the beginning of a file.' },
+  s2t4:{ title:'tail', desc:'Show the last 2 lines of /etc/passwd', exp:'tail prints the end of a file.' },
+  s2t5:{ title:'Count lines with wc', desc:'Count lines in /etc/passwd', exp:'wc -l counts lines.' },
+  s3t1:{ title:'Kernel info', desc:'View kernel information', exp:'uname -a shows kernel, hostname and architecture.' },
+  s3t2:{ title:'Memory status', desc:'View memory usage', exp:'free -h shows total/used/free memory in human units.' },
+  s3t3:{ title:'Process list', desc:'View processes', exp:'ps lists processes with their PIDs.' },
+  s3t4:{ title:'Uptime', desc:'View uptime and load', exp:'uptime shows how long the system has been running.' },
+  s4t1:{ title:'CPU info', desc:'View CPU architecture info', exp:'lscpu summarizes CPU model, cores and architecture.' },
+  s4t2:{ title:'Block devices', desc:'View disks and partitions', exp:'lsblk shows the disk/partition tree.' },
+  s4t3:{ title:'Disk space', desc:'View disk usage', exp:'df -h shows usage per mount point.' },
+  s4t4:{ title:'Disk health', desc:'Check SMART health of /dev/sdb', exp:'smartctl reads disk health attributes.' },
+  s5t1:{ title:'Network interfaces', desc:'View NICs and IP addresses', exp:'ip addr shows addresses of all interfaces.' },
+  s5t2:{ title:'Ping', desc:'Ping 8.8.8.8 three times', exp:'ping tests connectivity and latency.' },
+  s5t3:{ title:'Curl', desc:'Fetch a web page with curl', exp:'curl requests a URL and prints the response.' },
+  s5t4:{ title:'Listening ports', desc:'View listening ports', exp:'ss -tlnp shows TCP listening sockets.' },
+  s6t1:{ title:'Current user', desc:'Show the current user', exp:'whoami prints your username.' },
+  s6t2:{ title:'sudo escalation', desc:'Switch to root with sudo bash, then exit', exp:'sudo bash gives a root shell; exit returns to the user.' },
+  s6t3:{ title:'Change permissions', desc:'chmod 600 /tmp/hello.txt', exp:'chmod changes permissions; 600 = owner read/write only.' },
+  s6t4:{ title:'Change owner', desc:'chown user /tmp/hello.txt', exp:'chown changes the file owner.' },
+  s7t1:{ title:'Update package lists', desc:'Run apt update', exp:'apt update refreshes package indexes before installing.' },
+  s7t2:{ title:'Install a package', desc:'Install nginx', exp:'apt install installs a package.' },
+  s8t1:{ title:'Service status', desc:'Check nginx service status', exp:'systemctl status shows whether a service is running.' },
+  s8t2:{ title:'System logs', desc:'View the last 10 log lines', exp:'journalctl shows systemd logs.' },
+  s8t3:{ title:'Cron jobs', desc:'List cron jobs', exp:'crontab -l lists scheduled tasks.' },
+  s9t1:{ title:'Environment variables', desc:'Print the value of $HOME', exp:'$HOME is the current user\'s home directory.' },
+  s9t2:{ title:'Export a variable', desc:'Run export to view exported variables', exp:'export makes variables available to child processes.' },
+  s9t3:{ title:'Alias', desc:'Create an alias or use ll', exp:'alias gives a command a short name.' },
+  s10t1:{ title:'Edit with vi', desc:'Open /tmp/hello.txt with vi (i insert, :wq save)', exp:'vi is a modal editor; press i to insert and :wq to save.' },
+  s10t2:{ title:'vim tutorial', desc:'Run vimtutor', exp:'vimtutor is the built-in interactive vim tutorial.' },
+  s11t1:{ title:'Docker containers', desc:'List running containers', exp:'docker ps lists running containers.' },
+  s11t2:{ title:'Kubernetes pods', desc:'List pods with kubectl', exp:'kubectl get pods shows workloads in the cluster.' },
+  s11t3:{ title:'Git version', desc:'Check git version', exp:'git --version confirms git is installed.' },
+};
+
+function taskTitle(t) {
+    if (lang === 'en') return (TASKS_EN[t.id] ? TASKS_EN[t.id].title : t.titleEn) || t.title;
+    return t.title;
+}
+function taskDesc(t) {
+    if (lang === 'en') return (TASKS_EN[t.id] ? TASKS_EN[t.id].desc : DESC_EN[t.cmd]) || t.desc;
+    return t.desc;
+}
+function taskExp(t) {
+    if (lang === 'en') return (TASKS_EN[t.id] ? TASKS_EN[t.id].exp : DESC_EN[t.cmd]) || t.exp;
+    return t.exp;
+}
+function catName(cat) { return lang === 'en' ? (CAT_EN[cat] || cat) : cat; }
+function cmdDesc(name) { return lang === 'en' ? (DESC_EN[name] || CMD[name].desc || name) : (CMD[name].desc || name); }
+
+/* ===== LEARNING GUIDE (migrated from 学习指南.html) ===== */
+const GUIDE_STAGES = [
+  { n:1, zh:'第1阶段：文件操作基础（1-2天）', en:'Stage 1: File Operations Basics (1-2 days)', zhDesc:'掌握 Linux 最基本的文件浏览和操作命令。', enDesc:'Master the most basic file browsing and manipulation commands.', cmds:['ls','cd','pwd','mkdir','touch','cat','rm','cp','mv','echo','find','ln'], zhTip:'试试 ls -la / 看看根目录下有哪些文件，然后用 cd 探索。', enTip:'Try ls -la / to explore the root directory, then use cd to move around.' },
+  { n:2, zh:'第2阶段：文本处理（1天）', en:'Stage 2: Text Processing (1 day)', zhDesc:'学会在终端里搜索和查看文件内容。', enDesc:'Learn to search and view file contents in the terminal.', cmds:['grep','head','tail','wc','sort','uniq','cut','tr','sed','awk','diff','nl','file','stat'], zhTip:'试试 grep root /etc/passwd 在文件中搜索特定内容。', enTip:'Try grep root /etc/passwd to search for specific content.' },
+  { n:3, zh:'第3阶段：系统信息与监控（2天）', en:'Stage 3: System Info & Monitoring (2 days)', zhDesc:'了解服务器运行状态。', enDesc:'Understand how the server is running.', cmds:['uname','hostname','whoami','id','who','uptime','date','free','ps','top','htop','kill','lsof','dmesg'], zhTip:'htop 显示彩色进度条和进程列表；ps aux 列出所有进程。', enTip:'htop shows colorful bars and processes; ps aux lists all processes.' },
+  { n:4, zh:'第4阶段：硬件与磁盘（1-2天）', en:'Stage 4: Hardware & Disks (1-2 days)', zhDesc:'深入了解硬件和存储。', enDesc:'Dive into hardware and storage.', cmds:['lscpu','lspci','lsusb','lsblk','lshw','dmidecode','smartctl','sensors','df','du','fdisk','mount','blkid','dd'], zhTip:'试试 lsblk 查看磁盘树，smartctl -a /dev/sdb 查看坏道硬盘的 SMART 详情。', enTip:'Try lsblk for the disk tree and smartctl -a /dev/sdb for SMART details.' },
+  { n:5, zh:'第5阶段：网络（1-2天）', en:'Stage 5: Networking (1-2 days)', zhDesc:'网络诊断和管理。', enDesc:'Network diagnosis and management.', cmds:['ping','curl','wget','ifconfig','ip','netstat','ss','nslookup','dig','traceroute','route','tcpdump','nc','ssh','scp'], zhTip:'ping -c 5 8.8.8.8 会看到 ICMP 序列号递增和延迟变化。', enTip:'ping -c 5 8.8.8.8 shows increasing ICMP sequence numbers and latency.' },
+  { n:6, zh:'第6阶段：用户与权限（1天）', en:'Stage 6: Users & Permissions (1 day)', zhDesc:'Linux 用户管理系统。', enDesc:'Linux user and permission management.', cmds:['chmod','chown','chgrp','umask','useradd','userdel','usermod','passwd','su','sudo'], zhTip:'试试 sudo whoami，输出 root；sudo bash 切换 root 会话。', enTip:'Try sudo whoami (prints root); sudo bash switches to a root session.' },
+  { n:7, zh:'第7阶段：软件包管理（1天）', en:'Stage 7: Package Management (1 day)', zhDesc:'安装和管理软件。', enDesc:'Install and manage software.', cmds:['apt','yum','dpkg','snap'], zhTip:'apt install nginx 会模拟完整的安装过程。', enTip:'apt install nginx simulates a full install flow.' },
+  { n:8, zh:'第8阶段：服务管理（1天）', en:'Stage 8: Service Management (1 day)', zhDesc:'管理系统服务。', enDesc:'Manage system services.', cmds:['systemctl','journalctl','service','crontab'], zhTip:'systemctl status nginx 显示详细的服务运行状态，stop/start 会真实改变状态。', enTip:'systemctl status nginx shows detailed state; stop/start really change it.' },
+  { n:9, zh:'第9阶段：Shell 编程（2天）', en:'Stage 9: Shell Scripting (2 days)', zhDesc:'环境变量、别名、脚本。', enDesc:'Environment variables, aliases, scripts.', cmds:['bash','alias','env','export','source','tee','watch'], zhTip:'bash script.sh 可以逐行执行脚本，支持变量和 $( ) 命令替换。', enTip:'bash script.sh runs scripts line by line with variables and $( ) substitution.' },
+  { n:10, zh:'第10阶段：Vi/Vim 编辑器（1-2天）', en:'Stage 10: Vi/Vim Editor (1-2 days)', zhDesc:'终端编辑器。', enDesc:'Terminal editors.', cmds:['vi','vim','vimtutor','nano'], zhTip:'vi 会弹出真实编辑器：i 插入、Esc 普通、:wq 保存退出。', enTip:'vi opens a real editor: i insert, Esc normal, :wq save and quit.' },
+  { n:11, zh:'第11阶段：DevOps 工具链（3-5天）', en:'Stage 11: DevOps Toolchain (3-5 days)', zhDesc:'学习现代运维工具。', enDesc:'Learn modern ops tools.', cmds:['docker','kubectl','helm','mysql','redis-cli','nginx','terraform','ansible','prometheus','grafana','jenkins','git'], zhTip:'用 practice path docker/k8s/middleware/cicd 分路线练习。', enTip:'Use practice path docker/k8s/middleware/cicd to drill each track.' },
+];
+
+const GUIDE_EXERCISES = [
+  { zh:'文件浏览：列出根目录所有文件（含隐藏文件），进入 /var/log，查看 syslog 的前 5 行', en:'File browsing: list all root files (including hidden), enter /var/log, view the first 5 lines of syslog', cmds:['ls -la /','cd /var/log','head -n 5 syslog'] },
+  { zh:'文本搜索：在 /etc/passwd 中搜索包含 root 的行，统计该文件有多少行', en:'Text search: find lines containing root in /etc/passwd, then count the lines', cmds:['grep root /etc/passwd','wc -l /etc/passwd'] },
+  { zh:'系统信息：查看运行时间、内存、CPU 型号和磁盘使用', en:'System info: uptime, memory, CPU model and disk usage', cmds:['uptime','free -h','lscpu','df -h'] },
+  { zh:'硬件诊断：列出块设备，检查坏道硬盘 SMART，查看内存插槽', en:'Hardware: list block devices, check SMART of the failing disk, view DIMM slots', cmds:['lsblk','smartctl -a /dev/sdb','dmidecode -t memory'] },
+  { zh:'网络诊断：Ping 114.114.114.114，查看连接状态，DNS 查询', en:'Network: ping 114.114.114.114, view connections, DNS lookup', cmds:['ping -c 3 114.114.114.114','netstat -tulanp','dig google.com'] },
+  { zh:'用户权限：sudo 查看当前用户，切换 root 再退回', en:'Permissions: sudo whoami, switch to root, then back', cmds:['sudo whoami','su root','exit'] },
+  { zh:'包管理：更新软件源、安装 nginx、查看服务状态', en:'Packages: update sources, install nginx, check its status', cmds:['sudo apt update','sudo apt install nginx','systemctl status nginx'] },
+  { zh:'文件编辑：用 vi 打开 /root/projects/web.conf，修改保存后用 cat 确认', en:'Editing: open web.conf with vi, save, confirm with cat', cmds:['vi /root/projects/web.conf','cat /root/projects/web.conf'] },
+  { zh:'Docker：查看容器、镜像，拉取一个镜像', en:'Docker: list containers and images, pull an image', cmds:['docker ps','docker images','docker pull alpine'] },
+  { zh:'Kubernetes：查看 Pod、节点、服务列表', en:'Kubernetes: list pods, nodes and services', cmds:['kubectl get pods','kubectl get nodes','kubectl get svc'] },
+];
+
+const GUIDE_CHEAT = [
+  { zh:'VFS 文件操作', en:'Files', items:['ls [-la]','cd [path]','pwd','mkdir','touch','cat','rm [-r]','cp','mv','echo [> file]','find','ln [-s]'] },
+  { zh:'系统信息', en:'System Info', items:['uname -a','hostname','whoami','id','who','uptime','date','sensors','dmesg'] },
+  { zh:'硬件信息', en:'Hardware', items:['lscpu','lspci','lsusb','lsblk','lshw','dmidecode','smartctl'] },
+  { zh:'磁盘管理', en:'Disks', items:['df -h','du -sh','fdisk -l','mount','umount','blkid','mkfs','fsck','parted','dd'] },
+  { zh:'内存/进程', en:'Processes', items:['free -h','ps aux','top','htop','kill','pgrep','pkill','lsof'] },
+  { zh:'网络', en:'Networking', items:['ping -c N','curl','wget','ifconfig','ip addr','netstat','ss','nslookup','dig','traceroute','route -n','tcpdump','nc','ssh'] },
+  { zh:'用户/权限', en:'Users & Permissions', items:['chmod','chown','chgrp','umask','useradd','userdel','usermod','passwd','su','sudo'] },
+  { zh:'Shell/环境', en:'Shell', items:['bash','alias','env','export','source','tee','watch','crontab -l','history'] },
+  { zh:'文本处理', en:'Text', items:['grep','head -n','tail -n','wc','sort','uniq','cut','tr','sed','awk','diff','nl'] },
+  { zh:'压缩归档', en:'Archives', items:['tar -czf','tar -xzf','gzip','zip','unzip'] },
+  { zh:'编辑器', en:'Editors', items:['vi','vim','vimtutor','nano'] },
+  { zh:'包管理', en:'Packages', items:['apt update','apt install','apt upgrade','apt remove','yum install','dpkg -i','snap'] },
+  { zh:'服务管理', en:'Services', items:['systemctl status','systemctl start','systemctl stop','systemctl restart','systemctl enable','journalctl -u'] },
+];
+
+function handleGuide(args) {
+    const a = args[0];
+    if (a === 'cheat') {
+        let out = lang === 'en' ? '=== 📚 Command Cheat Sheet ===\n' : '=== 📚 命令速查表 ===\n';
+        for (const g of GUIDE_CHEAT) {
+            out += '\n[' + (lang === 'en' ? g.en : g.zh) + ']\n  ' + g.items.join('  ') + '\n';
+        }
+        return out.trimEnd();
+    }
+    if (a === 'ex' || a === 'exercise') {
+        let out = lang === 'en' ? '=== ✏️ Practice Exercises ===\n' : '=== ✏️ 实战练习题 ===\n';
+        GUIDE_EXERCISES.forEach((e, i) => {
+            out += '\n' + (i + 1) + '. ' + (lang === 'en' ? e.en : e.zh) + '\n';
+            for (const c of e.cmds) out += '   $ ' + c + '\n';
+        });
+        return out.trimEnd();
+    }
+    const n = parseInt(a, 10);
+    if (n >= 1 && n <= GUIDE_STAGES.length) {
+        const s = GUIDE_STAGES[n - 1];
+        let out = '[' + s.n + '] ' + (lang === 'en' ? s.en : s.zh) + '\n';
+        out += (lang === 'en' ? '📖 ' : '📖 ') + (lang === 'en' ? s.enDesc : s.zhDesc) + '\n';
+        out += (lang === 'en' ? 'Commands: ' : '命令：') + s.cmds.join(' ') + '\n';
+        out += (lang === 'en' ? '💡 ' : '💡 ') + (lang === 'en' ? s.enTip : s.zhTip) + '\n';
+        out += lang === 'en' ? '\nTry: practice start (in the matching project) to drill this stage.' : '\n试试：在对应项目里输入 practice start 练习本阶段任务。';
+        return out;
+    }
+    let out = lang === 'en' ? '=== 📖 Linux Learning Guide ===\n' : '=== 📖 Linux 学习指南 ===\n';
+    for (const s of GUIDE_STAGES) {
+        out += '\n[' + s.n + '] ' + (lang === 'en' ? s.en : s.zh) + '\n  ' + (lang === 'en' ? s.enDesc : s.zhDesc);
+    }
+    out += '\n\n' + (lang === 'en'
+        ? 'Usage: guide <stage 1-11> · guide cheat · guide ex'
+        : '用法：guide <阶段 1-11> · guide cheat · guide ex');
+    return out.trimEnd();
+}
+
+function handlePrintf(cmd) {
+    const m = cmd.match(/^printf\s+(?:"((?:\\.|[^"\\])*)"|'((?:\\.|[^'\\])*)'|(\S+))(.*)$/);
+    if (!m) return 'printf: usage: printf <format> [args...]';
+    let format = m[1] !== undefined ? m[1] : (m[2] !== undefined ? m[2] : m[3]);
+    const restArgs = parseArgs(m[4] || '');
+    format = format.replace(/\\(n|t|r|\\|")/g, (_, e) => e === 'n' ? '\n' : e === 't' ? '\t' : e === 'r' ? '\r' : e);
+    let ai = 0;
+    const out = format.replace(/%([sd])/g, (mm, t) => {
+        const v = restArgs[ai++];
+        if (v === undefined) return '';
+        return t === 'd' ? String(parseInt(v) || 0) : String(v);
+    }).replace(/%%/g, '%');
+    return out;
+}
+
+function handleRead(args) {
+    const vars = args.filter(a => !a.startsWith('-'));
+    const val = pipeInput !== '' ? pipeInput : '';
+    if (vars.length > 0) envVars[vars[0]] = val;
+    return '';
+}
+
+function handleTest(args) {
+    const v = args[0];
+    if (v === '-f' || v === '-e' || v === '-d') {
+        const p = resolvePath(args[1] || '');
+        const isDir = VFS.listDir(p) && Object.keys(VFS.listDir(p)).length > 0;
+        const isFile = VFS.getFile(p) !== null;
+        const ok = v === '-d' ? isDir : v === '-f' ? isFile : (isFile || isDir);
+        return ok ? '' : FALSE_SENTINEL;
+    }
+    if (v === '-n') return args[1] ? '' : FALSE_SENTINEL;
+    if (v === '-z') return args[1] ? FALSE_SENTINEL : '';
+    if (args[1] === '=') return args[0] === args[2] ? '' : FALSE_SENTINEL;
+    if (args[1] === '-eq') return parseInt(args[0]) === parseInt(args[2]) ? '' : FALSE_SENTINEL;
+    return 'test: usage: test [-f|-d|-e file] | [a = b] | [n -eq m] | [-n str] | [-z str]';
+}
+
+function handleSleep(args) {
+    const sec = parseInt(args[0]);
+    if (isNaN(sec)) return 'sleep: invalid time interval \'' + (args[0] || '') + '\'';
+    return 'Sleeping for ' + sec + ' second' + (sec === 1 ? '' : 's') + '... done (simulated).';
+}
+
+function handleTimeout(args) {
+    const sec = parseFloat(args[0]);
+    const rest = args.slice(1).join(' ');
+    if (isNaN(sec)) return 'timeout: invalid time interval \'' + (args[0] || '') + '\'';
+    if (!rest) return 'timeout: missing command';
+    if (/^sleep\s/.test(rest)) return 'timeout: the monitored command timed out after ' + sec + 's (simulated)';
+    return EXEC(rest);
+}
+
+function handleTree(args) {
+    const base = resolvePath(args[0] || '.');
+    let out = (base === '/' ? '/' : base) + '\n';
+    function walk(dir, indent) {
+        const entries = VFS.listDir(dir);
+        const names = Object.keys(entries).sort().filter(n => n !== '.dir');
+        names.forEach((n, i) => {
+            const last = i === names.length - 1;
+            const full = dir === '/' ? '/' + n : dir + '/' + n;
+            out += indent + (last ? '└── ' : '├── ') + n + (entries[n] === 'dir' ? '/' : '') + '\n';
+            if (entries[n] === 'dir') walk(full, indent + (last ? '    ' : '│   '));
+        });
+    }
+    walk(base, '');
+    return out.trimEnd();
+}
+
+function handleBasename(args) {
+    if (!args[0]) return 'basename: missing operand';
+    let name = args[0].replace(/\/+$/, '').split('/').pop() || '/';
+    if (args[1] && name.endsWith(args[1])) name = name.slice(0, -args[1].length);
+    return name;
+}
+
+function handleDirname(args) {
+    if (!args[0]) return 'dirname: missing operand';
+    const p = args[0].replace(/\/+$/, '');
+    if (p === '/') return '/';
+    const idx = p.lastIndexOf('/');
+    return idx <= 0 ? '/' : p.slice(0, idx);
+}
+
+function handleJq(args) {
+    const filter = args.find(a => a.startsWith('.') || a === '.' || a.startsWith('['));
+    const rest = args.filter(a => a !== filter);
+    let input = '';
+    if (rest.length > 0) {
+        const c = VFS.getFile(resolvePath(rest[rest.length - 1]));
+        if (c !== null) input = c;
+    }
+    if (input === '' && pipeInput !== '') input = pipeInput;
+    if (!input) return 'jq: no input';
+    let data;
+    try { data = JSON.parse(input); } catch (e) { return 'jq: parse error: Invalid JSON'; }
+    let val = data;
+    if (filter && filter !== '.') {
+        try {
+            for (const part of filter.split('.').filter(Boolean)) {
+                const pm = part.match(/^([^\[]+)(?:\[(\d+)\])?$/);
+                if (pm) {
+                    if (pm[1]) val = val[pm[1]];
+                    if (pm[2] !== undefined) val = val[parseInt(pm[2])];
+                }
+            }
+        } catch (e) { return 'jq: error: cannot iterate over ' + filter; }
+    }
+    if (val === undefined) return 'jq: error (null or null field)';
+    return JSON.stringify(val);
+}
+
+function handleNmap(args) {
+    const target = args[args.length - 1] || 'localhost';
+    if (args.includes('-sP')) {
+        return 'Starting Nmap 7.80 ( https://nmap.org ) at 2025-07-25 10:00 CST\nNmap scan report for ' + target + '\nHost is up (0.012s latency).\nMAC Address: AA:BB:CC:DD:EE:02 (Unknown)\nNmap done: 1 IP address (1 host up) scanned in 0.25 seconds';
+    }
+    if (args.includes('-p')) {
+        const port = args[args.indexOf('-p') + 1] || '80';
+        return 'Starting Nmap 7.80 ( https://nmap.org ) at 2025-07-25 10:00 CST\nNmap scan report for ' + target + '\nPORT   STATE SERVICE\n' + port + '/tcp open ' + (port === '22' ? 'ssh' : port === '443' ? 'https' : port === '3306' ? 'mysql' : 'http') + '\nNmap done: 1 IP address scanned in 0.18 seconds';
+    }
+    return 'Starting Nmap 7.80 ( https://nmap.org ) at 2025-07-25 10:00 CST\nNmap scan report for ' + target + '\nHost is up.\nPORT     STATE SERVICE\n22/tcp   open ssh\n80/tcp   open http\n443/tcp  open https\n3306/tcp open mysql\nNmap done: 1 IP address scanned in 1.23 seconds';
+}
+
+
+function handleDocker(args) {
+    const sub = args[0];
+    if (!sub) {
+        return `Usage:  docker [OPTIONS] COMMAND
+
+Management Commands:
+  container   Manage containers
+  image       Manage images
+  network     Manage networks
+  volume      Manage volumes
+
+Commands:
+  ps          List containers
+  images      List images
+  run         Run a command in a new container
+  exec        Run a command in a running container
+  pull        Pull an image from a registry
+  build       Build an image from a Dockerfile
+  logs        Fetch the logs of a container
+  stop        Stop one or more running containers
+  rm          Remove one or more containers
+  rmi         Remove one or more images`;
+    }
+
+    const hw = window.SIM_HW;
+
+    if (sub === 'ps') {
+        const all = args.includes('-a');
+        const list = dockerContainers.filter(c => all || c.status === 'running');
+        let out = padEnd('CONTAINER ID', 14) + padEnd('IMAGE', 22) + padEnd('COMMAND', 12) + padEnd('CREATED', 12) + padEnd('STATUS', 12) + padEnd('PORTS', 42) + 'NAMES\n';
+        for (const c of list) {
+            out += padEnd(c.id, 14) + padEnd(c.img, 22) + padEnd('"' + c.img.split(':')[0] + '"', 12) + padEnd('4 days ago', 12) + padEnd(c.status === 'running' ? 'Up 3 days' : 'Exited (0) 2 hours ago', 12) + padEnd(c.ports, 42) + c.name + '\n';
+        }
+        return out.trimEnd();
+    }
+
+    if (sub === 'images') {
+        return padEnd('REPOSITORY', 24) + padEnd('TAG', 12) + padEnd('IMAGE ID', 14) + padEnd('CREATED', 12) + 'SIZE\n' +
+            padEnd('nginx', 24) + padEnd('latest', 12) + padEnd('abc123def456', 14) + padEnd('2 weeks ago', 12) + '187MB\n' +
+            padEnd('mysql', 24) + padEnd('8.0', 12) + padEnd('def456abc789', 14) + padEnd('4 weeks ago', 12) + '564MB\n' +
+            padEnd('redis', 24) + padEnd('7-alpine', 12) + padEnd('ghi789jkl012', 14) + padEnd('3 weeks ago', 12) + '32MB\n' +
+            padEnd('prom/prometheus', 24) + padEnd('latest', 12) + padEnd('jkl012mno345', 14) + padEnd('5 days ago', 12) + '234MB\n' +
+            padEnd('grafana/grafana', 24) + padEnd('latest', 12) + padEnd('mno345pqr678', 14) + padEnd('5 days ago', 12) + '456MB';
+    }
+
+    if (sub === 'run') {
+        const img = args[args.length - 1] || 'nginx';
+        const id = Math.random().toString(16).slice(2, 12);
+        const base = img.split('/').pop().split(':')[0] || 'container';
+        const name = base + '-' + Math.floor(Math.random() * 999);
+        dockerContainers.push({ id, img, name, status: 'running', ports: '' });
+        return `Unable to find image '${img}:latest' locally
+latest: Pulling from library/${img}
+Digest: sha256:${'0'.repeat(64)}
+Status: Downloaded newer image for ${img}:latest
+Container ID: ${id}
+Running ${img}...`;
+    }
+
+    if (sub === 'pull') {
+        const img = args[1] || 'nginx';
+        return `Using default tag: latest
+latest: Pulling from library/${img}
+Digest: sha256:abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
+Status: Image is up to date for ${img}:latest
+docker.io/library/${img}:latest`;
+    }
+
+    if (sub === 'stop') {
+        const c = dockerContainers.find(x => x.name === args[1] || x.id === args[1]);
+        if (!c) return 'Error response from daemon: No such container: ' + (args[1] || '');
+        c.status = 'stopped';
+        return c.name + ' stopped';
+    }
+    if (sub === 'start') {
+        const c = dockerContainers.find(x => x.name === args[1] || x.id === args[1]);
+        if (!c) return 'Error response from daemon: No such container: ' + (args[1] || '');
+        c.status = 'running';
+        return c.name + ' started';
+    }
+    if (sub === 'rm') {
+        const idx = dockerContainers.findIndex(x => x.name === args[1] || x.id === args[1]);
+        if (idx === -1) return 'Error response from daemon: No such container: ' + (args[1] || '');
+        dockerContainers.splice(idx, 1);
+        return (args[1] || 'container') + ' removed';
+    }
+    if (sub === 'rmi') return 'Deleted: ' + (args[1] || 'image');
+    if (sub === 'logs') {
+        return `2025-07-25T10:00:00.123456Z INFO  Starting ${args[1] || 'container'}
+2025-07-25T10:00:01.234567Z INFO  Listening on port 80
+2025-07-25T10:00:02.345678Z INFO  Health check passed`;
+    }
+    if (sub === 'exec') return 'root@' + (args[1] || 'container') + ':/# ';
+
+    return 'docker ' + args.join(' ') + ': executed';
+}
+
+function handleKubectl(args) {
+    const sub = args[0];
+    if (!sub) {
+        return `kubectl controls the Kubernetes cluster manager.
+
+Basic Commands (Beginner):
+  create        Create a resource
+  get           Display one or many resources
+  run           Run a particular image
+  expose        Expose a resource as a new Service
+  delete        Delete resources
+
+Additional Commands:
+  apply         Apply a configuration to a resource
+  describe      Show details of a specific resource
+  logs          Print the logs for a container
+  exec          Execute a command in a container`;
+    }
+
+    const hw = window.SIM_HW;
+
+    if (sub === 'get') {
+        const resource = args[1] || 'pods';
+        if (resource === 'pods' || resource === 'pod') {
+            let out = padEnd('NAME', 35) + padEnd('READY', 8) + padEnd('STATUS', 10) + padEnd('RESTARTS', 9) + 'AGE\n';
+            for (const [name, ready, status, restarts, age] of hw.k8s_pods) {
+                out += padEnd(name, 35) + padEnd(ready, 8) + padEnd(status, 10) + padEnd(restarts, 9) + age + '\n';
+            }
+            return out.trimEnd();
+        }
+        if (resource === 'nodes') {
+            return padEnd('NAME', 20) + padEnd('STATUS', 10) + padEnd('ROLES', 18) + padEnd('AGE', 8) + 'VERSION\n' +
+                padEnd('home-server', 20) + padEnd('Ready', 10) + padEnd('control-plane', 18) + padEnd('4d', 8) + 'v1.28.4\n' +
+                padEnd('worker-01', 20) + padEnd('Ready', 10) + padEnd('<none>', 18) + padEnd('4d', 8) + 'v1.28.4\n' +
+                padEnd('worker-02', 20) + padEnd('Ready', 10) + padEnd('<none>', 18) + padEnd('4d', 8) + 'v1.28.4';
+        }
+        if (resource === 'services' || resource === 'svc') {
+            return padEnd('NAME', 22) + padEnd('TYPE', 10) + padEnd('CLUSTER-IP', 15) + padEnd('EXTERNAL-IP', 15) + padEnd('PORT(S)', 20) + 'AGE\n' +
+                padEnd('kubernetes', 22) + padEnd('ClusterIP', 10) + padEnd('10.96.0.1', 15) + padEnd('<none>', 15) + padEnd('443/TCP', 20) + '4d\n' +
+                padEnd('nginx-service', 22) + padEnd('LoadBalancer', 10) + padEnd('10.96.100.50', 15) + padEnd('192.168.1.200', 15) + padEnd('80:30080/TCP', 20) + '3d';
+        }
+        return 'kubectl get ' + resource + ': ' + resource + ' listed';
+    }
+
+    if (sub === 'describe') return `Name:             ${args[1] || 'nginx-deployment-7d4f9b5c8-x2k9m'}
+Namespace:        default
+Node:             worker-01/192.168.1.10
+Start Time:       Sun, 21 Jul 2025 00:00:01 +0800
+Status:           Running
+IP:               10.244.1.5
+Containers:
+  nginx:
+    Container ID:   containerd://abc123
+    Image:          nginx:latest
+    State:          Running
+      Started:      Sun, 21 Jul 2025 00:00:05 +0800
+    Ready:          True`;
+
+    if (sub === 'logs') return '2025-07-25T10:00:00.123Z [INFO] Starting nginx...\n2025-07-25T10:00:01.234Z [INFO] Listening on port 80';
+    if (sub === 'apply') return (args[1] || 'deployment.yaml') + ' applied';
+    if (sub === 'delete') return (args[1] || 'pod') + ' ' + (args[2] || 'name') + ' deleted';
+    if (sub === 'exec') return 'root@' + (args[1] || 'pod') + ':/# ';
+
+    return 'kubectl ' + args.join(' ') + ': executed';
+}
+
+function handleHelm(args) {
+    if (args[0] === 'list' || args[0] === 'ls') {
+        return padEnd('NAME', 20) + padEnd('NAMESPACE', 12) + padEnd('REVISION', 8) + padEnd('UPDATED', 22) + padEnd('STATUS', 10) + padEnd('CHART', 18) + 'APP VERSION\n' +
+            padEnd('nginx', 20) + padEnd('default', 12) + padEnd('1', 8) + padEnd('2025-07-21 00:05:00', 22) + padEnd('deployed', 10) + padEnd('nginx-15.2.0', 18) + '1.27.0\n' +
+            padEnd('prometheus', 20) + padEnd('monitoring', 12) + padEnd('1', 8) + padEnd('2025-07-22 12:00:00', 22) + padEnd('deployed', 10) + padEnd('kube-prom-8.15.0', 18) + '2.51.0';
+    }
+    return 'helm ' + args.join(' ') + ': executed';
+}
+
+function handleTerraform(args) {
+    if (args[0] === 'init') return `Initializing the backend...
+Initializing provider plugins...
+- Finding hashicorp/aws versions matching "~> 5.0"...
+- Installing hashicorp/aws v5.50.0...
+- Installed hashicorp/aws v5.50.0 (signed by HashiCorp)
+Terraform has been successfully initialized!`;
+
+    if (args[0] === 'plan') return `Terraform used the selected providers to generate the following execution plan:
+  # aws_instance.web will be created
+  + resource "aws_instance" "web" {
+      + ami                          = "ami-0c55b159cbfafe1f0"
+      + instance_type                = "t3.micro"
+    }
+Plan: 3 to add, 0 to change, 0 to destroy.`;
+
+    if (args[0] === 'apply') return `Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
+Outputs:
+instance_ip = "54.123.45.67"`;
+
+    if (args[0] === 'destroy') return 'Destroy complete! Resources: 3 destroyed.';
+    return 'terraform ' + args.join(' ') + ': executed';
+}
+
+function handleAnsible(args) {
+    if (args[0] === 'all' || args.includes('-m')) {
+        return `home-server | SUCCESS => {
+    "ansible_facts": {
+        "ansible_distribution": "Ubuntu",
+        "ansible_distribution_version": "22.04"
+    }
+}
+web-server-01 | SUCCESS => {"changed": false}
+web-server-02 | SUCCESS => {"changed": false}`;
+    }
+    return 'ansible ' + args.join(' ') + ': executed';
+}
+
+function handleNginx(args) {
+    if (args.includes('-t')) {
+        return 'nginx: the configuration file /etc/nginx/nginx.conf syntax is ok\nnginx: configuration file /etc/nginx/nginx.conf test is successful';
+    }
+    if (args.includes('-s')) {
+        const sig = args[args.indexOf('-s') + 1] || 'reload';
+        return 'nginx: signal process ' + sig + ' sent';
+    }
+    return 'nginx: started successfully';
+}
+
+function handleMysql(args) {
+    return `Welcome to the MySQL monitor.  Commands end with ; or \\g.
+Your MySQL connection id is ${Math.floor(Math.random() * 1000) + 100}
+Server version: 8.0.35-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Type 'help;' or '\\h' for help. Type '\\c' to clear the current input statement.
+
+mysql> `;
+}
+
+function handleRedisCli(args) {
+    return `127.0.0.1:6379> `;
+}
+
+function handleCeph(args) { return 'ceph ' + args.join(' ') + ': cluster is healthy\n    cluster:\n      id:     abc123-def456\n      health: HEALTH_OK\n\n  services:\n    mon: 3 daemons, quorum home-server,node-02,node-03\n    mgr: home-server(active)\n    osd: 12 osds: 12 up, 12 in'; }
+
+function handleIostat(args) {
+    return `Linux 5.15.0-91-generic (home-server)   07/25/2025      _x86_64_        (20 CPU)
+
+Device             tps    kB_read/s    kB_wrtn/s    kB_dscd/s    kB_read    kB_wrtn    kB_dscd
+nvme0n1          45.23      1234.56       987.65         0.00   45234567   38012345          0
+sda              12.34       567.89       234.56         0.00  20123456    8678901          0
+sdb               8.90       345.67       123.45         0.00  12456789    4567890          0
+sdc              35.67       890.12       456.78         0.00  32567890   16789012          0`;
+}
+
+function handleVmstat(args) {
+    return `procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 2  0 1258291 8598320 524288 11673600    0    0    45    89  456  789  5  2 92  1  0`;
+}
+
+function handleSar(args) {
+    return `Linux 5.15.0-91-generic (home-server)   07/25/2025      _x86_64_
+12:00:01 AM     CPU     %user     %nice   %system   %iowait    %steal     %idle
+12:10:01 AM     all      3.45      0.00      1.23      0.12      0.00     95.20
+12:20:01 AM     all      4.12      0.00      1.45      0.08      0.00     94.35
+Average:        all      3.78      0.00      1.34      0.10      0.00     94.78`;
+}
+
+function handlePerf(args) {
+    return `Performance counter stats for 'system wide':
+     12,345.67 msec cpu-clock         #    1.234 CPUs utilized
+         5,678      context-switches   #    0.460 K/sec
+           123      cpu-migrations     #    0.010 K/sec
+         4,567      page-faults        #    0.370 K/sec
+     3,456,789      cycles             #    0.280 GHz
+     2,345,678      instructions       #    0.68  insn per cycle
+       456,789      branches           #   37.012 M/sec`;
+
+    return out.trimEnd();
+}
+
+// Generic handler for all remaining DevOps commands
+function handleDevOpsGeneric(cmdName, args) {
+    const info = CMD[cmdName];
+    const cat = info ? info.cat : 'DevOps';
+    return `${cmdName}: ${info ? info.desc : 'DevOps tool'}
+Category: ${cat}
+Usage: ${info ? info.usage : cmdName + ' <subcommand>'}
+
+This is a ${cmdName} simulation. In a real environment, this would connect to
+the ${cmdName} service and execute the requested operation.
+
+Simulated output:
+  Status: OK
+  Version: $(date +%Y.%m.%d)-simulated`;
+}
+
+function handleServiceSim(cmdName, args, label) {
+    const suffix = label.includes('simulated') ? '' : ' simulated';
+    return cmdName + (args.length ? ' ' + args.join(' ') : '') + ': ' + label + suffix;
+}
+
+function handleIptables(args) {
+    if (args[0] === '-L' || args[0] === '--list') {
+        return handleFirewall(args);
+    }
+    return 'iptables ' + args.join(' ') + ': executed';
+}
+
+function handleCertbot(args) {
+    if (args[0] === 'certonly') {
+        return `Saving debug log to /var/log/letsencrypt/letsencrypt.log
+Account registered.
+Requesting a certificate for ${args[args.length - 1] || 'example.com'}
+Successfully received certificate.
+Certificate is saved at: /etc/letsencrypt/live/${args[args.length - 1] || 'example.com'}/fullchain.pem
+Key is saved at: /etc/letsencrypt/live/${args[args.length - 1] || 'example.com'}/privkey.pem`;
+    }
+    return 'certbot ' + args.join(' ') + ': executed';
+}
+
+function handleStress(args) {
+    return `stress: info: [${Math.floor(Math.random() * 9000) + 1000}] dispatching hogs: ${args.filter(a => !a.startsWith('-')).length || 2} cpu, 0 io, 0 vm, 0 hdd
+stress: info: [${Math.floor(Math.random() * 9000) + 1000}] successful run completed in 60s`;
+}
+
+function handleFio(args) {
+    return `fio-3.28
+Starting 1 process
+Jobs: 1 (f=1): [w(1)][100.0%][w=245MiB/s][w=62.7k IOPS][eta 00m:00s]
+Run status group 0 (all jobs):
+  WRITE: bw=245MiB/s (256MB/s), 62.7k IOPS-62.7k(IOPS)
+  lat (usec): min=3, max=452, avg=15.89, stdev=12.34`;
+}
+
+function handleFtpGeneric(args) { return 'ftp ' + args.join(' ') + ': executed'; }
+function handleSnap(args) { return 'snap ' + args.join(' ') + ': executed (simulated)'; }
+function handleFlatpak(args) { return 'flatpak ' + args.join(' ') + ': executed (simulated)'; }
+function handleTimeCmd(args) { const cmd = args.join(' '); return EXEC(cmd) + '\n\nreal\t0m' + (Math.random() * 3 + 0.1).toFixed(3) + 's\nuser\t0m0.001s\nsys\t0m0.002s'; }
+function handleYes(args) { return (args[0] || 'y').repeat(100); }
+function handleXargs(args) { return 'xargs ' + args.join(' ') + ': executed'; }
+function handleSource(args) { return 'source ' + args.join(' ') + ': executed'; }
+function handleExecCmd(args) { return 'exec ' + args.join(' ') + ': executed'; }
+function handleWhatis(args) { if (!args[0]) return 'whatis: missing operand'; const info = CMD[args[0]]; return args[0] + ' (' + (info ? '1' : '?') + ')  - ' + (info ? info.desc : 'Unknown command'); }
+function handleInfo(args) { return 'info: ' + (args[0] || 'command') + ' - documentation viewer (simulated)'; }
+function handleMore(args) {
+    if (!args[0]) {
+        if (pipeInput !== '') return pipeInput;
+        return 'more: missing operand';
+    }
+    return VFS.getFile(resolvePath(args[0])) || 'more: ' + args[0] + ': No such file';
+}
+function handleLess(args) { return handleMore(args) + '\n(END)'; }
+function handleNohup(args) { return 'nohup: ignoring input and appending output to \'nohup.out\''; }
+function handleBg(args) { return ''; }
+function handleFg(args) { return ''; }
+function handleJobs(args) { return ''; }
+function handleUmount(args) { return 'umount ' + (args[0] || 'device') + ': unmounted'; }
+function handleMkfs(args) { return 'mkfs: filesystem created on ' + (args[args.length - 1] || 'device'); }
+function handleFsck(args) { return 'fsck from util-linux 2.37.2\ne2fsck 1.46.5\n' + (args[args.length - 1] || 'device') + ': clean, 123456/123456 files, 456789/456789 blocks'; }
+function handleParted(args) { return 'parted ' + args.join(' ') + ': ' + (args[args.length - 1] || 'device') + ' partition table printed (simulated)'; }
+function handleDd(args) { return '512+0 records in\n512+0 records out\n268435456 bytes (268 MB, 256 MiB) copied, 2.34567 s, 114 MB/s'; }
+function handleUmask(args) { return '0022'; }
+function handleUseradd(args) { return 'useradd: user \'' + (args[0] || 'newuser') + '\' created'; }
+function handleUserdel(args) { return 'userdel: user \'' + (args[0] || 'user') + '\' removed'; }
+function handleUsermod(args) { return 'usermod: user \'' + (args[args.length - 1] || 'user') + '\' modified'; }
+function handlePasswd(args) { return 'Changing password for ' + (args[0] || user) + '.\nNew password:\nRetype new password:\npasswd: password updated successfully'; }
+function handleGroupadd(args) { return 'groupadd: group \'' + (args[0] || 'newgroup') + '\' created'; }
+function handleGroupdel(args) { return 'groupdel: group \'' + (args[0] || 'group') + '\' removed'; }
+function handlePatch(args) { return 'patching file ' + (args[args.length - 1] || 'file') + '\npatch applied successfully'; }
+function handleScpTransfer(args) { return 'scp ' + args.join(' ') + ': transfer simulated'; }
+function handleRsncGeneric(args) { return 'rsync ' + args.join(' ') + ': sync simulated'; }
+function handleSftpGeneric(args) { return 'sftp ' + args.join(' ') + ': connected'; }
+function handleFtpTrans(args) { return 'ftp ' + args.join(' ') + ': transfer simulated'; }
+function handleSshGen(args) { return 'ssh ' + args.join(' ') + ': connection simulated'; }
+function handleInit(args) { return 'init ' + args.join(' ') + ': SysV init command (simulated)'; }
+function stripComment(line) {
+    let inSingle = false, inDouble = false;
+    for (let i = 0; i < line.length; i++) {
+        const ch = line[i];
+        if (ch === "'" && !inDouble) inSingle = !inSingle;
+        else if (ch === '"' && !inSingle) inDouble = !inDouble;
+        else if (ch === '#' && !inSingle && !inDouble) return line.slice(0, i);
+    }
+    return line;
+}
+function unquoteStr(s) {
+    const t = String(s).trim();
+    if (t.length >= 2 && ((t[0] === '"' && t[t.length - 1] === '"') || (t[0] === "'" && t[t.length - 1] === "'"))) return t.slice(1, -1);
+    return t;
+}
+function runScript(content) {
+    const out = [];
+    for (const raw of String(content).split('\n')) {
+        const line = stripComment(raw).trim();
+        if (!line) continue;
+        const am = line.match(/^([A-Za-z_][A-Za-z0-9_]*)=(.*)$/);
+        if (am) {
+            envVars[am[1]] = unquoteStr(am[2]);
+            lastExitCode = 0;
+            continue;
+        }
+        for (const part of splitOutsideQuotes(line, ';')) {
+            const p = part.trim();
+            if (!p) continue;
+            const r = EXEC(p);
+            if (r && r.trim()) out.push(r);
+        }
+    }
+    return out.join('\n');
+}
+function handleBashCmd(args) {
+    if (args.length === 0) { inBash = true; return ''; }
+    const path = resolvePath(args[0]);
+    const content = VFS.getFile(path);
+    if (content === null) return 'bash: ' + args[0] + ': No such file or directory';
+    return runScript(content);
+}
+function handleExitCmd() { if (inBash) { inBash = false; sudoMode = false; isRoot = false; return ''; } if (sudoMode) { sudoMode = false; isRoot = false; return ''; } return 'exit'; }
+
+
+function handleSudo(args) {
+    sudoMode = true;
+    isRoot = true;
+    const subCmd = args.join(' ');
+    if (subCmd === 'bash') {
+        inBash = true;
+        return '# Now running as root. Type "exit" to return.';
+    }
+    const result = EXEC(subCmd);
+    // Don't reset root state for bash - it needs to persist
+    if (subCmd !== 'bash') {
+        sudoMode = false;
+        isRoot = false;
+    }
+    return result;
+}
+
+
+function handleSu(args) {
+    const targetUser = args[0] || 'root';
+    if (targetUser === 'root') {
+        isRoot = true;
+        return '# Switched to root user. Type "exit" to return.';
+    }
+    user = targetUser;
+    envVars.USER = targetUser;
+    envVars.HOME = '/home/' + targetUser;
+    return '# Switched to ' + targetUser + '. Type "exit" to return.';
+}
+
+
+let viMode = 'NORMAL';
+let viFile = '';
+let viOriginal = '';
+let viSearchTerm = '';
+let viYankBuffer = '';
+let viPendingD = false;
+let viHintTimer = null;
+
+function openViEditor(filePath) {
+    viFile = filePath;
+    const content = VFS.getFile(filePath);
+    viOriginal = content !== null ? content : '';
+    viMode = 'NORMAL';
+
+    const overlay = document.getElementById('vi-overlay');
+    const textarea = document.getElementById('vi-textarea');
+    const titleSpan = overlay.querySelector('#vi-titlebar span');
+    const modeSpan = document.getElementById('vi-mode');
+    const posSpan = document.getElementById('vi-pos');
+    const cmdInput = document.getElementById('vi-cmd-input');
+
+    titleSpan.textContent = 'vi: ' + filePath;
+    textarea.value = viOriginal;
+    modeSpan.textContent = '-- NORMAL --';
+    posSpan.textContent = getViPos();
+    cmdInput.value = '';
+    cmdInput.style.display = 'none';
+
+    overlay.classList.add('active');
+    textarea.focus();
+    setTimeout(() => { textarea.focus(); }, 0);
+}
+
+function closeViEditor(save) {
+    if (save) {
+        if (!canWrite(viFile)) {
+            document.getElementById('vi-mode').textContent = '-- NORMAL -- | Permission denied (use sudo)';
+            return;
+        }
+        const textarea = document.getElementById('vi-textarea');
+        VFS.writeFile(viFile, textarea.value);
+    }
+    document.getElementById('vi-overlay').classList.remove('active');
+    viMode = 'NORMAL';
+    viFile = '';
+}
+
+function getViPos() {
+    const textarea = document.getElementById('vi-textarea');
+    const val = textarea.value;
+    const pos = textarea.selectionStart;
+    let line = 0, col = 0, cur = 0;
+    for (let i = 0; i < pos; i++) {
+        if (val[i] === '\n') { line++; col = 0; cur = i + 1; }
+        else col++;
+    }
+    const totalLines = val.split('\n').length;
+    return '行' + (line + 1) + '/' + totalLines + '  列' + (col + 1);
+}
+
+function viKeyHandler(e) {
+    if (!document.getElementById('vi-overlay').classList.contains('active')) return;
+
+    const textarea = document.getElementById('vi-textarea');
+    const modeSpan = document.getElementById('vi-mode');
+    const posSpan = document.getElementById('vi-pos');
+    const cmdInput = document.getElementById('vi-cmd-input');
+
+    if (viMode === 'COMMAND') {
+        if (e.key === 'Enter') {
+            const cmd = cmdInput.value.trim();
+            cmdInput.value = '';
+            cmdInput.style.display = 'none';
+            viMode = 'NORMAL';
+            modeSpan.textContent = '-- NORMAL --';
+
+if (cmd === 'w') closeViEditor(true);
+            else if (cmd === 'q') closeViEditor(false);
+            else if (cmd === 'wq' || cmd === 'x' || cmd === 'wq!') closeViEditor(true);
+            else if (cmd === 'q!') closeViEditor(false);
+            else if (cmd.startsWith('/')) {
+                viSearchTerm = cmd.slice(1);
+                modeSpan.textContent = '-- NORMAL -- (search: ' + viSearchTerm + ')';
+            }
+            else modeSpan.textContent = '-- NORMAL --';
+        } else if (e.key === 'Escape') {
+            cmdInput.value = '';
+            cmdInput.style.display = 'none';
+            viMode = 'NORMAL';
+            modeSpan.textContent = '-- NORMAL --';
+        }
+        posSpan.textContent = getViPos();
+        return;
+    }
+
+    if (viMode === 'INSERT') {
+        if (e.key === 'Escape') {
+            viMode = 'NORMAL';
+            modeSpan.textContent = '-- NORMAL --';
+            e.preventDefault();
+        }
+        setTimeout(() => { posSpan.textContent = getViPos(); }, 0);
+        return;
+    }
+
+    // NORMAL mode
+    const key = e.key;
+    if (key !== 'd') viPendingD = false;
+    const handledKeys = ['i','a','I','A','o','O','h','l','j','k','0','$','w','b','d','u','y','p',':','/','Z','Escape','g','G','Enter'];
+    const isPrintable = key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey;
+    if (handledKeys.includes(key) || isPrintable) e.preventDefault();
+    if (isPrintable && !handledKeys.includes(key)) {
+        if (viHintTimer) clearTimeout(viHintTimer);
+        modeSpan.textContent = '-- NORMAL -- | 按 i 进入插入模式 / press i to insert';
+        viHintTimer = setTimeout(() => { modeSpan.textContent = '-- NORMAL --'; viHintTimer = null; }, 1500);
+    }
+
+    switch (key) {
+        case 'i':
+            viMode = 'INSERT';
+            modeSpan.textContent = '-- INSERT --';
+            break;
+        case 'a':
+            viMode = 'INSERT';
+            modeSpan.textContent = '-- INSERT --';
+            textarea.selectionStart = textarea.selectionStart + 1;
+            textarea.selectionEnd = textarea.selectionStart;
+            break;
+        case 'I':
+            viMode = 'INSERT';
+            modeSpan.textContent = '-- INSERT --';
+            textarea.selectionStart = textarea.value.lastIndexOf('\n', textarea.selectionStart - 1) + 1;
+            textarea.selectionEnd = textarea.selectionStart;
+            break;
+        case 'A':
+            viMode = 'INSERT';
+            modeSpan.textContent = '-- INSERT --';
+            const lineEnd = textarea.value.indexOf('\n', textarea.selectionStart);
+            textarea.selectionStart = lineEnd === -1 ? textarea.value.length : lineEnd;
+            textarea.selectionEnd = textarea.selectionStart;
+            break;
+        case 'o':
+            viMode = 'INSERT';
+            modeSpan.textContent = '-- INSERT --';
+            textarea.value = textarea.value.slice(0, textarea.selectionStart) + '\n' + textarea.value.slice(textarea.selectionStart);
+            textarea.selectionStart = textarea.selectionStart + 1;
+            textarea.selectionEnd = textarea.selectionStart;
+            break;
+        case 'O':
+            viMode = 'INSERT';
+            modeSpan.textContent = '-- INSERT --';
+            const prevLine = textarea.value.lastIndexOf('\n', textarea.selectionStart - 1);
+            const insertPos = prevLine === -1 ? 0 : prevLine + 1;
+            textarea.value = textarea.value.slice(0, insertPos) + '\n' + textarea.value.slice(insertPos);
+            textarea.selectionStart = insertPos + 1;
+            textarea.selectionEnd = textarea.selectionStart;
+            break;
+        case 'h':
+            if (textarea.selectionStart > 0) textarea.selectionStart--;
+            textarea.selectionEnd = textarea.selectionStart;
+            break;
+        case 'l':
+            if (textarea.selectionStart < textarea.value.length) textarea.selectionStart++;
+            textarea.selectionEnd = textarea.selectionStart;
+            break;
+        case 'j': {
+            const curPos = textarea.selectionStart;
+            const curLineStart = textarea.value.lastIndexOf('\n', curPos - 1) + 1;
+            const nextLineStart = textarea.value.indexOf('\n', curPos);
+            if (nextLineStart !== -1) {
+                const colOffset = curPos - curLineStart;
+                const nextLineEnd = textarea.value.indexOf('\n', nextLineStart + 1);
+                const nextLineLen = (nextLineEnd === -1 ? textarea.value.length : nextLineEnd) - nextLineStart - 1;
+                textarea.selectionStart = nextLineStart + 1 + Math.min(colOffset, nextLineLen);
+                textarea.selectionEnd = textarea.selectionStart;
+            }
+            break;
+        }
+        case 'k': {
+            const curPos2 = textarea.selectionStart;
+            const curLineStart2 = textarea.value.lastIndexOf('\n', curPos2 - 1) + 1;
+            const colOffset2 = curPos2 - curLineStart2;
+            const prevLineEnd = Math.max(0, curLineStart2 - 1);
+            const prevLineStart = textarea.value.lastIndexOf('\n', prevLineEnd - 1) + 1;
+            const prevLineLen = prevLineEnd - prevLineStart;
+            textarea.selectionStart = prevLineStart + Math.min(colOffset2, prevLineLen);
+            textarea.selectionEnd = textarea.selectionStart;
+            break;
+        }
+        case '0':
+            textarea.selectionStart = textarea.value.lastIndexOf('\n', textarea.selectionStart - 1) + 1;
+            textarea.selectionEnd = textarea.selectionStart;
+            break;
+        case '$':
+            const eol = textarea.value.indexOf('\n', textarea.selectionStart);
+            textarea.selectionStart = eol === -1 ? textarea.value.length : eol;
+            textarea.selectionEnd = textarea.selectionStart;
+            break;
+        case 'g':
+            if (e.shiftKey) {
+                textarea.selectionStart = 0;
+                textarea.selectionEnd = 0;
+            }
+            break;
+        case 'G':
+            if (e.shiftKey) {
+                textarea.selectionStart = textarea.value.length;
+                textarea.selectionEnd = textarea.selectionStart;
+            }
+            break;
+        case 'w':
+        case 'b': {
+            const text = textarea.value;
+            let pos = textarea.selectionStart;
+            if (key === 'w') {
+                while (pos < text.length && text[pos] !== ' ' && text[pos] !== '\n') pos++;
+                while (pos < text.length && (text[pos] === ' ' || text[pos] === '\n')) pos++;
+            } else {
+                pos--;
+                while (pos > 0 && (text[pos] === ' ' || text[pos] === '\n')) pos--;
+                while (pos > 0 && text[pos - 1] !== ' ' && text[pos - 1] !== '\n') pos--;
+            }
+            textarea.selectionStart = Math.max(0, Math.min(text.length, pos));
+            textarea.selectionEnd = textarea.selectionStart;
+            break;
+        }
+        case 'd':
+            if (viPendingD) {
+                const lineStart = textarea.value.lastIndexOf('\n', textarea.selectionStart - 1) + 1;
+                const lineEnd = textarea.value.indexOf('\n', textarea.selectionStart);
+                let delStart = lineStart;
+                let delEnd = lineEnd === -1 ? textarea.value.length : lineEnd + 1;
+                if (lineEnd === -1 && delStart > 0) delStart--; // last line: also remove the newline above it
+                textarea.value = textarea.value.slice(0, delStart) + textarea.value.slice(delEnd);
+                textarea.selectionStart = Math.min(delStart, textarea.value.length);
+                textarea.selectionEnd = textarea.selectionStart;
+                viPendingD = false;
+                modeSpan.textContent = '-- NORMAL -- (line deleted)';
+            } else {
+                viPendingD = true;
+                modeSpan.textContent = '-- NORMAL -- (dd)';
+            }
+            break;
+        case 'u':
+            textarea.value = viOriginal;
+            modeSpan.textContent = '-- NORMAL -- (undo)';
+            break;
+        case 'y':
+            if (e.key === 'y') {
+                const lineStart = textarea.value.lastIndexOf('\n', textarea.selectionStart - 1) + 1;
+                const lineEnd = textarea.value.indexOf('\n', textarea.selectionStart);
+                viYankBuffer = textarea.value.slice(lineStart, lineEnd === -1 ? textarea.value.length : lineEnd);
+                modeSpan.textContent = '-- NORMAL -- (yanked)';
+            }
+            break;
+        case 'p':
+            if (viYankBuffer) {
+                const insertAt = textarea.value.indexOf('\n', textarea.selectionStart);
+                const insPos = insertAt === -1 ? textarea.value.length : insertAt + 1;
+                textarea.value = textarea.value.slice(0, insPos) + viYankBuffer + '\n' + textarea.value.slice(insPos);
+                textarea.selectionStart = insPos + viYankBuffer.length + 1;
+                textarea.selectionEnd = textarea.selectionStart;
+            }
+            break;
+        case ':':
+            viMode = 'COMMAND';
+            modeSpan.textContent = '-- COMMAND --';
+            cmdInput.style.display = 'block';
+            cmdInput.value = '';
+            cmdInput.focus();
+            break;
+        case '/':
+            viMode = 'COMMAND';
+            modeSpan.textContent = '-- COMMAND --';
+            cmdInput.style.display = 'block';
+            cmdInput.value = '/';
+            cmdInput.focus();
+            cmdInput.selectionStart = 1;
+            break;
+        case 'Z':
+            if (e.key === 'Z') {
+                closeViEditor(true);
+            }
+            break;
+        case 'Escape':
+            modeSpan.textContent = '-- NORMAL --';
+            cmdInput.style.display = 'none';
+            break;
+    }
+    posSpan.textContent = getViPos();
+}
+
+
+
+function handleTac(args) {
+    let content;
+    if (args[0]) {
+        const path = resolvePath(args[0]);
+        content = VFS.getFile(path);
+        if (content === null) return 'tac: ' + args[0] + ': No such file or directory';
+    } else if (pipeInput !== '') {
+        content = pipeInput;
+    } else {
+        return 'tac: missing file operand';
+    }
+    return content.split('\n').reverse().join('\n');
+}
+function handleOd(args) {
+    if (!args[0]) return 'od: missing file operand';
+    const path = resolvePath(args[0]);
+    const content = VFS.getFile(path);
+    if (content === null) return 'od: ' + args[0] + ': No such file or directory';
+    let out = '0000000';
+    for (let i = 0; i < Math.min(content.length, 32); i++) {
+        if (i % 16 === 0 && i > 0) out += '\n' + i.toString(8).padStart(7, '0');
+        out += ' ' + content.charCodeAt(i).toString(8).padStart(3, '0');
+    }
+    out += '\n' + content.length.toString(8).padStart(7, '0');
+    return out;
+}
+function handleHexdump(args) {
+    if (!args[0]) return 'hexdump: missing file operand';
+    const path = resolvePath(args[0]);
+    const content = VFS.getFile(path);
+    if (content === null) return 'hexdump: ' + args[0] + ': No such file';
+    let out = '';
+    for (let i = 0; i < Math.min(content.length, 48); i += 16) {
+        out += i.toString(16).padStart(8, '0') + '  ';
+        let hex = '', ascii = '';
+        for (let j = 0; j < 16 && i + j < content.length; j++) {
+            const c = content.charCodeAt(i + j);
+            hex += c.toString(16).padStart(2, '0') + ' ';
+            ascii += (c >= 32 && c < 127) ? content[i + j] : '.';
+        }
+        out += hex.padEnd(48) + ' |' + ascii + '|\n';
+    }
+    return out.trimEnd();
+}
+function handleBzip2(args) { return 'Compressed: ' + (args[0] || 'file') + '.bz2'; }
+function handleBunzip2(args) { return 'Decompressed: ' + (args[0] || 'file.bz2'); }
+function handleXz(args) { return 'Compressed: ' + (args[0] || 'file') + '.xz'; }
+function handleUnxz(args) { return 'Decompressed: ' + (args[0] || 'file.xz'); }
+function handleLz4(args) { return 'Compressed: ' + (args[0] || 'file') + '.lz4'; }
+function handleLsmod() {
+    return `Module                  Size  Used by
+nvme                   49152  0
+igc                    28672  0
+iwlwifi               307200  1 iwlmvm
+iwlmvm                372736  1 iwlwifi
+mac80211              942080  1 iwlmvm
+cfg80211              888832  3 iwlmvm,iwlwifi,mac80211
+nvidia_drm             69632  0
+nvidia_modeset       1228800  1 nvidia_drm
+nvidia              55459840  2 nvidia_modeset,nvidia_drm
+drm_kms_helper        266240  1 nvidia_drm
+ext4                  884736  3
+xfs                  1536000  1`;
+}
+function handleModprobe(args) {
+    const m = args[0] || 'dummy';
+    return args.includes('-r') ? 'Removed module: ' + m : 'Loaded module: ' + m;
+}
+function handleModinfo(args) {
+    const m = args[0] || 'ext4';
+    return `filename:       /lib/modules/5.15.0-91-generic/kernel/fs/${m}/${m}.ko
+license:        GPL
+description:    ${m} kernel module
+author:         Linux Kernel Developers
+depends:        mbcache,jbd2
+intree:         Y
+name:           ${m}
+vermagic:       5.15.0-91-generic SMP mod_unload modversions`;
+}
+function handleSysctl(args) {
+    if (args.includes('-a')) {
+        return `kernel.hostname = home-server
+kernel.domainname = lan
+kernel.osrelease = 5.15.0-91-generic
+kernel.ostype = Linux
+kernel.version = #101-Ubuntu SMP Tue Nov 14 13:30:08 UTC 2023
+net.ipv4.ip_forward = 1
+net.ipv4.tcp_syncookies = 1
+fs.file-max = 9223372036854775807
+vm.swappiness = 60
+(use sysctl <key> to view specific value)`;
+    }
+    const keys = {'kernel.hostname':'home-server','vm.swappiness':'60','net.ipv4.ip_forward':'1'};
+    if (args[0] in keys) return keys[args[0]];
+    return 'sysctl: showing all settings (use -a)';
+}
+function handleLosetup(args) {
+    if (args.includes('-l')) return 'NAME       SIZELIMIT OFFSET AUTOCLEAR RO BACK-FILE\n(no loop devices)';
+    return 'losetup: ' + args.join(' ') + ' executed';
+}
+function handleSwapon(args) { return 'swapon: enabled swap on ' + (args[0] || '/swapfile'); }
+function handleSwapoff(args) { return 'swapoff: disabled swap on ' + (args[0] || '/swapfile'); }
+function handleLsattr(args) {
+    if (!args[0]) return 'lsattr: missing file operand';
+    return '--------------e------- ' + args[0];
+}
+function handleChattr(args) {
+    if (args.length < 2) return 'chattr: missing operand';
+    return 'Changed attributes of ' + args[args.length - 1] + ' (' + args[0] + ')';
+}
+function handleHost(args) {
+    if (!args[0]) return 'host: missing domain';
+    return args[0] + ' has address 93.184.216.34\n' + args[0] + ' has IPv6 address 2606:2800:220:1:248:1893:25c8:1946';
+}
+function handleWhois(args) {
+    if (!args[0]) return 'whois: missing domain';
+    return `Domain Name: ${args[0].toUpperCase()}
+Registry Domain ID: 1234567890_DOMAIN_COM
+Registrar: Example Registrar, Inc.
+Creation Date: 2020-01-15T00:00:00Z
+Updated Date: 2025-06-01T00:00:00Z
+Name Server: NS1.EXAMPLE.COM
+Name Server: NS2.EXAMPLE.COM
+DNSSEC: unsigned`;
+}
+function handleMtr(args) {
+    return 'HOST: home-server                     Loss%   Snt   Last   Avg  Best  Wrst StDev\n' +
+           '  1.|-- 192.168.1.1                   0.0%    10    0.3   0.4   0.2   0.8   0.2\n' +
+           '  2.|-- 10.0.0.1                      0.0%    10    5.2   5.4   5.0   6.1   0.3\n' +
+           '  3.|-- 8.8.8.8                       0.0%    10   18.9  19.1  18.5  20.2   0.5';
+}
+function handleSocat(args) { return 'socat ' + args.join(' ') + ': connection established'; }
+function handleTelnet(args) {
+    if (!args[0]) return 'telnet: missing hostname';
+    return `Trying ${args[0]}...
+Connected to ${args[0]}.
+Escape character is '^]'.
+Connection closed by foreign host.`;
+}
+function handleNmcli(args) {
+    if (args[0] === 'd' || args[0] === 'dev') return 'DEVICE  TYPE      STATE      CONNECTION\nenp3s0  ethernet  connected  Wired connection 1\nwlp5s0  wifi      connected  Home Wi-Fi\nlo      loopback  unmanaged  --';
+    if (args[0] === 'con') return 'NAME                UUID                                  TYPE      DEVICE\nWired connection 1  abc123-def456  ethernet  enp3s0\nHome Wi-Fi          def456-abc789  wifi      wlp5s0';
+    return 'nmcli: NetworkManager tool\nUsage: nmcli [d|con|dev|radio]';
+}
+function handleIwconfig(args) { return 'wlp5s0    IEEE 802.11  ESSID:"Home Wi-Fi"\n          Mode:Managed  Frequency:5.18 GHz  Access Point: AA:BB:CC:DD:EE:FF\n          Bit Rate=866.7 Mb/s   Tx-Power=22 dBm\n          Retry short limit:7   RTS thr:off   Fragment thr:off\n          Link Quality=58/70  Signal level=-52 dBm\n          Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0'; }
+function handleRfkill(args) {
+    if (args[0] === 'list') return 'ID TYPE      DEVICE      SOFT      HARD\n 0 wlan      phy0        unblocked unblocked\n 1 bluetooth hci0        unblocked unblocked';
+    return 'rfkill ' + args.join(' ') + ': executed';
+}
+function handleLast(args) {
+    return `user     pts/0        192.168.1.50     Thu Jul 25 09:00   still logged in
+root     pts/1        192.168.1.55     Thu Jul 25 09:30   still logged in
+user     pts/0        192.168.1.50     Wed Jul 23 14:15 - 18:30  (04:15)
+reboot   system boot  5.15.0-91-gen   Mon Jul 21 00:00   still running
+user     pts/0        192.168.1.50     Sun Jul 20 10:00 - 17:00  (07:00)`;
+}
+function handleWcmd(args) {
+    return ' 10:00:00 up 4 days,  1:00,  2 users,  load average: 0.52, 0.38, 0.29\n' +
+           'USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT\n' +
+           'user     pts/0    192.168.1.50     09:00   0.00s  0.05s  0.00s w\n' +
+           'root     pts/1    192.168.1.55     09:30   5:00   1.23s  0.00s python3';
+}
+function handleNice(args) {
+    const prio = parseInt(args[0]) || 10;
+    return 'Running ' + (args.slice(1).join(' ') || 'command') + ' with priority ' + prio;
+}
+function handleRenice(args) { return 'renice: priority of ' + (args[1] || 'PID') + ' changed to ' + (args[0] || '0'); }
+function handlePidof(args) {
+    if (!args[0]) return 'pidof: missing program name';
+    const hw = window.SIM_HW;
+    const procs = hw.processes.filter(p => p.command.includes(args[0]));
+    return procs.length > 0 ? procs.map(p => p.pid).join(' ') : '';
+}
+function handleStrace(args) { return 'strace: Process attached\n...\nwrite(1, "hello", 5) = 5\nexit_group(0) = ?\n+++ exited with 0 +++'; }
+function handleLtrace(args) { return 'ltrace: Process attached\nlibc.so.6->printf("hello") = 5\nlibc.so.6->exit(0)\n+++ exited with 0 +++'; }
+function handleUlimit(args) {
+    if (args.includes('-a')) return `core file size          (blocks, -c) 0
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 38324
+max locked memory       (kbytes, -l) 65536
+max memory size         (kbytes, -m) unlimited
+open files                      (-n) 1024
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) 8192
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 38324
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited`;
+    return 'ulimit: ' + args.join(' ') + ' set';
+}
+function handleShopt(args) {
+    return `autocd          off
+cdable_vars     off
+cdspell         off
+checkhash       off
+checkjobs       off
+checkwinsize    on
+cmdhist         on
+compat31        off
+dotglob         off
+execfail        off
+expand_aliases  on
+extglob         off
+globstar        off
+histappend      on
+hostcomplete    on`;
+}
+function handlePopd(args) {
+    if (cwd !== '/root') {
+        cwd = '/root';
+        envVars.PWD = cwd;
+        return '/root';
+    }
+    return 'popd: directory stack empty';
+}
+function handlePushd(args) {
+    if (!args[0]) return 'pushd: missing argument';
+    const newPath = resolvePath(args[0]);
+    const old = cwd;
+    cwd = newPath;
+    envVars.PWD = cwd;
+    return newPath + ' ' + old;
+}
+function handleDirs(args) { return cwd + ' /root'; }
+function handleDisown(args) { return ''; }
+function handlePaste(args) {
+    if (args.length < 2) return 'paste: missing file operand';
+    const f1 = (VFS.getFile(resolvePath(args[0])) || '').split('\n');
+    const f2 = (VFS.getFile(resolvePath(args[1])) || '').split('\n');
+    const n = Math.max(f1.length, f2.length);
+    let out = '';
+    for (let i = 0; i < n; i++) out += (f1[i] || '') + '\t' + (f2[i] || '') + '\n';
+    return out.trimEnd();
+}
+function handleJoin(args) {
+    if (args.length < 2) return 'join: missing file operand';
+    return '(join simulation)\n' + args[0] + ' + ' + args[1] + ' merged by first field';
+}
+function handleComm(args) {
+    if (args.length < 2) return 'comm: missing file operand';
+    return '(comm simulation)\nLines unique to ' + args[0] + ': 3\nLines unique to ' + args[1] + ': 2\nCommon lines: 5';
+}
+function handleSplit(args) {
+    if (!args[args.length - 1]) return 'split: missing file operand';
+    return 'Splitting ' + args[args.length - 1] + ' into xaa, xab, xac...';
+}
+function handleFmt(args) {
+    if (!args[0]) return 'fmt: missing file operand';
+    return '(fmt simulation) File ' + args[0] + ' formatted to 72 columns';
+}
+function handlePr(args) { return args[0] ? 'File ' + args[0] + ' formatted for printing' : 'pr: missing file'; }
+function handleExpand(args) { return args[0] ? 'Tabs expanded in ' + args[0] : 'expand: missing file'; }
+function handleUnexpand(args) { return args[0] ? 'Spaces converted to tabs in ' + args[0] : 'unexpand: missing file'; }
+function handleNeofetch() {
+    return `            .-/+oossssoo+/-.               user@home-server
+        -:+ssssssssssssssssss+:-           ----------------
+      -+ssssssssssssssssssyyssss+-         OS: Ubuntu 22.04.3 LTS x86_64
+    .ossssssssssssssssssdMMMNysssso.       Host: MSI MAG Z690-A PRO WIFI DDR4
+   /ssssssssssshdmmNNmmyNMMMMhssssss/      Kernel: 5.15.0-91-generic
+  +ssssssssshmydMMMMMMMNddddyssssssss+     Uptime: 4 days, 1 hour
+ /sssssssshNMMMyhhyyyyhmNMMMNhssssssss/    Packages: 1852 (dpkg)
+.ssssssssdMMMNhsssssssssshNMMMdssssssss.   Shell: bash 5.1.16
++sssshhhyNMMNyssssssssssssyNMMMysssssss+   CPU: Intel i7-12700K (20) @ 5.0GHz
+ossyNMMMNyMMhsssssssssssssshmmmhssssssso   GPU: NVIDIA GeForce RTX 3060
+ossyNMMMNyMMhsssssssssssssshmmmhssssssso   Memory: 18.5GiB / 40GiB
++sssshhhyNMMNyssssssssssssyNMMMysssssss+   Disk: / 45% (42G/100G)
+.ssssssssdMMMNhsssssssssshNMMMdssssssss.
+ /sssssssshNMMMyhhyyyyhmNMMMNhssssssss/
+  +ssssssssshmydMMMMMMMNddddyssssssss+
+   /ssssssssssshdmmNNmmyNMMMMhssssss/
+    .ossssssssssssssssssdMMMNysssso.
+      -+sssssssssssssssssyyyssss+-
+        -:+ssssssssssssssssss+:-
+            .-/+oossssoo+/-.`;
+}
+function handleInxi(args) { return 'CPU: 12-core Intel Core i7-12700K (-MT MCP-) speed: 3600 MHz\nKernel: 5.15.0-91-generic x86_64 Up: 4d\nMem: 18.5/40.0 GiB (46.3%) Storage: 6.84 TiB\nProcs: 245 Shell: bash inxi: 3.3.13'; }
+function handleSudoedit(args) {
+    const fp = resolvePath(args[0] || '/root/README.txt');
+    setTimeout(() => openViEditor(fp), 10);
+    return 'Opening sudoedit for: ' + (args[0] || '/root/README.txt');
+}
+function handleVisudo(args) { return '# visudo: editing /etc/sudoers\nDefaults        env_reset\n%sudo   ALL=(ALL:ALL) ALL\n## (simulated)'; }
+function handleBc(args) {
+    return 'bc 1.07.1\nCopyright 1991-1994, 1997, 1998, 2000, 2004, 2006, 2008, 2012-2017 Free Software Foundation, Inc.\nThis is free software with ABSOLUTELY NO WARRANTY.\nFor details type \'warranty\'.';
+}
+function handleCal(args) {
+    const m = parseInt(args[0]) || 7;
+    const y = parseInt(args[1]) || 2025;
+    return `     July 2025
+Su Mo Tu We Th Fr Sa
+       1  2  3  4  5
+ 6  7  8  9 10 11 12
+13 14 15 16 17 18 19
+20 21 22 23 24 25 26
+27 28 29 30 31`;
+}
+function handleSeq(args) { const a=parseInt(args[0])||1,b=parseInt(args[1])||(args[1]?a:parseInt(args[0])||10);let out='';for(let i=(args[1]?a:1);i<=(args[1]?b:a);i++)out+=i+' ';return out.trim();}
+function handleShuf(args) {
+    if (!args[0]) return 'shuf: missing file operand';
+    const content = VFS.getFile(resolvePath(args[0]));
+    if (content === null) return 'shuf: ' + args[0] + ': No such file';
+    const lines = content.split('\n');
+    for (let i = lines.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [lines[i], lines[j]] = [lines[j], lines[i]]; }
+    return lines.join('\n');
+}
+function handleFactor(args) {
+    if (!args[0]) return 'factor: missing operand';
+    const n = parseInt(args[0]) || 42;
+    const factors = []; let x = n;
+    for (let d = 2; d * d <= x; d++) { while (x % d === 0) { factors.push(d); x /= d; } }
+    if (x > 1) factors.push(x);
+    return n + ': ' + factors.join(' ');
+}
+function handleNumfmt(args) { return 'numfmt: ' + args.join(' ') + ' = formatted output'; }
+function handleLogger(args) { return 'Logger: "' + args.join(' ') + '" written to /var/log/syslog'; }
+function handleMan(args) {
+    if (!args[0]) return 'What manual page do you want?';
+    return args[0].toUpperCase() + '(1)                User Commands                ' + args[0].toUpperCase() + '(1)\n\nNAME\n       ' + args[0] + ' - ' + (CMD[args[0]] ? CMD[args[0]].desc : 'command') + '\n\nSYNOPSIS\n       ' + (CMD[args[0]] ? CMD[args[0]].usage : args[0]) + '\n\nDESCRIPTION\n       Manual page ' + args[0] + '(1) line 1 (press h for help or q to quit)\n\nSEE ALSO\n       help(1), info(1)\n\nManual page ' + args[0] + '(1)';
+}
+function handleApropos(args) {
+    if (!args[0]) return 'apropos what?';
+    const kw = args[0].toLowerCase();
+    const matches = Object.entries(CMD).filter(([n, i]) => n.includes(kw) || i.desc.includes(kw));
+    if (matches.length === 0) return args[0] + ': nothing appropriate.';
+    return matches.map(([n, i]) => n + ' (' + Object.keys(CMD).indexOf(n) + ') - ' + i.desc).join('\n');
+}
+function handleTimedatectl(args) {
+    if (args[0] === 'status' || !args[0]) {
+        return `               Local time: Thu 2025-07-25 10:00:00 CST
+           Universal time: Thu 2025-07-25 02:00:00 UTC
+                 RTC time: Thu 2025-07-25 02:00:00
+                Time zone: Asia/Shanghai (CST, +0800)
+System clock synchronized: yes
+              NTP service: active
+          RTC in local TZ: no`;
+    }
+    if (args[0] === 'set-timezone') return 'Timezone set to ' + (args[1] || 'Asia/Shanghai');
+    return 'timedatectl ' + args.join(' ') + ': executed';
+}
+function handleHostnamectl(args) {
+    if (args[0] === 'status' || !args[0]) {
+        return `   Static hostname: home-server
+         Icon name: computer-desktop
+           Chassis: desktop
+        Machine ID: a1b2c3d4e5f6
+           Boot ID: f6e5d4c3b2a1
+  Operating System: Ubuntu 22.04.3 LTS
+            Kernel: Linux 5.15.0-91-generic
+      Architecture: x86-64`;
+    }
+    return 'hostnamectl ' + args.join(' ') + ': executed';
+}
+function handleAt(args) { return 'at: job ' + (Math.floor(Math.random() * 100) + 1) + ' scheduled for ' + (args.join(' ') || 'now'); }
+function handleBatch(args) { return 'batch: job queued for idle system'; }
+function handleLdd(args) {
+    if (!args[0]) return 'ldd: missing file operand';
+    return '\tlinux-vdso.so.1 (0x00007ffd12340000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f1234000000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007f1234600000)';
+}
+function handleLdconfig(args) {
+    if (args.includes('-p')) return 'libc.so.6 (libc6,x86-64) => /lib/x86_64-linux-gnu/libc.so.6\nlibm.so.6 (libc6,x86-64) => /lib/x86_64-linux-gnu/libm.so.6\nlibpthread.so.0 (libc6) => /lib/x86_64-linux-gnu/libpthread.so.0\n... 851 total entries';
+    return 'ldconfig: libraries updated';
+}
+function handlePerl(args) { return 'Perl v5.34.0: ' + (args[0] ? 'Executed ' + args[0] : 'Interactive mode'); }
+function handleRuby(args) { return 'Ruby 3.0.2p107: ' + (args[0] ? 'Executed ' + args[0] : 'Interactive mode'); }
+function handlePhp(args) { return 'PHP 8.1.2: ' + (args[0] ? 'Executed ' + args[0] : 'Interactive mode'); }
+function handleGoCmd(args) {
+    if (args[0] === 'run') return 'go: running ' + (args[1] || 'main.go') + '\nHello from Go!';
+    if (args[0] === 'build') return 'go: building ' + (args[1] || 'main') + '\nBuild complete.';
+    return 'go: ' + args.join(' ') + ' executed';
+}
+function handleCargo(args) {
+    if (args[0] === 'build') return '   Compiling project v0.1.0\n    Finished dev [unoptimized + debuginfo] target(s) in 2.34s';
+    if (args[0] === 'run') return '    Finished dev [unoptimized] in 0.01s\n     Running `target/debug/project`\nHello, world!';
+    return 'cargo ' + args.join(' ') + ': executed';
+}
+function handleCmake(args) {
+    return '-- The C compiler identification is GNU 11.4.0\n-- Detecting C compiler ABI info - done\n-- Configuring done (0.5s)\n-- Generating done (0.1s)\n-- Build files have been written to: /home/user/build';
+}
+function handleArp(args) {
+    if (args.includes('-a')) return 'Address                  HWtype  HWaddress           Flags Mask            Iface\n192.168.1.1              ether   AA:BB:CC:DD:EE:01   C                     enp3s0\n192.168.1.50             ether   AA:BB:CC:DD:EE:02   C                     enp3s0';
+    return 'arp ' + args.join(' ') + ': executed';
+}
+function handleArping(args) {
+    if (!args[0]) return 'arping: missing host';
+    return 'ARPING ' + args[0] + ' from 192.168.1.100 enp3s0\nUnicast reply from ' + args[0] + ' [AA:BB:CC:DD:EE:02]  0.521ms\nUnicast reply from ' + args[0] + ' [AA:BB:CC:DD:EE:02]  0.489ms';
+}
+function handleWallCmd(args) { return 'Broadcast message from user@home-server: ' + args.join(' ') + '\nMessage sent to all users'; }
+function handleMesg(args) { return args[0] === 'n' ? 'messages disabled' : 'messages enabled (is y)'; }
+function handleWrite(args) { return 'write: message sent to ' + (args[0] || 'user'); }
+function handleChsh(args) { return 'chsh: shell changed to ' + (args[args.indexOf('-s') + 1] || '/bin/bash'); }
+function handleLogname(args) { return 'user'; }
+function handleNewgrp(args) { return 'Switched to group: ' + (args[0] || 'sudo'); }
+function handleLocalectl(args) { return '   System Locale: LANG=en_US.UTF-8\n       VC Keymap: n/a\n      X11 Layout: us\n       X11 Model: pc105'; }
+function handleLoginctl(args) {
+    if (args[0] === 'list-sessions') {
+        return 'SESSION  UID USER  SEAT  TTY\n      1 1000 user  seat0 pts/0\n      2    0 root        pts/1';
+    }
+    return 'loginctl ' + args.join(' ') + ': executed';
+}
+
+
+/* ===== EXECUTOR ===== */
+
+function splitOutsideQuotes(str, sep) {
+    const parts = [];
+    let cur = '';
+    let inSingle = false;
+    let inDouble = false;
+    for (let i = 0; i < str.length; i++) {
+        const ch = str[i];
+        if (inSingle) {
+            cur += ch;
+            if (ch === "'") inSingle = false;
+        } else if (inDouble) {
+            cur += ch;
+            if (ch === '"') inDouble = false;
+            else if (ch === '\\' && i + 1 < str.length) { cur += str[i + 1]; i++; }
+        } else if (sep.length === 1 && ch === sep) {
+            parts.push(cur);
+            cur = '';
+        } else if (sep.length === 2 && ch === sep[0] && str[i + 1] === sep[1]) {
+            parts.push(cur);
+            cur = '';
+            i++;
+        } else {
+            if (ch === "'") inSingle = true;
+            else if (ch === '"') inDouble = true;
+            cur += ch;
+        }
+    }
+    parts.push(cur);
+    return parts;
+}
+
+function expandShell(cmd) {
+    let out = '';
+    let inSingle = false;
+    let inDouble = false;
+    for (let i = 0; i < cmd.length; i++) {
+        const ch = cmd[i];
+        if (ch === "'" && !inDouble) { inSingle = !inSingle; out += ch; continue; }
+        if (ch === '"' && !inSingle) { inDouble = !inDouble; out += ch; continue; }
+        if (inSingle) { out += ch; continue; }
+        if (ch === '$') {
+            if (cmd[i + 1] === '(') {
+                const end = cmd.indexOf(')', i + 2);
+                if (end !== -1) {
+                    const inner = cmd.slice(i + 2, end);
+                    out += EXEC(inner.trim()).trim();
+                    i = end;
+                    continue;
+                }
+            } else if (cmd[i + 1] === '?') {
+                out += String(lastExitCode);
+                i++;
+                continue;
+            } else {
+                const m = /^[A-Za-z_][A-Za-z0-9_]*/.exec(cmd.slice(i + 1));
+                if (m) {
+                    const name = m[0];
+                    out += (name in envVars ? envVars[name] : '$' + name);
+                    i += name.length;
+                    continue;
+                }
+            }
+        }
+        if (ch === '`') {
+            const end = cmd.indexOf('`', i + 1);
+            if (end !== -1) {
+                const inner = cmd.slice(i + 1, end);
+                out += EXEC(inner.trim()).trim();
+                i = end;
+                continue;
+            }
+        }
+        out += ch;
+    }
+    return out;
+}
+
+function EXEC_IMPL(cmdStr) {
+    if (!cmdStr || !cmdStr.trim()) return '';
+
+    // Handle ; separators (quote-aware, lowest precedence)
+    const semiParts = splitOutsideQuotes(cmdStr, ';');
+    if (semiParts.length > 1) {
+        const outs = [];
+        for (const p of semiParts) {
+            const r = EXEC(p.trim());
+            if (r && r.trim()) outs.push(r);
+        }
+        return outs.join('\n');
+    }
+
+    // Handle pipes (quote-aware, output feeds next command via pipeInput)
+    const pipeParts = splitOutsideQuotes(cmdStr, '|');
+    if (pipeParts.length > 1) {
+        let input = '';
+        for (let i = 0; i < pipeParts.length; i++) {
+            pipeInput = i === 0 ? '' : input;
+            const result = EXEC(pipeParts[i].trim());
+            if (i === pipeParts.length - 1) {
+                pipeInput = '';
+                return result;
+            }
+            input = result;
+        }
+    }
+
+    let cmd = cmdStr.trim();
+
+    // Handle && chaining (quote-aware)
+    const chainParts = splitOutsideQuotes(cmd, '&&');
+    if (chainParts.length > 1) {
+        let lastResult = '';
+        for (const part of chainParts) {
+            lastResult = EXEC(part.trim());
+            if (lastExitCode !== 0) { chainBreak = true; break; }
+        }
+        return lastResult;
+    }
+
+    // Handle || (quote-aware)
+    const orParts = splitOutsideQuotes(cmd, '||');
+    if (orParts.length > 1) {
+        let lastResult = '';
+        for (const part of orParts) {
+            lastResult = EXEC(part.trim());
+            if (lastExitCode === 0) break;
+        }
+        return lastResult;
+    }
+
+    // Handle alias
+    if (aliasMap[cmd.split(' ')[0]]) {
+        cmd = aliasMap[cmd.split(' ')[0]] + ' ' + cmd.split(' ').slice(1).join(' ');
+    }
+
+    // Quote-aware expansion: $? / $VAR / $(...) / `...` (single quotes are literal)
+    cmd = expandShell(cmd);
+
+    // printf needs the raw format string (backslashes intact)
+    if (/^printf(\s|$)/.test(cmd)) return handlePrintf(cmd);
+
+    const parts = parseArgs(cmd);
+    let cmdName = parts[0];
+    const args = parts.slice(1);
+
+    // Handle sudo prefix
+    if (cmdName === 'sudo') {
+        return handleSudo(args);
+    }
+
+    // Check command exists
+    if (!(cmdName in CMD) && cmdName !== 'su' && cmdName !== 'exit' && cmdName !== 'clear' && cmdName !== 'vi' && cmdName !== 'vim' && cmdName !== 'true' && cmdName !== 'false') {
+        return cmdName + ': command not found. Type "help" for available commands.';
+    }
+
+    // Dispatch to handler
+    switch (cmdName) {
+        // VFS commands
+        case 'ls': return handleLs(args);
+        case 'cd': { const r = handleCd(args); if (r === '') { updatePromptDisplay(); return ''; } return r; }
+        case 'pwd': return handlePwd();
+        case 'mkdir': return handleMkdir(args);
+        case 'touch': return handleTouch(args);
+        case 'cat': return handleCat(args);
+        case 'rm': return handleRm(args);
+        case 'cp': return handleCp(args);
+        case 'mv': return handleMv(args);
+        case 'echo': return handleEcho(args, cmd);
+        case 'read': return handleRead(args);
+        case 'test': return handleTest(args);
+        case 'sleep': return handleSleep(args);
+        case 'timeout': return handleTimeout(args);
+        case 'tree': return handleTree(args);
+        case 'basename': return handleBasename(args);
+        case 'dirname': return handleDirname(args);
+        case 'jq': return handleJq(args);
+        case 'nmap': return handleNmap(args);
+        case 'find': return handleFind(args);
+        case 'ln': return handleLn(args);
+
+        // Text processing
+        case 'grep': return handleGrep(args);
+        case 'head': return handleHead(args);
+        case 'tail': return handleTail(args);
+        case 'wc': return handleWc(args);
+        case 'sort': return handleSort(args);
+        case 'uniq': return handleUniq(args);
+        case 'cut': return handleCut(args);
+        case 'tr': return handleTr(args);
+        case 'sed': return handleSed(args);
+        case 'awk': return handleAwk(args);
+        case 'diff': return handleDiff(args);
+        case 'patch': return handlePatch(args);
+        case 'nl': return handleNl(args);
+
+        // File utilities
+        case 'file': return handleFile(args);
+        case 'stat': return handleStat(args);
+        case 'md5sum': return handleMd5sum(args);
+        case 'sha256sum': return handleSha256sum(args);
+        case 'base64': return handleBase64(args);
+        case 'strings': return handleStrings(args);
+        case 'realpath': return handleRealpath(args);
+
+        // Hardware
+        case 'lscpu': return handleLscpu();
+        case 'lspci': return handleLspci();
+        case 'lsusb': return handleLsusb();
+        case 'lsblk': return handleLsblk();
+        case 'lshw': return handleLshw();
+        case 'dmidecode': return handleDmidecode(args);
+        case 'smartctl': return handleSmartctl(args);
+        case 'sensors': return handleSensors();
+
+        // Disk
+        case 'fdisk': return handleFdisk(args);
+        case 'df': return handleDf(args);
+        case 'du': return handleDu(args);
+        case 'mount': return handleMount();
+        case 'umount': return handleUmount(args);
+        case 'blkid': return handleBlkid();
+        case 'mkfs': return handleMkfs(args);
+        case 'fsck': return handleFsck(args);
+        case 'parted': return handleParted(args);
+        case 'dd': return handleDd(args);
+
+        // Memory & Process
+        case 'free': return handleFree(args);
+        case 'ps': return handlePs(args);
+        case 'top': return handleTop();
+        case 'htop': return handleHtop();
+        case 'kill': return handleKill(args);
+        case 'pgrep': return handlePgrep(args);
+        case 'pkill': return handlePkill(args);
+        case 'lsof': return handleLsof(args);
+        case 'nohup': return handleNohup(args);
+        case 'bg': return handleBg(args);
+        case 'fg': return handleFg(args);
+        case 'jobs': return handleJobs(args);
+
+        // Network
+        case 'ping': return handlePing(args);
+        case 'curl': return handleCurl(args);
+        case 'wget': return handleWget(args);
+        case 'ifconfig': return handleIfconfig(args);
+        case 'ip': return handleIp(args);
+        case 'netstat': return handleNetstat(args);
+        case 'ss': return handleSs(args);
+        case 'nslookup': return handleNslookup(args);
+        case 'dig': return handleDig(args);
+        case 'traceroute': return handleTraceroute(args);
+        case 'route': return handleRoute(args);
+        case 'tcpdump': return handleTcpdump(args);
+        case 'nc': return handleNc(args);
+        case 'ssh': return handleSsh(args);
+        case 'scp': return handleScp(args);
+        case 'rsync': return handleRsync(args);
+        case 'ftp': return handleFtp(args);
+        case 'sftp': return handleSftp(args);
+
+        // System info
+        case 'uname': return handleUname(args);
+        case 'hostname': return handleHostname();
+        case 'whoami': return handleWhoami();
+        case 'id': return handleId();
+        case 'who': return handleWho();
+        case 'uptime': return handleUptime();
+        case 'date': return handleDate();
+        case 'dmesg': return handleDmesg();
+
+        // Permissions
+        case 'chmod': return handleChmod(args);
+        case 'chown': return handleChown(args);
+        case 'chgrp': return handleChgrp(args);
+        case 'umask': return handleUmask(args);
+        case 'useradd': return handleUseradd(args);
+        case 'userdel': return handleUserdel(args);
+        case 'usermod': return handleUsermod(args);
+        case 'passwd': return handlePasswd(args);
+        case 'groupadd': return handleGroupadd(args);
+        case 'groupdel': return handleGroupdel(args);
+        case 'su': return handleSu(args);
+
+        // Package management
+        case 'apt': return handleApt(args);
+        case 'yum': return handleYum(args);
+        case 'dpkg': return handleDpkg(args);
+        case 'snap': return handleSnap(args);
+
+        // Services
+        case 'systemctl': return handleSystemctl(args);
+        case 'journalctl': return handleJournalctl(args);
+        case 'service': return handleMgmtService(args);
+        case 'init': return handleInit(args);
+
+        // Shell
+        case 'bash': return handleBashCmd(args);
+        case 'alias': return handleAliasCmd(args);
+        case 'unalias': { if (args[0]) { delete aliasMap[args[0]]; return 'Alias removed: ' + args[0]; } return 'unalias: missing operand'; }
+        case 'type': return handleTypeCmd(args);
+        case 'which': return handleWhich(args);
+        case 'whereis': return handleWhereis(args);
+        case 'source': return handleSource(args);
+        case 'exec': return handleExecCmd(args);
+        case 'env': return handleEnvCmd();
+        case 'export': return handleExport(args);
+        case 'set': return handleSetCmd();
+        case 'unset': return handleUnset(args);
+        case 'declare': return handleDeclare(args);
+        case 'readonly': return handleReadonly(args);
+        case 'tee': return handleTee(args);
+        case 'watch': return handleWatch(args);
+        case 'crontab': return handleCrontab(args);
+        case 'time': return handleTimeCmd(args);
+        case 'yes': return handleYes(args);
+        case 'xargs': return handleXargs(args);
+
+        // Archive
+        case 'tar': return handleTar(args);
+        case 'gzip': return handleGzip(args);
+        case 'zip': return handleZipCmd(args);
+        case 'unzip': return handleUnzip(args);
+
+        // Editors
+        case 'vi': case 'vim': {
+            const fp = resolvePath(args[0] || '/root/README.txt');
+            if (!VFS.getFile(fp) && !VFS.listDir(fp)) {
+                VFS.writeFile(fp, '');
+            }
+            setTimeout(() => openViEditor(fp), 10);
+            return 'Opening vi editor for: ' + (args[0] || '/root/README.txt');
+        }
+        case 'vimtutor': return handleVimtutor();
+        case 'nano': return handleNano();
+
+        // Dev
+        case 'gcc': return handleGcc(args);
+        case 'g++': return handleGpp(args);
+        case 'make': return handleMake(args);
+        case 'gdb': return handleGdb(args);
+        case 'git': return handleGit(args);
+        case 'python3': return handlePython3(args);
+        case 'node': return handleNodeCmd(args);
+        case 'npm': return handleNpm(args);
+
+        // Session
+        case 'screen': return handleScreen(args);
+        case 'tmux': return handleTmux(args);
+
+        // System control
+        case 'shutdown': case 'poweroff': case 'halt': return handleShutdownCmd(args);
+        case 'reboot': return handleRebootCmd();
+
+        // Docs
+        case 'more': return handleMore(args);
+        case 'less': return handleLess(args);
+        case 'whatis': return handleWhatis(args);
+        case 'info': return handleInfo(args);
+
+        // Docker
+        case 'docker': return handleDocker(args);
+        case 'docker-compose': return 'docker-compose ' + args.join(' ') + ': simulated execution';
+
+        // Kubernetes
+        case 'kubectl': return handleKubectl(args);
+        case 'helm': return handleHelm(args);
+        case 'kustomize': return handleHelm(args); // reuse
+        case 'kubeadm': case 'kubelet': case 'etcdctl': case 'calicoctl': case 'kind': case 'minikube': return handleServiceSim(cmdName, args, 'simulated execution');
+
+        // Messaging
+        case 'kafka': case 'rabbitmq': case 'rabbitmqctl': case 'nats': case 'pulsar': return handleServiceSim(cmdName, args, 'messaging service');
+
+        // Web/Proxy
+        case 'nginx': return handleNginx(args);
+        case 'haproxy': case 'apache2': case 'caddy': case 'keepalived': case 'traefik': return handleServiceSim(cmdName, args, 'web service');
+
+        // Databases
+        case 'mysql': case 'mysqldump': return handleMysql(args);
+        case 'postgresql': case 'pg_dump': return 'PostgreSQL ' + args.join(' ') + ': simulated';
+        case 'mongodb': return 'MongoDB ' + args.join(' ') + ': simulated';
+        case 'redis': case 'redis-cli': return handleRedisCli(args);
+        case 'etcd': case 'consul': case 'sqlite3': return handleServiceSim(cmdName, args, 'database service');
+
+        // Monitoring
+        case 'prometheus': case 'promtool': case 'alertmanager': case 'grafana': case 'node_exporter': return handleServiceSim(cmdName, args, 'monitoring service');
+
+        // Logging
+        case 'elasticsearch': case 'logstash': case 'kibana': case 'filebeat': case 'fluentd': case 'fluentbit': case 'loki': case 'promtail': return handleServiceSim(cmdName, args, 'logging service');
+
+        // IaC
+        case 'terraform': return handleTerraform(args);
+        case 'packer': case 'vagrant': case 'pulumi': case 'opentofu': return handleServiceSim(cmdName, args, 'IaC tool');
+
+        // Config Management
+        case 'ansible': case 'ansible-playbook': return handleAnsible(args);
+        case 'puppet': case 'chef': case 'salt': return handleServiceSim(cmdName, args, 'config management');
+
+        // Service Mesh
+        case 'istioctl': case 'linkerd': case 'envoy': case 'nginx-ingress': return handleServiceSim(cmdName, args, 'service mesh');
+
+        // CI/CD
+        case 'gitlab': case 'jenkins': case 'argocd': case 'flux': return handleServiceSim(cmdName, args, 'CI/CD tool');
+
+        // Security
+        case 'openssl': return handleOpenSsl(args);
+        case 'certbot': return handleCertbot(args);
+        case 'acme.sh': return 'acme.sh ' + args.join(' ') + ': ACME client simulated';
+        case 'vault': case 'keycloak': case 'ldapsearch': case 'fail2ban': return handleServiceSim(cmdName, args, 'security tool');
+        case 'ssh-keygen': return handleSshKeygen(args);
+        case 'iptables': return handleIptables(args);
+        case 'ufw': return handleUfw(args);
+        case 'nft': return 'nft ' + args.join(' ') + ': nftables simulated';
+
+        // Storage
+        case 'ceph': return handleCeph(args);
+        case 'gluster': case 'nfs': case 'minio': case 'longhorn': case 'rook': case 'restic': case 'borg': case 'duplicity': return handleServiceSim(cmdName, args, 'storage service');
+
+        // Network policy
+        case 'calico': case 'flannel': case 'weave': case 'cilium': case 'metallb': case 'wireguard': return handleServiceSim(cmdName, args, 'network policy');
+
+        // Performance
+        case 'ab': case 'wrk': case 'siege': case 'sysbench': return handleServiceSim(cmdName, args, 'benchmark tool');
+        case 'stress': return handleStress(args);
+        case 'fio': return handleFio(args);
+        case 'iostat': return handleIostat(args);
+        case 'vmstat': return handleVmstat(args);
+        case 'sar': return handleSar(args);
+        case 'perf': return handlePerf(args);
+
+        // Virtualization
+        case 'virt-manager': case 'virsh': case 'qemu': case 'kvm': case 'xen': return handleServiceSim(cmdName, args, 'virtualization tool');
+
+        // Others
+        case 'glances': case 'iftop': case 'nethogs': case 'iotop': case 'knative': case 'openfaas': case 'kubeless': return handleServiceSim(cmdName, args, 'tool');
+
+        // Flatpak
+        case 'flatpak': return handleFlatpak(args);
+
+        // Clear
+        case 'clear': document.getElementById('output').innerHTML = ''; return '';
+
+        // History
+        case 'history': return handleHistory();
+
+        // Help
+        case 'help': return handleHelp();
+        case 'practice': return handlePractice(args);
+        case 'learn': return handleLearn(args);
+        case 'exam': return handleExam(args);
+        case 'stats': return handleStats();
+        case 'lang': return handleLang(args);
+        case 'guide': return handleGuide(args);
+
+        // Exit
+        case 'exit': return handleExitCmd();
+        case 'true': return '';
+        case 'false': return FALSE_SENTINEL;
+
+        // Chroot
+        case 'chroot': return 'chroot: simulated execution';
+
+
+        case 'tac': return handleTac(args);
+        case 'od': return handleOd(args);
+        case 'hexdump': return handleHexdump(args);
+        case 'bzip2': return handleBzip2(args);
+        case 'bunzip2': return handleBunzip2(args);
+        case 'xz': return handleXz(args);
+        case 'unxz': return handleUnxz(args);
+        case 'lz4': return handleLz4(args);
+        case 'lsmod': return handleLsmod();
+        case 'modprobe': return handleModprobe(args);
+        case 'modinfo': return handleModinfo(args);
+        case 'sysctl': return handleSysctl(args);
+        case 'losetup': return handleLosetup(args);
+        case 'swapon': return handleSwapon(args);
+        case 'swapoff': return handleSwapoff(args);
+        case 'lsattr': return handleLsattr(args);
+        case 'chattr': return handleChattr(args);
+        case 'host': return handleHost(args);
+        case 'whois': return handleWhois(args);
+        case 'mtr': return handleMtr(args);
+        case 'socat': return handleSocat(args);
+        case 'telnet': return handleTelnet(args);
+        case 'nmcli': return handleNmcli(args);
+        case 'iwconfig': return handleIwconfig(args);
+        case 'rfkill': return handleRfkill(args);
+        case 'last': return handleLast(args);
+        case 'w': return handleWcmd(args);
+        case 'nice': return handleNice(args);
+        case 'renice': return handleRenice(args);
+        case 'pidof': return handlePidof(args);
+        case 'strace': return handleStrace(args);
+        case 'ltrace': return handleLtrace(args);
+        case 'ulimit': return handleUlimit(args);
+        case 'shopt': return handleShopt(args);
+        case 'popd': return handlePopd(args);
+        case 'pushd': return handlePushd(args);
+        case 'dirs': return handleDirs(args);
+        case 'disown': return handleDisown(args);
+        case 'paste': return handlePaste(args);
+        case 'join': return handleJoin(args);
+        case 'comm': return handleComm(args);
+        case 'split': return handleSplit(args);
+        case 'fmt': return handleFmt(args);
+        case 'pr': return handlePr(args);
+        case 'expand': return handleExpand(args);
+        case 'unexpand': return handleUnexpand(args);
+        case 'neofetch': return handleNeofetch();
+        case 'inxi': return handleInxi(args);
+        case 'sudoedit': return handleSudoedit(args);
+        case 'visudo': return handleVisudo(args);
+        case 'bc': return handleBc(args);
+        case 'cal': return handleCal(args);
+        case 'seq': return handleSeq(args);
+        case 'shuf': return handleShuf(args);
+        case 'factor': return handleFactor(args);
+        case 'numfmt': return handleNumfmt(args);
+        case 'logger': return handleLogger(args);
+        case 'man': return handleMan(args);
+        case 'apropos': return handleApropos(args);
+        case 'timedatectl': return handleTimedatectl(args);
+        case 'hostnamectl': return handleHostnamectl(args);
+        case 'at': return handleAt(args);
+        case 'batch': return handleBatch(args);
+        case 'ldd': return handleLdd(args);
+        case 'ldconfig': return handleLdconfig(args);
+        case 'perl': return handlePerl(args);
+        case 'ruby': return handleRuby(args);
+        case 'php': return handlePhp(args);
+        case 'go': return handleGoCmd(args);
+        case 'cargo': return handleCargo(args);
+        case 'cmake': return handleCmake(args);
+        case 'arp': return handleArp(args);
+        case 'arping': return handleArping(args);
+        case 'wall': return handleWallCmd(args);
+        case 'write': return handleWrite(args);
+        case 'mesg': return handleMesg(args);
+        case 'chsh': return handleChsh(args);
+        case 'logname': return handleLogname(args);
+        case 'newgrp': return handleNewgrp(args);
+        case 'localectl': return handleLocalectl(args);
+        case 'loginctl': return handleLoginctl(args);
+
+        default:
+            return handleDevOpsGeneric(cmdName, args);
+    }
+}
+
+function isErrorOutput(s) {
+    if (s === '' || s === null || s === undefined) return false;
+    return /command not found|No such file|missing operand|missing file operand|Permission denied|cannot |Usage:|usage:|invalid|failed|denied|not found|\(no matches\)|No such/i.test(s);
+}
+
+function EXEC(cmdStr) {
+    const cmdName = String(cmdStr).trim().split(/\s+/)[0];
+    const result = EXEC_IMPL(cmdStr);
+    if (result === FALSE_SENTINEL) {
+        lastExitCode = 1;
+        recordUsage(cmdName, false);
+        return '';
+    }
+    if (chainBreak) {
+        chainBreak = false;
+        recordUsage(cmdName, lastExitCode === 0);
+        return result;
+    }
+    lastExitCode = isErrorOutput(result) ? 1 : 0;
+    recordUsage(cmdName, lastExitCode === 0);
+    return result;
+}
+
+
+/* ===== UI ===== */
+
+function initUI() {
+    const input = document.getElementById('cmd-input');
+    const output = document.getElementById('output');
+    const sidePanel = document.getElementById('side-panel');
+
+    input.focus();
+
+    // Build side panel
+    buildSidePanel();
+    const badge = document.getElementById('cmd-count-badge');
+    if (badge) badge.textContent = Object.keys(CMD).length + (lang === 'en' ? ' commands' : ' 命令');
+
+    // Click on output area focuses input
+    output.addEventListener('click', () => input.focus());
+
+    // Side panel command click
+    sidePanel.addEventListener('click', (e) => {
+        if (e.target.classList.contains('cmd-item')) {
+            input.value = e.target.textContent + ' ';
+            input.focus();
+        } else if (e.target.id === 'task-card') {
+            input.value = 'practice start';
+            input.focus();
+        }
+    });
+
+    // Keyboard handler
+    document.addEventListener('keydown', (e) => {
+        // Vi editor takes priority
+        if (document.getElementById('vi-overlay').classList.contains('active')) {
+            viKeyHandler(e);
+            return;
+        }
+
+        if (e.key === 'Enter' && document.activeElement === input) {
+            e.preventDefault();
+            const cmd = input.value.trim();
+            if (!cmd) return;
+
+            // Add to output
+            appendOutput(getPrompt() + cmd, 'cmd-line');
+            history.push(cmd);
+            historyIndex = -1;
+            if (history.length > 1000) history.shift();
+
+            // Execute
+            try {
+                const result = EXEC(cmd);
+                if (result && result.trim()) {
+                    appendOutput(result, 'cmd-out');
+                }
+                if (result === '' && cmd.startsWith('cd ')) {
+                    // cd success - no output needed
+                } else if (result === '' && !['cd', 'export', 'unset', 'alias', 'clear', 'exit', 'bg', 'fg', 'jobs', 'sudo', 'bash', 'su', 'true', 'false', 'test', 'read', 'sleep', 'timeout'].includes(cmd.split(' ')[0])) {
+                    appendOutput('OK', 'cmd-info');
+                }
+            } catch (err) {
+                appendOutput('Error: ' + err.message, 'cmd-err');
+            }
+
+            const checkList = examState ? [TASK_MAP[examState.questions[examState.index]]].filter(Boolean) : focusTasks();
+            const completedNow = checkList.filter(t => !taskProgress.done.includes(t.id) && t.check());
+            if (completedNow.length > 0) {
+                completedNow.forEach(t => taskProgress.done.push(t.id));
+                saveTaskProgress();
+                if (examState) {
+                    examState.score++;
+                    examState.index++;
+                    if (examState.index >= examState.questions.length) {
+                        const total = examState.questions.length;
+                        const pass = examState.score >= Math.ceil(total * 0.7);
+                        stats.exams.push({ path: examState.path, score: examState.score, total, pass, date: new Date().toISOString().slice(0, 10) });
+                        saveStats();
+                        appendOutput((lang === 'en' ? '🎉 Exam finished: ' : '🎉 考试结束：') + examState.score + '/' + total + (pass ? (lang === 'en' ? ' ✅ Passed!' : ' ✅ 通过！') : (lang === 'en' ? ' ❌ Not passed. Keep practicing!' : ' ❌ 未通过，再练练吧！')), 'cmd-info');
+                        appendOutput(lang === 'en' ? 'Run exam <project> to retake; stats shows your results.' : '输入 exam <项目> 可重新考试，stats 查看成绩。', 'cmd-info');
+                        examState = null;
+                    } else {
+                        appendOutput((lang === 'en' ? '✅ Question ' : '✅ 第 ') + examState.index + (lang === 'en' ? ' done! Score ' : ' 题完成！得分 ') + examState.score, 'cmd-info');
+                        appendOutput((lang === 'en' ? '▶ Question ' : '▶ 第 ') + (examState.index + 1) + (lang === 'en' ? ': ' : ' 题：') + examQuestionText(), 'cmd-info');
+                    }
+                    buildSidePanel();
+                } else {
+                    const focusList = focusTasks();
+                    const focusDoneCount = focusList.filter(t => taskProgress.done.includes(t.id)).length;
+                    appendOutput((lang === 'en' ? '✅ Task complete: ' : '✅ 任务完成：') + completedNow.map(t => taskTitle(t)).join(', ') + ' (' + focusName() + ' ' + focusDoneCount + '/' + focusList.length + ')', 'cmd-info');
+                    appendOutput('📖 ' + taskExp(completedNow[0]), 'cmd-info');
+                    const nextTask = currentTask();
+                    if (nextTask) appendOutput((lang === 'en' ? '▶ Next task [' : '▶ 下一任务 [') + nextTask.id + ']: ' + taskTitle(nextTask) + '\n📖 ' + taskExp(nextTask) + '\n🔧 ' + (lang === 'en' ? 'Run: ' : '请执行：') + nextTask.hint, 'cmd-info');
+                    else {
+                        const nextPath = PATH_ORDER.find(key => {
+                            const tasks = Object.values(TASK_MAP).filter(t => t.path === key);
+                            return tasks.length > 0 && tasks.some(t => !taskProgress.done.includes(t.id));
+                        });
+                        appendOutput('🎉 ' + focusName() + (lang === 'en' ? ' complete!' : ' 全部完成！') + (nextPath ? (lang === 'en' ? ' Next: practice path ' : ' 建议下一路线：practice path ') + nextPath : (lang === 'en' ? ' All projects done!' : ' 所有路线都完成啦！')), 'cmd-info');
+                    }
+                    buildSidePanel();
+                }
+            }
+
+            input.value = '';
+            output.scrollTop = output.scrollHeight;
+            updatePromptDisplay();
+        }
+
+        // Tab completion
+        if (e.key === 'Tab' && document.activeElement === input) {
+            e.preventDefault();
+            const val = input.value;
+            const words = val.split(' ');
+            const lastWord = words[words.length - 1];
+            if (words.length === 1) {
+                // Command completion
+                const matches = Object.keys(CMD).filter(c => c.startsWith(lastWord));
+                if (matches.length === 1) {
+                    input.value = matches[0] + ' ';
+                } else if (matches.length > 1) {
+                    appendOutput(matches.join('  '), 'cmd-info');
+                }
+            } else {
+                // Path completion
+                const currentPath = resolvePath(lastWord || '.');
+                const [parent, partial] = VFS.splitPath(currentPath);
+                const entries = VFS.listDir(parent);
+                if (entries) {
+                    const matchKeys = Object.keys(entries).filter(e => e.startsWith(partial || ''));
+                    const parentPath = parent === '/' ? '' : parent;
+                    if (matchKeys.length === 1) {
+                        words[words.length - 1] = parentPath + '/' + matchKeys[0];
+                        input.value = words.join(' ');
+                    }
+                }
+            }
+        }
+
+        // History navigation (ArrowUp / ArrowDown)
+        if ((e.key === 'ArrowUp' || e.key === 'ArrowDown') && document.activeElement === input) {
+            e.preventDefault();
+            if (history.length === 0) return;
+            if (e.key === 'ArrowUp') {
+                if (historyIndex === -1) historyIndex = history.length - 1;
+                else if (historyIndex > 0) historyIndex--;
+            } else {
+                if (historyIndex === -1) return;
+                if (historyIndex < history.length - 1) historyIndex++;
+                else { historyIndex = -1; input.value = ''; return; }
+            }
+            input.value = history[historyIndex];
+            if (input.setSelectionRange) input.setSelectionRange(input.value.length, input.value.length);
+        }
+    });
+
+    updatePromptDisplay();
+    appendOutput('Linux Learning Simulator v1.4.0 | ' + window.SIM_HW.os + ' | Kernel ' + window.SIM_HW.kernel, 'cmd-info');
+    appendOutput('Type "help" for available commands.', 'cmd-info');
+    if (taskProgress.done.length === 0) appendOutput(lang === 'en' ? 'Type practice to start exercises, guide for the learning guide' : '输入 practice 开始练习，guide 查看学习指南', 'cmd-info');
+    const langBtn = document.getElementById('lang-toggle');
+    if (langBtn) {
+        langBtn.textContent = '🌐 ' + (lang === 'zh' ? '中 / EN' : 'EN / 中');
+        langBtn.addEventListener('click', () => {
+            lang = lang === 'zh' ? 'en' : 'zh';
+            saveLang();
+            const badge = document.getElementById('cmd-count-badge');
+            if (badge) badge.textContent = Object.keys(CMD).length + (lang === 'en' ? ' commands' : ' 命令');
+            updatePromptDisplay();
+            buildSidePanel();
+            const help = document.getElementById('vi-help');
+            if (help) {
+                help.innerHTML = lang === 'en'
+                    ? '<span><kbd>i</kbd>insert <kbd>Esc</kbd>normal</span><span><kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd>move</span><span><kbd>dd</kbd>delete line <kbd>yy</kbd>yank <kbd>p</kbd>put</span><span><kbd>u</kbd>undo <kbd>:w</kbd>save <kbd>:q</kbd>quit</span><span><kbd>/</kbd>search <kbd>ZZ</kbd>save+quit</span>'
+                    : '<span><kbd>i</kbd>插入 <kbd>Esc</kbd>普通</span><span><kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd>移动</span><span><kbd>dd</kbd>删行 <kbd>yy</kbd>复制 <kbd>p</kbd>粘贴</span><span><kbd>u</kbd>撤销 <kbd>:w</kbd>保存 <kbd>:q</kbd>退出</span><span><kbd>/</kbd>搜索 <kbd>ZZ</kbd>存退</span>';
+            }
+            appendOutput(lang === 'en' ? 'Language switched to English.' : '已切换到中文。', 'cmd-info');
+        });
+    }
+}
+
+function appendOutput(text, className) {
+    const output = document.getElementById('output');
+    const div = document.createElement('div');
+    div.className = className || 'cmd-out';
+    div.textContent = text;
+    output.appendChild(div);
+}
+
+function updatePromptDisplay() {
+    document.getElementById('prompt').textContent = getPrompt();
+}
+
+function buildSidePanel() {
+    const panel = document.getElementById('side-panel');
+    const curTask = currentTask();
+    const focusList = focusTasks();
+    const focusDoneCount = focusList.filter(t => taskProgress.done.includes(t.id)).length;
+    let html = '<h3>🎯 ' + (lang === 'en' ? 'Current project: ' : '当前项目：') + focusName() + ' (' + focusDoneCount + '/' + focusList.length + ')</h3>';
+    if (curTask) {
+        html += '<div class="task-card" id="task-card"><b>[' + curTask.id + '] ' + taskTitle(curTask) + '</b><br>📖 ' + taskExp(curTask) + '<br><span class="hint">🔧 ' + (lang === 'en' ? 'Run: ' : '请执行：') + curTask.hint + '</span><br><span style="color:#565f89">' + focusName() + '</span></div>';
+    } else {
+        html += '<div class="task-card">🎉 ' + focusName() + (lang === 'en' ? ' complete!' : ' 全部完成！') + '</div>';
+    }
+    html += '<h3>📚 ' + (lang === 'en' ? 'Command Reference' : '命令速查') + '</h3>';
+
+    const cats = {};
+    for (const [name, info] of Object.entries(CMD)) {
+        if (!cats[info.cat]) cats[info.cat] = [];
+        cats[info.cat].push(name);
+    }
+
+    const orderedCats = ['学习', 'VFS', '文本处理', '系统信息', '硬件信息', '磁盘管理', '内存/进程', '网络', '用户/权限', '软件包', '服务管理', 'Shell', '压缩归档', '文件工具', '编辑器', '开发工具', '中间件', 'K8s', 'CI/CD', '会话管理', '系统控制', '文档工具', '其他'];
+
+    for (const cat of orderedCats) {
+        if (cats[cat]) {
+            html += '<details' + (cat === 'VFS' ? ' open' : '') + '><summary>' + catName(cat) + '</summary>';
+            const names = cats[cat].sort();
+            for (const n of names) {
+                html += '<span class="cmd-item" title="' + cmdDesc(n) + '">' + n + '</span>';
+            }
+            html += '</details>';
+        }
+    }
+
+    // DevOps categories
+    const devopsCats = {};
+    for (const [name, info] of Object.entries(CMD)) {
+        if (info.cat && info.cat.startsWith('DevOps')) {
+            if (!devopsCats[info.cat]) devopsCats[info.cat] = [];
+            devopsCats[info.cat].push(name);
+        }
+    }
+    if (Object.keys(devopsCats).length > 0) {
+        html += '<details><summary>🛠️ DevOps</summary>';
+        for (const [cat, names] of Object.entries(devopsCats)) {
+            html += '<div class="cat">' + catName(cat.split('/')[1]) + '</div>';
+            for (const n of names.sort()) {
+                html += '<span class="cmd-item">' + n + '</span>';
+            }
+        }
+        html += '</details>';
+    }
+
+    html += '<div style="margin-top:12px;color:#565f89;font-size:10px">' + Object.keys(CMD).length + (lang === 'en' ? ' commands<br>Click a command to fill the input' : ' 个命令<br>点击命令可填入输入框') + '</div>';
+    panel.innerHTML = html;
+}
+
+// Initialize on load
+document.addEventListener('DOMContentLoaded', initUI);
+
