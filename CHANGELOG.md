@@ -62,7 +62,7 @@
 - 进度持久化：任务进度存入 localStorage，刷新不丢
 - 侧栏学习任务卡：实时显示当前任务与提示，点击一键开始
 - 学习指南同步说明：指南顶部提示在模拟器中输入 `practice` 开始练习
-- 命令总数更新为 359（新增 `practice`、`learn`、`exam`、`stats` 命令）
+- 命令总数更新为 369（新增 `practice`、`learn`、`exam`、`stats`，以及 `printf`、`read`、`test`、`sleep`、`timeout`、`tree`、`basename`、`dirname`、`jq`、`nmap`）
 
 ### English
 
@@ -74,7 +74,7 @@
 - Progress persistence via localStorage
 - Sidebar task card showing the current task and hint, one-click to start
 - Learning guide updated with instructions to run `practice` in the simulator
-- Command count updated to 359 (new `practice`, `learn`, `exam`, `stats` commands)
+- Command count updated to 369 (new `practice`, `learn`, `exam`, `stats`, plus `printf`, `read`, `test`, `sleep`, `timeout`, `tree`, `basename`, `dirname`, `jq`, `nmap`)
 
 ## v1.2.1 — 2026-08-04
 

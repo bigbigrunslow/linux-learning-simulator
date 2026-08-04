@@ -1251,6 +1251,16 @@ CMD['practice'] = {cat:'学习', desc:'练习任务（与学习指南同步）',
 CMD['learn'] = {cat:'学习', desc:'命令百科：查看命令完整用法', usage:'learn <command>'};
 CMD['exam'] = {cat:'学习', desc:'项目考试：随机抽题评分', usage:'exam <项目>'};
 CMD['stats'] = {cat:'学习', desc:'学习统计与成绩', usage:'stats'};
+CMD['printf'] = {cat:'Shell', desc:'格式化输出', usage:'printf <格式> [参数]'};
+CMD['read'] = {cat:'Shell', desc:'读取输入到变量', usage:'read <变量>'};
+CMD['test'] = {cat:'Shell', desc:'条件判断', usage:'test <表达式>'};
+CMD['sleep'] = {cat:'Shell', desc:'模拟等待', usage:'sleep <秒>'};
+CMD['timeout'] = {cat:'Shell', desc:'命令超时（模拟）', usage:'timeout <秒> <命令>'};
+CMD['tree'] = {cat:'VFS', desc:'树形显示目录', usage:'tree [目录]'};
+CMD['basename'] = {cat:'文件工具', desc:'取文件名', usage:'basename <路径> [后缀]'};
+CMD['dirname'] = {cat:'文件工具', desc:'取目录名', usage:'dirname <路径>'};
+CMD['jq'] = {cat:'文件工具', desc:'JSON 查询', usage:'jq <过滤器> [文件]'};
+CMD['nmap'] = {cat:'网络', desc:'端口扫描（模拟）', usage:'nmap [选项] <目标>'};
 
 // === VFS File Operations ===
 CMD['ls']    = {cat:'VFS', desc:'列出目录内容', usage:'ls [-la] [path]'};
@@ -2223,6 +2233,40 @@ const CMD_USAGES = {
     { c:'flux get sources', d:'查看 Git 源', x:'Flux 是另一个 GitOps 工具，sources 指它监听 Git/Helm 的源。' },
     { c:'flux reconcile kustomization apps', d:'触发重新同步', x:'reconcile 手动触发一次同步。' },
   ],
+  printf: [
+    { c:'printf "Hello %s\\n" world', d:'格式化输出字符串', x:'printf 比 echo 更可控：%s 是字符串占位符，\\n 是换行。' },
+    { c:'printf "%d + %d = %d\\n" 1 2 3', d:'数字占位符', x:'%d 是整数占位符，按顺序取后面的参数。' },
+  ],
+  read: [
+    { c:'echo hello | read x; echo $x', d:'从管道读入变量', x:'read 把输入读进变量，这里 echo 的输出被 x 接收。' },
+  ],
+  test: [
+    { c:'test -f /etc/hostname && echo yes', d:'判断文件存在', x:'test -f 判断文件是否存在，成立时 && 后面的命令才执行。' },
+    { c:'test 2 -eq 2 && echo equal', d:'数值比较', x:'-eq 比较两个数字是否相等。' },
+  ],
+  sleep: [
+    { c:'sleep 2', d:'等待 2 秒（模拟）', x:'真实环境会阻塞 2 秒，这里给出模拟结果，不真等。' },
+  ],
+  timeout: [
+    { c:'timeout 1 sleep 5', d:'限制命令执行时间', x:'真实环境里 5 秒的 sleep 会被 1 秒超时打断，这里模拟超时。' },
+  ],
+  tree: [
+    { c:'tree /etc', d:'树形查看目录', x:'tree 用树形展示目录结构，比 ls 直观很多。' },
+  ],
+  basename: [
+    { c:'basename /etc/hostname', d:'取文件名', x:'basename 去掉目录部分只留文件名，脚本里常用。' },
+  ],
+  dirname: [
+    { c:'dirname /etc/hostname', d:'取目录部分', x:'dirname 与 basename 相反，取路径的目录部分。' },
+  ],
+  jq: [
+    { c:'echo \'{"name":"demo","ports":[80,443]}\' | jq \'.name\'', d:'查询 JSON 字段', x:'jq 解析 JSON，.name 取 name 字段，字符串输出带引号。' },
+    { c:'echo \'{"ports":[80,443]}\' | jq \'.ports[1]\'', d:'数组下标', x:'ports[1] 取数组第二个元素（下标从 0 开始）。' },
+  ],
+  nmap: [
+    { c:'nmap -p 80 192.168.1.50', d:'扫描指定端口', x:'nmap 探测目标端口状态，-p 指定端口号。' },
+    { c:'nmap localhost', d:'扫描本机常用端口', x:'不指定端口时扫描常见端口（22/80/443/3306）。' },
+  ],
 };
 
 /* ===== LEARNING PATHS ===== */
@@ -2245,7 +2289,7 @@ function cmdPath(name) {
   if (['mysql','mysqldump','redis-cli','redis','postgresql','pg_dump','sqlite3','mongodb','etcd','etcdctl','consul','nats','pulsar','kafka','rabbitmq','rabbitmqctl','nginx','apache2','caddy','haproxy','traefik','keepalived','elasticsearch','logstash','kibana','filebeat','fluentd','fluentbit','minio'].includes(name)) return 'middleware';
   if (['ip','ifconfig','ping','traceroute','mtr','curl','wget','nc','ncat','netstat','ss','dig','nslookup','host','whois','route','arp','arping','iptables','ufw','tcpdump','nmcli','iwconfig','rfkill','socat','telnet','ssh','scp','sftp','ftp','rsync'].includes(name)) return 'network';
   if (['top','htop','free','vmstat','iostat','sar','perf','ps','kill','pkill','pgrep','pidof','lsof','strace','ltrace','uptime','watch','systemctl','journalctl','df','du','sensors','neofetch','inxi','glances','iftop','nethogs','iotop','dmesg','time'].includes(name)) return 'monitor';
-  if (['alias','env','export','unset','set','shopt','source','declare','readonly','type','which','whereis','whatis','man','help','history','echo','seq','yes','bc','cal','date','sleep','true','false','exec','eval','printf'].includes(name)) return 'shell';
+  if (['alias','env','export','unset','set','shopt','source','declare','readonly','type','which','whereis','whatis','man','help','history','echo','seq','yes','bc','cal','date','sleep','timeout','printf','read','test','true','false','exec','eval'].includes(name)) return 'shell';
   return 'basic';
 }
 
@@ -4562,6 +4606,131 @@ function handleStats() {
     return out.trimEnd();
 }
 
+function handlePrintf(cmd) {
+    const m = cmd.match(/^printf\s+(?:"((?:\\.|[^"\\])*)"|'((?:\\.|[^'\\])*)'|(\S+))(.*)$/);
+    if (!m) return 'printf: usage: printf <format> [args...]';
+    let format = m[1] !== undefined ? m[1] : (m[2] !== undefined ? m[2] : m[3]);
+    const restArgs = parseArgs(m[4] || '');
+    format = format.replace(/\\(n|t|r|\\|")/g, (_, e) => e === 'n' ? '\n' : e === 't' ? '\t' : e === 'r' ? '\r' : e);
+    let ai = 0;
+    const out = format.replace(/%([sd])/g, (mm, t) => {
+        const v = restArgs[ai++];
+        if (v === undefined) return '';
+        return t === 'd' ? String(parseInt(v) || 0) : String(v);
+    }).replace(/%%/g, '%');
+    return out;
+}
+
+function handleRead(args) {
+    const vars = args.filter(a => !a.startsWith('-'));
+    const val = pipeInput !== '' ? pipeInput : '';
+    if (vars.length > 0) envVars[vars[0]] = val;
+    return '';
+}
+
+function handleTest(args) {
+    const v = args[0];
+    if (v === '-f' || v === '-e' || v === '-d') {
+        const p = resolvePath(args[1] || '');
+        const isDir = VFS.listDir(p) && Object.keys(VFS.listDir(p)).length > 0;
+        const isFile = VFS.getFile(p) !== null;
+        const ok = v === '-d' ? isDir : v === '-f' ? isFile : (isFile || isDir);
+        return ok ? '' : FALSE_SENTINEL;
+    }
+    if (v === '-n') return args[1] ? '' : FALSE_SENTINEL;
+    if (v === '-z') return args[1] ? FALSE_SENTINEL : '';
+    if (args[1] === '=') return args[0] === args[2] ? '' : FALSE_SENTINEL;
+    if (args[1] === '-eq') return parseInt(args[0]) === parseInt(args[2]) ? '' : FALSE_SENTINEL;
+    return 'test: usage: test [-f|-d|-e file] | [a = b] | [n -eq m] | [-n str] | [-z str]';
+}
+
+function handleSleep(args) {
+    const sec = parseInt(args[0]);
+    if (isNaN(sec)) return 'sleep: invalid time interval \'' + (args[0] || '') + '\'';
+    return 'Sleeping for ' + sec + ' second' + (sec === 1 ? '' : 's') + '... done (simulated).';
+}
+
+function handleTimeout(args) {
+    const sec = parseFloat(args[0]);
+    const rest = args.slice(1).join(' ');
+    if (isNaN(sec)) return 'timeout: invalid time interval \'' + (args[0] || '') + '\'';
+    if (!rest) return 'timeout: missing command';
+    if (/^sleep\s/.test(rest)) return 'timeout: the monitored command timed out after ' + sec + 's (simulated)';
+    return EXEC(rest);
+}
+
+function handleTree(args) {
+    const base = resolvePath(args[0] || '.');
+    let out = (base === '/' ? '/' : base) + '\n';
+    function walk(dir, indent) {
+        const entries = VFS.listDir(dir);
+        const names = Object.keys(entries).sort().filter(n => n !== '.dir');
+        names.forEach((n, i) => {
+            const last = i === names.length - 1;
+            const full = dir === '/' ? '/' + n : dir + '/' + n;
+            out += indent + (last ? '└── ' : '├── ') + n + (entries[n] === 'dir' ? '/' : '') + '\n';
+            if (entries[n] === 'dir') walk(full, indent + (last ? '    ' : '│   '));
+        });
+    }
+    walk(base, '');
+    return out.trimEnd();
+}
+
+function handleBasename(args) {
+    if (!args[0]) return 'basename: missing operand';
+    let name = args[0].replace(/\/+$/, '').split('/').pop() || '/';
+    if (args[1] && name.endsWith(args[1])) name = name.slice(0, -args[1].length);
+    return name;
+}
+
+function handleDirname(args) {
+    if (!args[0]) return 'dirname: missing operand';
+    const p = args[0].replace(/\/+$/, '');
+    if (p === '/') return '/';
+    const idx = p.lastIndexOf('/');
+    return idx <= 0 ? '/' : p.slice(0, idx);
+}
+
+function handleJq(args) {
+    const filter = args.find(a => a.startsWith('.') || a === '.' || a.startsWith('['));
+    const rest = args.filter(a => a !== filter);
+    let input = '';
+    if (rest.length > 0) {
+        const c = VFS.getFile(resolvePath(rest[rest.length - 1]));
+        if (c !== null) input = c;
+    }
+    if (input === '' && pipeInput !== '') input = pipeInput;
+    if (!input) return 'jq: no input';
+    let data;
+    try { data = JSON.parse(input); } catch (e) { return 'jq: parse error: Invalid JSON'; }
+    let val = data;
+    if (filter && filter !== '.') {
+        try {
+            for (const part of filter.split('.').filter(Boolean)) {
+                const pm = part.match(/^([^\[]+)(?:\[(\d+)\])?$/);
+                if (pm) {
+                    if (pm[1]) val = val[pm[1]];
+                    if (pm[2] !== undefined) val = val[parseInt(pm[2])];
+                }
+            }
+        } catch (e) { return 'jq: error: cannot iterate over ' + filter; }
+    }
+    if (val === undefined) return 'jq: error (null or null field)';
+    return JSON.stringify(val);
+}
+
+function handleNmap(args) {
+    const target = args[args.length - 1] || 'localhost';
+    if (args.includes('-sP')) {
+        return 'Starting Nmap 7.80 ( https://nmap.org ) at 2025-07-25 10:00 CST\nNmap scan report for ' + target + '\nHost is up (0.012s latency).\nMAC Address: AA:BB:CC:DD:EE:02 (Unknown)\nNmap done: 1 IP address (1 host up) scanned in 0.25 seconds';
+    }
+    if (args.includes('-p')) {
+        const port = args[args.indexOf('-p') + 1] || '80';
+        return 'Starting Nmap 7.80 ( https://nmap.org ) at 2025-07-25 10:00 CST\nNmap scan report for ' + target + '\nPORT   STATE SERVICE\n' + port + '/tcp open ' + (port === '22' ? 'ssh' : port === '443' ? 'https' : port === '3306' ? 'mysql' : 'http') + '\nNmap done: 1 IP address scanned in 0.18 seconds';
+    }
+    return 'Starting Nmap 7.80 ( https://nmap.org ) at 2025-07-25 10:00 CST\nNmap scan report for ' + target + '\nHost is up.\nPORT     STATE SERVICE\n22/tcp   open ssh\n80/tcp   open http\n443/tcp  open https\n3306/tcp open mysql\nNmap done: 1 IP address scanned in 1.23 seconds';
+}
+
 
 function handleDocker(args) {
     const sub = args[0];
@@ -5849,6 +6018,9 @@ function EXEC_IMPL(cmdStr) {
     // Quote-aware expansion: $? / $VAR / $(...) / `...` (single quotes are literal)
     cmd = expandShell(cmd);
 
+    // printf needs the raw format string (backslashes intact)
+    if (/^printf(\s|$)/.test(cmd)) return handlePrintf(cmd);
+
     const parts = parseArgs(cmd);
     let cmdName = parts[0];
     const args = parts.slice(1);
@@ -5876,6 +6048,15 @@ function EXEC_IMPL(cmdStr) {
         case 'cp': return handleCp(args);
         case 'mv': return handleMv(args);
         case 'echo': return handleEcho(args, cmd);
+        case 'read': return handleRead(args);
+        case 'test': return handleTest(args);
+        case 'sleep': return handleSleep(args);
+        case 'timeout': return handleTimeout(args);
+        case 'tree': return handleTree(args);
+        case 'basename': return handleBasename(args);
+        case 'dirname': return handleDirname(args);
+        case 'jq': return handleJq(args);
+        case 'nmap': return handleNmap(args);
         case 'find': return handleFind(args);
         case 'ln': return handleLn(args);
 
@@ -6325,7 +6506,7 @@ function initUI() {
                 }
                 if (result === '' && cmd.startsWith('cd ')) {
                     // cd success - no output needed
-                } else if (result === '' && !['cd', 'export', 'unset', 'alias', 'clear', 'exit', 'bg', 'fg', 'jobs', 'sudo', 'bash', 'su', 'true', 'false'].includes(cmd.split(' ')[0])) {
+                } else if (result === '' && !['cd', 'export', 'unset', 'alias', 'clear', 'exit', 'bg', 'fg', 'jobs', 'sudo', 'bash', 'su', 'true', 'false', 'test', 'read', 'sleep', 'timeout'].includes(cmd.split(' ')[0])) {
                     appendOutput('OK', 'cmd-info');
                 }
             } catch (err) {
