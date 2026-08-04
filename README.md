@@ -2,7 +2,7 @@
 
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen)](https://bigbigrunslow.github.io/linux-learning-simulator/)
-[![Version](https://img.shields.io/badge/Version-v1.1.0-orange)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-v1.1.1-orange)](CHANGELOG.md)
 [![Commands](https://img.shields.io/badge/Commands-355-blueviolet)](index.html)
 
 **一个纯浏览器端的 Linux 终端模拟器 — 无需安装任何操作系统，即可学习和练习 Linux 命令。**

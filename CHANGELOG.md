@@ -1,5 +1,21 @@
 # Changelog / 更新日志
 
+## v1.1.1 — 2026-08-04
+
+### 中文
+
+#### 修复
+
+- Vi 普通模式会漏入未处理的字母键：直接输入 `hello` 时 `h` 被当作光标左移、`e` 漏进文本，造成“h 打不出来”的混乱。现在普通模式会吞掉所有可打印字符，并提示“按 i 进入插入模式”
+- Vi 弹窗打开时立即聚焦输入区，避免首个按键丢失
+
+### English
+
+#### Fixed
+
+- Vi NORMAL mode leaked unhandled letter keys into the text: typing `hello` directly consumed `h` as move-left and leaked `e`. Now all printable keys are consumed in NORMAL mode, with a hint to press `i` to insert
+- Vi modal now focuses the textarea immediately on open, preventing a lost first keystroke
+
 ## v1.1.0 — 2026-08-04
 
 ### 中文
