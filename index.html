@@ -1253,6 +1253,7 @@ CMD['learn'] = {cat:'学习', desc:'命令百科：查看命令完整用法', us
 CMD['exam'] = {cat:'学习', desc:'项目考试：随机抽题评分', usage:'exam <项目>'};
 CMD['stats'] = {cat:'学习', desc:'学习统计与成绩', usage:'stats'};
 CMD['lang'] = {cat:'学习', desc:'切换界面语言', usage:'lang [zh|en]'};
+CMD['guide'] = {cat:'学习', desc:'学习指南：11 阶段讲解/练习题/速查表', usage:'guide [阶段号|cheat|ex]'};
 CMD['printf'] = {cat:'Shell', desc:'格式化输出', usage:'printf <格式> [参数]'};
 CMD['read'] = {cat:'Shell', desc:'读取输入到变量', usage:'read <变量>'};
 CMD['test'] = {cat:'Shell', desc:'条件判断', usage:'test <表达式>'};
@@ -2597,7 +2598,7 @@ for (const [cmd, usages] of Object.entries(CMD_USAGES)) {
   });
 }
 for (const name of Object.keys(CMD)) {
-  if (!CMD_USAGES[name] && name !== 'practice' && name !== 'learn' && name !== 'exam' && name !== 'stats' && name !== 'lang') {
+  if (!CMD_USAGES[name] && name !== 'practice' && name !== 'learn' && name !== 'exam' && name !== 'stats' && name !== 'lang' && name !== 'guide') {
     const id = 'a' + (taskSeq++);
     TASK_MAP[id] = {
       id, cmd: name, path: cmdPath(name),
@@ -4983,6 +4984,87 @@ function taskExp(t) {
 function catName(cat) { return lang === 'en' ? (CAT_EN[cat] || cat) : cat; }
 function cmdDesc(name) { return lang === 'en' ? (DESC_EN[name] || CMD[name].desc || name) : (CMD[name].desc || name); }
 
+/* ===== LEARNING GUIDE (migrated from 学习指南.html) ===== */
+const GUIDE_STAGES = [
+  { n:1, zh:'第1阶段：文件操作基础（1-2天）', en:'Stage 1: File Operations Basics (1-2 days)', zhDesc:'掌握 Linux 最基本的文件浏览和操作命令。', enDesc:'Master the most basic file browsing and manipulation commands.', cmds:['ls','cd','pwd','mkdir','touch','cat','rm','cp','mv','echo','find','ln'], zhTip:'试试 ls -la / 看看根目录下有哪些文件，然后用 cd 探索。', enTip:'Try ls -la / to explore the root directory, then use cd to move around.' },
+  { n:2, zh:'第2阶段：文本处理（1天）', en:'Stage 2: Text Processing (1 day)', zhDesc:'学会在终端里搜索和查看文件内容。', enDesc:'Learn to search and view file contents in the terminal.', cmds:['grep','head','tail','wc','sort','uniq','cut','tr','sed','awk','diff','nl','file','stat'], zhTip:'试试 grep root /etc/passwd 在文件中搜索特定内容。', enTip:'Try grep root /etc/passwd to search for specific content.' },
+  { n:3, zh:'第3阶段：系统信息与监控（2天）', en:'Stage 3: System Info & Monitoring (2 days)', zhDesc:'了解服务器运行状态。', enDesc:'Understand how the server is running.', cmds:['uname','hostname','whoami','id','who','uptime','date','free','ps','top','htop','kill','lsof','dmesg'], zhTip:'htop 显示彩色进度条和进程列表；ps aux 列出所有进程。', enTip:'htop shows colorful bars and processes; ps aux lists all processes.' },
+  { n:4, zh:'第4阶段：硬件与磁盘（1-2天）', en:'Stage 4: Hardware & Disks (1-2 days)', zhDesc:'深入了解硬件和存储。', enDesc:'Dive into hardware and storage.', cmds:['lscpu','lspci','lsusb','lsblk','lshw','dmidecode','smartctl','sensors','df','du','fdisk','mount','blkid','dd'], zhTip:'试试 lsblk 查看磁盘树，smartctl -a /dev/sdb 查看坏道硬盘的 SMART 详情。', enTip:'Try lsblk for the disk tree and smartctl -a /dev/sdb for SMART details.' },
+  { n:5, zh:'第5阶段：网络（1-2天）', en:'Stage 5: Networking (1-2 days)', zhDesc:'网络诊断和管理。', enDesc:'Network diagnosis and management.', cmds:['ping','curl','wget','ifconfig','ip','netstat','ss','nslookup','dig','traceroute','route','tcpdump','nc','ssh','scp'], zhTip:'ping -c 5 8.8.8.8 会看到 ICMP 序列号递增和延迟变化。', enTip:'ping -c 5 8.8.8.8 shows increasing ICMP sequence numbers and latency.' },
+  { n:6, zh:'第6阶段：用户与权限（1天）', en:'Stage 6: Users & Permissions (1 day)', zhDesc:'Linux 用户管理系统。', enDesc:'Linux user and permission management.', cmds:['chmod','chown','chgrp','umask','useradd','userdel','usermod','passwd','su','sudo'], zhTip:'试试 sudo whoami，输出 root；sudo bash 切换 root 会话。', enTip:'Try sudo whoami (prints root); sudo bash switches to a root session.' },
+  { n:7, zh:'第7阶段：软件包管理（1天）', en:'Stage 7: Package Management (1 day)', zhDesc:'安装和管理软件。', enDesc:'Install and manage software.', cmds:['apt','yum','dpkg','snap'], zhTip:'apt install nginx 会模拟完整的安装过程。', enTip:'apt install nginx simulates a full install flow.' },
+  { n:8, zh:'第8阶段：服务管理（1天）', en:'Stage 8: Service Management (1 day)', zhDesc:'管理系统服务。', enDesc:'Manage system services.', cmds:['systemctl','journalctl','service','crontab'], zhTip:'systemctl status nginx 显示详细的服务运行状态，stop/start 会真实改变状态。', enTip:'systemctl status nginx shows detailed state; stop/start really change it.' },
+  { n:9, zh:'第9阶段：Shell 编程（2天）', en:'Stage 9: Shell Scripting (2 days)', zhDesc:'环境变量、别名、脚本。', enDesc:'Environment variables, aliases, scripts.', cmds:['bash','alias','env','export','source','tee','watch'], zhTip:'bash script.sh 可以逐行执行脚本，支持变量和 $( ) 命令替换。', enTip:'bash script.sh runs scripts line by line with variables and $( ) substitution.' },
+  { n:10, zh:'第10阶段：Vi/Vim 编辑器（1-2天）', en:'Stage 10: Vi/Vim Editor (1-2 days)', zhDesc:'终端编辑器。', enDesc:'Terminal editors.', cmds:['vi','vim','vimtutor','nano'], zhTip:'vi 会弹出真实编辑器：i 插入、Esc 普通、:wq 保存退出。', enTip:'vi opens a real editor: i insert, Esc normal, :wq save and quit.' },
+  { n:11, zh:'第11阶段：DevOps 工具链（3-5天）', en:'Stage 11: DevOps Toolchain (3-5 days)', zhDesc:'学习现代运维工具。', enDesc:'Learn modern ops tools.', cmds:['docker','kubectl','helm','mysql','redis-cli','nginx','terraform','ansible','prometheus','grafana','jenkins','git'], zhTip:'用 practice path docker/k8s/middleware/cicd 分路线练习。', enTip:'Use practice path docker/k8s/middleware/cicd to drill each track.' },
+];
+
+const GUIDE_EXERCISES = [
+  { zh:'文件浏览：列出根目录所有文件（含隐藏文件），进入 /var/log，查看 syslog 的前 5 行', en:'File browsing: list all root files (including hidden), enter /var/log, view the first 5 lines of syslog', cmds:['ls -la /','cd /var/log','head -n 5 syslog'] },
+  { zh:'文本搜索：在 /etc/passwd 中搜索包含 root 的行，统计该文件有多少行', en:'Text search: find lines containing root in /etc/passwd, then count the lines', cmds:['grep root /etc/passwd','wc -l /etc/passwd'] },
+  { zh:'系统信息：查看运行时间、内存、CPU 型号和磁盘使用', en:'System info: uptime, memory, CPU model and disk usage', cmds:['uptime','free -h','lscpu','df -h'] },
+  { zh:'硬件诊断：列出块设备，检查坏道硬盘 SMART，查看内存插槽', en:'Hardware: list block devices, check SMART of the failing disk, view DIMM slots', cmds:['lsblk','smartctl -a /dev/sdb','dmidecode -t memory'] },
+  { zh:'网络诊断：Ping 114.114.114.114，查看连接状态，DNS 查询', en:'Network: ping 114.114.114.114, view connections, DNS lookup', cmds:['ping -c 3 114.114.114.114','netstat -tulanp','dig google.com'] },
+  { zh:'用户权限：sudo 查看当前用户，切换 root 再退回', en:'Permissions: sudo whoami, switch to root, then back', cmds:['sudo whoami','su root','exit'] },
+  { zh:'包管理：更新软件源、安装 nginx、查看服务状态', en:'Packages: update sources, install nginx, check its status', cmds:['sudo apt update','sudo apt install nginx','systemctl status nginx'] },
+  { zh:'文件编辑：用 vi 打开 /root/projects/web.conf，修改保存后用 cat 确认', en:'Editing: open web.conf with vi, save, confirm with cat', cmds:['vi /root/projects/web.conf','cat /root/projects/web.conf'] },
+  { zh:'Docker：查看容器、镜像，拉取一个镜像', en:'Docker: list containers and images, pull an image', cmds:['docker ps','docker images','docker pull alpine'] },
+  { zh:'Kubernetes：查看 Pod、节点、服务列表', en:'Kubernetes: list pods, nodes and services', cmds:['kubectl get pods','kubectl get nodes','kubectl get svc'] },
+];
+
+const GUIDE_CHEAT = [
+  { zh:'VFS 文件操作', en:'Files', items:['ls [-la]','cd [path]','pwd','mkdir','touch','cat','rm [-r]','cp','mv','echo [> file]','find','ln [-s]'] },
+  { zh:'系统信息', en:'System Info', items:['uname -a','hostname','whoami','id','who','uptime','date','sensors','dmesg'] },
+  { zh:'硬件信息', en:'Hardware', items:['lscpu','lspci','lsusb','lsblk','lshw','dmidecode','smartctl'] },
+  { zh:'磁盘管理', en:'Disks', items:['df -h','du -sh','fdisk -l','mount','umount','blkid','mkfs','fsck','parted','dd'] },
+  { zh:'内存/进程', en:'Processes', items:['free -h','ps aux','top','htop','kill','pgrep','pkill','lsof'] },
+  { zh:'网络', en:'Networking', items:['ping -c N','curl','wget','ifconfig','ip addr','netstat','ss','nslookup','dig','traceroute','route -n','tcpdump','nc','ssh'] },
+  { zh:'用户/权限', en:'Users & Permissions', items:['chmod','chown','chgrp','umask','useradd','userdel','usermod','passwd','su','sudo'] },
+  { zh:'Shell/环境', en:'Shell', items:['bash','alias','env','export','source','tee','watch','crontab -l','history'] },
+  { zh:'文本处理', en:'Text', items:['grep','head -n','tail -n','wc','sort','uniq','cut','tr','sed','awk','diff','nl'] },
+  { zh:'压缩归档', en:'Archives', items:['tar -czf','tar -xzf','gzip','zip','unzip'] },
+  { zh:'编辑器', en:'Editors', items:['vi','vim','vimtutor','nano'] },
+  { zh:'包管理', en:'Packages', items:['apt update','apt install','apt upgrade','apt remove','yum install','dpkg -i','snap'] },
+  { zh:'服务管理', en:'Services', items:['systemctl status','systemctl start','systemctl stop','systemctl restart','systemctl enable','journalctl -u'] },
+];
+
+function handleGuide(args) {
+    const a = args[0];
+    if (a === 'cheat') {
+        let out = lang === 'en' ? '=== 📚 Command Cheat Sheet ===\n' : '=== 📚 命令速查表 ===\n';
+        for (const g of GUIDE_CHEAT) {
+            out += '\n[' + (lang === 'en' ? g.en : g.zh) + ']\n  ' + g.items.join('  ') + '\n';
+        }
+        return out.trimEnd();
+    }
+    if (a === 'ex' || a === 'exercise') {
+        let out = lang === 'en' ? '=== ✏️ Practice Exercises ===\n' : '=== ✏️ 实战练习题 ===\n';
+        GUIDE_EXERCISES.forEach((e, i) => {
+            out += '\n' + (i + 1) + '. ' + (lang === 'en' ? e.en : e.zh) + '\n';
+            for (const c of e.cmds) out += '   $ ' + c + '\n';
+        });
+        return out.trimEnd();
+    }
+    const n = parseInt(a, 10);
+    if (n >= 1 && n <= GUIDE_STAGES.length) {
+        const s = GUIDE_STAGES[n - 1];
+        let out = '[' + s.n + '] ' + (lang === 'en' ? s.en : s.zh) + '\n';
+        out += (lang === 'en' ? '📖 ' : '📖 ') + (lang === 'en' ? s.enDesc : s.zhDesc) + '\n';
+        out += (lang === 'en' ? 'Commands: ' : '命令：') + s.cmds.join(' ') + '\n';
+        out += (lang === 'en' ? '💡 ' : '💡 ') + (lang === 'en' ? s.enTip : s.zhTip) + '\n';
+        out += lang === 'en' ? '\nTry: practice start (in the matching project) to drill this stage.' : '\n试试：在对应项目里输入 practice start 练习本阶段任务。';
+        return out;
+    }
+    let out = lang === 'en' ? '=== 📖 Linux Learning Guide ===\n' : '=== 📖 Linux 学习指南 ===\n';
+    for (const s of GUIDE_STAGES) {
+        out += '\n[' + s.n + '] ' + (lang === 'en' ? s.en : s.zh) + '\n  ' + (lang === 'en' ? s.enDesc : s.zhDesc);
+    }
+    out += '\n\n' + (lang === 'en'
+        ? 'Usage: guide <stage 1-11> · guide cheat · guide ex'
+        : '用法：guide <阶段 1-11> · guide cheat · guide ex');
+    return out.trimEnd();
+}
+
 function handlePrintf(cmd) {
     const m = cmd.match(/^printf\s+(?:"((?:\\.|[^"\\])*)"|'((?:\\.|[^'\\])*)'|(\S+))(.*)$/);
     if (!m) return 'printf: usage: printf <format> [args...]';
@@ -6708,6 +6790,7 @@ function EXEC_IMPL(cmdStr) {
         case 'exam': return handleExam(args);
         case 'stats': return handleStats();
         case 'lang': return handleLang(args);
+        case 'guide': return handleGuide(args);
 
         // Exit
         case 'exit': return handleExitCmd();
@@ -6985,7 +7068,7 @@ function initUI() {
     updatePromptDisplay();
     appendOutput('Linux Learning Simulator v1.4.0 | ' + window.SIM_HW.os + ' | Kernel ' + window.SIM_HW.kernel, 'cmd-info');
     appendOutput('Type "help" for available commands.', 'cmd-info');
-    if (taskProgress.done.length === 0) appendOutput(lang === 'en' ? 'Type practice to start guided exercises' : '输入 practice 开始跟着学习指南练习', 'cmd-info');
+    if (taskProgress.done.length === 0) appendOutput(lang === 'en' ? 'Type practice to start exercises, guide for the learning guide' : '输入 practice 开始练习，guide 查看学习指南', 'cmd-info');
     const langBtn = document.getElementById('lang-toggle');
     if (langBtn) {
         langBtn.textContent = '🌐 ' + (lang === 'zh' ? '中 / EN' : 'EN / 中');

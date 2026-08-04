@@ -11,10 +11,11 @@
 - 学习统计 `stats`：完成度、用过的命令、连续学习天数、常输错命令、考试记录
 - `bash <脚本>` 脚本执行：变量赋值、注释、`;`、`$( )`/反引号命令替换，引号感知展开（单引号字面量、双引号展开）
 - 状态机：`systemctl` 启停服务、`docker stop/start/rm/run` 改变容器列表、`kill/pkill` 后进程从 `ps` 消失
-- 新命令：`printf`、`read`、`test`、`sleep`、`timeout`、`tree`、`basename`、`dirname`、`jq`、`nmap`、`lang`，命令总数 370
-- 全部 370 个命令配齐手写 📖 用途说明，练习与百科双语展示
+- 新命令：`printf`、`read`、`test`、`sleep`、`timeout`、`tree`、`basename`、`dirname`、`jq`、`nmap`、`lang`、`guide`，命令总数 371
+- 全部 371 个命令配齐手写 📖 用途说明，练习与百科双语展示
 - 英文版：工具栏 🌐 或 `lang [zh|en]` 切换，界面/练习/考试/统计/百科/帮助全英文，选择自动记忆
 - 命令速查分类：中间件、K8s、CI/CD 独立成类
+- 学习指南内嵌：新增 `guide` 命令（11 阶段讲解 / 实战练习题 / 命令速查表，双语），原独立 `学习指南.html` 已合并删除
 
 #### 修复
 
@@ -31,10 +32,11 @@
 - Learning stats `stats`: completion, commands used, study streak, frequently mistyped commands, exam history
 - `bash <script>` execution: variables, comments, `;`, `$( )`/backtick substitution, quote-aware expansion
 - State machines: `systemctl` start/stop, `docker stop/start/rm/run`, `kill/pkill` reflected in `ps`
-- New commands: `printf`, `read`, `test`, `sleep`, `timeout`, `tree`, `basename`, `dirname`, `jq`, `nmap`, `lang` (370 total)
-- Hand-written 📖 explanations for all 370 commands, shown bilingually
+- New commands: `printf`, `read`, `test`, `sleep`, `timeout`, `tree`, `basename`, `dirname`, `jq`, `nmap`, `lang`, `guide` (371 total)
+- Hand-written 📖 explanations for all 371 commands, shown bilingually
 - English UI: toggle with the 🌐 button or `lang [zh|en]`, remembered automatically
 - Quick-reference categories: Middleware, K8s, CI/CD
+- Learning guide embedded: new `guide` command (11-stage explanations / exercises / cheat sheet, bilingual); the standalone `学习指南.html` was merged and removed
 
 #### Fixed
 

@@ -3,7 +3,7 @@
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen)](https://bigbigrunslow.github.io/linux-learning-simulator/)
 [![Version](https://img.shields.io/badge/Version-v1.4.0-orange)](CHANGELOG.md)
-[![Commands](https://img.shields.io/badge/Commands-370-blueviolet)](index.html)
+[![Commands](https://img.shields.io/badge/Commands-371-blueviolet)](index.html)
 
 🚀 **一键开始 / One-Click Start** → **[在线打开模拟器 / Open the Simulator](https://bigbigrunslow.github.io/linux-learning-simulator/)** — 无需克隆、无需安装，浏览器点击即用。
 
@@ -25,7 +25,7 @@
 - 📝 **考试与统计** — `exam <项目>` 随机抽题评分，`stats` 查看学习数据
 - 📜 **脚本与状态机** — `bash script.sh` 可执行，`systemctl`/`docker`/`kill` 真实改变状态
 - 🌐 **英文版** — 工具栏 🌐 一键切换中/英文，选择自动记忆
-- 📚 **370 个命令全部配手写说明** — 每个命令都有用途讲解与练习
+- 📚 **371 个命令全部配手写说明** — 每个命令都有用途讲解与练习
 - ✨ 新命令：`printf` `read` `test` `sleep` `timeout` `tree` `basename` `dirname` `jq` `nmap`
 
 完整历史见 [CHANGELOG.md](CHANGELOG.md)
@@ -33,7 +33,7 @@
 ### ✨ 特性
 
 - 🖥️ **零依赖** — 纯单文件 HTML，双击即用，无需安装任何软件
-- 🎯 **370 个命令** — 覆盖 VFS 操作、系统信息、硬件管理、网络诊断、Shell 工具、开发工具、DevOps 工具链
+- 🎯 **371 个命令** — 覆盖 VFS 操作、系统信息、硬件管理、网络诊断、Shell 工具、开发工具、DevOps 工具链
 - 💾 **全局硬件模型** — 模拟一台真实服务器：i7-12700K + 40GB RAM + 4 块混合磁盘(含坏道)
 - 📝 **Vi/Vim 真编辑器** — 弹窗编辑器，支持 `i` 插入、`dd` 删行、`:wq` 保存写入虚拟文件系统
 - 🔗 **管道与重定向** — `|` 管道、`>`/`>>` 重定向真实生效，支持引号内特殊字符
@@ -41,7 +41,7 @@
 - 🧩 **真实状态机** — 服务启停、容器增删、进程杀灭都真实反映在输出里
 - 🐳 **DevOps 全栈** — Docker/K8s/Terraform/Ansible/MySQL/Redis 等运维命令
 - 🎯 **练习闭环** — 命令专项 + 学习项目 + 考试 + 统计 + 进度保存
-- 📚 **学习指南** — 11 阶段学习路径 + 实战练习题 + 命令速查表
+- 📚 **学习指南** — `guide` 命令内嵌 11 阶段讲解 + 实战练习题 + 命令速查表（双语）
 - 🌐 **中英双语** — 界面一键切换，选择自动记忆
 
 ### 🚀 快速开始
@@ -94,7 +94,7 @@ sudo bash            → 切换 # root 提示符
 ```
 linux-sim/
 ├── index.html          # 主程序（单文件），双击即可使用
-├── 学习指南.html        # 学习指南（可独立打开）
+├── 学习指南.html        # 傻瓜式学习指南（点击即进模拟器）
 ├── CHANGELOG.md        # 更新日志
 ├── README.md           # 本文件
 ├── LICENSE             # MIT
@@ -115,7 +115,8 @@ linux-sim/
 10. **编辑器** → `vi vim vimtutor`
 11. **DevOps** → `docker kubectl helm terraform ansible git nginx mysql redis`
 
-在模拟器里输入 `practice` 可跟随任务练习，`practice path <项目>` 切换学习路线。
+在模拟器里输入 `practice` 可跟随任务练习，`practice path <项目>` 切换学习路线，`guide` 查看学习指南。
+完整指南页面：[https://bigbigrunslow.github.io/linux-learning-simulator/学习指南.html](https://bigbigrunslow.github.io/linux-learning-simulator/%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97.html)
 
 ### ⚠️ 注意事项
 
@@ -135,7 +136,7 @@ linux-sim/
 - 📝 **Exams & stats** — `exam <project>` auto-graded quizzes, `stats` learning dashboard
 - 📜 **Scripts & state machines** — `bash script.sh` works; `systemctl`/`docker`/`kill` really change state
 - 🌐 **English UI** — one-click toggle with the 🌐 button, choice remembered
-- 📚 **All 370 commands explained** — hand-written purpose notes and drills for every command
+- 📚 **All 371 commands explained** — hand-written purpose notes and drills for every command
 - ✨ New commands: `printf` `read` `test` `sleep` `timeout` `tree` `basename` `dirname` `jq` `nmap`
 
 Full history in [CHANGELOG.md](CHANGELOG.md)
@@ -143,7 +144,7 @@ Full history in [CHANGELOG.md](CHANGELOG.md)
 ### ✨ Features
 
 - 🖥️ **Zero Dependencies** — Single HTML file, just double-click to use
-- 🎯 **370 Commands** — VFS operations, system info, hardware management, networking, Shell tools, DevOps
+- 🎯 **371 Commands** — VFS operations, system info, hardware management, networking, Shell tools, DevOps
 - 💾 **Global Hardware Model** — Simulates a real server: i7-12700K + 40GB RAM + 4 mixed disks (with failing HDD)
 - 📝 **Real Vi/Vim Editor** — Modal popup editor with `i` insert, `dd` delete, `:wq` save
 - 🔗 **Pipes & Redirects** — working `|`, `>`/`>>`, quote-aware
@@ -151,7 +152,7 @@ Full history in [CHANGELOG.md](CHANGELOG.md)
 - 🧩 **Real state machines** — services, containers and processes respond to commands
 - 🐳 **Full DevOps Stack** — Docker, K8s, Terraform, Ansible, MySQL, Redis and more
 - 🎯 **Learning loop** — drills, projects, exams, stats, saved progress
-- 📚 **Learning Guide** — 11-stage path, exercises, command reference
+- 📚 **Learning Guide** — `guide` command with 11-stage explanations, exercises and a cheat sheet (bilingual)
 - 🌐 **Bilingual** — one-click Chinese/English switch, remembered
 
 ### 🚀 Quick Start
@@ -204,7 +205,7 @@ sudo bash            → switch to a # root prompt
 ```
 linux-sim/
 ├── index.html          # Main program (single file), double-click to use
-├── 学习指南.html        # Learning guide (standalone)
+├── 学习指南.html        # Foolproof learning guide (one click into the simulator)
 ├── CHANGELOG.md        # Changelog
 ├── README.md           # This file
 ├── LICENSE             # MIT
@@ -225,7 +226,8 @@ linux-sim/
 10. **Editors** → `vi vim vimtutor`
 11. **DevOps** → `docker kubectl helm terraform ansible git nginx mysql redis`
 
-Type `practice` in the simulator to follow guided tasks; `practice path <project>` switches learning paths.
+Type `practice` to follow guided tasks, `practice path <project>` to switch learning paths, and `guide` for the learning guide.
+Full guide page: [https://bigbigrunslow.github.io/linux-learning-simulator/学习指南.html](https://bigbigrunslow.github.io/linux-learning-simulator/%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97.html)
 
 ### ⚠️ Notes
 
