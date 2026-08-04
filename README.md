@@ -2,8 +2,8 @@
 
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen)](https://bigbigrunslow.github.io/linux-learning-simulator/)
-[![Version](https://img.shields.io/badge/Version-v1.2.1-orange)](CHANGELOG.md)
-[![Commands](https://img.shields.io/badge/Commands-355-blueviolet)](index.html)
+[![Version](https://img.shields.io/badge/Version-v1.3.0-orange)](CHANGELOG.md)
+[![Commands](https://img.shields.io/badge/Commands-356-blueviolet)](index.html)
 
 🚀 **一键开始 / One-Click Start** → **[在线打开模拟器 / Open the Simulator](https://bigbigrunslow.github.io/linux-learning-simulator/)** — 无需克隆、无需安装，浏览器点击即用。
 
@@ -18,6 +18,12 @@
 ---
 
 ## 中文
+
+### 🆕 最近更新（v1.3.0）
+
+- 🎯 **练习模式上线** — 内置 44 个与学习指南 11 阶段同步的练习任务：输入 `practice` 查看任务、`practice start` 开始；每完成一项自动判题、自动打勾并提示下一项
+- 💾 **进度保存** — 练习进度存入浏览器 localStorage，刷新页面不丢失；`practice reset` 可重置
+- 🧭 **侧栏任务卡** — 右侧边栏实时显示当前任务与提示，点击即可开始
 
 ### 🆕 最近更新（v1.2.1）
 
@@ -40,7 +46,7 @@
 - 📝 **Vi 编辑器修复** — 修复了弹窗聚焦问题；`i/a/A/o/O` 插入、`dd` 删行、`u` 撤销、`y/p` 复制粘贴、`/` 搜索、`:wq` 保存、`:q!` 放弃全部可用
 - 🔐 **sudo/exit 状态修复** — `sudo bash` 后输入 `exit` 能真正退回普通用户提示符
 - 🐳 **服务命令输出修复** — `alertmanager`、`grafana`、`kafka`、`nfs` 等 30+ 命令不再输出 `undefined`
-- 🏷️ **命令数徽章动态化** — 工具栏实时显示当前命令总数（355）
+- 🏷️ **命令数徽章动态化** — 工具栏实时显示当前命令总数（356）
 - 📂 **服务器配置更完整** — 新增 `/var/www/html` 示例站点、`/etc/nginx/nginx.conf`、`/etc/sudoers`
 - ⌨️ **方向键翻历史** — `↑`/`↓` 浏览命令历史，回车后自动复位
 - 🧹 **其他修复** — `docker ps`/`kubectl` 表格对齐、`echo` 重定向支持引号剥离与 `>>` 追加、favicon 404 消除
@@ -50,7 +56,7 @@
 ### ✨ 特性
 
 - 🖥️ **零依赖** — 纯单文件 HTML，双击即用，无需安装任何软件
-- 🎯 **355 个命令** — 覆盖 VFS 操作、系统信息、硬件管理、网络诊断、Shell 工具、开发工具、DevOps 工具链
+- 🎯 **356 个命令** — 覆盖 VFS 操作、系统信息、硬件管理、网络诊断、Shell 工具、开发工具、DevOps 工具链
 - 💾 **全局硬件模型** — 模拟一台真实服务器：i7-12700K + 40GB RAM + 4 块混合磁盘(含坏道)
 - 📝 **Vi/Vim 真编辑器** — 弹窗编辑器，支持 `i` 插入、`dd` 删行、`:wq` 保存写入虚拟文件系统
 - 🔗 **管道与重定向** — `|` 管道、`>`/`>>` 重定向真实生效，支持引号内特殊字符
@@ -154,6 +160,12 @@ linux-sim/
 
 ## English
 
+### 🆕 Recent Updates (v1.3.0)
+
+- 🎯 **Practice Mode** — 44 tasks synced with the 11 stages of the learning guide: run `practice` to list, `practice start` to begin; each completed task is auto-checked, marked ✅, and the next one is shown
+- 💾 **Progress Persistence** — progress is saved to localStorage and survives refreshes; `practice reset` clears it
+- 🧭 **Sidebar Task Card** — the right sidebar shows the current task and hint; click it to start
+
 ### 🆕 Recent Updates (v1.2.1)
 
 - 🚀 **One-click entry** — the GitHub Pages online version is now the recommended way to use it; just click the link. `git clone` is for developers
@@ -175,7 +187,7 @@ linux-sim/
 - 📝 **Vi Editor Fixed** — fixed the modal focus bug; `i/a/A/o/O` insert, `dd` delete line, `u` undo, `y/p` yank/put, `/` search, `:wq` save, `:q!` quit all work
 - 🔐 **sudo/exit State Fixed** — `exit` after `sudo bash` now truly returns to the normal user prompt
 - 🐳 **Service Command Output Fixed** — `alertmanager`, `grafana`, `kafka`, `nfs` and 30+ commands no longer print `undefined`
-- 🏷️ **Dynamic Command Badge** — the toolbar shows the live command count (355)
+- 🏷️ **Dynamic Command Badge** — the toolbar shows the live command count (356)
 - 📂 **Richer Server Configuration** — added `/var/www/html` sample site, `/etc/nginx/nginx.conf`, `/etc/sudoers`
 - ⌨️ **History Navigation** — browse command history with `↑`/`↓`, auto-reset after Enter
 - 🧹 **Other Fixes** — `docker ps`/`kubectl` table alignment, `echo` redirect quote stripping and `>>` append, favicon 404 removed
@@ -185,7 +197,7 @@ Full list in [CHANGELOG.md](CHANGELOG.md)
 ### ✨ Features
 
 - 🖥️ **Zero Dependencies** — Single HTML file, just double-click to use
-- 🎯 **355 Commands** — VFS operations, system info, hardware management, networking, Shell tools, DevOps
+- 🎯 **356 Commands** — VFS operations, system info, hardware management, networking, Shell tools, DevOps
 - 💾 **Global Hardware Model** — Simulates a real server: i7-12700K + 40GB RAM + 4 mixed disks (with failing HDD)
 - 📝 **Real Vi/Vim Editor** — Modal popup editor, supporting `i` insert, `dd` delete, `:wq` save to virtual filesystem
 - 🔗 **Pipes & Redirects** — `|` pipes and `>`/`>>` redirects really work, quote-aware

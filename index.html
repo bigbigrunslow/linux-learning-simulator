@@ -29,6 +29,9 @@ body{background:#1a1b26;color:#c0caf5;font-family:'Cascadia Code','Fira Code','J
 #side-panel .cmd-item:hover{background:#3b4261;color:#c0caf5}
 #side-panel details{margin-bottom:4px}
 #side-panel summary{cursor:pointer;color:#7dcfff;outline:none}
+#side-panel .task-card{background:#24283b;border:1px solid #3b4261;border-radius:6px;padding:8px;margin-bottom:10px;color:#a9b1d6;cursor:pointer;font-size:11px;line-height:1.6}
+#side-panel .task-card b{color:#7aa2f7}
+#side-panel .task-card .hint{color:#7dcfff}
 /* Vi/Vim modal overlay */
 #vi-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);z-index:100;justify-content:center;align-items:center}
 #vi-overlay.active{display:flex}
@@ -1244,6 +1247,8 @@ VFS.init();
 
 const CMD = {};
 
+CMD['practice'] = {cat:'学习', desc:'练习任务（与学习指南同步）', usage:'practice [start|编号|reset]'};
+
 // === VFS File Operations ===
 CMD['ls']    = {cat:'VFS', desc:'列出目录内容', usage:'ls [-la] [path]'};
 CMD['cd']    = {cat:'VFS', desc:'切换工作目录', usage:'cd [path]'};
@@ -1722,6 +1727,89 @@ let chainBreak = false;
 const FALSE_SENTINEL = '\u0000false';
 let aliasMap = {ll:'ls -la', la:'ls -A', l:'ls -CF', ports:'netstat -tulanp', update:'sudo apt update && sudo apt upgrade -y'};
 let envVars = {HOME:'/root', USER:'user', SHELL:'/bin/bash', PATH:'/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', EDITOR:'vim', PWD:'/root', LANG:'en_US.UTF-8'};
+
+/* ===== LEARNING TASKS (synced with 学习指南.html 11 stages) ===== */
+const TASKS = [
+  { id:'s1t1', stage:1, title:'查看当前目录', desc:'输入 ls 列出当前目录内容', hint:'ls', check:() => history.some(h => /^ls(\s|$)/.test(h)) },
+  { id:'s1t2', stage:1, title:'显示当前路径', desc:'输入 pwd 查看当前所在目录', hint:'pwd', check:() => history.includes('pwd') },
+  { id:'s1t3', stage:1, title:'切换目录', desc:'进入 /tmp 目录', hint:'cd /tmp', check:() => cwd === '/tmp' },
+  { id:'s1t4', stage:1, title:'创建目录', desc:'在 /tmp 下创建 mydir 目录', hint:'mkdir /tmp/mydir', check:() => VFS.getFile('/tmp/mydir/.dir') !== null },
+  { id:'s1t5', stage:1, title:'创建空文件', desc:'创建 /tmp/hello.txt', hint:'touch /tmp/hello.txt', check:() => VFS.getFile('/tmp/hello.txt') !== null },
+  { id:'s1t6', stage:1, title:'重定向写入', desc:'把 hello 写入 /tmp/greet.txt', hint:"echo hello > /tmp/greet.txt", check:() => VFS.getFile('/tmp/greet.txt') === 'hello' },
+  { id:'s1t7', stage:1, title:'复制文件', desc:'复制 greet.txt 为 greet-copy.txt', hint:'cp /tmp/greet.txt /tmp/greet-copy.txt', check:() => VFS.getFile('/tmp/greet-copy.txt') === 'hello' },
+  { id:'s1t8', stage:1, title:'移动/重命名', desc:'把 greet-copy.txt 改名为 renamed.txt', hint:'mv /tmp/greet-copy.txt /tmp/renamed.txt', check:() => VFS.getFile('/tmp/renamed.txt') === 'hello' && VFS.getFile('/tmp/greet-copy.txt') === null },
+  { id:'s1t9', stage:1, title:'删除文件', desc:'删除 /tmp/renamed.txt', hint:'rm /tmp/renamed.txt', check:() => VFS.getFile('/tmp/renamed.txt') === null },
+  { id:'s1t10', stage:1, title:'查看文件内容', desc:'用 cat 查看 /tmp/greet.txt', hint:'cat /tmp/greet.txt', check:() => history.some(h => /^cat\s+\/tmp\/greet\.txt$/.test(h)) },
+
+  { id:'s2t1', stage:2, title:'grep 搜索', desc:'在 /etc/passwd 里搜索 root', hint:'grep root /etc/passwd', check:() => history.some(h => /^grep\s/.test(h) && h.includes('/etc/passwd')) },
+  { id:'s2t2', stage:2, title:'管道', desc:'把 cat /etc/passwd 的输出管道给 grep bash', hint:'cat /etc/passwd | grep bash', check:() => history.some(h => /cat .+\|.*grep/.test(h)) },
+  { id:'s2t3', stage:2, title:'head 查看头部', desc:'查看 /etc/passwd 前 3 行', hint:'head -3 /etc/passwd', check:() => history.some(h => /^head\s+-3\s+\/etc\/passwd$/.test(h)) },
+  { id:'s2t4', stage:2, title:'tail 查看尾部', desc:'查看 /etc/passwd 后 2 行', hint:'tail -2 /etc/passwd', check:() => history.some(h => /^tail\s+-2\s+\/etc\/passwd$/.test(h)) },
+  { id:'s2t5', stage:2, title:'wc 统计行数', desc:'统计 /etc/passwd 的行数', hint:'wc -l /etc/passwd', check:() => history.some(h => /^wc\s+-l\s+\/etc\/passwd$/.test(h)) },
+
+  { id:'s3t1', stage:3, title:'内核信息', desc:'查看系统内核信息', hint:'uname -a', check:() => history.some(h => /^uname(\s|$)/.test(h)) },
+  { id:'s3t2', stage:3, title:'内存状态', desc:'查看内存使用情况', hint:'free -h', check:() => history.some(h => /^free(\s|$)/.test(h)) },
+  { id:'s3t3', stage:3, title:'进程列表', desc:'查看当前进程', hint:'ps aux', check:() => history.some(h => /^ps(\s|$)/.test(h)) },
+  { id:'s3t4', stage:3, title:'运行时间', desc:'查看系统运行时间与负载', hint:'uptime', check:() => history.includes('uptime') },
+
+  { id:'s4t1', stage:4, title:'CPU 信息', desc:'查看 CPU 架构信息', hint:'lscpu', check:() => history.includes('lscpu') },
+  { id:'s4t2', stage:4, title:'块设备', desc:'查看磁盘与分区树', hint:'lsblk', check:() => history.includes('lsblk') },
+  { id:'s4t3', stage:4, title:'磁盘空间', desc:'查看磁盘使用率', hint:'df -h', check:() => history.some(h => /^df(\s|$)/.test(h)) },
+  { id:'s4t4', stage:4, title:'磁盘健康', desc:'查看 /dev/sdb 的 SMART 健康状态', hint:'smartctl -a /dev/sdb', check:() => history.some(h => /^smartctl/.test(h)) },
+
+  { id:'s5t1', stage:5, title:'网络接口', desc:'查看网卡与 IP 地址', hint:'ip addr', check:() => history.some(h => /^ip\s+addr/.test(h)) },
+  { id:'s5t2', stage:5, title:'ping 连通性', desc:'ping 8.8.8.8 三次', hint:'ping -c 3 8.8.8.8', check:() => history.some(h => /^ping/.test(h)) },
+  { id:'s5t3', stage:5, title:'curl 请求', desc:'用 curl 访问一个网页', hint:'curl example.com', check:() => history.some(h => /^curl/.test(h)) },
+  { id:'s5t4', stage:5, title:'端口监听', desc:'查看监听端口', hint:'ss -tlnp', check:() => history.some(h => /^ss(\s|$)/.test(h) || /^netstat/.test(h)) },
+
+  { id:'s6t1', stage:6, title:'当前用户', desc:'查看当前用户名', hint:'whoami', check:() => history.includes('whoami') },
+  { id:'s6t2', stage:6, title:'sudo 提权', desc:'用 sudo bash 切到 root，再用 exit 退回', hint:'sudo bash → exit', check:() => history.includes('sudo bash') && history.includes('exit') },
+  { id:'s6t3', stage:6, title:'修改权限', desc:'把 /tmp/hello.txt 权限改为 600', hint:'chmod 600 /tmp/hello.txt', check:() => history.some(h => /^chmod/.test(h)) && VFS.getFile('/tmp/hello.txt') !== null },
+  { id:'s6t4', stage:6, title:'修改属主', desc:'把 /tmp/hello.txt 属主改为 user', hint:'chown user /tmp/hello.txt', check:() => history.some(h => /^chown/.test(h)) && VFS.getFile('/tmp/hello.txt') !== null },
+
+  { id:'s7t1', stage:7, title:'更新软件源', desc:'执行 apt update', hint:'sudo apt update', check:() => history.some(h => /^(\w+\s+)?apt\s+update/.test(h)) },
+  { id:'s7t2', stage:7, title:'安装软件包', desc:'安装 nginx', hint:'sudo apt install nginx', check:() => history.some(h => /apt\s+install/.test(h)) },
+
+  { id:'s8t1', stage:8, title:'服务状态', desc:'查看 nginx 服务状态', hint:'systemctl status nginx', check:() => history.some(h => /^systemctl\s+status/.test(h)) },
+  { id:'s8t2', stage:8, title:'系统日志', desc:'查看最近 10 条日志', hint:'journalctl -n 10', check:() => history.some(h => /^journalctl/.test(h)) },
+  { id:'s8t3', stage:8, title:'定时任务', desc:'查看 crontab 任务列表', hint:'crontab -l', check:() => history.some(h => /^crontab/.test(h)) },
+
+  { id:'s9t1', stage:9, title:'环境变量', desc:'输出 $HOME 的值', hint:'echo $HOME', check:() => history.some(h => h.includes('$HOME')) },
+  { id:'s9t2', stage:9, title:'导出变量', desc:'执行 export 查看环境变量', hint:'export', check:() => history.some(h => /^export/.test(h)) },
+  { id:'s9t3', stage:9, title:'别名', desc:'创建一个别名，或用 ll 查看', hint:"alias ll='ls -la'", check:() => history.some(h => /^alias/.test(h) || /^ll(\s|$)/.test(h)) },
+
+  { id:'s10t1', stage:10, title:'vi 编辑文件', desc:'用 vi 打开 /tmp/hello.txt（i 插入、:wq 保存）', hint:'vi /tmp/hello.txt', check:() => history.some(h => /^vi(\s|$)/.test(h)) },
+  { id:'s10t2', stage:10, title:'vim 教程', desc:'运行 vimtutor 打开教程', hint:'vimtutor', check:() => history.some(h => /^vimtutor/.test(h)) },
+
+  { id:'s11t1', stage:11, title:'Docker 容器', desc:'查看运行中的容器', hint:'docker ps', check:() => history.some(h => /^docker\s+ps/.test(h)) },
+  { id:'s11t2', stage:11, title:'K8s Pod', desc:'查看 Kubernetes Pod 列表', hint:'kubectl get pods', check:() => history.some(h => /^kubectl\s+get/.test(h)) },
+  { id:'s11t3', stage:11, title:'Git 版本', desc:'查看 git 版本', hint:'git --version', check:() => history.some(h => /^git/.test(h)) },
+];
+const TASK_STAGES = ['文件操作','文本处理','系统监控','硬件与磁盘','网络诊断','用户与权限','软件包管理','服务管理','Shell 编程','Vi/Vim 编辑器','DevOps 工具链'];
+
+function loadTaskProgress() {
+    try {
+        const raw = localStorage.getItem('linux-sim-task-progress');
+        if (raw) {
+            const p = JSON.parse(raw);
+            if (p && Array.isArray(p.done)) return { done: p.done };
+        }
+    } catch (e) {}
+    return { done: [] };
+}
+let taskProgress = loadTaskProgress();
+function saveTaskProgress() {
+    try { localStorage.setItem('linux-sim-task-progress', JSON.stringify(taskProgress)); } catch (e) {}
+}
+function currentTask() {
+    return TASKS.find(t => !taskProgress.done.includes(t.id)) || null;
+}
+function taskStageName(t) {
+    return TASK_STAGES[t.stage - 1] || '其他';
+}
+function showTaskDetail(t) {
+    return '▶ 当前任务 [' + t.id + ']：' + t.title + '\n' + t.desc + '\n提示：' + t.hint + '\n进度：' + taskProgress.done.length + '/' + TASKS.length;
+}
 
 function resolvePath(path) {
     if (!path) return cwd;
@@ -3803,6 +3891,36 @@ function handleHelp() {
     return out;
 }
 
+function handlePractice(args) {
+    if (args[0] === 'reset') {
+        taskProgress = { done: [] };
+        saveTaskProgress();
+        return '练习进度已重置 / Practice progress reset.';
+    }
+    if (args[0] === 'start' || args[0] === 'next') {
+        const cur = currentTask();
+        return cur ? showTaskDetail(cur) : '🎉 全部任务已完成！输入 practice reset 可重新开始。';
+    }
+    if (/^\d+$/.test(args[0])) {
+        const idx = parseInt(args[0], 10) - 1;
+        const t = TASKS[idx];
+        if (!t) return 'practice: 任务编号无效（1-' + TASKS.length + '）';
+        return (taskProgress.done.includes(t.id) ? '✅ 已完成：' : '⬜ ') + showTaskDetail(t);
+    }
+    let out = '=== 🎯 练习任务（' + taskProgress.done.length + '/' + TASKS.length + ' 完成）===\n';
+    let lastStage = 0;
+    TASKS.forEach((t, i) => {
+        if (t.stage !== lastStage) {
+            out += '\n[' + taskStageName(t) + ']\n';
+            lastStage = t.stage;
+        }
+        const done = taskProgress.done.includes(t.id);
+        out += (done ? '✅ ' : '⬜ ') + (i + 1) + '. ' + t.title + (done ? '' : ' — ' + t.desc) + '\n';
+    });
+    out += '\n用法：practice start（开始/下一任务）、practice <编号>、practice reset';
+    return out.trimEnd();
+}
+
 
 function handleDocker(args) {
     const sub = args[0];
@@ -5267,6 +5385,7 @@ function EXEC_IMPL(cmdStr) {
 
         // Help
         case 'help': return handleHelp();
+        case 'practice': return handlePractice(args);
 
         // Exit
         case 'exit': return handleExitCmd();
@@ -5406,6 +5525,9 @@ function initUI() {
         if (e.target.classList.contains('cmd-item')) {
             input.value = e.target.textContent + ' ';
             input.focus();
+        } else if (e.target.id === 'task-card') {
+            input.value = 'practice start';
+            input.focus();
         }
     });
 
@@ -5441,6 +5563,17 @@ function initUI() {
                 }
             } catch (err) {
                 appendOutput('Error: ' + err.message, 'cmd-err');
+            }
+
+            const curTask = currentTask();
+            if (curTask && curTask.check()) {
+                taskProgress.done.push(curTask.id);
+                saveTaskProgress();
+                appendOutput('✅ 任务完成：' + curTask.title + '（' + taskProgress.done.length + '/' + TASKS.length + '）', 'cmd-info');
+                const nextTask = currentTask();
+                if (nextTask) appendOutput('▶ 下一任务 [' + nextTask.id + ']：' + nextTask.title + '\n' + nextTask.desc + '\n提示：' + nextTask.hint, 'cmd-info');
+                else appendOutput('🎉 恭喜！全部练习任务已完成！输入 practice reset 可重新开始。', 'cmd-info');
+                buildSidePanel();
             }
 
             input.value = '';
@@ -5496,8 +5629,9 @@ function initUI() {
     });
 
     updatePromptDisplay();
-    appendOutput('Linux Learning Simulator v1.2.1 | ' + window.SIM_HW.os + ' | Kernel ' + window.SIM_HW.kernel, 'cmd-info');
+    appendOutput('Linux Learning Simulator v1.3.0 | ' + window.SIM_HW.os + ' | Kernel ' + window.SIM_HW.kernel, 'cmd-info');
     appendOutput('Type "help" for available commands.', 'cmd-info');
+    if (taskProgress.done.length === 0) appendOutput('输入 practice 开始跟着学习指南练习', 'cmd-info');
 }
 
 function appendOutput(text, className) {
@@ -5514,7 +5648,14 @@ function updatePromptDisplay() {
 
 function buildSidePanel() {
     const panel = document.getElementById('side-panel');
-    panel.innerHTML = '<h3>📚 命令速查</h3>';
+    const curTask = currentTask();
+    panel.innerHTML = '<h3>🎯 学习任务 ' + taskProgress.done.length + '/' + TASKS.length + '</h3>';
+    if (curTask) {
+        panel.innerHTML += '<div class="task-card" id="task-card"><b>[' + curTask.id + '] ' + curTask.title + '</b><br>' + curTask.desc + '<br><span class="hint">' + curTask.hint + '</span></div>';
+    } else {
+        panel.innerHTML += '<div class="task-card">🎉 全部任务完成！</div>';
+    }
+    panel.innerHTML += '<h3>📚 命令速查</h3>';
 
     const cats = {};
     for (const [name, info] of Object.entries(CMD)) {
@@ -5522,7 +5663,7 @@ function buildSidePanel() {
         cats[info.cat].push(name);
     }
 
-    const orderedCats = ['VFS', '文本处理', '系统信息', '硬件信息', '磁盘管理', '内存/进程', '网络', '用户/权限', '软件包', '服务管理', 'Shell', '压缩归档', '文件工具', '编辑器', '开发工具', '会话管理', '系统控制', '文档工具', '其他'];
+    const orderedCats = ['学习', 'VFS', '文本处理', '系统信息', '硬件信息', '磁盘管理', '内存/进程', '网络', '用户/权限', '软件包', '服务管理', 'Shell', '压缩归档', '文件工具', '编辑器', '开发工具', '会话管理', '系统控制', '文档工具', '其他'];
 
     for (const cat of orderedCats) {
         if (cats[cat]) {

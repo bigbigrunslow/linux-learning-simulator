@@ -1,5 +1,31 @@
 # Changelog / 更新日志
 
+## v1.3.0 — 2026-08-04
+
+### 中文
+
+#### 新增
+
+- 练习模式：内置 44 个与学习指南 11 阶段同步的练习任务（文件操作、文本处理、系统监控、硬件磁盘、网络、用户权限、软件包、服务、Shell、Vi、DevOps）
+- `practice` 命令：`practice` 查看任务列表、`practice start`/`next` 开始或进入下一任务、`practice <编号>` 跳转、`practice reset` 重置
+- 自动判题：执行命令后自动检查当前任务，完成即打勾并提示下一任务
+- 进度持久化：任务进度存入 localStorage，刷新不丢
+- 侧栏学习任务卡：实时显示当前任务与提示，点击一键开始
+- 学习指南同步说明：指南顶部提示在模拟器中输入 `practice` 开始练习
+- 命令总数更新为 356（新增 `practice` 命令）
+
+### English
+
+#### Added
+
+- Practice mode: 44 tasks synced with the 11 stages of the learning guide (file ops, text processing, monitoring, hardware/disk, networking, permissions, packages, services, shell, vi, DevOps)
+- `practice` command: list tasks, `practice start`/`next`, `practice <number>`, `practice reset`
+- Auto-checking: after each command the current task is verified, marked ✅, and the next task is shown
+- Progress persistence via localStorage
+- Sidebar task card showing the current task and hint, one-click to start
+- Learning guide updated with instructions to run `practice` in the simulator
+- Command count updated to 356 (new `practice` command)
+
 ## v1.2.1 — 2026-08-04
 
 ### 中文
