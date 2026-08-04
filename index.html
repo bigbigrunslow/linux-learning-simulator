@@ -5742,6 +5742,52 @@ function splitOutsideQuotes(str, sep) {
     return parts;
 }
 
+function expandShell(cmd) {
+    let out = '';
+    let inSingle = false;
+    let inDouble = false;
+    for (let i = 0; i < cmd.length; i++) {
+        const ch = cmd[i];
+        if (ch === "'" && !inDouble) { inSingle = !inSingle; out += ch; continue; }
+        if (ch === '"' && !inSingle) { inDouble = !inDouble; out += ch; continue; }
+        if (inSingle) { out += ch; continue; }
+        if (ch === '$') {
+            if (cmd[i + 1] === '(') {
+                const end = cmd.indexOf(')', i + 2);
+                if (end !== -1) {
+                    const inner = cmd.slice(i + 2, end);
+                    out += EXEC(inner.trim()).trim();
+                    i = end;
+                    continue;
+                }
+            } else if (cmd[i + 1] === '?') {
+                out += String(lastExitCode);
+                i++;
+                continue;
+            } else {
+                const m = /^[A-Za-z_][A-Za-z0-9_]*/.exec(cmd.slice(i + 1));
+                if (m) {
+                    const name = m[0];
+                    out += (name in envVars ? envVars[name] : '$' + name);
+                    i += name.length;
+                    continue;
+                }
+            }
+        }
+        if (ch === '`') {
+            const end = cmd.indexOf('`', i + 1);
+            if (end !== -1) {
+                const inner = cmd.slice(i + 1, end);
+                out += EXEC(inner.trim()).trim();
+                i = end;
+                continue;
+            }
+        }
+        out += ch;
+    }
+    return out;
+}
+
 function EXEC_IMPL(cmdStr) {
     if (!cmdStr || !cmdStr.trim()) return '';
 
@@ -5800,12 +5846,8 @@ function EXEC_IMPL(cmdStr) {
         cmd = aliasMap[cmd.split(' ')[0]] + ' ' + cmd.split(' ').slice(1).join(' ');
     }
 
-    // Expand $? and environment variables
-    cmd = cmd.replace(/\$\?/g, String(lastExitCode));
-    cmd = cmd.replace(/\$([A-Za-z_][A-Za-z0-9_]*)/g, (m, name) => (name in envVars ? envVars[name] : m));
-    // Command substitution: $(...) and `...`
-    cmd = cmd.replace(/\$\(([^()]*)\)/g, (m, inner) => EXEC(inner.trim()).trim());
-    cmd = cmd.replace(/`([^`]*)`/g, (m, inner) => EXEC(inner.trim()).trim());
+    // Quote-aware expansion: $? / $VAR / $(...) / `...` (single quotes are literal)
+    cmd = expandShell(cmd);
 
     const parts = parseArgs(cmd);
     let cmdName = parts[0];
