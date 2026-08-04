@@ -2123,6 +2123,29 @@ const CMD_USAGES = {
   id: [ { c:'id', d:'用户与组 ID', x:'id 显示当前用户的 UID、GID 和所属组。' } ],
   who: [ { c:'who', d:'登录用户', x:'who 列出当前登录到系统的用户和终端。' } ],
   uptime: [ { c:'uptime', d:'运行时间与负载', x:'uptime 显示系统运行了多久、负载是多少。' } ],
+  kafka: [
+    { c:'kafka topic create demo', d:'创建主题', x:'Kafka 以“主题”组织消息流，先建主题，生产者/消费者才能用。' },
+    { c:'kafka topic list', d:'列出主题', x:'查看集群里已有哪些主题。' },
+  ],
+  rabbitmq: [
+    { c:'rabbitmqctl status', d:'查看服务状态', x:'rabbitmqctl 是 RabbitMQ 管理命令，status 看节点状态。' },
+    { c:'rabbitmqctl list_queues', d:'查看队列', x:'列出消息队列及积压消息数量。' },
+  ],
+  rabbitmqctl: [
+    { c:'rabbitmqctl status', d:'查看节点状态', x:'同 rabbitmq 的 status，查看节点与运行信息。' },
+  ],
+  elasticsearch: [
+    { c:'elasticsearch', d:'启动 Elasticsearch（模拟）', x:'Elasticsearch 是搜索/日志分析中间件，常与 Kibana、Logstash 组合。' },
+  ],
+  minio: [
+    { c:'minio', d:'MinIO 对象存储（模拟）', x:'MinIO 是 S3 兼容的对象存储中间件，可存任意文件。' },
+  ],
+  etcd: [
+    { c:'etcdctl endpoint health', d:'检查 etcd 健康', x:'etcd 是分布式协调存储，K8s 用它保存集群状态，健康检查很重要。' },
+  ],
+  consul: [
+    { c:'consul members', d:'查看集群成员', x:'Consul 提供服务发现与配置中心，members 看节点列表。' },
+  ],
 };
 
 /* ===== LEARNING PATHS ===== */
@@ -2132,7 +2155,7 @@ const PATHS = {
   network: { name:'网络排查', desc:'接口、连通性、端口、远程传输' },
   docker:  { name:'Docker 容器', desc:'镜像与容器管理' },
   k8s:     { name:'Kubernetes', desc:'集群、工作负载、日志' },
-  db:      { name:'数据库', desc:'MySQL / Redis 等' },
+  middleware: { name:'中间件', desc:'Nginx、Redis、MySQL、Kafka、Elasticsearch 等常用中间件' },
   monitor: { name:'监控运维', desc:'进程、资源、服务与日志' },
   other:   { name:'其他命令', desc:'其余命令的基础用法' },
 };
@@ -2140,7 +2163,7 @@ const PATHS = {
 function cmdPath(name) {
   if (['docker','docker-compose','podman','buildah','skopeo','containerd','crictl','ctr'].includes(name)) return 'docker';
   if (['kubectl','helm','kubeadm','kubelet','minikube','kind','istioctl','linkerd','argocd','flux','cilium','calico','calicoctl','flannel','weave','metallb','longhorn','rook','knative','openfaas','kubeless'].includes(name)) return 'k8s';
-  if (['mysql','mysqldump','redis-cli','redis','postgresql','pg_dump','sqlite3','mongodb','etcd','etcdctl','consul','nats','pulsar','kafka','rabbitmq','rabbitmqctl'].includes(name)) return 'db';
+  if (['mysql','mysqldump','redis-cli','redis','postgresql','pg_dump','sqlite3','mongodb','etcd','etcdctl','consul','nats','pulsar','kafka','rabbitmq','rabbitmqctl','nginx','apache2','caddy','haproxy','traefik','keepalived','elasticsearch','logstash','kibana','filebeat','fluentd','fluentbit','minio'].includes(name)) return 'middleware';
   if (['ip','ifconfig','ping','traceroute','mtr','curl','wget','nc','ncat','netstat','ss','dig','nslookup','host','whois','route','arp','arping','iptables','ufw','tcpdump','nmcli','iwconfig','rfkill','socat','telnet','ssh','scp','sftp','ftp','rsync'].includes(name)) return 'network';
   if (['top','htop','free','vmstat','iostat','sar','perf','ps','kill','pkill','pgrep','pidof','lsof','strace','ltrace','uptime','watch','systemctl','journalctl','df','du','sensors','neofetch','inxi','glances','iftop','nethogs','iotop','dmesg','time'].includes(name)) return 'monitor';
   if (['alias','env','export','unset','set','shopt','source','declare','readonly','type','which','whereis','whatis','man','help','history','echo','seq','yes','bc','cal','date','sleep','true','false','exec','eval','printf'].includes(name)) return 'shell';
@@ -2176,14 +2199,19 @@ for (const name of Object.keys(CMD)) {
     };
   }
 }
-const PATH_ORDER = ['basic', 'shell', 'network', 'docker', 'k8s', 'db', 'monitor', 'other'];
+const PATH_ORDER = ['basic', 'shell', 'network', 'docker', 'k8s', 'middleware', 'monitor', 'other'];
 
 function loadTaskProgress() {
     try {
         const raw = localStorage.getItem('linux-sim-task-progress');
         if (raw) {
             const p = JSON.parse(raw);
-            if (p && Array.isArray(p.done)) return { done: p.done, focus: p.focus || 'basic' };
+            if (p && Array.isArray(p.done)) {
+                let focus = p.focus || 'basic';
+                if (focus === 'db') focus = 'middleware';
+                if (focus === 'path:db') focus = 'path:middleware';
+                return { done: p.done, focus };
+            }
         }
     } catch (e) {}
     return { done: [], focus: 'basic' };
@@ -4305,20 +4333,20 @@ function handlePractice(args) {
     if (args[0] === 'path') {
         const p = args[1];
         if (!p || !PATHS[p]) {
-            let out = '=== 📚 技术路线 ===\n';
+            let out = '=== 📚 学习项目 ===\n';
     for (const key of PATH_ORDER) {
         const tasks = Object.values(TASK_MAP).filter(t => t.path === key);
         if (tasks.length === 0) continue;
         const done = tasks.filter(t => taskProgress.done.includes(t.id)).length;
         out += '\n[' + key + '] ' + PATHS[key].name + '（' + done + '/' + tasks.length + '）\n  ' + PATHS[key].desc + '\n';
             }
-            out += '\n用法：practice path <路线>（如 practice path k8s）';
+            out += '\n用法：practice path <项目>（如 practice path k8s）';
             return out.trimEnd();
         }
         taskProgress.focus = 'path:' + p;
         saveTaskProgress();
         const cur = currentTask();
-        return '已切换到路线：' + PATHS[p].name + '\n' + (cur ? showTaskDetail(cur) : '🎉 该路线全部完成！');
+        return '已切换到项目：' + PATHS[p].name + '\n' + (cur ? showTaskDetail(cur) : '🎉 该项目全部完成！');
     }
     if (args[0] && CMD[args[0]]) {
         const name = args[0];
@@ -4337,7 +4365,7 @@ function handlePractice(args) {
     }
     if (args[0] === 'start' || args[0] === 'next') {
         const cur = currentTask();
-        return cur ? showTaskDetail(cur) : '🎉 当前路线全部完成！';
+        return cur ? showTaskDetail(cur) : '🎉 当前项目全部完成！';
     }
     if (/^\d+$/.test(args[0])) {
         const idx = parseInt(args[0], 10) - 1;
@@ -4350,14 +4378,14 @@ function handlePractice(args) {
     let out = '=== 🎯 练习中心 ===\n';
     out += '当前路线：' + focusName() + '\n';
     if (cur) out += '下一任务：[' + cur.id + '] ' + cur.title + '\n提示：' + cur.hint + '\n';
-    out += '\n📚 技术路线：\n';
+    out += '\n📚 学习项目：\n';
     for (const key of PATH_ORDER) {
         const tasks = Object.values(TASK_MAP).filter(t => t.path === key);
         if (tasks.length === 0) continue;
         const done = tasks.filter(t => taskProgress.done.includes(t.id)).length;
         out += '  [' + key + '] ' + PATHS[key].name + '（' + done + '/' + tasks.length + '）\n';
     }
-    out += '\n💡 用法：\n  practice start —— 开始当前任务\n  practice <命令> —— 命令专项（如 practice ls）\n  practice path <路线> —— 切换技术路线（如 practice path k8s）\n  practice <编号> —— 跳转到当前范围内的任务\n  practice reset —— 重置进度';
+    out += '\n💡 用法：\n  practice start —— 开始当前任务\n  practice <命令> —— 命令专项（如 practice ls）\n  practice path <项目> —— 切换学习项目（如 practice path k8s）\n  practice <编号> —— 跳转到当前范围内的任务\n  practice reset —— 重置进度';
     return out.trimEnd();
 }
 
@@ -6029,7 +6057,9 @@ function initUI() {
             if (completedNow.length > 0) {
                 completedNow.forEach(t => taskProgress.done.push(t.id));
                 saveTaskProgress();
-                appendOutput('✅ 任务完成：' + completedNow.map(t => t.title).join('、') + '（' + taskProgress.done.length + '/' + Object.keys(TASK_MAP).length + '）', 'cmd-info');
+                const focusList = focusTasks();
+                const focusDoneCount = focusList.filter(t => taskProgress.done.includes(t.id)).length;
+                appendOutput('✅ 任务完成：' + completedNow.map(t => t.title).join('、') + '（' + focusName() + ' ' + focusDoneCount + '/' + focusList.length + '）', 'cmd-info');
                 appendOutput('📖 ' + (completedNow[0].exp || completedNow[0].desc), 'cmd-info');
                 const nextTask = currentTask();
                 if (nextTask) appendOutput('▶ 下一任务 [' + nextTask.id + ']：' + nextTask.title + '\n📖 ' + (nextTask.exp || nextTask.desc) + '\n🔧 请执行：' + nextTask.hint, 'cmd-info');
@@ -6116,7 +6146,9 @@ function updatePromptDisplay() {
 function buildSidePanel() {
     const panel = document.getElementById('side-panel');
     const curTask = currentTask();
-    let html = '<h3>🎯 学习任务 ' + taskProgress.done.length + '/' + Object.keys(TASK_MAP).length + '</h3>';
+    const focusList = focusTasks();
+    const focusDoneCount = focusList.filter(t => taskProgress.done.includes(t.id)).length;
+    let html = '<h3>🎯 当前项目：' + focusName() + '（' + focusDoneCount + '/' + focusList.length + '）</h3>';
     if (curTask) {
         html += '<div class="task-card" id="task-card"><b>[' + curTask.id + '] ' + curTask.title + '</b><br>📖 ' + (curTask.exp || curTask.desc) + '<br><span class="hint">🔧 请执行：' + curTask.hint + '</span><br><span style="color:#565f89">' + focusName() + '</span></div>';
     } else {

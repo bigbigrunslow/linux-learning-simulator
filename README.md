@@ -21,7 +21,7 @@
 
 ### 🆕 最近更新（v1.4.0）
 
-- 🎯 **练习体系三层化** — ① 命令专项：`practice ls` 查看并练习单个命令的全部用法；② 技术路线：`practice path shell/network/docker/k8s/db/monitor` 按目标成体系学习；③ 命令百科：`learn ls` 查看命令完整用法
+- 🎯 **练习体系三层化** — ① 命令专项：`practice ls` 查看并练习单个命令的全部用法；② 学习项目：`practice path shell/network/docker/k8s/middleware/monitor` 按目标成体系学习；③ 命令百科：`learn ls` 查看命令完整用法
 - 📚 **全部命令可练** — 每个命令至少一道基础练习；核心命令（ls/grep/sed/docker/kubectl 等 70+）配 3~8 条用法小题，任务总数 500+
 - 🧭 **路线进度** — 每条技术路线独立进度，侧栏实时显示当前任务，进度自动保存
 
@@ -168,7 +168,7 @@ linux-sim/
 
 ### 🆕 Recent Updates (v1.4.0)
 
-- 🎯 **Three-layer practice system** — ① Command drills: `practice ls` to see and practice all usages of one command; ② Learning paths: `practice path shell/network/docker/k8s/db/monitor` to learn by goal; ③ Command encyclopedia: `learn ls` for the full usage reference
+- 🎯 **Three-layer practice system** — ① Command drills: `practice ls` to see and practice all usages of one command; ② Learning projects: `practice path shell/network/docker/k8s/middleware/monitor` to learn by goal; ③ Command encyclopedia: `learn ls` for the full usage reference
 - 📚 **Every command is trainable** — each command has at least one basic task; 70+ core commands have 3–8 usage drills, 500+ tasks in total
 - 🧭 **Per-path progress** — each path tracks its own progress; the sidebar shows the current task; progress is saved automatically
 
