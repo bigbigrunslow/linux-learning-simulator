@@ -9,8 +9,8 @@
 
 [中文](#中文) | [English](#english)
 
-> 🤖 **本项目完全由 AI 辅助生成**（Cline + Claude），从架构设计到代码实现再到 GitHub 部署，全程对话式开发。
-> **Built entirely with AI** — Cline + Claude. Architecture → code → deployment, all via conversation.
+> 🤖 **AI 辅助开发** — 项目最初由 Cline + Claude 从架构设计到代码实现再到 GitHub 部署全程对话式构建；**当前与后续更新由 Codex 完成**（底层模型：DeepSeek v4）。
+> **AI-assisted development** — Originally built end-to-end with Cline + Claude (architecture → code → deployment, all via conversation). **Current and future updates are made with Codex** (backed by DeepSeek v4).
 
 ---
 
