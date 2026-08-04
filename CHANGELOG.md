@@ -1,5 +1,31 @@
 # Changelog / 更新日志
 
+## v1.4.0 — 2026-08-04
+
+### 中文
+
+#### 新增
+
+- 练习体系三层化：
+  - 命令专项：`practice <命令>`（如 `practice ls`）列出并练习该命令的全部用法，每个用法自动判题
+  - 技术路线：`practice path <路线>` 切换学习目标（shell / network / docker / k8s / db / monitor），每条路线独立进度
+  - 命令百科：`learn <命令>` 查看命令完整用法与示例，并可一键进入专项练习
+- 全部命令可练：356 个命令都有至少一道基础任务；70+ 核心命令配 3~8 条用法小题，任务总数 500+
+- 自动判题优化：当前路线上任意未完成任务只要满足条件即打勾，不要求严格按顺序执行
+- 侧栏任务卡显示当前路线与任务进度
+
+### English
+
+#### Added
+
+- Three-layer practice system:
+  - Command drills: `practice <command>` (e.g., `practice ls`) lists and auto-checks every usage of a command
+  - Learning paths: `practice path <path>` switches learning goals (shell / network / docker / k8s / db / monitor), each with its own progress
+  - Command encyclopedia: `learn <command>` shows all usages and examples, with a one-step jump into drills
+- Every command is trainable: all 356 commands have at least one basic task; 70+ core commands have 3–8 usage drills (500+ tasks total)
+- Smarter auto-checking: any matching incomplete task in the current focus is completed, no strict order required
+- Sidebar task card now shows the current path and progress
+
 ## v1.3.0 — 2026-08-04
 
 ### 中文
@@ -12,7 +38,7 @@
 - 进度持久化：任务进度存入 localStorage，刷新不丢
 - 侧栏学习任务卡：实时显示当前任务与提示，点击一键开始
 - 学习指南同步说明：指南顶部提示在模拟器中输入 `practice` 开始练习
-- 命令总数更新为 356（新增 `practice` 命令）
+- 命令总数更新为 357（新增 `practice`、`learn` 命令）
 
 ### English
 
@@ -24,7 +50,7 @@
 - Progress persistence via localStorage
 - Sidebar task card showing the current task and hint, one-click to start
 - Learning guide updated with instructions to run `practice` in the simulator
-- Command count updated to 356 (new `practice` command)
+- Command count updated to 357 (new `practice` and `learn` commands)
 
 ## v1.2.1 — 2026-08-04
 

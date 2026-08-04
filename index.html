@@ -1248,6 +1248,7 @@ VFS.init();
 const CMD = {};
 
 CMD['practice'] = {cat:'学习', desc:'练习任务（与学习指南同步）', usage:'practice [start|编号|reset]'};
+CMD['learn'] = {cat:'学习', desc:'命令百科：查看命令完整用法', usage:'learn <command>'};
 
 // === VFS File Operations ===
 CMD['ls']    = {cat:'VFS', desc:'列出目录内容', usage:'ls [-la] [path]'};
@@ -1738,7 +1739,7 @@ const TASKS = [
   { id:'s1t6', stage:1, title:'重定向写入', desc:'把 hello 写入 /tmp/greet.txt', hint:"echo hello > /tmp/greet.txt", check:() => VFS.getFile('/tmp/greet.txt') === 'hello' },
   { id:'s1t7', stage:1, title:'复制文件', desc:'复制 greet.txt 为 greet-copy.txt', hint:'cp /tmp/greet.txt /tmp/greet-copy.txt', check:() => VFS.getFile('/tmp/greet-copy.txt') === 'hello' },
   { id:'s1t8', stage:1, title:'移动/重命名', desc:'把 greet-copy.txt 改名为 renamed.txt', hint:'mv /tmp/greet-copy.txt /tmp/renamed.txt', check:() => VFS.getFile('/tmp/renamed.txt') === 'hello' && VFS.getFile('/tmp/greet-copy.txt') === null },
-  { id:'s1t9', stage:1, title:'删除文件', desc:'删除 /tmp/renamed.txt', hint:'rm /tmp/renamed.txt', check:() => VFS.getFile('/tmp/renamed.txt') === null },
+  { id:'s1t9', stage:1, title:'删除文件', desc:'删除 /tmp/renamed.txt', hint:'rm /tmp/renamed.txt', check:() => history.some(h => /^mv\s+\/tmp\/greet-copy\.txt\s+\/tmp\/renamed\.txt$/.test(h)) && VFS.getFile('/tmp/renamed.txt') === null },
   { id:'s1t10', stage:1, title:'查看文件内容', desc:'用 cat 查看 /tmp/greet.txt', hint:'cat /tmp/greet.txt', check:() => history.some(h => /^cat\s+\/tmp\/greet\.txt$/.test(h)) },
 
   { id:'s2t1', stage:2, title:'grep 搜索', desc:'在 /etc/passwd 里搜索 root', hint:'grep root /etc/passwd', check:() => history.some(h => /^grep\s/.test(h) && h.includes('/etc/passwd')) },
@@ -1787,28 +1788,434 @@ const TASKS = [
 ];
 const TASK_STAGES = ['文件操作','文本处理','系统监控','硬件与磁盘','网络诊断','用户与权限','软件包管理','服务管理','Shell 编程','Vi/Vim 编辑器','DevOps 工具链'];
 
+function normCmd(s) { return String(s).trim().replace(/\s+/g, ' '); }
+function histExact(cmd) { const n = normCmd(cmd); return () => history.some(h => normCmd(h) === n); }
+function histRe(re) { return () => history.some(h => re.test(h)); }
+
+/* ===== COMMAND DRILLS: curated full usages for core commands ===== */
+const CMD_USAGES = {
+  ls: [
+    { c:'ls', d:'列出当前目录内容' },
+    { c:'ls -l', d:'长格式显示（权限、大小、时间）' },
+    { c:'ls -a', d:'显示隐藏文件' },
+    { c:'ls -la /etc', d:'长格式查看 /etc（含隐藏文件）' },
+    { c:'ls /tmp', d:'查看指定目录' },
+    { c:'ls -lh /var/log', d:'人类可读的文件大小' },
+  ],
+  cd: [
+    { c:'cd /tmp', d:'切换到 /tmp' },
+    { c:'cd ..', d:'返回上级目录' },
+    { c:'cd ~', d:'回到主目录' },
+    { c:'cd -', d:'回到上一个目录' },
+  ],
+  pwd: [ { c:'pwd', d:'显示当前所在路径' } ],
+  mkdir: [
+    { c:'mkdir /tmp/d1', d:'创建单个目录' },
+    { c:'mkdir -p /tmp/a/b/c', d:'递归创建多级目录' },
+    { c:'mkdir /tmp/d1 /tmp/d2', d:'一次创建多个目录' },
+    { c:'mkdir /etc/deny-dir', d:'在系统目录创建（观察权限拒绝）' },
+  ],
+  touch: [
+    { c:'touch /tmp/t1', d:'创建空文件' },
+    { c:'touch /tmp/t2 /tmp/t3', d:'一次创建多个文件' },
+    { c:'touch /tmp/t1', d:'更新已存在文件的时间戳' },
+  ],
+  cat: [
+    { c:'cat /etc/hostname', d:'查看文件内容' },
+    { c:'cat /etc/passwd', d:'查看用户数据库' },
+    { c:'cat /etc/hosts', d:'查看主机映射表' },
+    { c:'cat /tmp/nonexistent', d:'查看不存在的文件（观察报错）' },
+  ],
+  rm: [
+    { c:'rm /tmp/t2', d:'删除单个文件' },
+    { c:'rm -r /tmp/d1', d:'递归删除目录' },
+    { c:'rm -rf /tmp/a', d:'强制递归删除' },
+    { c:'rm /tmp/nope', d:'删除不存在的文件（观察报错）' },
+  ],
+  cp: [
+    { c:'cp /etc/hostname /tmp/hn', d:'复制文件' },
+    { c:'cp -r /tmp/d2 /tmp/d2-copy', d:'递归复制目录' },
+    { c:'cp /etc/passwd /tmp/pw', d:'复制到新名字' },
+    { c:'cp /etc/hostname /etc/x', d:'复制到系统目录（观察权限拒绝）' },
+  ],
+  mv: [
+    { c:'mv /tmp/t3 /tmp/t3b', d:'重命名文件' },
+    { c:'mv /tmp/d2-copy /tmp/d2x', d:'重命名目录' },
+    { c:'mv /tmp/hn /tmp/hn2', d:'移动文件' },
+  ],
+  echo: [
+    { c:'echo hello', d:'输出文本' },
+    { c:'echo "hello world"', d:'带引号输出' },
+    { c:"echo 'a|b'", d:'引号内的特殊字符不被解析' },
+    { c:'echo $HOME', d:'输出环境变量' },
+    { c:'echo hello > /tmp/echof', d:'重定向写入文件' },
+    { c:'echo x >> /tmp/echof', d:'追加到文件' },
+  ],
+  find: [
+    { c:'find /etc -name "*host*"', d:'按名称查找' },
+    { c:'find /root -name "*.txt"', d:'通配符查找' },
+    { c:'find /tmp -name "mydir"', d:'查找目录' },
+  ],
+  grep: [
+    { c:'grep root /etc/passwd', d:'基础搜索' },
+    { c:'grep -i BIN /etc/passwd', d:'忽略大小写' },
+    { c:'grep -n user /etc/passwd', d:'显示行号' },
+    { c:'grep -v nologin /etc/passwd', d:'反向选择' },
+    { c:'grep -E "^root:" /etc/passwd', d:'正则锚定行首' },
+    { c:'cat /etc/passwd | grep bash', d:'管道输入' },
+  ],
+  head: [
+    { c:'head /etc/passwd', d:'默认前 10 行' },
+    { c:'head -3 /etc/passwd', d:'前 3 行' },
+    { c:'head -n 5 /etc/passwd', d:'-n 指定行数' },
+  ],
+  tail: [
+    { c:'tail /etc/passwd', d:'默认后 10 行' },
+    { c:'tail -2 /etc/passwd', d:'后 2 行' },
+    { c:'tail -n 5 /etc/passwd', d:'-n 指定行数' },
+  ],
+  wc: [
+    { c:'wc /etc/passwd', d:'行/词/字节统计' },
+    { c:'wc -l /etc/passwd', d:'只统计行数' },
+    { c:'wc -w /etc/passwd', d:'只统计单词数' },
+  ],
+  sort: [
+    { c:'sort /etc/passwd', d:'按字典序排序' },
+    { c:'cat /etc/passwd | sort', d:'管道排序' },
+    { c:'sort -r /etc/passwd', d:'倒序排序' },
+  ],
+  uniq: [
+    { c:'cat /etc/passwd | sort | uniq', d:'去重（通常先排序）' },
+    { c:'uniq /etc/hosts', d:'直接对文件去重' },
+  ],
+  cut: [
+    { c:'cut -d: -f1 /etc/passwd', d:'按冒号取第 1 列' },
+    { c:'cut -d: -f1,3 /etc/passwd', d:'取多列' },
+    { c:'cat /etc/passwd | cut -d: -f7', d:'管道取列' },
+  ],
+  tr: [
+    { c:'echo hello | tr a-z A-Z', d:'字符集转换' },
+    { c:'echo hello | tr l L', d:'单个字符替换' },
+  ],
+  sed: [
+    { c:'echo hello | sed "s/hello/hi/"', d:'替换第一个匹配' },
+    { c:'echo "a a" | sed "s/a/b/g"', d:'全局替换' },
+    { c:'sed "s/user/admin/" /etc/passwd', d:'流式替换文件内容' },
+  ],
+  awk: [
+    { c:"awk '{print $1}' /etc/passwd", d:'打印第一列' },
+    { c:"awk -F: '{print $1}' /etc/passwd", d:'指定分隔符' },
+  ],
+  diff: [
+    { c:'diff /etc/hosts /etc/hostname', d:'比较两个文件' },
+    { c:'diff /etc/passwd /etc/passwd', d:'相同文件无差异' },
+  ],
+  tar: [
+    { c:'tar -czf /tmp/backup.tar.gz /etc', d:'打包并压缩' },
+    { c:'tar -tzf /tmp/backup.tar.gz', d:'查看压缩包内容' },
+    { c:'tar -xzf /tmp/backup.tar.gz', d:'解压' },
+  ],
+  gzip: [
+    { c:'gzip /tmp/hn2', d:'压缩文件' },
+    { c:'gzip -k /tmp/pw', d:'保留原文件的压缩' },
+  ],
+  md5sum: [
+    { c:'md5sum /etc/hostname', d:'计算文件校验和' },
+  ],
+  base64: [
+    { c:'base64 /etc/hostname', d:'Base64 编码文件' },
+  ],
+  uname: [
+    { c:'uname', d:'系统名称' },
+    { c:'uname -r', d:'内核版本' },
+    { c:'uname -a', d:'全部信息' },
+  ],
+  free: [
+    { c:'free', d:'内存使用' },
+    { c:'free -h', d:'人类可读' },
+    { c:'free -m', d:'以 MB 显示' },
+  ],
+  ps: [
+    { c:'ps', d:'当前终端进程' },
+    { c:'ps aux', d:'全部进程' },
+    { c:'ps -ef', d:'完整格式' },
+  ],
+  top: [ { c:'top', d:'动态进程视图（按 q 退出）' } ],
+  htop: [ { c:'htop', d:'彩色进程管理器' } ],
+  kill: [
+    { c:'kill 1234', d:'按 PID 结束进程' },
+    { c:'kill -9 1234', d:'强制结束' },
+  ],
+  df: [
+    { c:'df -h', d:'磁盘空间（人类可读）' },
+    { c:'df -T', d:'显示文件系统类型' },
+  ],
+  du: [
+    { c:'du -sh /etc', d:'目录总大小' },
+    { c:'du -h /var/log', d:'各文件大小' },
+  ],
+  lscpu: [ { c:'lscpu', d:'CPU 架构信息' } ],
+  lsblk: [
+    { c:'lsblk', d:'块设备树' },
+    { c:'lsblk -f', d:'含文件系统信息' },
+  ],
+  fdisk: [ { c:'fdisk -l', d:'磁盘分区表' } ],
+  smartctl: [
+    { c:'smartctl -a /dev/sdb', d:'SMART 详细信息' },
+    { c:'smartctl -H /dev/sda', d:'健康状态快速检查' },
+  ],
+  ip: [
+    { c:'ip addr', d:'IP 地址' },
+    { c:'ip link', d:'网卡状态' },
+    { c:'ip route', d:'路由表' },
+  ],
+  ping: [
+    { c:'ping -c 3 8.8.8.8', d:'指定次数' },
+    { c:'ping -c 1 localhost', d:'本机连通性' },
+    { c:'ping 192.168.1.1', d:'默认持续 ping（Ctrl+C 停止）' },
+  ],
+  curl: [
+    { c:'curl example.com', d:'获取网页内容' },
+    { c:'curl -I example.com', d:'只看响应头' },
+  ],
+  ss: [
+    { c:'ss -tlnp', d:'监听端口' },
+    { c:'ss -s', d:'连接统计' },
+  ],
+  netstat: [ { c:'netstat -tulanp', d:'端口与连接' } ],
+  ssh: [
+    { c:'ssh user@192.168.1.50', d:'远程登录' },
+    { c:'ssh -p 2222 user@192.168.1.50', d:'指定端口' },
+  ],
+  scp: [
+    { c:'scp /tmp/hn2 user@192.168.1.50:/tmp/', d:'上传文件' },
+    { c:'scp user@192.168.1.50:/tmp/hn2 /tmp/', d:'下载文件' },
+  ],
+  chmod: [
+    { c:'chmod 600 /tmp/t1', d:'数字权限' },
+    { c:'chmod 755 /tmp/t1', d:'目录常用权限' },
+    { c:'chmod +x /tmp/t1', d:'添加执行权限' },
+    { c:'chmod -x /tmp/t1', d:'移除执行权限' },
+  ],
+  chown: [
+    { c:'chown user /tmp/t1', d:'修改属主' },
+    { c:'chown root:root /tmp/t1', d:'同时修改属主和属组' },
+  ],
+  sudo: [
+    { c:'sudo whoami', d:'以 root 执行单条命令' },
+    { c:'sudo bash', d:'切换到 root 会话（exit 退出）' },
+    { c:'sudo apt update', d:'提权更新软件源' },
+  ],
+  su: [
+    { c:'su root', d:'切换到 root' },
+    { c:'su user', d:'切换到 user' },
+  ],
+  useradd: [
+    { c:'sudo useradd bob', d:'创建用户' },
+    { c:'sudo useradd -m alice', d:'创建用户并建家目录' },
+  ],
+  passwd: [
+    { c:'passwd', d:'修改当前用户密码' },
+    { c:'sudo passwd bob', d:'修改指定用户密码' },
+  ],
+  apt: [
+    { c:'sudo apt update', d:'更新软件源' },
+    { c:'sudo apt upgrade -y', d:'升级所有软件包' },
+    { c:'sudo apt install nginx', d:'安装软件包' },
+  ],
+  dpkg: [
+    { c:'dpkg -l', d:'列出已安装包' },
+    { c:'dpkg -L nginx', d:'查看包文件列表' },
+  ],
+  systemctl: [
+    { c:'systemctl status nginx', d:'查看服务状态' },
+    { c:'systemctl start nginx', d:'启动服务' },
+    { c:'systemctl stop nginx', d:'停止服务' },
+    { c:'systemctl restart nginx', d:'重启服务' },
+    { c:'systemctl enable nginx', d:'开机自启' },
+  ],
+  journalctl: [
+    { c:'journalctl -n 10', d:'最近 10 条日志' },
+    { c:'journalctl -u nginx', d:'某服务的日志' },
+  ],
+  crontab: [
+    { c:'crontab -l', d:'列出定时任务' },
+    { c:'crontab -e', d:'编辑定时任务' },
+    { c:'crontab -r', d:'删除全部定时任务' },
+  ],
+  env: [
+    { c:'env', d:'列出全部环境变量' },
+    { c:'env | grep PATH', d:'管道过滤' },
+  ],
+  export: [
+    { c:'export MYVAR=hello', d:'设置并导出变量' },
+    { c:'export', d:'查看已导出变量' },
+  ],
+  alias: [
+    { c:'alias ll="ls -la"', d:'创建别名' },
+    { c:'alias', d:'列出全部别名' },
+  ],
+  source: [ { c:'source /root/.bashrc', d:'重新加载配置文件' } ],
+  which: [
+    { c:'which ls', d:'定位命令路径' },
+    { c:'which docker', d:'定位其他命令' },
+  ],
+  man: [
+    { c:'man ls', d:'查看命令手册' },
+    { c:'man grep', d:'查看 grep 手册' },
+  ],
+  history: [
+    { c:'history', d:'查看命令历史' },
+    { c:'history | tail -5', d:'只看最近 5 条' },
+  ],
+  vi: [
+    { c:'vi /tmp/t1', d:'打开文件（i 插入、:wq 保存）' },
+    { c:'vi /etc/hostname', d:'编辑系统文件' },
+  ],
+  git: [
+    { c:'git --version', d:'查看版本' },
+    { c:'git status', d:'查看工作区状态' },
+    { c:'git log', d:'查看提交历史' },
+    { c:'git clone https://github.com/bigbigrunslow/linux-learning-simulator.git', d:'克隆仓库' },
+  ],
+  docker: [
+    { c:'docker ps', d:'运行中的容器' },
+    { c:'docker ps -a', d:'全部容器' },
+    { c:'docker images', d:'本地镜像' },
+    { c:'docker run -d nginx', d:'运行容器' },
+    { c:'docker stop nginx-proxy', d:'停止容器' },
+    { c:'docker logs nginx-proxy', d:'查看容器日志' },
+    { c:'docker exec -it nginx-proxy bash', d:'进入容器' },
+  ],
+  kubectl: [
+    { c:'kubectl get nodes', d:'集群节点' },
+    { c:'kubectl get pods', d:'Pod 列表' },
+    { c:'kubectl get services', d:'Service 列表' },
+    { c:'kubectl describe pod nginx-deployment-7d4f9b5c8-x2k9m', d:'查看 Pod 详情' },
+    { c:'kubectl logs nginx-deployment-7d4f9b5c8-x2k9m', d:'查看 Pod 日志' },
+  ],
+  helm: [
+    { c:'helm list', d:'已安装的 Release' },
+    { c:'helm install my-nginx bitnami/nginx', d:'安装 Chart' },
+  ],
+  terraform: [
+    { c:'terraform init', d:'初始化' },
+    { c:'terraform plan', d:'预览变更' },
+    { c:'terraform apply', d:'应用变更' },
+  ],
+  ansible: [
+    { c:'ansible all -m ping', d:'Ping 测试' },
+    { c:'ansible-playbook site.yml', d:'执行 Playbook' },
+  ],
+  mysql: [
+    { c:'mysql -u root -p', d:'交互式登录' },
+    { c:'mysql -e "show databases;"', d:'非交互执行 SQL' },
+  ],
+  'redis-cli': [
+    { c:'redis-cli ping', d:'连通性测试' },
+    { c:'redis-cli set foo bar', d:'写入键值' },
+    { c:'redis-cli get foo', d:'读取键值' },
+  ],
+  nginx: [
+    { c:'nginx -t', d:'测试配置' },
+    { c:'nginx -v', d:'查看版本' },
+  ],
+  watch: [ { c:'watch free -h', d:'定时刷新命令输出（Ctrl+C 退出）' } ],
+  date: [ { c:'date', d:'当前时间' } ],
+  hostname: [ { c:'hostname', d:'主机名' } ],
+  whoami: [ { c:'whoami', d:'当前用户' } ],
+  id: [ { c:'id', d:'用户与组 ID' } ],
+  who: [ { c:'who', d:'登录用户' } ],
+  uptime: [ { c:'uptime', d:'运行时间与负载' } ],
+};
+
+/* ===== LEARNING PATHS ===== */
+const PATHS = {
+  basic:   { name:'Linux 基础', desc:'文件、文本、权限等入门必备' },
+  shell:   { name:'Shell 脚本', desc:'变量、管道、重定向、历史' },
+  network: { name:'网络排查', desc:'接口、连通性、端口、远程传输' },
+  docker:  { name:'Docker 容器', desc:'镜像与容器管理' },
+  k8s:     { name:'Kubernetes', desc:'集群、工作负载、日志' },
+  db:      { name:'数据库', desc:'MySQL / Redis 等' },
+  monitor: { name:'监控运维', desc:'进程、资源、服务与日志' },
+  other:   { name:'其他命令', desc:'其余命令的基础用法' },
+};
+
+function cmdPath(name) {
+  if (['docker','docker-compose','podman','buildah','skopeo','containerd','crictl','ctr'].includes(name)) return 'docker';
+  if (['kubectl','helm','kubeadm','kubelet','minikube','kind','istioctl','linkerd','argocd','flux','cilium','calico','calicoctl','flannel','weave','metallb','longhorn','rook','knative','openfaas','kubeless'].includes(name)) return 'k8s';
+  if (['mysql','mysqldump','redis-cli','redis','postgresql','pg_dump','sqlite3','mongodb','etcd','etcdctl','consul','nats','pulsar','kafka','rabbitmq','rabbitmqctl'].includes(name)) return 'db';
+  if (['ip','ifconfig','ping','traceroute','mtr','curl','wget','nc','ncat','netstat','ss','dig','nslookup','host','whois','route','arp','arping','iptables','ufw','tcpdump','nmcli','iwconfig','rfkill','socat','telnet','ssh','scp','sftp','ftp','rsync'].includes(name)) return 'network';
+  if (['top','htop','free','vmstat','iostat','sar','perf','ps','kill','pkill','pgrep','pidof','lsof','strace','ltrace','uptime','watch','systemctl','journalctl','df','du','sensors','neofetch','inxi','glances','iftop','nethogs','iotop','dmesg','time'].includes(name)) return 'monitor';
+  if (['alias','env','export','unset','set','shopt','source','declare','readonly','type','which','whereis','whatis','man','help','history','echo','seq','yes','bc','cal','date','sleep','true','false','exec','eval','printf'].includes(name)) return 'shell';
+  return 'basic';
+}
+
+/* ===== BUILD TASK MAP ===== */
+const TASK_MAP = {};
+TASKS.forEach(t => { t.path = 'basic'; TASK_MAP[t.id] = t; });
+let taskSeq = 1000;
+for (const [cmd, usages] of Object.entries(CMD_USAGES)) {
+  usages.forEach((u, i) => {
+    const id = 'u' + (taskSeq++);
+    TASK_MAP[id] = {
+      id, cmd, path: cmdPath(cmd),
+      title: cmd + ' 用法 ' + (i + 1) + '/' + usages.length,
+      desc: u.d, hint: u.c,
+      check: histExact(u.c),
+    };
+  });
+}
+for (const name of Object.keys(CMD)) {
+  if (!CMD_USAGES[name] && name !== 'practice' && name !== 'learn') {
+    const id = 'a' + (taskSeq++);
+    TASK_MAP[id] = {
+      id, cmd: name, path: cmdPath(name),
+      title: name + ' 基础用法',
+      desc: CMD[name].desc || name + ' 命令',
+      hint: CMD[name].usage || name,
+      check: histRe(new RegExp('^' + name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(\\s|$)')),
+    };
+  }
+}
+const PATH_ORDER = ['basic', 'shell', 'network', 'docker', 'k8s', 'db', 'monitor', 'other'];
+
 function loadTaskProgress() {
     try {
         const raw = localStorage.getItem('linux-sim-task-progress');
         if (raw) {
             const p = JSON.parse(raw);
-            if (p && Array.isArray(p.done)) return { done: p.done };
+            if (p && Array.isArray(p.done)) return { done: p.done, focus: p.focus || 'basic' };
         }
     } catch (e) {}
-    return { done: [] };
+    return { done: [], focus: 'basic' };
 }
 let taskProgress = loadTaskProgress();
 function saveTaskProgress() {
     try { localStorage.setItem('linux-sim-task-progress', JSON.stringify(taskProgress)); } catch (e) {}
 }
-function currentTask() {
-    return TASKS.find(t => !taskProgress.done.includes(t.id)) || null;
+function focusTasks() {
+    const f = taskProgress.focus || 'basic';
+    if (f.startsWith('cmd:')) {
+        const name = f.slice(4);
+        return Object.values(TASK_MAP).filter(t => t.cmd === name);
+    }
+    const path = f.startsWith('path:') ? f.slice(5) : f;
+    return Object.values(TASK_MAP).filter(t => t.path === path);
 }
-function taskStageName(t) {
-    return TASK_STAGES[t.stage - 1] || '其他';
+function focusName() {
+    const f = taskProgress.focus || 'basic';
+    if (f.startsWith('cmd:')) return '命令专项：' + f.slice(4);
+    const path = f.startsWith('path:') ? f.slice(5) : f;
+    return (PATHS[path] || PATHS.basic).name;
+}
+function currentTask() {
+    return focusTasks().find(t => !taskProgress.done.includes(t.id)) || null;
 }
 function showTaskDetail(t) {
-    return '▶ 当前任务 [' + t.id + ']：' + t.title + '\n' + t.desc + '\n提示：' + t.hint + '\n进度：' + taskProgress.done.length + '/' + TASKS.length;
+    const total = focusTasks().length;
+    const doneInFocus = focusTasks().filter(x => taskProgress.done.includes(x.id)).length;
+    return '▶ 当前任务 [' + t.id + ']：' + t.title + '\n' + t.desc + '\n提示：' + t.hint + '\n进度：' + doneInFocus + '/' + total;
 }
 
 function resolvePath(path) {
@@ -3893,31 +4300,84 @@ function handleHelp() {
 
 function handlePractice(args) {
     if (args[0] === 'reset') {
-        taskProgress = { done: [] };
+        taskProgress = { done: [], focus: 'basic' };
         saveTaskProgress();
         return '练习进度已重置 / Practice progress reset.';
     }
+    if (args[0] === 'path') {
+        const p = args[1];
+        if (!p || !PATHS[p]) {
+            let out = '=== 📚 技术路线 ===\n';
+    for (const key of PATH_ORDER) {
+        const tasks = Object.values(TASK_MAP).filter(t => t.path === key);
+        if (tasks.length === 0) continue;
+        const done = tasks.filter(t => taskProgress.done.includes(t.id)).length;
+        out += '\n[' + key + '] ' + PATHS[key].name + '（' + done + '/' + tasks.length + '）\n  ' + PATHS[key].desc + '\n';
+            }
+            out += '\n用法：practice path <路线>（如 practice path k8s）';
+            return out.trimEnd();
+        }
+        taskProgress.focus = 'path:' + p;
+        saveTaskProgress();
+        const cur = currentTask();
+        return '已切换到路线：' + PATHS[p].name + '\n' + (cur ? showTaskDetail(cur) : '🎉 该路线全部完成！');
+    }
+    if (args[0] && CMD[args[0]]) {
+        const name = args[0];
+        taskProgress.focus = 'cmd:' + name;
+        saveTaskProgress();
+        const usages = CMD_USAGES[name] || [{ c: CMD[name].usage || name, d: CMD[name].desc || '基础用法' }];
+        let out = '=== 命令专项：' + name + '（' + usages.length + ' 条用法）===\n';
+        usages.forEach((u, i) => {
+            const id = Object.values(TASK_MAP).find(t => t.cmd === name && t.hint === u.c);
+            const done = id ? taskProgress.done.includes(id.id) : false;
+            out += (done ? '✅ ' : '⬜ ') + (i + 1) + '. ' + u.c + (done ? '' : ' — ' + u.d) + '\n';
+        });
+        const cur = currentTask();
+        if (cur) out += '\n开始：' + cur.hint + '\n' + cur.desc;
+        return out.trimEnd();
+    }
     if (args[0] === 'start' || args[0] === 'next') {
         const cur = currentTask();
-        return cur ? showTaskDetail(cur) : '🎉 全部任务已完成！输入 practice reset 可重新开始。';
+        return cur ? showTaskDetail(cur) : '🎉 当前路线全部完成！';
     }
     if (/^\d+$/.test(args[0])) {
         const idx = parseInt(args[0], 10) - 1;
-        const t = TASKS[idx];
-        if (!t) return 'practice: 任务编号无效（1-' + TASKS.length + '）';
+        const tasks = focusTasks();
+        const t = tasks[idx];
+        if (!t) return 'practice: 编号无效（当前范围共 ' + tasks.length + ' 个任务）';
         return (taskProgress.done.includes(t.id) ? '✅ 已完成：' : '⬜ ') + showTaskDetail(t);
     }
-    let out = '=== 🎯 练习任务（' + taskProgress.done.length + '/' + TASKS.length + ' 完成）===\n';
-    let lastStage = 0;
-    TASKS.forEach((t, i) => {
-        if (t.stage !== lastStage) {
-            out += '\n[' + taskStageName(t) + ']\n';
-            lastStage = t.stage;
-        }
-        const done = taskProgress.done.includes(t.id);
-        out += (done ? '✅ ' : '⬜ ') + (i + 1) + '. ' + t.title + (done ? '' : ' — ' + t.desc) + '\n';
-    });
-    out += '\n用法：practice start（开始/下一任务）、practice <编号>、practice reset';
+    const cur = currentTask();
+    let out = '=== 🎯 练习中心 ===\n';
+    out += '当前路线：' + focusName() + '\n';
+    if (cur) out += '下一任务：[' + cur.id + '] ' + cur.title + '\n提示：' + cur.hint + '\n';
+    out += '\n📚 技术路线：\n';
+    for (const key of PATH_ORDER) {
+        const tasks = Object.values(TASK_MAP).filter(t => t.path === key);
+        if (tasks.length === 0) continue;
+        const done = tasks.filter(t => taskProgress.done.includes(t.id)).length;
+        out += '  [' + key + '] ' + PATHS[key].name + '（' + done + '/' + tasks.length + '）\n';
+    }
+    out += '\n💡 用法：\n  practice start —— 开始当前任务\n  practice <命令> —— 命令专项（如 practice ls）\n  practice path <路线> —— 切换技术路线（如 practice path k8s）\n  practice <编号> —— 跳转到当前范围内的任务\n  practice reset —— 重置进度';
+    return out.trimEnd();
+}
+
+function handleLearn(args) {
+    const name = args[0];
+    if (!name) return 'Usage: learn <command> — 查看命令的完整用法与示例';
+    if (!CMD[name]) return 'learn: ' + name + ': command not found';
+    const info = CMD[name];
+    let out = '=== ' + name + ' ===\n' + (info.desc || '') + '\n';
+    if (CMD_USAGES[name]) {
+        out += '\n用法（共 ' + CMD_USAGES[name].length + ' 条）：\n';
+        CMD_USAGES[name].forEach((u, i) => {
+            out += (i + 1) + '. ' + u.c + '\n   ' + u.d + '\n';
+        });
+    } else {
+        out += '\n用法：' + (info.usage || name) + '\n   ' + (info.desc || '');
+    }
+    out += '\n提示：输入 practice ' + name + ' 开始专项练习';
     return out.trimEnd();
 }
 
@@ -5386,6 +5846,7 @@ function EXEC_IMPL(cmdStr) {
         // Help
         case 'help': return handleHelp();
         case 'practice': return handlePractice(args);
+        case 'learn': return handleLearn(args);
 
         // Exit
         case 'exit': return handleExitCmd();
@@ -5565,14 +6026,14 @@ function initUI() {
                 appendOutput('Error: ' + err.message, 'cmd-err');
             }
 
-            const curTask = currentTask();
-            if (curTask && curTask.check()) {
-                taskProgress.done.push(curTask.id);
+            const completedNow = focusTasks().filter(t => !taskProgress.done.includes(t.id) && t.check());
+            if (completedNow.length > 0) {
+                completedNow.forEach(t => taskProgress.done.push(t.id));
                 saveTaskProgress();
-                appendOutput('✅ 任务完成：' + curTask.title + '（' + taskProgress.done.length + '/' + TASKS.length + '）', 'cmd-info');
+                appendOutput('✅ 任务完成：' + completedNow.map(t => t.title).join('、') + '（' + taskProgress.done.length + '/' + Object.keys(TASK_MAP).length + '）', 'cmd-info');
                 const nextTask = currentTask();
                 if (nextTask) appendOutput('▶ 下一任务 [' + nextTask.id + ']：' + nextTask.title + '\n' + nextTask.desc + '\n提示：' + nextTask.hint, 'cmd-info');
-                else appendOutput('🎉 恭喜！全部练习任务已完成！输入 practice reset 可重新开始。', 'cmd-info');
+                else appendOutput('🎉 当前路线全部完成！输入 practice 查看其他路线。', 'cmd-info');
                 buildSidePanel();
             }
 
@@ -5629,7 +6090,7 @@ function initUI() {
     });
 
     updatePromptDisplay();
-    appendOutput('Linux Learning Simulator v1.3.0 | ' + window.SIM_HW.os + ' | Kernel ' + window.SIM_HW.kernel, 'cmd-info');
+    appendOutput('Linux Learning Simulator v1.4.0 | ' + window.SIM_HW.os + ' | Kernel ' + window.SIM_HW.kernel, 'cmd-info');
     appendOutput('Type "help" for available commands.', 'cmd-info');
     if (taskProgress.done.length === 0) appendOutput('输入 practice 开始跟着学习指南练习', 'cmd-info');
 }
@@ -5649,11 +6110,11 @@ function updatePromptDisplay() {
 function buildSidePanel() {
     const panel = document.getElementById('side-panel');
     const curTask = currentTask();
-    panel.innerHTML = '<h3>🎯 学习任务 ' + taskProgress.done.length + '/' + TASKS.length + '</h3>';
+    panel.innerHTML = '<h3>🎯 学习任务 ' + taskProgress.done.length + '/' + Object.keys(TASK_MAP).length + '</h3>';
     if (curTask) {
-        panel.innerHTML += '<div class="task-card" id="task-card"><b>[' + curTask.id + '] ' + curTask.title + '</b><br>' + curTask.desc + '<br><span class="hint">' + curTask.hint + '</span></div>';
+        panel.innerHTML += '<div class="task-card" id="task-card"><b>[' + curTask.id + '] ' + curTask.title + '</b><br>' + curTask.desc + '<br><span class="hint">' + curTask.hint + '</span><br><span style="color:#565f89">' + focusName() + '</span></div>';
     } else {
-        panel.innerHTML += '<div class="task-card">🎉 全部任务完成！</div>';
+        panel.innerHTML += '<div class="task-card">🎉 ' + focusName() + ' 全部完成！</div>';
     }
     panel.innerHTML += '<h3>📚 命令速查</h3>';
 
