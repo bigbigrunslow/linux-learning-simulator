@@ -12,6 +12,7 @@
 - 进程状态机：`ps` 从进程表渲染，`kill`/`pkill` 后进程消失，重复 kill 报 No such process
 - 考试模式：`exam <项目>` 随机抽 10 题自动判分，70% 通过，成绩自动记录
 - 学习统计：`stats` 展示完成任务、用过的命令、连续学习天数、常输错命令、考试记录
+- 命令说明全覆盖：369 个命令全部配上手写 📖 用途说明（含新补的 264 个），单命令练习与 `learn` 百科均显示
 
 ### English
 
@@ -23,6 +24,7 @@
 - Process state machine: `ps` renders from a process table; `kill`/`pkill` remove processes; killing twice reports No such process
 - Exam mode: `exam <project>` draws 10 random auto-graded questions, 70% to pass, results recorded
 - Learning stats: `stats` shows completed tasks, commands used, study streak, frequently mistyped commands, and exam history
+- Full explanation coverage: all 369 commands now have hand-written 📖 explanations (including 264 newly added), shown in command drills and `learn`
 
 ## v1.4.0 — 2026-08-04
 
