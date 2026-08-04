@@ -1,5 +1,33 @@
 # Changelog / 更新日志
 
+## v1.2.0 — 2026-08-04
+
+### 中文
+
+#### 新增
+
+- `grep` 支持正则表达式（`^` `$` `[0-9]` `.` `*` 等），无效正则给出错误提示
+- `sed` 支持 `s/old/new/`、`s/old/new/g` 替换与 `-i` 写回文件，支持管道输入
+- `&&` 短路：前一条命令失败时后续命令不再执行；新增 `||` 逻辑或
+- 退出码 `$?`：成功为 0、失败为 1，可用 `echo $?` 查看；`false`/`true` 命令
+- 环境变量展开：`echo $HOME`、`echo $USER` 等
+- 权限模型：`chmod`/`chown` 持久化，`ls -l`/`stat` 显示真实权限与属主；普通用户写 `/etc`、`/proc`、`/usr`、`/var/log`、`/var/www`、`/boot` 被拒绝，`sudo` 可写（含 vi 保存拦截）
+- `ls -l` 与 `stat` 数据一致：文件大小来自内容长度、权限来自 `chmod`，不再随机
+- `ls` 支持直接查看单个文件（如 `ls -l /tmp/x.txt`）
+
+### English
+
+#### Added
+
+- `grep` now supports regular expressions (`^` `$` `[0-9]` `.` `*` etc.) with error reporting for invalid patterns
+- `sed` supports `s/old/new/` and `s/old/new/g` substitution, `-i` write-back, and piped stdin
+- `&&` short-circuits after a failed command; new `||` fallback support
+- Exit code `$?` (0 success / 1 failure) and `true`/`false` commands
+- Environment variable expansion (`echo $HOME`, `echo $USER`, ...)
+- Permission model: `chmod`/`chown` persist, `ls -l`/`stat` show real mode/owner; regular users are denied writes to `/etc`, `/proc`, `/usr`, `/var/log`, `/var/www`, `/boot`; `sudo` bypasses (including vi save interception)
+- `ls -l` and `stat` are consistent: sizes from content, modes from `chmod`, no random values
+- `ls` can now inspect a single file directly (e.g., `ls -l /tmp/x.txt`)
+
 ## v1.1.1 — 2026-08-04
 
 ### 中文

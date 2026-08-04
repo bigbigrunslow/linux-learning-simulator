@@ -1171,6 +1171,8 @@ power management:
 (press q to quit)`,
             '/proc/version': `Linux version 5.15.0-91-generic (buildd@lcy02-amd64-091) (gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0, GNU ld (GNU Binutils for Ubuntu) 2.38) #101-Ubuntu SMP Tue Nov 14 13:30:08 UTC 2023`
         };
+        this.modes = {};
+        this.owners = {};
     },
     getFile(path) {
         return (path in this.files) ? this.files[path] : null;
@@ -1180,6 +1182,20 @@ power management:
     },
     deleteFile(path) {
         delete this.files[path];
+    },
+    mode(path) {
+        if (path in this.modes) return this.modes[path];
+        return (path in this.files) ? '644' : '755';
+    },
+    owner(path) {
+        if (path in this.owners) return this.owners[path];
+        return path.startsWith('/home/user') ? 'user' : 'root';
+    },
+    chmod(path, mode) {
+        this.modes[path] = mode;
+    },
+    chown(path, owner) {
+        this.owners[path] = owner;
     },
     listDir(dir) {
         if (!dir.endsWith('/')) dir += '/';
@@ -1701,6 +1717,9 @@ let historyIndex = -1;
 let sudoMode = false;
 let inBash = false;
 let pipeInput = '';
+let lastExitCode = 0;
+let chainBreak = false;
+const FALSE_SENTINEL = '\u0000false';
 let aliasMap = {ll:'ls -la', la:'ls -A', l:'ls -CF', ports:'netstat -tulanp', update:'sudo apt update && sudo apt upgrade -y'};
 let envVars = {HOME:'/root', USER:'user', SHELL:'/bin/bash', PATH:'/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', EDITOR:'vim', PWD:'/root', LANG:'en_US.UTF-8'};
 
@@ -1718,6 +1737,19 @@ function resolvePath(path) {
         else base = (base === '/' ? '' : base) + '/' + seg;
     }
     return base || '/';
+}
+
+function permStr(mode, isDir) {
+    const m = String(mode || '644').padStart(3, '0');
+    const bits = ['---','--x','-w-','-wx','r--','r-x','rw-','rwx'];
+    return (isDir ? 'd' : '-') + bits[parseInt(m[0])] + bits[parseInt(m[1])] + bits[parseInt(m[2])];
+}
+
+function canWrite(path) {
+    if (isRoot || sudoMode) return true;
+    const p = String(path).replace(/\/+$/, '');
+    if (p === '' || p === '/') return false;
+    return !(p.startsWith('/etc') || p.startsWith('/proc') || p.startsWith('/usr') || p.startsWith('/var/log') || p.startsWith('/var/www') || p.startsWith('/boot'));
 }
 
 function escapeHtml(text) {
@@ -1747,6 +1779,14 @@ function handleLs(args) {
     const longFlag = args.includes('-l') || args.includes('-la') || args.includes('-al');
     const pathArg = args.filter(a => !a.startsWith('-'))[0];
     const target = resolvePath(pathArg || '.');
+    if (VFS.getFile(target) !== null) {
+        const mode = VFS.mode(target);
+        const owner = VFS.owner(target);
+        const size = VFS.getFile(target).length;
+        const fname = target.split('/').pop();
+        if (longFlag) return permStr(mode, false) + ' 1 ' + owner + ' ' + owner + ' ' + padEnd(String(size), 5) + ' Jul 25 10:00 ' + fname;
+        return fname;
+    }
     const entries = VFS.listDir(target);
 
     if (!entries || Object.keys(entries).length === 0) {
@@ -1767,11 +1807,12 @@ function handleLs(args) {
         let out = 'total ' + (names.length * 4) + '\n';
         for (const n of names) {
             const isDir = entries[n] === 'dir';
-            const perms = isDir ? 'drwxr-xr-x' : '-rw-r--r--';
-            const owner = 'root';
-            const size = isDir ? 4096 : (Math.floor(Math.random() * 5000) + 100);
+            const full = target === '/' ? '/' + n : target + '/' + n;
+            const mode = VFS.mode(full);
+            const owner = VFS.owner(full);
+            const size = isDir ? 4096 : (VFS.getFile(full) || '').length;
             const date = 'Jul 25 10:00';
-            out += perms + ' 1 ' + owner + ' ' + owner + ' ' + padEnd(String(size), 5) + ' ' + date + ' ' + n + '\n';
+            out += permStr(mode, isDir) + ' 1 ' + owner + ' ' + owner + ' ' + padEnd(String(size), 5) + ' ' + date + ' ' + n + '\n';
         }
         return out.trimEnd();
     }
@@ -1806,6 +1847,7 @@ function handlePwd() {
 function handleMkdir(args) {
     if (!args[0]) return 'mkdir: missing operand';
     const path = resolvePath(args[0]);
+    if (!canWrite(path)) return 'mkdir: cannot create directory \'' + args[0] + '\': Permission denied';
     const [parent, name] = VFS.splitPath(path);
     VFS.writeFile(path + '/.dir', '');
     return 'Created directory: ' + path;
@@ -1814,6 +1856,7 @@ function handleMkdir(args) {
 function handleTouch(args) {
     if (!args[0]) return 'touch: missing file operand';
     const path = resolvePath(args[0]);
+    if (!canWrite(path)) return 'touch: cannot touch \'' + args[0] + '\': Permission denied';
     if (!VFS.getFile(path)) VFS.writeFile(path, '');
     else VFS.writeFile(path, VFS.getFile(path)); // update timestamp conceptually
     return 'Created file: ' + path;
@@ -1837,6 +1880,10 @@ function handleRm(args) {
     let out = '';
     for (const pa of pathArgs) {
         const path = resolvePath(pa);
+        if (!canWrite(path)) {
+            out += 'rm: cannot remove \'' + pa + '\': Permission denied\n';
+            continue;
+        }
         const entries = VFS.listDir(path);
         if (entries && Object.keys(entries).length > 0 && !recursive) {
             out += 'rm: cannot remove \'' + pa + '\': Is a directory\n';
@@ -1861,6 +1908,7 @@ function handleCp(args) {
     const dst = resolvePath(args[1]);
     const content = VFS.getFile(src);
     if (content === null) return 'cp: cannot stat \'' + args[0] + '\': No such file or directory';
+    if (!canWrite(dst)) return 'cp: cannot create regular file \'' + args[1] + '\': Permission denied';
     VFS.writeFile(dst, content);
     return 'Copied: ' + args[0] + ' -> ' + args[1];
 }
@@ -1871,6 +1919,7 @@ function handleMv(args) {
     const dst = resolvePath(args[1]);
     const content = VFS.getFile(src);
     if (content === null) return 'mv: cannot stat \'' + args[0] + '\': No such file or directory';
+    if (!canWrite(dst)) return 'mv: cannot move \'' + args[0] + '\' to \'' + args[1] + '\': Permission denied';
     VFS.writeFile(dst, content);
     VFS.deleteFile(src);
     return 'Moved: ' + args[0] + ' -> ' + args[1];
@@ -1895,10 +1944,16 @@ function handleGrep(args) {
     const ignoreCase = flags.includes('-i');
     const lineNums = flags.includes('-n');
     const invert = flags.includes('-v');
+    let re;
+    try {
+        re = new RegExp(pattern, ignoreCase ? 'i' : '');
+    } catch (e) {
+        return 'grep: invalid regular expression \'' + pattern + '\'';
+    }
     const lines = content.split('\n');
     let out = '';
     for (let i = 0; i < lines.length; i++) {
-        let match = ignoreCase ? lines[i].toLowerCase().includes(pattern.toLowerCase()) : lines[i].includes(pattern);
+        let match = re.test(lines[i]);
         if (invert) match = !match;
         if (match) out += (lineNums ? (i + 1) + ':' : '') + lines[i] + '\n';
     }
@@ -1995,6 +2050,7 @@ function handleEcho(args, cmd) {
         }
         const filePart = cmd.slice(redirIdx + (append ? 2 : 1)).trim();
         const filePath = resolvePath(filePart);
+        if (!canWrite(filePath)) return 'bash: ' + filePart + ': Permission denied';
         if (append) {
             const existing = VFS.getFile(filePath);
             VFS.writeFile(filePath, (existing === null ? '' : existing + '\n') + text);
@@ -2042,14 +2098,38 @@ function handleLn(args) {
 
 function handleChmod(args) {
     if (args.length < 2) return 'chmod: missing operand';
-    const mode = args[0];
-    const path = resolvePath(args[1]);
-    return 'Changed mode of ' + args[1] + ' to ' + mode;
+    const modeArg = args[0];
+    const pathArg = args[args.length - 1];
+    const path = resolvePath(pathArg);
+    const isDir = VFS.getFile(path) === null && VFS.listDir(path) && Object.keys(VFS.listDir(path)).length > 0;
+    if (VFS.getFile(path) === null && !isDir) {
+        return 'chmod: cannot access \'' + pathArg + '\': No such file or directory';
+    }
+    let mode = VFS.mode(path);
+    if (/^[0-7]{3}$/.test(modeArg)) {
+        mode = modeArg;
+    } else if (modeArg.startsWith('+') && modeArg.includes('x')) {
+        mode = (parseInt(mode, 8) | 0o100).toString(8).padStart(3, '0');
+    } else if (modeArg.startsWith('-') && modeArg.includes('x')) {
+        mode = (parseInt(mode, 8) & ~0o100).toString(8).padStart(3, '0');
+    } else {
+        return 'chmod: invalid mode: \'' + modeArg + '\'';
+    }
+    VFS.chmod(path, mode);
+    return 'Changed mode of ' + pathArg + ' to ' + mode;
 }
 
 function handleChown(args) {
     if (args.length < 2) return 'chown: missing operand';
-    return 'Changed owner of ' + args[args.length - 1] + ' to ' + args[0];
+    const owner = args[0].split(':')[0];
+    const pathArg = args[args.length - 1];
+    const path = resolvePath(pathArg);
+    const isDir = VFS.getFile(path) === null && VFS.listDir(path) && Object.keys(VFS.listDir(path)).length > 0;
+    if (VFS.getFile(path) === null && !isDir) {
+        return 'chown: cannot access \'' + pathArg + '\': No such file or directory';
+    }
+    VFS.chown(path, owner);
+    return 'Changed owner of ' + pathArg + ' to ' + owner;
 }
 
 function handleChgrp(args) {
@@ -2122,7 +2202,41 @@ function handleTr(args) {
 }
 
 function handleSed(args) {
-    return "sed: stream editor - usage: sed 's/pattern/replacement/' <file>\nExample: sed 's/hello/world/' test.txt";
+    const inPlace = args.includes('-i');
+    const script = args.find(a => a.startsWith('s/') && a.length > 2);
+    const nonFlag = args.filter(a => !a.startsWith('-') && !a.startsWith('s/'));
+    let content;
+    let fileArg = '';
+    if (nonFlag.length > 0) {
+        fileArg = nonFlag[0];
+        const path = resolvePath(fileArg);
+        content = VFS.getFile(path);
+        if (content === null) return 'sed: can\'t read ' + fileArg + ': No such file or directory';
+    } else if (pipeInput !== '') {
+        content = pipeInput;
+    } else {
+        return 'sed: no input files';
+    }
+    if (!script) return 'sed: usage: sed [-i] \'s/pattern/replacement/[g]\' [file]';
+    const m = script.match(/^s\/((?:\\.|[^/])*)\/((?:\\.|[^/])*)\/([gI]*)$/);
+    if (!m) return 'sed: bad script: ' + script;
+    const pattern = m[1].replace(/\\(.)/g, '$1');
+    const replacement = m[2].replace(/\\(.)/g, '$1');
+    const globalFlag = m[3].includes('g');
+    let re;
+    try {
+        re = new RegExp(pattern, globalFlag ? 'g' : '');
+    } catch (e) {
+        return 'sed: invalid regex: ' + pattern;
+    }
+    const out = content.split('\n').map(line => line.replace(re, replacement)).join('\n');
+    if (inPlace && fileArg) {
+        const path = resolvePath(fileArg);
+        if (!canWrite(path)) return 'sed: couldn\'t write ' + fileArg + ': Permission denied';
+        VFS.writeFile(path, out);
+        return 'Wrote to: ' + fileArg;
+    }
+    return out;
 }
 
 function handleAwk(args) {
@@ -2177,11 +2291,13 @@ function handleStat(args) {
     const path = resolvePath(args[0]);
     const content = VFS.getFile(path);
     if (content === null) return 'stat: ' + args[0] + ': No such file or directory';
+    const mode = VFS.mode(path);
+    const owner = VFS.owner(path);
     let out = '  File: ' + path + '\n';
     out += '  Size: ' + content.length + '\t\tBlocks: ' + Math.ceil(content.length / 512) + '\n';
     out += '  IO Block: 4096   regular file\n';
     out += 'Device: 259,2\tInode: ' + Math.floor(Math.random() * 1000000) + '\n';
-    out += 'Access: (0644/-rw-r--r--)  Uid: (0/root)   Gid: (0/root)\n';
+    out += 'Access: (' + mode + '/' + permStr(mode, false) + ')  Uid: (' + (owner === 'root' ? '0/root' : '1000/' + owner) + ')   Gid: (0/root)\n';
     out += 'Access: 2025-07-25 10:00:00.000000000 +0800\n';
     out += 'Modify: 2025-07-24 15:30:00.000000000 +0800\n';
     out += 'Change: 2025-07-24 15:30:00.000000000 +0800\n';
@@ -4107,6 +4223,10 @@ function openViEditor(filePath) {
 
 function closeViEditor(save) {
     if (save) {
+        if (!canWrite(viFile)) {
+            document.getElementById('vi-mode').textContent = '-- NORMAL -- | Permission denied (use sudo)';
+            return;
+        }
         const textarea = document.getElementById('vi-textarea');
         VFS.writeFile(viFile, textarea.value);
     }
@@ -4800,7 +4920,7 @@ function splitOutsideQuotes(str, sep) {
     return parts;
 }
 
-function EXEC(cmdStr) {
+function EXEC_IMPL(cmdStr) {
     if (!cmdStr || !cmdStr.trim()) return '';
 
     // Handle pipes (quote-aware, output feeds next command via pipeInput)
@@ -4826,6 +4946,18 @@ function EXEC(cmdStr) {
         let lastResult = '';
         for (const part of chainParts) {
             lastResult = EXEC(part.trim());
+            if (lastExitCode !== 0) { chainBreak = true; break; }
+        }
+        return lastResult;
+    }
+
+    // Handle || (quote-aware)
+    const orParts = splitOutsideQuotes(cmd, '||');
+    if (orParts.length > 1) {
+        let lastResult = '';
+        for (const part of orParts) {
+            lastResult = EXEC(part.trim());
+            if (lastExitCode === 0) break;
         }
         return lastResult;
     }
@@ -4834,6 +4966,10 @@ function EXEC(cmdStr) {
     if (aliasMap[cmd.split(' ')[0]]) {
         cmd = aliasMap[cmd.split(' ')[0]] + ' ' + cmd.split(' ').slice(1).join(' ');
     }
+
+    // Expand $? and environment variables
+    cmd = cmd.replace(/\$\?/g, String(lastExitCode));
+    cmd = cmd.replace(/\$([A-Za-z_][A-Za-z0-9_]*)/g, (m, name) => (name in envVars ? envVars[name] : m));
 
     const parts = parseArgs(cmd);
     let cmdName = parts[0];
@@ -4845,7 +4981,7 @@ function EXEC(cmdStr) {
     }
 
     // Check command exists
-    if (!(cmdName in CMD) && cmdName !== 'su' && cmdName !== 'exit' && cmdName !== 'clear' && cmdName !== 'vi' && cmdName !== 'vim') {
+    if (!(cmdName in CMD) && cmdName !== 'su' && cmdName !== 'exit' && cmdName !== 'clear' && cmdName !== 'vi' && cmdName !== 'vim' && cmdName !== 'true' && cmdName !== 'false') {
         return cmdName + ': command not found. Type "help" for available commands.';
     }
 
@@ -5134,6 +5270,8 @@ function EXEC(cmdStr) {
 
         // Exit
         case 'exit': return handleExitCmd();
+        case 'true': return '';
+        case 'false': return FALSE_SENTINEL;
 
         // Chroot
         case 'chroot': return 'chroot: simulated execution';
@@ -5226,6 +5364,25 @@ function EXEC(cmdStr) {
     }
 }
 
+function isErrorOutput(s) {
+    if (s === '' || s === null || s === undefined) return false;
+    return /command not found|No such file|missing operand|missing file operand|Permission denied|cannot |Usage:|usage:|invalid|failed|denied|not found|\(no matches\)|No such/i.test(s);
+}
+
+function EXEC(cmdStr) {
+    const result = EXEC_IMPL(cmdStr);
+    if (result === FALSE_SENTINEL) {
+        lastExitCode = 1;
+        return '';
+    }
+    if (chainBreak) {
+        chainBreak = false;
+        return result;
+    }
+    lastExitCode = isErrorOutput(result) ? 1 : 0;
+    return result;
+}
+
 
 /* ===== UI ===== */
 
@@ -5279,7 +5436,7 @@ function initUI() {
                 }
                 if (result === '' && cmd.startsWith('cd ')) {
                     // cd success - no output needed
-                } else if (result === '' && !['cd', 'export', 'unset', 'alias', 'clear', 'exit', 'bg', 'fg', 'jobs', 'sudo', 'bash', 'su'].includes(cmd.split(' ')[0])) {
+                } else if (result === '' && !['cd', 'export', 'unset', 'alias', 'clear', 'exit', 'bg', 'fg', 'jobs', 'sudo', 'bash', 'su', 'true', 'false'].includes(cmd.split(' ')[0])) {
                     appendOutput('OK', 'cmd-info');
                 }
             } catch (err) {
@@ -5339,7 +5496,7 @@ function initUI() {
     });
 
     updatePromptDisplay();
-    appendOutput('Linux Learning Simulator v1.1.1 | ' + window.SIM_HW.os + ' | Kernel ' + window.SIM_HW.kernel, 'cmd-info');
+    appendOutput('Linux Learning Simulator v1.2.0 | ' + window.SIM_HW.os + ' | Kernel ' + window.SIM_HW.kernel, 'cmd-info');
     appendOutput('Type "help" for available commands.', 'cmd-info');
 }
 
