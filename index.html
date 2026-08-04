@@ -1003,6 +1003,43 @@ www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
 mysql:x:999:999:MySQL Server:/var/lib/mysql:/usr/sbin/nologin
 user:x:1000:1000:Home User:/home/user:/bin/bash
 sshd:x:110:65534::/run/sshd:/usr/sbin/nologin`,
+            '/etc/sudoers': `#
+# This file MUST be edited with the 'visudo' command as root.
+#
+# See the man page for details on how to write a sudoers file.
+#
+Defaults        env_reset
+Defaults        mail_badpass
+Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+root    ALL=(ALL:ALL) ALL
+%sudo   ALL=(ALL:ALL) ALL
+user    ALL=(ALL:ALL) NOPASSWD: ALL`,
+            '/etc/nginx/nginx.conf': `user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+
+events {
+    worker_connections 768;
+}
+
+http {
+    sendfile on;
+    tcp_nopush on;
+    keepalive_timeout 65;
+    include /etc/nginx/mime.types;
+    include /etc/nginx/conf.d/*.conf;
+
+    server {
+        listen 80;
+        server_name home-server;
+        root /var/www/html;
+        index index.html index.htm;
+        location / {
+            try_files $uri $uri/ =404;
+        }
+    }
+}`,
             '/tmp/test.txt': `This is a temporary test file.
 It contains a few lines of text
 for testing file operations.
@@ -1933,12 +1970,35 @@ function handleWc(args) {
     return out.trimEnd() + (label ? ' ' + label : '');
 }
 
+function findRedirect(cmd) {
+    let inSingle = false, inDouble = false;
+    for (let i = 0; i < cmd.length; i++) {
+        const ch = cmd[i];
+        if (ch === "'" && !inDouble) inSingle = !inSingle;
+        else if (ch === '"' && !inSingle) inDouble = !inDouble;
+        else if (!inSingle && !inDouble && ch === '>') return i;
+    }
+    return -1;
+}
+
 function handleEcho(args, cmd) {
-    if (cmd.includes('>')) {
-        const idx = cmd.indexOf('>');
-        const text = cmd.slice(5, idx).trim();
-        const filePart = cmd.slice(idx + 1).trim();
+    const redirIdx = findRedirect(cmd);
+    if (redirIdx !== -1) {
+        const append = cmd[redirIdx + 1] === '>';
+        const rawText = cmd.slice(5, redirIdx).trim();
+        let text = rawText;
+        if (rawText.length >= 2 &&
+            ((rawText.startsWith('"') && rawText.endsWith('"')) ||
+             (rawText.startsWith("'") && rawText.endsWith("'")))) {
+            text = rawText.slice(1, -1);
+        }
+        const filePart = cmd.slice(redirIdx + (append ? 2 : 1)).trim();
         const filePath = resolvePath(filePart);
+        if (append) {
+            const existing = VFS.getFile(filePath);
+            VFS.writeFile(filePath, (existing === null ? '' : existing + '\n') + text);
+            return 'Appended to: ' + filePart;
+        }
         VFS.writeFile(filePath, text);
         return 'Wrote to: ' + filePart;
     }
@@ -4016,6 +4076,7 @@ let viFile = '';
 let viOriginal = '';
 let viSearchTerm = '';
 let viYankBuffer = '';
+let viPendingD = false;
 
 function openViEditor(filePath) {
     viFile = filePath;
@@ -4032,13 +4093,13 @@ function openViEditor(filePath) {
 
     titleSpan.textContent = 'vi: ' + filePath;
     textarea.value = viOriginal;
-    textarea.focus();
     modeSpan.textContent = '-- NORMAL --';
     posSpan.textContent = getViPos();
     cmdInput.value = '';
     cmdInput.style.display = 'none';
 
     overlay.classList.add('active');
+    setTimeout(() => { textarea.focus(); }, 0);
 }
 
 function closeViEditor(save) {
@@ -4111,6 +4172,7 @@ if (cmd === 'w') closeViEditor(true);
 
     // NORMAL mode
     const key = e.key;
+    if (key !== 'd') viPendingD = false;
     const handledKeys = ['i','a','I','A','o','O','h','l','j','k','0','$','w','b','d','u','y','p',':','/','Z','Escape','g','G'];
     if (handledKeys.includes(key)) {
         e.preventDefault();
@@ -4226,8 +4288,20 @@ if (cmd === 'w') closeViEditor(true);
             break;
         }
         case 'd':
-            if (e.key === 'd' || (e.key === undefined && viMode === 'NORMAL')) {
-                // Simulate second d press - wait for next key
+            if (viPendingD) {
+                const lineStart = textarea.value.lastIndexOf('\n', textarea.selectionStart - 1) + 1;
+                const lineEnd = textarea.value.indexOf('\n', textarea.selectionStart);
+                let delStart = lineStart;
+                let delEnd = lineEnd === -1 ? textarea.value.length : lineEnd + 1;
+                if (lineEnd === -1 && delStart > 0) delStart--; // last line: also remove the newline above it
+                textarea.value = textarea.value.slice(0, delStart) + textarea.value.slice(delEnd);
+                textarea.selectionStart = Math.min(delStart, textarea.value.length);
+                textarea.selectionEnd = textarea.selectionStart;
+                viPendingD = false;
+                modeSpan.textContent = '-- NORMAL -- (line deleted)';
+            } else {
+                viPendingD = true;
+                modeSpan.textContent = '-- NORMAL -- (dd)';
             }
             break;
         case 'u':
