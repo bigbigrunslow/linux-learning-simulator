@@ -2160,7 +2160,7 @@ for (const [cmd, usages] of Object.entries(CMD_USAGES)) {
     const id = 'u' + (taskSeq++);
     TASK_MAP[id] = {
       id, cmd, path: cmdPath(cmd),
-      title: cmd + ' 用法 ' + (i + 1) + '/' + usages.length,
+      title: u.c + '（用法 ' + (i + 1) + '/' + usages.length + '）',
       desc: u.d, hint: u.c,
       check: histExact(u.c),
     };
@@ -2171,7 +2171,7 @@ for (const name of Object.keys(CMD)) {
     const id = 'a' + (taskSeq++);
     TASK_MAP[id] = {
       id, cmd: name, path: cmdPath(name),
-      title: name + ' 基础用法',
+      title: name + '（基础用法）',
       desc: CMD[name].desc || name + ' 命令',
       hint: CMD[name].usage || name,
       check: histRe(new RegExp('^' + name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(\\s|$)')),
@@ -2215,7 +2215,7 @@ function currentTask() {
 function showTaskDetail(t) {
     const total = focusTasks().length;
     const doneInFocus = focusTasks().filter(x => taskProgress.done.includes(x.id)).length;
-    return '▶ 当前任务 [' + t.id + ']：' + t.title + '\n' + t.desc + '\n提示：' + t.hint + '\n进度：' + doneInFocus + '/' + total;
+    return '▶ 当前任务 [' + t.id + ']：' + t.title + '\n' + t.desc + '\n🔧 请执行：' + t.hint + '\n进度：' + doneInFocus + '/' + total;
 }
 
 function resolvePath(path) {
@@ -4334,7 +4334,7 @@ function handlePractice(args) {
             out += (done ? '✅ ' : '⬜ ') + (i + 1) + '. ' + u.c + (done ? '' : ' — ' + u.d) + '\n';
         });
         const cur = currentTask();
-        if (cur) out += '\n开始：' + cur.hint + '\n' + cur.desc;
+        if (cur) out += '\n🔧 开始（请执行）：' + cur.hint + '\n' + cur.desc;
         return out.trimEnd();
     }
     if (args[0] === 'start' || args[0] === 'next') {
@@ -6032,8 +6032,14 @@ function initUI() {
                 saveTaskProgress();
                 appendOutput('✅ 任务完成：' + completedNow.map(t => t.title).join('、') + '（' + taskProgress.done.length + '/' + Object.keys(TASK_MAP).length + '）', 'cmd-info');
                 const nextTask = currentTask();
-                if (nextTask) appendOutput('▶ 下一任务 [' + nextTask.id + ']：' + nextTask.title + '\n' + nextTask.desc + '\n提示：' + nextTask.hint, 'cmd-info');
-                else appendOutput('🎉 当前路线全部完成！输入 practice 查看其他路线。', 'cmd-info');
+                if (nextTask) appendOutput('▶ 下一任务 [' + nextTask.id + ']：' + nextTask.title + '\n' + nextTask.desc + '\n🔧 请执行：' + nextTask.hint, 'cmd-info');
+                else {
+                    const nextPath = PATH_ORDER.find(key => {
+                        const tasks = Object.values(TASK_MAP).filter(t => t.path === key);
+                        return tasks.length > 0 && tasks.some(t => !taskProgress.done.includes(t.id));
+                    });
+                    appendOutput('🎉 ' + focusName() + ' 全部完成！' + (nextPath ? ' 建议下一路线：practice path ' + nextPath : ' 所有路线都完成啦！'), 'cmd-info');
+                }
                 buildSidePanel();
             }
 
@@ -6110,13 +6116,13 @@ function updatePromptDisplay() {
 function buildSidePanel() {
     const panel = document.getElementById('side-panel');
     const curTask = currentTask();
-    panel.innerHTML = '<h3>🎯 学习任务 ' + taskProgress.done.length + '/' + Object.keys(TASK_MAP).length + '</h3>';
+    let html = '<h3>🎯 学习任务 ' + taskProgress.done.length + '/' + Object.keys(TASK_MAP).length + '</h3>';
     if (curTask) {
-        panel.innerHTML += '<div class="task-card" id="task-card"><b>[' + curTask.id + '] ' + curTask.title + '</b><br>' + curTask.desc + '<br><span class="hint">' + curTask.hint + '</span><br><span style="color:#565f89">' + focusName() + '</span></div>';
+        html += '<div class="task-card" id="task-card"><b>[' + curTask.id + '] ' + curTask.title + '</b><br>' + curTask.desc + '<br><span class="hint">🔧 请执行：' + curTask.hint + '</span><br><span style="color:#565f89">' + focusName() + '</span></div>';
     } else {
-        panel.innerHTML += '<div class="task-card">🎉 ' + focusName() + ' 全部完成！</div>';
+        html += '<div class="task-card">🎉 ' + focusName() + ' 全部完成！</div>';
     }
-    panel.innerHTML += '<h3>📚 命令速查</h3>';
+    html += '<h3>📚 命令速查</h3>';
 
     const cats = {};
     for (const [name, info] of Object.entries(CMD)) {
@@ -6128,12 +6134,12 @@ function buildSidePanel() {
 
     for (const cat of orderedCats) {
         if (cats[cat]) {
-            panel.innerHTML += '<details' + (cat === 'VFS' ? ' open' : '') + '><summary>' + cat + '</summary>';
+            html += '<details' + (cat === 'VFS' ? ' open' : '') + '><summary>' + cat + '</summary>';
             const names = cats[cat].sort();
             for (const n of names) {
-                panel.innerHTML += '<span class="cmd-item" title="' + CMD[n].desc + '">' + n + '</span>';
+                html += '<span class="cmd-item" title="' + CMD[n].desc + '">' + n + '</span>';
             }
-            panel.innerHTML += '</details>';
+            html += '</details>';
         }
     }
 
@@ -6146,17 +6152,18 @@ function buildSidePanel() {
         }
     }
     if (Object.keys(devopsCats).length > 0) {
-        panel.innerHTML += '<details><summary>🛠️ DevOps</summary>';
+        html += '<details><summary>🛠️ DevOps</summary>';
         for (const [cat, names] of Object.entries(devopsCats)) {
-            panel.innerHTML += '<div class="cat">' + cat.split('/')[1] + '</div>';
+            html += '<div class="cat">' + cat.split('/')[1] + '</div>';
             for (const n of names.sort()) {
-                panel.innerHTML += '<span class="cmd-item">' + n + '</span>';
+                html += '<span class="cmd-item">' + n + '</span>';
             }
         }
-        panel.innerHTML += '</details>';
+        html += '</details>';
     }
 
-    panel.innerHTML += '<div style="margin-top:12px;color:#565f89;font-size:10px">共 ' + Object.keys(CMD).length + ' 个命令<br>点击命令可填入输入框</div>';
+    html += '<div style="margin-top:12px;color:#565f89;font-size:10px">共 ' + Object.keys(CMD).length + ' 个命令<br>点击命令可填入输入框</div>';
+    panel.innerHTML = html;
 }
 
 // Initialize on load
