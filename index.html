@@ -1249,6 +1249,8 @@ const CMD = {};
 
 CMD['practice'] = {cat:'学习', desc:'练习任务（与学习指南同步）', usage:'practice [start|编号|reset]'};
 CMD['learn'] = {cat:'学习', desc:'命令百科：查看命令完整用法', usage:'learn <command>'};
+CMD['exam'] = {cat:'学习', desc:'项目考试：随机抽题评分', usage:'exam <项目>'};
+CMD['stats'] = {cat:'学习', desc:'学习统计与成绩', usage:'stats'};
 
 // === VFS File Operations ===
 CMD['ls']    = {cat:'VFS', desc:'列出目录内容', usage:'ls [-la] [path]'};
@@ -1729,6 +1731,66 @@ const FALSE_SENTINEL = '\u0000false';
 let aliasMap = {ll:'ls -la', la:'ls -A', l:'ls -CF', ports:'netstat -tulanp', update:'sudo apt update && sudo apt upgrade -y'};
 let envVars = {HOME:'/root', USER:'user', SHELL:'/bin/bash', PATH:'/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', EDITOR:'vim', PWD:'/root', LANG:'en_US.UTF-8'};
 
+/* ===== STATE MACHINES (services / containers / processes) ===== */
+const SERVICES = {
+  nginx:  { status:'running', enabled:true },
+  mysql:  { status:'running', enabled:true },
+  redis:  { status:'running', enabled:false },
+  docker: { status:'running', enabled:true },
+  sshd:   { status:'running', enabled:true },
+};
+let dockerContainers = null;
+let PROC_TABLE = null;
+function initStateMachines() {
+    if (dockerContainers === null) {
+        dockerContainers = (window.SIM_HW.docker_containers || []).map((c) => ({ id:c[0], img:c[1], name:c[2], status:'running', ports:c[4] }));
+    }
+    if (PROC_TABLE === null) {
+        PROC_TABLE = [
+            { pid:1,    user:'root',     cpu:0.0, mem:0.3, cmd:'systemd' },
+            { pid:400,  user:'root',     cpu:0.0, mem:0.1, cmd:'sshd -D' },
+            { pid:1200, user:'root',     cpu:0.1, mem:0.4, cmd:'nginx: master process' },
+            { pid:1201, user:'www-data', cpu:0.2, mem:0.5, cmd:'nginx: worker process' },
+            { pid:3500, user:'mysql',    cpu:0.5, mem:8.2, cmd:'/usr/sbin/mysqld' },
+            { pid:2300, user:'root',     cpu:0.3, mem:1.1, cmd:'dockerd' },
+            { pid:5600, user:'root',     cpu:1.2, mem:0.6, cmd:'python3 /opt/scripts/monitor.py' },
+            { pid:7201, user:'user',     cpu:0.0, mem:0.2, cmd:'bash' },
+        ];
+    }
+}
+initStateMachines();
+
+/* ===== EXAM & STATS ===== */
+let examState = null;
+function loadStats() {
+    try {
+        const raw = localStorage.getItem('linux-sim-stats');
+        if (raw) {
+            const s = JSON.parse(raw);
+            if (s && typeof s === 'object') return Object.assign({ usedCmds: [], badCmds: {}, streak: 0, lastDate: '', exams: [] }, s);
+        }
+    } catch (e) {}
+    return { usedCmds: [], badCmds: {}, streak: 0, lastDate: '', exams: [] };
+}
+let stats = loadStats();
+function saveStats() {
+    try { localStorage.setItem('linux-sim-stats', JSON.stringify(stats)); } catch (e) {}
+}
+function recordUsage(cmdName, ok) {
+    if (!cmdName) return;
+    if (!stats.usedCmds.includes(cmdName)) stats.usedCmds.push(cmdName);
+    if (!ok) stats.badCmds[cmdName] = (stats.badCmds[cmdName] || 0) + 1;
+    const today = new Date().toISOString().slice(0, 10);
+    if (stats.lastDate !== today) {
+        const y = new Date(stats.lastDate + 'T00:00:00');
+        const t = new Date(today + 'T00:00:00');
+        if (!isNaN(y) && (t - y) / 86400000 === 1) stats.streak++;
+        else stats.streak = 1;
+        stats.lastDate = today;
+    }
+    saveStats();
+}
+
 /* ===== LEARNING TASKS (synced with 学习指南.html 11 stages) ===== */
 const TASKS = [
   { id:'s1t1', stage:1, title:'查看当前目录', desc:'输入 ls 列出当前目录内容', hint:'ls', check:() => history.some(h => /^ls(\s|$)/.test(h)) },
@@ -2204,7 +2266,7 @@ for (const [cmd, usages] of Object.entries(CMD_USAGES)) {
   });
 }
 for (const name of Object.keys(CMD)) {
-  if (!CMD_USAGES[name] && name !== 'practice' && name !== 'learn') {
+  if (!CMD_USAGES[name] && name !== 'practice' && name !== 'learn' && name !== 'exam' && name !== 'stats') {
     const id = 'a' + (taskSeq++);
     TASK_MAP[id] = {
       id, cmd: name, path: cmdPath(name),
@@ -2253,6 +2315,7 @@ function focusName() {
     return (PATHS[path] || PATHS.basic).name;
 }
 function currentTask() {
+    if (examState) return TASK_MAP[examState.questions[examState.index]] || null;
     return focusTasks().find(t => !taskProgress.done.includes(t.id)) || null;
 }
 function showTaskDetail(t) {
@@ -3361,13 +3424,18 @@ function handleBlkid() {
 }
 
 function handlePs(args) {
-    const hw = window.SIM_HW;
     const allFlag = args.includes('aux') || args.includes('-ef') || args.includes('-aux');
-    if (!allFlag && args.length === 0) return '    PID TTY          TIME CMD\n    5600 pts/0    00:00:05 python3\n    ' + (Math.floor(Math.random() * 9000 + 1000) + ' pts/0    00:00:00 ps');
+    if (!allFlag && args.length === 0) {
+        let out = '    PID TTY          TIME CMD\n';
+        for (const p of PROC_TABLE) {
+            out += padEnd(String(p.pid), 8) + 'pts/0    ' + padEnd('00:00:0' + Math.min(9, Math.floor(p.cpu * 3)), 9) + p.cmd + '\n';
+        }
+        return out.trimEnd();
+    }
 
     let out = padEnd('USER', 10) + padEnd('PID', 7) + '%CPU ' + padEnd('%MEM', 5) + padEnd('VSZ', 10) + padEnd('RSS', 8) + padEnd('TTY', 8) + padEnd('STAT', 5) + padEnd('START', 8) + padEnd('TIME', 8) + 'COMMAND\n';
-    for (const p of hw.processes) {
-        out += padEnd(p.user, 10) + padEnd(String(p.pid), 7) + padEnd(String(p.cpu), 4) + padEnd(String(p.mem), 5) + padEnd(String(p.vsz), 10) + padEnd(String(p.rss), 8) + padEnd(p.tty, 8) + padEnd(p.stat, 5) + padEnd(p.start, 8) + padEnd(p.time, 8) + p.command + '\n';
+    for (const p of PROC_TABLE) {
+        out += padEnd(p.user, 10) + padEnd(String(p.pid), 7) + padEnd(String(p.cpu), 4) + padEnd(String(p.mem), 5) + padEnd('234567', 10) + padEnd('34567', 8) + padEnd('pts/0', 8) + padEnd('S', 5) + padEnd('10:00', 8) + padEnd('00:00:01', 8) + p.cmd + '\n';
     }
     return out.trimEnd();
 }
@@ -3483,17 +3551,33 @@ Jul 24 22:00:00 home-server systemd[1]: Starting daily cron jobs`;
 
 function handleKill(args) {
     if (!args[0]) return 'kill: usage: kill <pid>';
-    const pid = parseInt(args[0]);
-    if (isNaN(pid)) return 'kill: illegal pid: ' + args[0];
+    const pidStr = args[0] === '-9' ? args[1] : args[0];
+    const pid = parseInt(pidStr);
+    if (isNaN(pid)) return 'kill: illegal pid: ' + pidStr;
+    const idx = PROC_TABLE.findIndex(p => p.pid === pid);
+    if (idx === -1) return 'kill: (' + pid + ') - No such process';
+    PROC_TABLE.splice(idx, 1);
     return 'Process ' + pid + ' terminated';
 }
 
 function handlePgrep(args) {
     if (!args[0]) return 'pgrep: missing pattern';
     const pat = args[0];
-    const procs = window.SIM_HW.processes.filter(p => p.command.includes(pat));
+    const procs = PROC_TABLE.filter(p => p.cmd.includes(pat));
     if (procs.length === 0) return '';
     return procs.map(p => p.pid).join('\n');
+}
+
+function handlePkill(args) {
+    if (!args[0]) return 'pkill: missing pattern';
+    const pat = args[0];
+    const matches = PROC_TABLE.filter(p => p.cmd.includes(pat));
+    if (matches.length === 0) return '';
+    matches.forEach(p => {
+        const idx = PROC_TABLE.findIndex(x => x.pid === p.pid);
+        if (idx !== -1) PROC_TABLE.splice(idx, 1);
+    });
+    return matches.map(p => p.pid + ' terminated').join('\n');
 }
 
 
@@ -3877,31 +3961,32 @@ ii  python3        3.10.12-1~22.04   amd64        Python interpreter`;
 function handleSystemctl(args) {
     const sub = args[0];
     if (!sub) return 'systemctl: missing command';
+    if (sub === 'list-units') {
+        let out = padEnd('UNIT', 26) + 'LOAD   ACTIVE SUB       DESCRIPTION\n';
+        for (const [name, s] of Object.entries(SERVICES)) {
+            out += padEnd(name + '.service', 26) + 'loaded   ' + (s.status === 'running' ? 'active   running' : 'inactive dead   ') + '   ' + name.charAt(0).toUpperCase() + name.slice(1) + '\n';
+        }
+        out += 'LOAD = Reflects whether the unit definition was properly loaded.\nACTIVE = The high-level unit activation state.\nSUB = The low-level unit activation state.';
+        return out;
+    }
     const service = args[1] || 'nginx';
+    if (!SERVICES[service]) return 'systemctl: Unit ' + service + '.service not found.';
+    const s = SERVICES[service];
     if (sub === 'status') {
+        const running = s.status === 'running';
         return `\u25cf ${service}.service - ${service.charAt(0).toUpperCase() + service.slice(1)} Service
-     Loaded: loaded (/lib/systemd/system/${service}.service; enabled; vendor preset: enabled)
-     Active: active (running) since Thu 2025-07-21 00:01:00 CST; 4 days ago
-   Main PID: ${Math.floor(Math.random() * 5000) + 1000} (${service})
-      Tasks: ${Math.floor(Math.random() * 10) + 2} (limit: 38324)
-     Memory: ${Math.floor(Math.random() * 200) + 20}.0M
-        CPU: ${Math.floor(Math.random() * 3600) + 300}ms
+     Loaded: loaded (/lib/systemd/system/${service}.service; ${s.enabled ? 'enabled' : 'disabled'}; vendor preset: enabled)
+     Active: ${running ? 'active (running) since Thu 2025-07-21 00:01:00 CST; 4 days ago' : 'inactive (dead)'}
+   Main PID: ${running ? 1234 : ''} (${service})
+      Tasks: ${running ? 7 : 0} (limit: 38324)
+     Memory: ${running ? '78.0M' : '0B'}
+        CPU: ${running ? '1.2s' : '0'}
      CGroup: /system.slice/${service}.service`;
     }
-    if (sub === 'start') return 'Starting ' + service + ' service... OK';
-    if (sub === 'stop') return 'Stopping ' + service + ' service... OK';
-    if (sub === 'restart') return 'Restarting ' + service + ' service... OK';
-    if (sub === 'enable' || sub === 'disable') return 'Synchronizing state of ' + service + '.service with SysV service script...\n' + sub + 'd ' + service + '.service.';
-    if (sub === 'list-units') {
-        return `UNIT                      LOAD   ACTIVE SUB       DESCRIPTION
-nginx.service             loaded active running   Nginx Web Server
-docker.service            loaded active running   Docker Application Engine
-sshd.service              loaded active running   OpenSSH server daemon
-mysqld.service            loaded active running   MySQL Server
-LOAD = Reflects whether the unit definition was properly loaded.
-ACTIVE = The high-level unit activation state.
-SUB = The low-level unit activation state.`;
-    }
+    if (sub === 'start') { s.status = 'running'; return 'Starting ' + service + ' service... OK'; }
+    if (sub === 'stop') { s.status = 'stopped'; return 'Stopping ' + service + ' service... OK'; }
+    if (sub === 'restart') { s.status = 'running'; return 'Restarting ' + service + ' service... OK'; }
+    if (sub === 'enable' || sub === 'disable') { s.enabled = (sub === 'enable'); return 'Synchronizing state of ' + service + '.service with SysV service script...\n' + sub + 'd ' + service + '.service.'; }
     return 'systemctl ' + sub + ' ' + service + ': command executed';
 }
 
@@ -4425,6 +4510,58 @@ function handleLearn(args) {
     return out.trimEnd();
 }
 
+function examQuestionText() {
+    const t = TASK_MAP[examState.questions[examState.index]];
+    return '[' + t.id + '] ' + t.title + '\n📖 ' + (t.exp || t.desc) + '\n🔧 请执行：' + t.hint;
+}
+
+function handleExam(args) {
+    if (args[0] === 'quit') {
+        examState = null;
+        return '考试已退出 / Exam aborted.';
+    }
+    if (args[0]) {
+        const p = args[0];
+        if (!PATHS[p]) return 'exam: 未知项目（可用：' + PATH_ORDER.filter(k => PATHS[k]).join(' / ') + '）';
+        const tasks = Object.values(TASK_MAP).filter(t => t.path === p);
+        if (tasks.length === 0) return 'exam: 该项目暂无任务';
+        const pool = tasks.filter(t => !taskProgress.done.includes(t.id));
+        const qs = (pool.length >= 10 ? pool : tasks).slice(0, 10).sort(() => Math.random() - 0.5);
+        examState = { path: p, questions: qs.map(t => t.id), index: 0, score: 0 };
+        return '📝 考试开始：' + PATHS[p].name + '（' + qs.length + ' 题，答对 70% 通过）\n第 1 题：' + examQuestionText();
+    }
+    if (!examState) {
+        let out = '=== 📝 考试 ===\n用法：exam <项目>（如 exam k8s）\n最近成绩：\n';
+        if (stats.exams.length === 0) out += '  （还没有考试记录，试试 exam basic）';
+        for (const e of stats.exams.slice(-5)) out += '  ' + e.path + '：' + e.score + '/' + e.total + (e.pass ? ' ✅' : ' ❌') + '\n';
+        return out.trimEnd();
+    }
+    return '📝 进行中：' + PATHS[examState.path].name + ' 第 ' + (examState.index + 1) + '/' + examState.questions.length + ' 题，得分 ' + examState.score + '\n' + examQuestionText();
+}
+
+function handleStats() {
+    let out = '=== 📊 学习统计 ===\n';
+    out += '已完成任务：' + taskProgress.done.length + '/' + Object.keys(TASK_MAP).length + '\n';
+    out += '用过的命令：' + stats.usedCmds.length + ' 个\n';
+    out += '连续学习：' + stats.streak + ' 天\n\n项目进度：\n';
+    for (const key of PATH_ORDER) {
+        const tasks = Object.values(TASK_MAP).filter(t => t.path === key);
+        if (tasks.length === 0) continue;
+        const done = tasks.filter(t => taskProgress.done.includes(t.id)).length;
+        out += '  [' + key + '] ' + PATHS[key].name + '：' + done + '/' + tasks.length + '\n';
+    }
+    const bad = Object.entries(stats.badCmds).sort((a, b) => b[1] - a[1]).slice(0, 5);
+    if (bad.length) {
+        out += '\n常输错的命令：\n';
+        for (const [c, n] of bad) out += '  ' + c + ' ×' + n + '\n';
+    }
+    if (stats.exams.length) {
+        out += '\n考试记录：\n';
+        for (const e of stats.exams.slice(-5)) out += '  ' + e.path + '：' + e.score + '/' + e.total + (e.pass ? ' ✅' : ' ❌') + '\n';
+    }
+    return out.trimEnd();
+}
+
 
 function handleDocker(args) {
     const sub = args[0];
@@ -4453,9 +4590,11 @@ Commands:
     const hw = window.SIM_HW;
 
     if (sub === 'ps') {
+        const all = args.includes('-a');
+        const list = dockerContainers.filter(c => all || c.status === 'running');
         let out = padEnd('CONTAINER ID', 14) + padEnd('IMAGE', 22) + padEnd('COMMAND', 12) + padEnd('CREATED', 12) + padEnd('STATUS', 12) + padEnd('PORTS', 42) + 'NAMES\n';
-        for (const [id, img, name, status, ports] of hw.docker_containers) {
-            out += padEnd(id, 14) + padEnd(img, 22) + padEnd('"' + img.split(':')[0] + '"', 12) + padEnd('4 days ago', 12) + padEnd(status, 12) + padEnd(ports, 42) + name + '\n';
+        for (const c of list) {
+            out += padEnd(c.id, 14) + padEnd(c.img, 22) + padEnd('"' + c.img.split(':')[0] + '"', 12) + padEnd('4 days ago', 12) + padEnd(c.status === 'running' ? 'Up 3 days' : 'Exited (0) 2 hours ago', 12) + padEnd(c.ports, 42) + c.name + '\n';
         }
         return out.trimEnd();
     }
@@ -4470,12 +4609,16 @@ Commands:
     }
 
     if (sub === 'run') {
-        const img = args[1] || 'alpine';
+        const img = args[args.length - 1] || 'nginx';
+        const id = Math.random().toString(16).slice(2, 12);
+        const base = img.split('/').pop().split(':')[0] || 'container';
+        const name = base + '-' + Math.floor(Math.random() * 999);
+        dockerContainers.push({ id, img, name, status: 'running', ports: '' });
         return `Unable to find image '${img}:latest' locally
 latest: Pulling from library/${img}
 Digest: sha256:${'0'.repeat(64)}
 Status: Downloaded newer image for ${img}:latest
-Container ID: ${Math.random().toString(16).slice(2, 14)}
+Container ID: ${id}
 Running ${img}...`;
     }
 
@@ -4488,8 +4631,24 @@ Status: Image is up to date for ${img}:latest
 docker.io/library/${img}:latest`;
     }
 
-    if (sub === 'stop') return (args[1] || 'container') + ' stopped';
-    if (sub === 'rm') return (args[1] || 'container') + ' removed';
+    if (sub === 'stop') {
+        const c = dockerContainers.find(x => x.name === args[1] || x.id === args[1]);
+        if (!c) return 'Error response from daemon: No such container: ' + (args[1] || '');
+        c.status = 'stopped';
+        return c.name + ' stopped';
+    }
+    if (sub === 'start') {
+        const c = dockerContainers.find(x => x.name === args[1] || x.id === args[1]);
+        if (!c) return 'Error response from daemon: No such container: ' + (args[1] || '');
+        c.status = 'running';
+        return c.name + ' started';
+    }
+    if (sub === 'rm') {
+        const idx = dockerContainers.findIndex(x => x.name === args[1] || x.id === args[1]);
+        if (idx === -1) return 'Error response from daemon: No such container: ' + (args[1] || '');
+        dockerContainers.splice(idx, 1);
+        return (args[1] || 'container') + ' removed';
+    }
     if (sub === 'rmi') return 'Deleted: ' + (args[1] || 'image');
     if (sub === 'logs') {
         return `2025-07-25T10:00:00.123456Z INFO  Starting ${args[1] || 'container'}
@@ -4775,7 +4934,48 @@ function handleSftpGeneric(args) { return 'sftp ' + args.join(' ') + ': connecte
 function handleFtpTrans(args) { return 'ftp ' + args.join(' ') + ': transfer simulated'; }
 function handleSshGen(args) { return 'ssh ' + args.join(' ') + ': connection simulated'; }
 function handleInit(args) { return 'init ' + args.join(' ') + ': SysV init command (simulated)'; }
-function handleBashCmd() { inBash = true; return ''; }
+function stripComment(line) {
+    let inSingle = false, inDouble = false;
+    for (let i = 0; i < line.length; i++) {
+        const ch = line[i];
+        if (ch === "'" && !inDouble) inSingle = !inSingle;
+        else if (ch === '"' && !inSingle) inDouble = !inDouble;
+        else if (ch === '#' && !inSingle && !inDouble) return line.slice(0, i);
+    }
+    return line;
+}
+function unquoteStr(s) {
+    const t = String(s).trim();
+    if (t.length >= 2 && ((t[0] === '"' && t[t.length - 1] === '"') || (t[0] === "'" && t[t.length - 1] === "'"))) return t.slice(1, -1);
+    return t;
+}
+function runScript(content) {
+    const out = [];
+    for (const raw of String(content).split('\n')) {
+        const line = stripComment(raw).trim();
+        if (!line) continue;
+        const am = line.match(/^([A-Za-z_][A-Za-z0-9_]*)=(.*)$/);
+        if (am) {
+            envVars[am[1]] = unquoteStr(am[2]);
+            lastExitCode = 0;
+            continue;
+        }
+        for (const part of splitOutsideQuotes(line, ';')) {
+            const p = part.trim();
+            if (!p) continue;
+            const r = EXEC(p);
+            if (r && r.trim()) out.push(r);
+        }
+    }
+    return out.join('\n');
+}
+function handleBashCmd(args) {
+    if (args.length === 0) { inBash = true; return ''; }
+    const path = resolvePath(args[0]);
+    const content = VFS.getFile(path);
+    if (content === null) return 'bash: ' + args[0] + ': No such file or directory';
+    return runScript(content);
+}
 function handleExitCmd() { if (inBash) { inBash = false; sudoMode = false; isRoot = false; return ''; } if (sudoMode) { sudoMode = false; isRoot = false; return ''; } return 'exit'; }
 
 
@@ -5545,6 +5745,17 @@ function splitOutsideQuotes(str, sep) {
 function EXEC_IMPL(cmdStr) {
     if (!cmdStr || !cmdStr.trim()) return '';
 
+    // Handle ; separators (quote-aware, lowest precedence)
+    const semiParts = splitOutsideQuotes(cmdStr, ';');
+    if (semiParts.length > 1) {
+        const outs = [];
+        for (const p of semiParts) {
+            const r = EXEC(p.trim());
+            if (r && r.trim()) outs.push(r);
+        }
+        return outs.join('\n');
+    }
+
     // Handle pipes (quote-aware, output feeds next command via pipeInput)
     const pipeParts = splitOutsideQuotes(cmdStr, '|');
     if (pipeParts.length > 1) {
@@ -5592,6 +5803,9 @@ function EXEC_IMPL(cmdStr) {
     // Expand $? and environment variables
     cmd = cmd.replace(/\$\?/g, String(lastExitCode));
     cmd = cmd.replace(/\$([A-Za-z_][A-Za-z0-9_]*)/g, (m, name) => (name in envVars ? envVars[name] : m));
+    // Command substitution: $(...) and `...`
+    cmd = cmd.replace(/\$\(([^()]*)\)/g, (m, inner) => EXEC(inner.trim()).trim());
+    cmd = cmd.replace(/`([^`]*)`/g, (m, inner) => EXEC(inner.trim()).trim());
 
     const parts = parseArgs(cmd);
     let cmdName = parts[0];
@@ -5676,7 +5890,7 @@ function EXEC_IMPL(cmdStr) {
         case 'htop': return handleHtop();
         case 'kill': return handleKill(args);
         case 'pgrep': return handlePgrep(args);
-        case 'pkill': return 'Process matching ' + (args[0] || 'pattern') + ' terminated';
+        case 'pkill': return handlePkill(args);
         case 'lsof': return handleLsof(args);
         case 'nohup': return handleNohup(args);
         case 'bg': return handleBg(args);
@@ -5739,7 +5953,7 @@ function EXEC_IMPL(cmdStr) {
         case 'init': return handleInit(args);
 
         // Shell
-        case 'bash': return handleBashCmd();
+        case 'bash': return handleBashCmd(args);
         case 'alias': return handleAliasCmd(args);
         case 'unalias': { if (args[0]) { delete aliasMap[args[0]]; return 'Alias removed: ' + args[0]; } return 'unalias: missing operand'; }
         case 'type': return handleTypeCmd(args);
@@ -5891,6 +6105,8 @@ function EXEC_IMPL(cmdStr) {
         case 'help': return handleHelp();
         case 'practice': return handlePractice(args);
         case 'learn': return handleLearn(args);
+        case 'exam': return handleExam(args);
+        case 'stats': return handleStats();
 
         // Exit
         case 'exit': return handleExitCmd();
@@ -5994,16 +6210,20 @@ function isErrorOutput(s) {
 }
 
 function EXEC(cmdStr) {
+    const cmdName = String(cmdStr).trim().split(/\s+/)[0];
     const result = EXEC_IMPL(cmdStr);
     if (result === FALSE_SENTINEL) {
         lastExitCode = 1;
+        recordUsage(cmdName, false);
         return '';
     }
     if (chainBreak) {
         chainBreak = false;
+        recordUsage(cmdName, lastExitCode === 0);
         return result;
     }
     lastExitCode = isErrorOutput(result) ? 1 : 0;
+    recordUsage(cmdName, lastExitCode === 0);
     return result;
 }
 
@@ -6070,24 +6290,43 @@ function initUI() {
                 appendOutput('Error: ' + err.message, 'cmd-err');
             }
 
-            const completedNow = focusTasks().filter(t => !taskProgress.done.includes(t.id) && t.check());
+            const checkList = examState ? [TASK_MAP[examState.questions[examState.index]]].filter(Boolean) : focusTasks();
+            const completedNow = checkList.filter(t => !taskProgress.done.includes(t.id) && t.check());
             if (completedNow.length > 0) {
                 completedNow.forEach(t => taskProgress.done.push(t.id));
                 saveTaskProgress();
-                const focusList = focusTasks();
-                const focusDoneCount = focusList.filter(t => taskProgress.done.includes(t.id)).length;
-                appendOutput('✅ 任务完成：' + completedNow.map(t => t.title).join('、') + '（' + focusName() + ' ' + focusDoneCount + '/' + focusList.length + '）', 'cmd-info');
-                appendOutput('📖 ' + (completedNow[0].exp || completedNow[0].desc), 'cmd-info');
-                const nextTask = currentTask();
-                if (nextTask) appendOutput('▶ 下一任务 [' + nextTask.id + ']：' + nextTask.title + '\n📖 ' + (nextTask.exp || nextTask.desc) + '\n🔧 请执行：' + nextTask.hint, 'cmd-info');
-                else {
-                    const nextPath = PATH_ORDER.find(key => {
-                        const tasks = Object.values(TASK_MAP).filter(t => t.path === key);
-                        return tasks.length > 0 && tasks.some(t => !taskProgress.done.includes(t.id));
-                    });
-                    appendOutput('🎉 ' + focusName() + ' 全部完成！' + (nextPath ? ' 建议下一路线：practice path ' + nextPath : ' 所有路线都完成啦！'), 'cmd-info');
+                if (examState) {
+                    examState.score++;
+                    examState.index++;
+                    if (examState.index >= examState.questions.length) {
+                        const total = examState.questions.length;
+                        const pass = examState.score >= Math.ceil(total * 0.7);
+                        stats.exams.push({ path: examState.path, score: examState.score, total, pass, date: new Date().toISOString().slice(0, 10) });
+                        saveStats();
+                        appendOutput('🎉 考试结束：' + examState.score + '/' + total + (pass ? ' ✅ 通过！' : ' ❌ 未通过，再练练吧！'), 'cmd-info');
+                        appendOutput('输入 exam <项目> 可重新考试，stats 查看成绩。', 'cmd-info');
+                        examState = null;
+                    } else {
+                        appendOutput('✅ 第 ' + examState.index + ' 题完成！得分 ' + examState.score, 'cmd-info');
+                        appendOutput('▶ 第 ' + (examState.index + 1) + ' 题：' + examQuestionText(), 'cmd-info');
+                    }
+                    buildSidePanel();
+                } else {
+                    const focusList = focusTasks();
+                    const focusDoneCount = focusList.filter(t => taskProgress.done.includes(t.id)).length;
+                    appendOutput('✅ 任务完成：' + completedNow.map(t => t.title).join('、') + '（' + focusName() + ' ' + focusDoneCount + '/' + focusList.length + '）', 'cmd-info');
+                    appendOutput('📖 ' + (completedNow[0].exp || completedNow[0].desc), 'cmd-info');
+                    const nextTask = currentTask();
+                    if (nextTask) appendOutput('▶ 下一任务 [' + nextTask.id + ']：' + nextTask.title + '\n📖 ' + (nextTask.exp || nextTask.desc) + '\n🔧 请执行：' + nextTask.hint, 'cmd-info');
+                    else {
+                        const nextPath = PATH_ORDER.find(key => {
+                            const tasks = Object.values(TASK_MAP).filter(t => t.path === key);
+                            return tasks.length > 0 && tasks.some(t => !taskProgress.done.includes(t.id));
+                        });
+                        appendOutput('🎉 ' + focusName() + ' 全部完成！' + (nextPath ? ' 建议下一路线：practice path ' + nextPath : ' 所有路线都完成啦！'), 'cmd-info');
+                    }
+                    buildSidePanel();
                 }
-                buildSidePanel();
             }
 
             input.value = '';
@@ -6143,7 +6382,7 @@ function initUI() {
     });
 
     updatePromptDisplay();
-    appendOutput('Linux Learning Simulator v1.4.0 | ' + window.SIM_HW.os + ' | Kernel ' + window.SIM_HW.kernel, 'cmd-info');
+    appendOutput('Linux Learning Simulator v1.5.0 | ' + window.SIM_HW.os + ' | Kernel ' + window.SIM_HW.kernel, 'cmd-info');
     appendOutput('Type "help" for available commands.', 'cmd-info');
     if (taskProgress.done.length === 0) appendOutput('输入 practice 开始跟着学习指南练习', 'cmd-info');
 }

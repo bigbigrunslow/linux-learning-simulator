@@ -1,5 +1,29 @@
 # Changelog / 更新日志
 
+## v1.5.0 — 2026-08-04
+
+### 中文
+
+#### 新增
+
+- `bash <脚本>`：逐行执行脚本文件，支持 `#` 注释、变量赋值（`x=1`）、`;` 分隔、`$( )` 与反引号命令替换
+- 服务状态机：`systemctl start/stop/restart/status/enable/disable` 真正改变并反映服务状态
+- 容器状态机：`docker ps` 只显示运行中容器，`ps -a` 显示全部，`stop/start/rm/run` 真实修改容器列表
+- 进程状态机：`ps` 从进程表渲染，`kill`/`pkill` 后进程消失，重复 kill 报 No such process
+- 考试模式：`exam <项目>` 随机抽 10 题自动判分，70% 通过，成绩自动记录
+- 学习统计：`stats` 展示完成任务、用过的命令、连续学习天数、常输错命令、考试记录
+
+### English
+
+#### Added
+
+- `bash <script>`: runs script files line by line with `#` comments, variable assignment (`x=1`), `;`, `$( )` and backtick command substitution
+- Service state machine: `systemctl start/stop/restart/status/enable/disable` really changes and reflects service state
+- Container state machine: `docker ps` shows only running containers, `ps -a` all; `stop/start/rm/run` mutate the container list
+- Process state machine: `ps` renders from a process table; `kill`/`pkill` remove processes; killing twice reports No such process
+- Exam mode: `exam <project>` draws 10 random auto-graded questions, 70% to pass, results recorded
+- Learning stats: `stats` shows completed tasks, commands used, study streak, frequently mistyped commands, and exam history
+
 ## v1.4.0 — 2026-08-04
 
 ### 中文
@@ -38,7 +62,7 @@
 - 进度持久化：任务进度存入 localStorage，刷新不丢
 - 侧栏学习任务卡：实时显示当前任务与提示，点击一键开始
 - 学习指南同步说明：指南顶部提示在模拟器中输入 `practice` 开始练习
-- 命令总数更新为 357（新增 `practice`、`learn` 命令）
+- 命令总数更新为 359（新增 `practice`、`learn`、`exam`、`stats` 命令）
 
 ### English
 
@@ -50,7 +74,7 @@
 - Progress persistence via localStorage
 - Sidebar task card showing the current task and hint, one-click to start
 - Learning guide updated with instructions to run `practice` in the simulator
-- Command count updated to 357 (new `practice` and `learn` commands)
+- Command count updated to 359 (new `practice`, `learn`, `exam`, `stats` commands)
 
 ## v1.2.1 — 2026-08-04
 

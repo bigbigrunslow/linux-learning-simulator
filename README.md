@@ -2,8 +2,8 @@
 
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen)](https://bigbigrunslow.github.io/linux-learning-simulator/)
-[![Version](https://img.shields.io/badge/Version-v1.4.0-orange)](CHANGELOG.md)
-[![Commands](https://img.shields.io/badge/Commands-357-blueviolet)](index.html)
+[![Version](https://img.shields.io/badge/Version-v1.5.0-orange)](CHANGELOG.md)
+[![Commands](https://img.shields.io/badge/Commands-359-blueviolet)](index.html)
 
 🚀 **一键开始 / One-Click Start** → **[在线打开模拟器 / Open the Simulator](https://bigbigrunslow.github.io/linux-learning-simulator/)** — 无需克隆、无需安装，浏览器点击即用。
 
@@ -18,6 +18,13 @@
 ---
 
 ## 中文
+
+### 🆕 最近更新（v1.5.0）
+
+- 📜 **bash 脚本执行** — `bash script.sh` 逐行执行，支持变量赋值、注释、`;` 分隔、`$( )` 与反引号命令替换
+- 🧩 **真实状态机** — `systemctl start/stop` 真的改变服务状态；`docker stop/start/rm/run` 真的改变容器列表；`kill` 后 `ps` 里进程消失
+- 📝 **项目考试** — `exam <项目>` 随机抽 10 题、自动判分，70% 通过并记录成绩
+- 📊 **学习统计** — `stats` 查看完成度、用过的命令、连续学习天数、常输错的命令
 
 ### 🆕 最近更新（v1.4.0）
 
@@ -52,7 +59,7 @@
 - 📝 **Vi 编辑器修复** — 修复了弹窗聚焦问题；`i/a/A/o/O` 插入、`dd` 删行、`u` 撤销、`y/p` 复制粘贴、`/` 搜索、`:wq` 保存、`:q!` 放弃全部可用
 - 🔐 **sudo/exit 状态修复** — `sudo bash` 后输入 `exit` 能真正退回普通用户提示符
 - 🐳 **服务命令输出修复** — `alertmanager`、`grafana`、`kafka`、`nfs` 等 30+ 命令不再输出 `undefined`
-- 🏷️ **命令数徽章动态化** — 工具栏实时显示当前命令总数（357）
+- 🏷️ **命令数徽章动态化** — 工具栏实时显示当前命令总数（359）
 - 📂 **服务器配置更完整** — 新增 `/var/www/html` 示例站点、`/etc/nginx/nginx.conf`、`/etc/sudoers`
 - ⌨️ **方向键翻历史** — `↑`/`↓` 浏览命令历史，回车后自动复位
 - 🧹 **其他修复** — `docker ps`/`kubectl` 表格对齐、`echo` 重定向支持引号剥离与 `>>` 追加、favicon 404 消除
@@ -62,7 +69,7 @@
 ### ✨ 特性
 
 - 🖥️ **零依赖** — 纯单文件 HTML，双击即用，无需安装任何软件
-- 🎯 **357 个命令** — 覆盖 VFS 操作、系统信息、硬件管理、网络诊断、Shell 工具、开发工具、DevOps 工具链
+- 🎯 **359 个命令** — 覆盖 VFS 操作、系统信息、硬件管理、网络诊断、Shell 工具、开发工具、DevOps 工具链
 - 💾 **全局硬件模型** — 模拟一台真实服务器：i7-12700K + 40GB RAM + 4 块混合磁盘(含坏道)
 - 📝 **Vi/Vim 真编辑器** — 弹窗编辑器，支持 `i` 插入、`dd` 删行、`:wq` 保存写入虚拟文件系统
 - 🔗 **管道与重定向** — `|` 管道、`>`/`>>` 重定向真实生效，支持引号内特殊字符
@@ -166,6 +173,13 @@ linux-sim/
 
 ## English
 
+### 🆕 Recent Updates (v1.5.0)
+
+- 📜 **bash script execution** — `bash script.sh` runs lines with variable assignment, comments, `;`, `$( )` and backtick command substitution
+- 🧩 **Real state machines** — `systemctl start/stop` actually changes service state; `docker stop/start/rm/run` changes the container list; `kill` removes processes from `ps`
+- 📝 **Project exams** — `exam <project>` draws 10 random questions, auto-grades, 70% to pass, records results
+- 📊 **Learning stats** — `stats` shows completion, commands used, study streak, and frequently mistyped commands
+
 ### 🆕 Recent Updates (v1.4.0)
 
 - 🎯 **Three-layer practice system** — ① Command drills: `practice ls` to see and practice all usages of one command; ② Learning projects: `practice path shell/network/docker/k8s/middleware/cicd/monitor` to learn by goal; ③ Command encyclopedia: `learn ls` for the full usage reference
@@ -199,7 +213,7 @@ linux-sim/
 - 📝 **Vi Editor Fixed** — fixed the modal focus bug; `i/a/A/o/O` insert, `dd` delete line, `u` undo, `y/p` yank/put, `/` search, `:wq` save, `:q!` quit all work
 - 🔐 **sudo/exit State Fixed** — `exit` after `sudo bash` now truly returns to the normal user prompt
 - 🐳 **Service Command Output Fixed** — `alertmanager`, `grafana`, `kafka`, `nfs` and 30+ commands no longer print `undefined`
-- 🏷️ **Dynamic Command Badge** — the toolbar shows the live command count (357)
+- 🏷️ **Dynamic Command Badge** — the toolbar shows the live command count (359)
 - 📂 **Richer Server Configuration** — added `/var/www/html` sample site, `/etc/nginx/nginx.conf`, `/etc/sudoers`
 - ⌨️ **History Navigation** — browse command history with `↑`/`↓`, auto-reset after Enter
 - 🧹 **Other Fixes** — `docker ps`/`kubectl` table alignment, `echo` redirect quote stripping and `>>` append, favicon 404 removed
@@ -209,7 +223,7 @@ Full list in [CHANGELOG.md](CHANGELOG.md)
 ### ✨ Features
 
 - 🖥️ **Zero Dependencies** — Single HTML file, just double-click to use
-- 🎯 **357 Commands** — VFS operations, system info, hardware management, networking, Shell tools, DevOps
+- 🎯 **359 Commands** — VFS operations, system info, hardware management, networking, Shell tools, DevOps
 - 💾 **Global Hardware Model** — Simulates a real server: i7-12700K + 40GB RAM + 4 mixed disks (with failing HDD)
 - 📝 **Real Vi/Vim Editor** — Modal popup editor, supporting `i` insert, `dd` delete, `:wq` save to virtual filesystem
 - 🔗 **Pipes & Redirects** — `|` pipes and `>`/`>>` redirects really work, quote-aware
