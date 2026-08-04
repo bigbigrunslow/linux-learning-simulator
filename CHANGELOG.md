@@ -8,7 +8,7 @@
 
 - 练习体系三层化：
   - 命令专项：`practice <命令>`（如 `practice ls`）列出并练习该命令的全部用法，每个用法自动判题
-  - 学习项目：`practice path <项目>` 切换学习目标（shell / network / docker / k8s / middleware / monitor），每个项目独立进度；新增“中间件”项目（Nginx、Redis、MySQL、Kafka、Elasticsearch、RabbitMQ 等）
+  - 学习项目：`practice path <项目>` 切换学习目标（shell / network / docker / k8s / middleware / cicd / monitor），每个项目独立进度；新增“中间件”项目（Nginx、Redis、MySQL、Kafka、Elasticsearch、RabbitMQ 等）与“CI/CD”项目（GitLab、Jenkins、ArgoCD、Flux）
   - 命令百科：`learn <命令>` 查看命令完整用法与示例，并可一键进入专项练习
 - 全部命令可练：356 个命令都有至少一道基础任务；70+ 核心命令配 3~8 条用法小题，任务总数 500+
 - 自动判题优化：当前路线上任意未完成任务只要满足条件即打勾，不要求严格按顺序执行
@@ -20,7 +20,7 @@
 
 - Three-layer practice system:
   - Command drills: `practice <command>` (e.g., `practice ls`) lists and auto-checks every usage of a command
-  - Learning projects: `practice path <project>` switches learning goals (shell / network / docker / k8s / middleware / monitor), each with its own progress; new “middleware” project (Nginx, Redis, MySQL, Kafka, Elasticsearch, RabbitMQ, etc.)
+  - Learning projects: `practice path <project>` switches learning goals (shell / network / docker / k8s / middleware / cicd / monitor), each with its own progress; new “middleware” project (Nginx, Redis, MySQL, Kafka, Elasticsearch, RabbitMQ, etc.) and “CI/CD” project (GitLab, Jenkins, ArgoCD, Flux)
   - Command encyclopedia: `learn <command>` shows all usages and examples, with a one-step jump into drills
 - Every command is trainable: all 356 commands have at least one basic task; 70+ core commands have 3–8 usage drills (500+ tasks total)
 - Smarter auto-checking: any matching incomplete task in the current focus is completed, no strict order required

@@ -1457,15 +1457,15 @@ CMD['buildah'] = {cat:'DevOps/容器', desc:'Buildah构建工具', usage:'builda
 CMD['skopeo'] = {cat:'DevOps/容器', desc:'Skopeo镜像工具', usage:'skopeo <subcommand>'};
 
 // Kubernetes
-CMD['kubectl'] = {cat:'DevOps/K8s', desc:'Kubernetes CLI', usage:'kubectl <subcommand>'};
-CMD['helm'] = {cat:'DevOps/K8s', desc:'Helm包管理', usage:'helm <subcommand>'};
-CMD['kustomize'] = {cat:'DevOps/K8s', desc:'Kustomize定制工具', usage:'kustomize <subcommand>'};
-CMD['minikube'] = {cat:'DevOps/K8s', desc:'本地K8s', usage:'minikube <subcommand>'};
-CMD['kind'] = {cat:'DevOps/K8s', desc:'Kind K8s集群', usage:'kind <subcommand>'};
-CMD['kubeadm'] = {cat:'DevOps/K8s', desc:'K8s管理工具', usage:'kubeadm <subcommand>'};
-CMD['kubelet'] = {cat:'DevOps/K8s', desc:'K8s节点代理', usage:'kubelet'};
+CMD['kubectl'] = {cat:'K8s', desc:'Kubernetes CLI', usage:'kubectl <subcommand>'};
+CMD['helm'] = {cat:'K8s', desc:'Helm包管理', usage:'helm <subcommand>'};
+CMD['kustomize'] = {cat:'K8s', desc:'Kustomize定制工具', usage:'kustomize <subcommand>'};
+CMD['minikube'] = {cat:'K8s', desc:'本地K8s', usage:'minikube <subcommand>'};
+CMD['kind'] = {cat:'K8s', desc:'Kind K8s集群', usage:'kind <subcommand>'};
+CMD['kubeadm'] = {cat:'K8s', desc:'K8s管理工具', usage:'kubeadm <subcommand>'};
+CMD['kubelet'] = {cat:'K8s', desc:'K8s节点代理', usage:'kubelet'};
 CMD['etcdctl'] = {cat:'中间件', desc:'etcd CLI', usage:'etcdctl <subcommand>'};
-CMD['calicoctl'] = {cat:'DevOps/K8s', desc:'Calico CLI', usage:'calicoctl <subcommand>'};
+CMD['calicoctl'] = {cat:'K8s', desc:'Calico CLI', usage:'calicoctl <subcommand>'};
 
 // Messaging
 CMD['kafka'] = {cat:'中间件', desc:'Apache Kafka', usage:'kafka-<subcommand>'};
@@ -1526,16 +1526,16 @@ CMD['chef'] = {cat:'DevOps/配置', desc:'Chef', usage:'chef <subcommand>'};
 CMD['salt'] = {cat:'DevOps/配置', desc:'SaltStack', usage:'salt <subcommand>'};
 
 // Service Mesh
-CMD['istioctl'] = {cat:'DevOps/服务网格', desc:'Istio CLI', usage:'istioctl <subcommand>'};
-CMD['linkerd'] = {cat:'DevOps/服务网格', desc:'Linkerd', usage:'linkerd <subcommand>'};
-CMD['envoy'] = {cat:'DevOps/服务网格', desc:'Envoy代理', usage:'envoy'};
-CMD['nginx-ingress'] = {cat:'DevOps/服务网格', desc:'Nginx Ingress', usage:'nginx-ingress'};
+CMD['istioctl'] = {cat:'K8s', desc:'Istio CLI', usage:'istioctl <subcommand>'};
+CMD['linkerd'] = {cat:'K8s', desc:'Linkerd', usage:'linkerd <subcommand>'};
+CMD['envoy'] = {cat:'K8s', desc:'Envoy代理', usage:'envoy'};
+CMD['nginx-ingress'] = {cat:'K8s', desc:'Nginx Ingress', usage:'nginx-ingress'};
 
 // CI/CD
-CMD['gitlab'] = {cat:'DevOps/CI/CD', desc:'GitLab', usage:'gitlab-ctl <subcommand>'};
-CMD['jenkins'] = {cat:'DevOps/CI/CD', desc:'Jenkins', usage:'jenkins'};
-CMD['argocd'] = {cat:'DevOps/CI/CD', desc:'ArgoCD', usage:'argocd <subcommand>'};
-CMD['flux'] = {cat:'DevOps/CI/CD', desc:'FluxCD', usage:'flux <subcommand>'};
+CMD['gitlab'] = {cat:'CI/CD', desc:'GitLab', usage:'gitlab-ctl <subcommand>'};
+CMD['jenkins'] = {cat:'CI/CD', desc:'Jenkins', usage:'jenkins'};
+CMD['argocd'] = {cat:'CI/CD', desc:'ArgoCD', usage:'argocd <subcommand>'};
+CMD['flux'] = {cat:'CI/CD', desc:'FluxCD', usage:'flux <subcommand>'};
 
 // Security
 CMD['openssl'] = {cat:'DevOps/安全', desc:'OpenSSL', usage:'openssl <subcommand>'};
@@ -2146,6 +2146,21 @@ const CMD_USAGES = {
   consul: [
     { c:'consul members', d:'查看集群成员', x:'Consul 提供服务发现与配置中心，members 看节点列表。' },
   ],
+  gitlab: [
+    { c:'gitlab-ctl status', d:'查看 GitLab 服务状态', x:'GitLab 是集代码仓库与 CI/CD 于一体的平台，gitlab-ctl 管理其内部服务。' },
+    { c:'gitlab-ctl reconfigure', d:'应用配置变更', x:'改完 GitLab 配置后执行 reconfigure 使其生效。' },
+  ],
+  jenkins: [
+    { c:'jenkins', d:'启动 Jenkins（模拟）', x:'Jenkins 是最经典的 CI/CD 服务器，通过 Job 自动构建、测试、发布。' },
+  ],
+  argocd: [
+    { c:'argocd app list', d:'查看应用列表', x:'ArgoCD 用 GitOps 方式把 Git 仓库里的配置自动同步到 K8s。' },
+    { c:'argocd app sync my-app', d:'手动同步应用', x:'sync 把 Git 中的最新配置立即同步到集群。' },
+  ],
+  flux: [
+    { c:'flux get sources', d:'查看 Git 源', x:'Flux 是另一个 GitOps 工具，sources 指它监听 Git/Helm 的源。' },
+    { c:'flux reconcile kustomization apps', d:'触发重新同步', x:'reconcile 手动触发一次同步。' },
+  ],
 };
 
 /* ===== LEARNING PATHS ===== */
@@ -2156,13 +2171,15 @@ const PATHS = {
   docker:  { name:'Docker 容器', desc:'镜像与容器管理' },
   k8s:     { name:'Kubernetes', desc:'集群、工作负载、日志' },
   middleware: { name:'中间件', desc:'Nginx、Redis、MySQL、Kafka、Elasticsearch 等常用中间件' },
+  cicd:    { name:'CI/CD', desc:'GitLab、Jenkins、ArgoCD、Flux 持续集成与交付' },
   monitor: { name:'监控运维', desc:'进程、资源、服务与日志' },
   other:   { name:'其他命令', desc:'其余命令的基础用法' },
 };
 
 function cmdPath(name) {
   if (['docker','docker-compose','podman','buildah','skopeo','containerd','crictl','ctr'].includes(name)) return 'docker';
-  if (['kubectl','helm','kubeadm','kubelet','minikube','kind','istioctl','linkerd','argocd','flux','cilium','calico','calicoctl','flannel','weave','metallb','longhorn','rook','knative','openfaas','kubeless'].includes(name)) return 'k8s';
+  if (['kubectl','helm','kubeadm','kubelet','minikube','kind','istioctl','linkerd','cilium','calico','calicoctl','flannel','weave','metallb','longhorn','rook','knative','openfaas','kubeless'].includes(name)) return 'k8s';
+  if (['gitlab','jenkins','argocd','flux'].includes(name)) return 'cicd';
   if (['mysql','mysqldump','redis-cli','redis','postgresql','pg_dump','sqlite3','mongodb','etcd','etcdctl','consul','nats','pulsar','kafka','rabbitmq','rabbitmqctl','nginx','apache2','caddy','haproxy','traefik','keepalived','elasticsearch','logstash','kibana','filebeat','fluentd','fluentbit','minio'].includes(name)) return 'middleware';
   if (['ip','ifconfig','ping','traceroute','mtr','curl','wget','nc','ncat','netstat','ss','dig','nslookup','host','whois','route','arp','arping','iptables','ufw','tcpdump','nmcli','iwconfig','rfkill','socat','telnet','ssh','scp','sftp','ftp','rsync'].includes(name)) return 'network';
   if (['top','htop','free','vmstat','iostat','sar','perf','ps','kill','pkill','pgrep','pidof','lsof','strace','ltrace','uptime','watch','systemctl','journalctl','df','du','sensors','neofetch','inxi','glances','iftop','nethogs','iotop','dmesg','time'].includes(name)) return 'monitor';
@@ -2199,7 +2216,7 @@ for (const name of Object.keys(CMD)) {
     };
   }
 }
-const PATH_ORDER = ['basic', 'shell', 'network', 'docker', 'k8s', 'middleware', 'monitor', 'other'];
+const PATH_ORDER = ['basic', 'shell', 'network', 'docker', 'k8s', 'middleware', 'cicd', 'monitor', 'other'];
 
 function loadTaskProgress() {
     try {
@@ -6162,7 +6179,7 @@ function buildSidePanel() {
         cats[info.cat].push(name);
     }
 
-    const orderedCats = ['学习', 'VFS', '文本处理', '系统信息', '硬件信息', '磁盘管理', '内存/进程', '网络', '用户/权限', '软件包', '服务管理', 'Shell', '压缩归档', '文件工具', '编辑器', '开发工具', '中间件', '会话管理', '系统控制', '文档工具', '其他'];
+    const orderedCats = ['学习', 'VFS', '文本处理', '系统信息', '硬件信息', '磁盘管理', '内存/进程', '网络', '用户/权限', '软件包', '服务管理', 'Shell', '压缩归档', '文件工具', '编辑器', '开发工具', '中间件', 'K8s', 'CI/CD', '会话管理', '系统控制', '文档工具', '其他'];
 
     for (const cat of orderedCats) {
         if (cats[cat]) {
