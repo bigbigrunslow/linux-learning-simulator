@@ -53,7 +53,15 @@ body{background:#1a1b26;color:#c0caf5;font-family:'Cascadia Code','Fira Code','J
 ::-webkit-scrollbar-thumb{background:#3b4261;border-radius:4px}
 ::-webkit-scrollbar-thumb:hover{background:#565f89}
 /* Responsive */
-@media(max-width:768px){#side-panel{display:none}#main{flex-direction:column}}
+#panel-toggle{display:none;background:#3b4261;color:#a9b1d6;border:none;border-radius:10px;padding:3px 10px;cursor:pointer;font-family:inherit;font-size:12px}
+@media(max-width:768px){
+  #main{flex-direction:column}
+  /* The command reference is essential on a phone, so it becomes a drawer
+     instead of disappearing. */
+  #side-panel{display:none;position:fixed;top:46px;right:0;bottom:0;width:min(300px,82vw);z-index:50;box-shadow:-6px 0 18px rgba(0,0,0,.55)}
+  #side-panel.open{display:block}
+  #panel-toggle{display:inline-block}
+}
 
 </style>
 </head>
@@ -61,18 +69,19 @@ body{background:#1a1b26;color:#c0caf5;font-family:'Cascadia Code','Fira Code','J
 <div id="toolbar">
     <span>🐧 Linux学习模拟器</span>
     <span class="badge">Ubuntu 22.04</span>
-    <span class="badge" id="cmd-count-badge">355 命令</span>
+    <span class="badge" id="cmd-count-badge">371 命令</span>
     <span class="badge">i7-12700K</span>
     <span class="badge">40GB RAM</span>
+    <button id="panel-toggle" title="命令面板 / Command panel" aria-label="命令面板 / Command panel" aria-expanded="false">📚</button>
     <button id="lang-toggle" title="切换语言 / Toggle language" style="margin-left:auto;background:#3b4261;color:#a9b1d6;border:none;border-radius:10px;padding:3px 12px;cursor:pointer;font-family:inherit;font-size:12px">🌐 中 / EN</button>
 </div>
 
 <div id="main">
     <div id="terminal">
-        <div id="output"></div>
+        <div id="output" role="log" aria-live="polite" aria-label="终端输出 / Terminal output"></div>
         <div id="input-line">
             <span id="prompt">user@home-server:~$ </span>
-            <input type="text" id="cmd-input" placeholder="输入Linux命令..." autofocus autocomplete="off" spellcheck="false">
+            <input type="text" id="cmd-input" placeholder="输入Linux命令..." autofocus autocomplete="off" spellcheck="false" aria-label="命令输入 / Command input">
         </div>
     </div>
     <div id="side-panel"></div>
@@ -1738,6 +1747,10 @@ let historyIndex = -1;
 let sudoMode = false;
 let inBash = false;
 let pipeInput = '';
+// True while executing the upstream stage of a pipeline (its stdout is captured,
+// not printed). Commands that format differently for a terminal vs a pipe
+// (notably `ls`) consult this.
+let downstreamPipe = false;
 let lastExitCode = 0;
 let chainBreak = false;
 const FALSE_SENTINEL = '\u0000false';
@@ -2750,7 +2763,10 @@ function handleLs(args) {
         }
         return out.trimEnd();
     }
-    return names.join('  ') || '(empty)';
+    // A terminal shows columns, but `ls | ...` must emit one name per line so that
+    // wc/head/tail/grep over a pipe behave the way learners expect.
+    if (names.length === 0) return downstreamPipe ? '' : '(empty)';
+    return downstreamPipe ? names.join('\n') : names.join('  ');
 }
 
 function handleCd(args) {
@@ -2779,12 +2795,33 @@ function handlePwd() {
 }
 
 function handleMkdir(args) {
-    if (!args[0]) return 'mkdir: missing operand';
-    const path = resolvePath(args[0]);
-    if (!canWrite(path)) return 'mkdir: cannot create directory \'' + args[0] + '\': Permission denied';
-    const [parent, name] = VFS.splitPath(path);
-    VFS.writeFile(path + '/.dir', '');
-    return 'Created directory: ' + path;
+    const recursive = args.includes('-p') || args.includes('--parents');
+    const targets = args.filter(a => !a.startsWith('-'));
+    if (targets.length === 0) return 'mkdir: missing operand';
+    const KNOWN_DIRS = ['/', '/root', '/root/projects', '/etc', '/tmp', '/var', '/var/log', '/var/www', '/var/www/html', '/home', '/home/user', '/proc'];
+    const dirExists = (p) => {
+        if (p === '/' || KNOWN_DIRS.includes(p)) return true;
+        if (VFS.getFile(p) !== null) return false;
+        // A created directory is represented by a hidden `.dir` marker file.
+        return Object.keys(VFS.listDir(p) || {}).length > 0;
+    };
+    const out = [];
+    for (const target of targets) {
+        const path = resolvePath(target);
+        if (!canWrite(path)) return 'mkdir: cannot create directory \'' + target + '\': Permission denied';
+        if (dirExists(path)) {
+            // `mkdir -p` on an existing path succeeds silently, like the real thing.
+            if (recursive) continue;
+            return 'mkdir: cannot create directory \'' + target + '\': File exists';
+        }
+        if (!recursive) {
+            const parent = path.substring(0, path.lastIndexOf('/')) || '/';
+            if (!dirExists(parent)) return 'mkdir: cannot create directory \'' + target + '\': No such file or directory';
+        }
+        VFS.writeFile(path + '/.dir', '');
+        out.push('Created directory: ' + path);
+    }
+    return out.join('\n');
 }
 
 function handleTouch(args) {
@@ -2878,6 +2915,7 @@ function handleGrep(args) {
     const ignoreCase = flags.includes('-i');
     const lineNums = flags.includes('-n');
     const invert = flags.includes('-v');
+    const countOnly = flags.includes('-c');
     let re;
     try {
         re = new RegExp(pattern, ignoreCase ? 'i' : '');
@@ -2886,11 +2924,16 @@ function handleGrep(args) {
     }
     const lines = content.split('\n');
     let out = '';
+    let matches = 0;
     for (let i = 0; i < lines.length; i++) {
         let match = re.test(lines[i]);
         if (invert) match = !match;
-        if (match) out += (lineNums ? (i + 1) + ':' : '') + lines[i] + '\n';
+        if (match) {
+            matches++;
+            if (!countOnly) out += (lineNums ? (i + 1) + ':' : '') + lines[i] + '\n';
+        }
     }
+    if (countOnly) return String(matches);
     return out.trimEnd() || '(no matches)';
 }
 
@@ -2898,7 +2941,9 @@ function handleHead(args) {
     let n = 10;
     let fileArg = '';
     for (let i = 0; i < args.length; i++) {
+        const short = /^-(\d+)$/.exec(args[i]);
         if (args[i] === '-n' && i + 1 < args.length) { n = parseInt(args[i + 1]); i++; }
+        else if (short) { n = parseInt(short[1], 10); }
         else if (!args[i].startsWith('-')) fileArg = args[i];
     }
     let content;
@@ -2918,7 +2963,9 @@ function handleTail(args) {
     let n = 10;
     let fileArg = '';
     for (let i = 0; i < args.length; i++) {
+        const short = /^-(\d+)$/.exec(args[i]);
         if (args[i] === '-n' && i + 1 < args.length) { n = parseInt(args[i + 1]); i++; }
+        else if (short) { n = parseInt(short[1], 10); }
         else if (!args[i].startsWith('-')) fileArg = args[i];
     }
     let content;
@@ -3072,33 +3119,55 @@ function handleChgrp(args) {
 }
 
 function handleSort(args) {
+    const numeric = args.includes('-n');
+    const reverse = args.includes('-r');
+    const unique = args.includes('-u');
+    const fileArg = args.filter(a => !a.startsWith('-'))[0];
     let content;
-    if (args[0]) {
-        const path = resolvePath(args[0]);
+    if (fileArg) {
+        const path = resolvePath(fileArg);
         content = VFS.getFile(path);
-        if (content === null) return 'sort: ' + args[0] + ': No such file or directory';
+        if (content === null) return 'sort: ' + fileArg + ': No such file or directory';
     } else if (pipeInput !== '') {
         content = pipeInput;
     } else {
         return 'sort: missing file operand';
     }
-    return content.split('\n').sort().join('\n');
+    let lines = content.split('\n');
+    if (numeric) lines.sort((a, b) => (parseFloat(a) || 0) - (parseFloat(b) || 0));
+    else lines.sort();
+    if (unique) lines = lines.filter((l, i) => i === 0 || l !== lines[i - 1]);
+    if (reverse) lines.reverse();
+    return lines.join('\n');
 }
 
 function handleUniq(args) {
+    const count = args.includes('-c');
+    const dupOnly = args.includes('-d');
+    const fileArg = args.filter(a => !a.startsWith('-'))[0];
     let content;
-    if (args[0]) {
-        const path = resolvePath(args[0]);
+    if (fileArg) {
+        const path = resolvePath(fileArg);
         content = VFS.getFile(path);
-        if (content === null) return 'uniq: ' + args[0] + ': No such file or directory';
+        if (content === null) return 'uniq: ' + fileArg + ': No such file or directory';
     } else if (pipeInput !== '') {
         content = pipeInput;
     } else {
         return 'uniq: missing file operand';
     }
     const lines = content.split('\n');
-    let out = [], prev = null;
-    for (const l of lines) { if (l !== prev) out.push(l); prev = l; }
+    const out = [];
+    let prev = null, n = 0;
+    const flush = () => {
+        if (prev === null) return;
+        if (dupOnly && n < 2) return;
+        out.push(count ? String(n).padStart(7) + ' ' + prev : prev);
+    };
+    for (const l of lines) {
+        if (l === prev) n++;
+        else { flush(); prev = l; n = 1; }
+    }
+    flush();
     return out.join('\n');
 }
 
@@ -3130,9 +3199,49 @@ function handleCut(args) {
     }).join('\n');
 }
 
+// Expands a tr character set such as "a-z", "A-Z0-9" or "\\n" into characters.
+function expandCharSet(spec) {
+    const out = [];
+    for (let i = 0; i < spec.length; i++) {
+        const ch = spec[i];
+        if (ch === '\\' && i + 1 < spec.length) {
+            const next = spec[++i];
+            out.push(next === 'n' ? '\n' : next === 't' ? '\t' : next === 'r' ? '\r' : next);
+        } else if (spec[i + 1] === '-' && i + 2 < spec.length) {
+            const from = spec.charCodeAt(i);
+            const to = spec.charCodeAt(i + 2);
+            if (to >= from) {
+                for (let c = from; c <= to; c++) out.push(String.fromCharCode(c));
+                i += 2;
+            } else {
+                out.push(ch);
+            }
+        } else {
+            out.push(ch);
+        }
+    }
+    return out;
+}
+
 function handleTr(args) {
-    if (args.length < 2) return 'Usage: tr <set1> <set2>';
-    return 'Character translation: ' + args[0] + ' -> ' + args[1] + '\n(Read from stdin: type text and press Enter)';
+    const del = args.includes('-d');
+    const squeeze = args.includes('-s');
+    const sets = args.filter(a => !a.startsWith('-'));
+    if (sets.length === 0) return 'tr: missing operand';
+    if (!del && sets.length < 2) return 'tr: missing operand\nUsage: tr <set1> <set2>';
+    if (pipeInput === '') return 'tr: missing input (pipe into tr or use `< file`)';
+    const set1 = expandCharSet(sets[0]);
+    const set2 = del ? [] : expandCharSet(sets[1]);
+    let out = '';
+    for (const ch of pipeInput) {
+        const idx = set1.indexOf(ch);
+        if (idx === -1) { out += ch; continue; }
+        if (del) continue;
+        // If set2 is shorter, the last character of set2 is repeated (POSIX).
+        out += set2[idx] !== undefined ? set2[idx] : (set2.length ? set2[set2.length - 1] : ch);
+    }
+    if (squeeze) out = out.replace(/(.)\1+/g, '$1');
+    return out;
 }
 
 function handleSed(args) {
@@ -3173,8 +3282,85 @@ function handleSed(args) {
     return out;
 }
 
+// A deliberately small but real awk: `awk [-F sep] 'pattern? {print $1, $3}' [file]`.
+// Supports $0..$N, NF, NR, multiple comma-separated expressions and /regex/ patterns.
 function handleAwk(args) {
-    return "awk: pattern scanning and processing language\nUsage: awk '{print $1}' <file>\nExample: awk '{print $1,$3}' /etc/passwd";
+    const USAGE = "awk: pattern scanning and processing language\nUsage: awk [-F sep] '{print $1}' [file]\nExample: awk -F: '{print $1}' /etc/passwd";
+    let fs = null;
+    let i = 0;
+    while (i < args.length) {
+        const a = args[i];
+        if (a === '-F' && i + 1 < args.length) { fs = args[i + 1]; i += 2; continue; }
+        if (a.startsWith('-F') && a.length > 2) { fs = a.slice(2); i++; continue; }
+        if (a === '-v' && i + 1 < args.length) {
+            const assign = args[i + 1];
+            const eq = assign.indexOf('=');
+            if (eq > 0) envVars[assign.slice(0, eq)] = assign.slice(eq + 1);
+            i += 2;
+            continue;
+        }
+        if (a.startsWith('-')) { i++; continue; }
+        break;
+    }
+    const program = args[i];
+    const fileArg = args[i + 1];
+    if (!program) return USAGE;
+
+    let pattern = null;
+    let body = program.trim();
+    const patMatch = /^\/((?:\\.|[^/])*)\/\s*\{([\s\S]*)\}$/.exec(body);
+    if (patMatch) {
+        pattern = patMatch[1];
+        body = patMatch[2];
+    } else if (body.startsWith('{') && body.endsWith('}')) {
+        body = body.slice(1, -1);
+    } else {
+        return USAGE;
+    }
+
+    let content;
+    if (fileArg) {
+        content = VFS.getFile(resolvePath(fileArg));
+        if (content === null) return 'awk: can\'t open file ' + fileArg;
+    } else if (pipeInput !== '') {
+        content = pipeInput;
+    } else {
+        return 'awk: no input files';
+    }
+
+    let re = null;
+    if (pattern) {
+        try { re = new RegExp(pattern); } catch (e) { return 'awk: invalid regex ' + pattern; }
+    }
+
+    const rows = [];
+    const lines = content.split('\n');
+    for (let n = 0; n < lines.length; n++) {
+        const line = lines[n];
+        if (re && !re.test(line)) continue;
+        const fields = fs ? line.split(fs) : line.trim().split(/\s+/);
+        const val = (expr) => {
+            const e = expr.trim();
+            if (e === '$0') return line;
+            if (e === 'NF') return String(fields.length);
+            if (e === 'NR') return String(n + 1);
+            const f = /^\$(\d+)$/.exec(e);
+            if (f) return fields[parseInt(f[1], 10) - 1] ?? '';
+            if (/^".*"$/.test(e)) return e.slice(1, -1);
+            if (/^-?\d+(\.\d+)?$/.test(e)) return e;
+            return '';
+        };
+        for (const stmt of body.split(';')) {
+            const s = stmt.trim();
+            if (!s) continue;
+            const pm = /^print\s*(.*)$/.exec(s);
+            if (!pm) continue;
+            const list = pm[1].trim();
+            if (!list) { rows.push(line); continue; }
+            rows.push(list.split(',').map(val).join(' '));
+        }
+    }
+    return rows.join('\n');
 }
 
 function handleDiff(args) {
@@ -4288,6 +4474,7 @@ ii  python3        3.10.12-1~22.04   amd64        Python interpreter`;
     if (args[0] === '-i') {
         return '(Reading database ... 185234 files and directories currently installed.)\nPreparing to unpack ' + (args[1] || 'package.deb') + ' ...\nUnpacking ...\nSetting up ...\nProcessing triggers for man-db ...\nInstalled successfully.';
     }
+    if (!args[0]) return 'Usage: dpkg [-i|-l|-r] <pkg>';
     return 'dpkg: unknown option: ' + args[0] + '\nUsage: dpkg [-i|-l|-r] <pkg>';
 }
 
@@ -6388,6 +6575,21 @@ function expandShell(cmd) {
                     i = end;
                     continue;
                 }
+            } else if (cmd[i + 1] === '{') {
+                const end = cmd.indexOf('}', i + 2);
+                if (end !== -1) {
+                    const inner = cmd.slice(i + 2, end);
+                    if (inner.startsWith('#')) {
+                        const name = inner.slice(1);
+                        out += String((name in envVars ? String(envVars[name]) : '').length);
+                    } else if (inner in envVars) {
+                        out += envVars[inner];
+                    } else {
+                        out += '${' + inner + '}';
+                    }
+                    i = end;
+                    continue;
+                }
             } else if (cmd[i + 1] === '?') {
                 out += String(lastExitCode);
                 i++;
@@ -6416,7 +6618,50 @@ function expandShell(cmd) {
     return out;
 }
 
+// Front-end for command execution. Handles the redirect forms that are
+// orthogonal to every command, then delegates to the real dispatcher.
+//   1. `cmd 2>/dev/null`  — drop stderr
+//   2. `cmd < file`       — feed the file in as stdin (pipeInput)
+//   3. `cmd --help`       — show the command's usage instead of running it
 function EXEC_IMPL(cmdStr) {
+    if (!cmdStr) return EXEC_IMPL_CORE(cmdStr);
+
+    // 1. stderr redirection (only as a standalone token, so `echo "2>/dev/null"` is untouched)
+    if (/(?:^|\s)2>\s*\/dev\/null\b/.test(cmdStr)) {
+        const cleaned = cmdStr.replace(/(?:^|\s)2>\s*\/dev\/null\b/g, ' ').replace(/\s+/g, ' ').trim();
+        const result = EXEC_IMPL(cleaned);
+        return isErrorOutput(result) ? '' : result;
+    }
+
+    // 2. input redirection (only the last `<` matters; `a < b` feeds b)
+    const ltParts = splitOutsideQuotes(cmdStr, '<');
+    if (ltParts.length > 1) {
+        const head = ltParts[0].trim();
+        const filePart = ltParts.slice(1).join('<').trim();
+        if (head) {
+            const content = VFS.getFile(resolvePath(filePart));
+            if (content === null) return 'bash: ' + filePart + ': No such file or directory';
+            const saved = pipeInput;
+            try {
+                pipeInput = content;
+                return EXEC_IMPL_CORE(head);
+            } finally {
+                pipeInput = saved;
+            }
+        }
+    }
+
+    // 3. `--help` / `-h` for any registered command
+    const helpMatch = /^(\S+)\s+(?:--help|-h)$/.exec(cmdStr.trim());
+    if (helpMatch && CMD[helpMatch[1]]) {
+        const info = CMD[helpMatch[1]];
+        return 'Usage: ' + (info.usage || helpMatch[1]) + (info.desc ? '\n' + info.desc : '');
+    }
+
+    return EXEC_IMPL_CORE(cmdStr);
+}
+
+function EXEC_IMPL_CORE(cmdStr) {
     if (!cmdStr || !cmdStr.trim()) return '';
 
     // Handle ; separators (quote-aware, lowest precedence)
@@ -6435,9 +6680,12 @@ function EXEC_IMPL(cmdStr) {
     if (pipeParts.length > 1) {
         let input = '';
         for (let i = 0; i < pipeParts.length; i++) {
+            const isLast = i === pipeParts.length - 1;
             pipeInput = i === 0 ? '' : input;
+            downstreamPipe = !isLast;
             const result = EXEC(pipeParts[i].trim());
-            if (i === pipeParts.length - 1) {
+            downstreamPipe = false;
+            if (isLast) {
                 pipeInput = '';
                 return result;
             }
@@ -6921,6 +7169,15 @@ function initUI() {
 
     input.focus();
 
+    // Mobile: the command reference is a drawer instead of being hidden.
+    const panelToggle = document.getElementById('panel-toggle');
+    if (panelToggle) {
+        panelToggle.addEventListener('click', () => {
+            const open = sidePanel.classList.toggle('open');
+            panelToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+    }
+
     // Build side panel
     buildSidePanel();
     const badge = document.getElementById('cmd-count-badge');
@@ -7090,12 +7347,19 @@ function initUI() {
     }
 }
 
+// Browsers keep every appended line in the DOM. Cap it so a long study session
+// cannot grow the page without bound; older lines scroll out of relevance anyway.
+const MAX_OUTPUT_LINES = 2000;
+
 function appendOutput(text, className) {
     const output = document.getElementById('output');
     const div = document.createElement('div');
     div.className = className || 'cmd-out';
     div.textContent = text;
     output.appendChild(div);
+    while (output.children.length > MAX_OUTPUT_LINES) {
+        output.removeChild(output.children[0]);
+    }
 }
 
 function updatePromptDisplay() {
