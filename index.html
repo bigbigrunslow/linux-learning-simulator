@@ -5165,8 +5165,8 @@ function taskDesc(t) {
     return t.desc;
 }
 function taskExp(t) {
-    if (lang === 'en') return (TASKS_EN[t.id] ? TASKS_EN[t.id].exp : DESC_EN[t.cmd]) || t.exp;
-    return t.exp;
+    if (lang === 'en') return (TASKS_EN[t.id] ? TASKS_EN[t.id].exp : DESC_EN[t.cmd]) || t.exp || t.desc;
+    return t.exp || t.desc;
 }
 function catName(cat) { return lang === 'en' ? (CAT_EN[cat] || cat) : cat; }
 function cmdDesc(name) { return lang === 'en' ? (DESC_EN[name] || CMD[name].desc || name) : (CMD[name].desc || name); }
