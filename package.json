@@ -1,0 +1,14 @@
+{
+  "name": "linux-learning-simulator",
+  "version": "1.5.0",
+  "private": true,
+  "description": "A browser-based Linux terminal emulator for learning — single file, zero dependencies.",
+  "homepage": "https://bigbigrunslow.github.io/linux-learning-simulator/",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test tests/"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

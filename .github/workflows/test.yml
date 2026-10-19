@@ -1,0 +1,34 @@
+name: test
+
+on:
+  push:
+    branches: [main, xterm]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # The project has no dependencies on purpose; the suite runs on Node's
+      # built-in test runner against a DOM stub.
+      - name: Run test suite
+        run: node --test tests/
+
+      - name: Check the page is still a single self-contained file
+        run: |
+          test -f index.html
+          if grep -qE '<script[^>]+src=' index.html; then
+            echo "index.html must not load external scripts"; exit 1
+          fi
+          if grep -qE '<link[^>]+stylesheet' index.html; then
+            echo "index.html must not load external stylesheets"; exit 1
+          fi
+          size=$(wc -c < index.html)
+          echo "index.html size: $size bytes"
+          test "$size" -lt 1024000
