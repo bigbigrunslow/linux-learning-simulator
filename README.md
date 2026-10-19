@@ -2,7 +2,7 @@
 
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen)](https://bigbigrunslow.github.io/linux-learning-simulator/)
-[![Version](https://img.shields.io/badge/Version-v1.4.0-orange)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-v1.5.0-orange)](CHANGELOG.md)
 [![Commands](https://img.shields.io/badge/Commands-371-blueviolet)](index.html)
 
 📖 **学习指南 / Learning Guide** → **[打开指南 / Open the Guide](https://bigbigrunslow.github.io/linux-learning-simulator/%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97.html)**（中 / EN 双语）
@@ -21,14 +21,14 @@
 
 ## 中文
 
-### 🆕 最近更新（v1.4.0）
+### 🆕 最近更新（v1.5.0）
 
-- 🎯 **三层练习体系** — 命令专项（`practice ls` 全用法练习）、学习项目（`practice path k8s/middleware/cicd` 等 8 条路线）、命令百科（`learn ls`）
-- 📝 **考试与统计** — `exam <项目>` 随机抽题评分，`stats` 查看学习数据
-- 📜 **脚本与状态机** — `bash script.sh` 可执行，`systemctl`/`docker`/`kill` 真实改变状态
-- 🌐 **英文版** — 工具栏 🌐 一键切换中/英文，选择自动记忆
-- 📚 **371 个命令全部配手写说明** — 每个命令都有用途讲解与练习
-- ✨ 新命令：`printf` `read` `test` `sleep` `timeout` `tree` `basename` `dirname` `jq` `nmap`
+- 🔧 **命令保真度修复** — `mkdir -p` 递归建目录、`awk`/`tr` 从「只有提示」变为真正可用、`ls | wc -l` 输出正确行数、`sort -n`/`uniq -c`/`grep -c` 选项生效
+- 🔗 **重定向补齐** — `< file` 输入重定向、`2>/dev/null` 丢弃 stderr、`${#VAR}` 长度展开
+- 💡 **`--help` 统一** — 任意命令后加 `--help` 都返回用法说明
+- 📱 **手机端可用** — 命令参考面板改为工具栏抽屉，不再在小屏消失
+- 🧪 **测试与 CI** — 零依赖测试套件（371 命令冒烟 + 15 组行为断言）+ GitHub Actions
+- 📋 **审计报告** — [docs/AUDIT-v1.4.0.md](docs/AUDIT-v1.4.0.md) 记录问题、证据与修复映射
 
 完整历史见 [CHANGELOG.md](CHANGELOG.md)
 
@@ -100,8 +100,21 @@ linux-sim/
 ├── CHANGELOG.md        # 更新日志
 ├── README.md           # 本文件
 ├── LICENSE             # MIT
-└── .github/            # Issue 模板等
+├── package.json        # 元数据 + npm test（无依赖）
+├── tests/              # 零依赖测试：371 命令冒烟 + 行为保真断言
+├── docs/               # 审计报告
+└── .github/            # Issue 模板 + CI workflow
 ```
+
+### 🧪 质量保障
+
+命令行为有回归测试兜底，改完不用靠肉眼比对：
+
+```bash
+node --test tests/     # Node 18+，无需浏览器、无需依赖
+```
+
+测试把 `index.html` 的脚本注入 DOM 桩后在 Node 里真实启动，逐条校验 `mkdir -p`、`awk`、管道、重定向等语义。每次 push/PR 由 GitHub Actions 自动执行。
 
 ### 🎓 学习路径
 
@@ -132,14 +145,14 @@ linux-sim/
 
 ## English
 
-### 🆕 Recent Updates (v1.4.0)
+### 🆕 Recent Updates (v1.5.0)
 
-- 🎯 **Three-layer practice** — command drills (`practice ls`), learning projects (`practice path k8s/middleware/cicd` and 5 more), and the `learn` encyclopedia
-- 📝 **Exams & stats** — `exam <project>` auto-graded quizzes, `stats` learning dashboard
-- 📜 **Scripts & state machines** — `bash script.sh` works; `systemctl`/`docker`/`kill` really change state
-- 🌐 **English UI** — one-click toggle with the 🌐 button, choice remembered
-- 📚 **All 371 commands explained** — hand-written purpose notes and drills for every command
-- ✨ New commands: `printf` `read` `test` `sleep` `timeout` `tree` `basename` `dirname` `jq` `nmap`
+- 🔧 **Command fidelity fixes** — `mkdir -p` builds nested directories; `awk` and `tr` actually work instead of printing a banner; `ls | wc -l` returns the real count; `sort -n` / `uniq -c` / `grep -c` options honoured
+- 🔗 **Redirection** — `< file` input redirection, `2>/dev/null`, and `${#VAR}` length expansion
+- 💡 **Uniform `--help`** — any command followed by `--help` prints its usage
+- 📱 **Usable on phones** — the command reference is a toolbar drawer instead of vanishing on small screens
+- 🧪 **Tests & CI** — zero-dependency suite (371-command smoke + 15 behavioural assertions) running in GitHub Actions
+- 📋 **Audit report** — [docs/AUDIT-v1.4.0.md](docs/AUDIT-v1.4.0.md) records the defects, evidence and fix mapping
 
 Full history in [CHANGELOG.md](CHANGELOG.md)
 
@@ -211,8 +224,21 @@ linux-sim/
 ├── CHANGELOG.md        # Changelog
 ├── README.md           # This file
 ├── LICENSE             # MIT
-└── .github/            # Issue templates etc.
+├── package.json        # Metadata + npm test (no dependencies)
+├── tests/              # Zero-dependency suite: 371-command smoke + fidelity assertions
+├── docs/               # Audit reports
+└── .github/            # Issue templates + CI workflow
 ```
+
+### 🧪 Quality
+
+Command behaviour is covered by regression tests, so changes don't rely on eyeballing:
+
+```bash
+node --test tests/     # Node 18+, no browser, no dependencies
+```
+
+The suite boots the real script from `index.html` inside a DOM stub and asserts the semantics of `mkdir -p`, `awk`, pipes, redirection and friends. GitHub Actions runs it on every push and pull request.
 
 ### 🎓 Learning Path
 
